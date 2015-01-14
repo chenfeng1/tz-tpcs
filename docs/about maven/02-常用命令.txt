@@ -1,0 +1,35 @@
+Maven2,它是一个模块化项目构建工具（Building a Project ）。
+它能够管理依赖、构建周期、测试、打包并且在仓库中发布你的项目制品.
+
+mvn clean
+将编译得到的target目录删除，包括其下所有子目录;
+
+mvn compile
+对该项目进行编译，将编译得到的字节码类文件，存放到target目录下;
+
+mvn package
+对该项目打包，根据pom.xml的定义，打包成jar,war...等文件;
+
+mvn install
+将该项目打包得到的 jar,war...等文件，添加到本地maven仓库中.
+
+命令可以连续调用
+如：
+mvn clean compile
+先删除，再编译
+
+mvn clean package
+先删除，后打包
+
+指令生命周期(简单):
+install > package > compile
+
+
+-- 直接生成一个　maven　项目的骨架
+mvn archetype:generate
+
+-- 或者指定完整的命令：
+mvn archetype:create -DgroupId=com.tz -DartifactId=helloApp
+
+--　或者详情请参见：
+http://wentao365.iteye.com/blog/903396 

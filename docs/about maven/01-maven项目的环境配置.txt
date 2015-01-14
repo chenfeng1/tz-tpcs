@@ -1,0 +1,45 @@
+﻿1.
+访问  http://maven.apache.org/download.cgi
+
+下载 apache-maven-3.x
+
+
+2.解压缩
+
+新增环境变量
+名称:M2_HOME
+值:解压缩路径
+
+
+编辑环境变量
+名称:PATH
+值:M2_HOME\bin
+
+3.验证
+开始>运行>cmd
+执行:mvn -version
+
+能看到版本信息，表示配置正确。
+
+4.安装 Eclipse 插件
+由于 Eclipse 本身没有maven插件，需要手动添加，分2步，先安装 GEF，再安装Maven
+1)安装 GEF
+Help>Install New Software>Add:
+Name:GEF
+Location:http://download.eclipse.org/tools/gef/updates/releases
+2)安装 Maven 插件
+Help>Install New Software>Add:
+Name:Maven
+Location: http://m2eclipse.sonatype.org/sites/m2e/
+
+5.导入maven项目
+执行:mvn clean
+
+6.将settings.xml拷贝至当前用户>我的文档>.m2文件夹下
+
+7.编辑settings.xml文件
+更改<localRepository>E:\repo</localRepository>
+为自己的磁盘路径，用来存放maven项目所需jar包
+
+
+

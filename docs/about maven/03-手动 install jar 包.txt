@@ -1,0 +1,9 @@
+ojdbc6.jar 不在maven repo中，需要手动安装，命令如下:
+mvn install:install-file -DgroupId=ojdbc -DartifactId=ojdbc -Dpackaging=jar -Dversion=16 -Dfile=ojdbc6.jar -DgeneratePom=true
+
+之后在 pom.xml 中就可以引用
+<dependency>
+	<groupId>ojdbc</groupId>
+	<artifactId>ojdbc</artifactId>
+	<version>16</version>
+</dependency>
