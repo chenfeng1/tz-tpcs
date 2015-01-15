@@ -30,12 +30,11 @@ public class TestClazzController {
     public void test1getAll() throws Exception {
         MvcResult result = MockMvcBuilders.standaloneSetup(clazzController)
                 .build()
-                .perform(MockMvcRequestBuilders.get("/customers"))
+                .perform(MockMvcRequestBuilders.get("/classes"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MyMediaType.APPLICATION_JSON_UTF8))
                 .andReturn();
         System.out.println(result.getResponse().getContentAsString());
     }
-
 
 }
