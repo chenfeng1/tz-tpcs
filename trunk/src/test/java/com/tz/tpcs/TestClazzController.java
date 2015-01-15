@@ -1,12 +1,9 @@
 package com.tz.tpcs;
 
-import com.MyMediaType;
-import com.mycompany.study.Application;
-import com.mycompany.study.web.CustomerController;
-import com.tz.tpcs.web.ClazzController;
+import javax.annotation.Resource;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -15,7 +12,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import javax.annotation.Resource;
+import com.MyMediaType;
+import com.tz.tpcs.web.ClazzController;
 
 /**
  * Clazz 控制器单元测试类

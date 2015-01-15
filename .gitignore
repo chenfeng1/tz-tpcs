@@ -4,6 +4,11 @@
 *.iws
 **/.idea
 
+# Myeclipse #
+*.classpath
+*.project
+**/.settings
+
 # Maven #
 **/target
 
@@ -14,3 +19,4 @@
 *.war
 *.ear
 hs_err_pid*
+
