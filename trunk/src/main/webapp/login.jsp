@@ -1,7 +1,7 @@
+<%@ page pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 指定页面显示的图标 -->
@@ -56,12 +56,12 @@
             <div class="login_layout">
                 <fieldset>
                     <legend>用户登录入口</legend>
-                    <form class="form-horizontal" role="form" method="post" action="#">
+                    <form class="form-horizontal" role="form" method="post" action="${path}/employees/login">
                         <div class="form-group">
                             <label for="inputUserName2" class="col-sm-2 control-label">用户名</label>
 
                             <div class="col-sm-5">
-                                <input type="text" name="username1" class="form-control" id="inputUserName2"
+                                <input type="text" name="str" class="form-control" id="inputUserName2"
                                        placeholder="请输入用户名"/>
                             </div>
                             <div class="col-sm-5">
@@ -73,11 +73,11 @@
                             <label for="inputPassword2" class="col-sm-2 control-label">密&nbsp;码</label>
 
                             <div class="col-sm-5">
-                                <input type="password" name="password2" class="form-control" id="inputPassword2"
+                                <input type="password" name="password" class="form-control" id="inputPassword2"
                                        placeholder="请输入密码"/>
                             </div>
                             <div class="col-sm-4">
-                                <label class="control-label alert-danger">login message</label>
+                                <label class="control-label alert-danger">${errorMsg}</label>
                             </div>
                         </div>
 

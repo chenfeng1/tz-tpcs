@@ -4,8 +4,8 @@
 <head>
     <meta http-equiv="pragma" content="no-cache"/>
     <link href="/style/main.css" rel="stylesheet" type="text/css">
-    <s:set name="title" ><tiles:getAsString name="title" /></s:set>
-    <title><s:text name="%{#title}"/></title>
+    <title><tiles:insertAttribute name="title" ignore="true"/></title>
+
 </head>
 <body id="project">
 <table border="1" class="mainTable">

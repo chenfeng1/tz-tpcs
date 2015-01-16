@@ -48,10 +48,18 @@ public class ClazzController {
     }
 
     @RequestMapping(value = "/tiles", method= RequestMethod.GET)
-    public ModelAndView demo(){
-//        List<Clazz> customerList = (List<Clazz>) clazzDao.findAll();
-//        return customerList;
+    public ModelAndView demos(){
         return new ModelAndView("baseLayout");
+    }
+
+    @RequestMapping(value = "/tiles/test1", method= RequestMethod.GET)
+    public ModelAndView demo1(){
+        return new ModelAndView("demo.test1");
+    }
+
+    @RequestMapping(value = "/tiles/test2", method= RequestMethod.GET)
+    public ModelAndView demo2(){
+        return new ModelAndView("demo.test2");
     }
 
 }

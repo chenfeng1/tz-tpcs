@@ -21,13 +21,14 @@ public class Employee extends BaseEntity implements UserDetails {
 
     private String number; //员工号(登录号)
     private String realname; //姓名
-    private String image; //头像
     private String password; //密码
+    private String image; //头像
     private String job; //岗位
     private String gender; //性别
     private Date birthDate; //生日
     private String email; //邮箱地址
-    private String phone; //电话
+//    private String phone; //电话
+    private String mobilePhone;//移动电话
     private String remark; //备注
     private Set<Role> roles; //角色集合
 
@@ -117,13 +118,13 @@ public class Employee extends BaseEntity implements UserDetails {
         this.email = email;
     }
 
-    @Column(name = "emp_phone")
-    public String getPhone() {
-        return phone;
+    @Column(name = "emp_mobile_phone")
+    public String getMobilePhone() {
+        return mobilePhone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
     }
 
     @Column(name = "emp_remark")
@@ -249,13 +250,13 @@ public class Employee extends BaseEntity implements UserDetails {
         return "Employee{" +
                 "number='" + number + '\'' +
                 ", realname='" + realname + '\'' +
-                ", image='" + image + '\'' +
                 ", password='" + password + '\'' +
+                ", image='" + image + '\'' +
                 ", job='" + job + '\'' +
                 ", gender='" + gender + '\'' +
                 ", birthDate=" + birthDate +
                 ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
+                ", mobilePhone='" + mobilePhone + '\'' +
                 ", remark='" + remark + '\'' +
                 ", roles=" + roles +
                 ", accountNonExpired=" + accountNonExpired +
