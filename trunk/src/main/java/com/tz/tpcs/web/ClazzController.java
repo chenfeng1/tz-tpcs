@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -44,6 +45,13 @@ public class ClazzController {
     public List<Clazz> list(){
         List<Clazz> customerList = (List<Clazz>) clazzDao.findAll();
         return customerList;
+    }
+
+    @RequestMapping(value = "/tiles", method= RequestMethod.GET)
+    public ModelAndView demo(){
+//        List<Clazz> customerList = (List<Clazz>) clazzDao.findAll();
+//        return customerList;
+        return new ModelAndView("baseLayout");
     }
 
 }
