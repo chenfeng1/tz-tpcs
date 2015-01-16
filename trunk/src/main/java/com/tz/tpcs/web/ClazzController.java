@@ -2,6 +2,7 @@ package com.tz.tpcs.web;
 
 import com.tz.tpcs.dao.ClazzDao;
 import com.tz.tpcs.entity.Clazz;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,13 +34,13 @@ public class ClazzController {
         return "/test.html";
     }*/
 
-    @RequestMapping(value = "/customers/{id}")
+    @RequestMapping(value = "/classes/{id}")
     public Clazz get(@PathVariable String id){
         Clazz clazz = clazzDao.findOne(id);
         return clazz;
     }
 
-    @RequestMapping(value = "/customers", method= RequestMethod.GET)
+    @RequestMapping(value = "/classes", method= RequestMethod.GET)
     public List<Clazz> list(){
         List<Clazz> customerList = (List<Clazz>) clazzDao.findAll();
         return customerList;
