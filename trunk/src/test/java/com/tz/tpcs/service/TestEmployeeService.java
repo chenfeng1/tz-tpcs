@@ -1,8 +1,7 @@
 package com.tz.tpcs.service;
 
-import com.tz.tpcs.AppConfig;
+import com.tz.WebAppConfig;
 import com.tz.tpcs.entity.Employee;
-import com.tz.tpcs.service.EmployeeService;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +17,7 @@ import javax.transaction.Transactional;
  * Created by Administrator on 2015/1/16.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = AppConfig.class)
+@SpringApplicationConfiguration(classes = WebAppConfig.class)
 @TransactionConfiguration(defaultRollback = false)//自动回滚测试数据
 @Transactional
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)

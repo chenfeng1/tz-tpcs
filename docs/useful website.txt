@@ -7,9 +7,12 @@ http://mvnrepository.com/
 JsonPath 说明
 http://goessner.net/articles/JsonPath/
 
-Git 分支 - 分支的新建与合并
-http://git-scm.com/book/zh/v1/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%9A%84%E6%96%B0%E5%BB%BA%E4%B8%8E%E5%90%88%E5%B9%B6
+Git 手册
+http://git-scm.com/book/en/v2
 
 SpringMVC 示例代码
 https://github.com/spring-projects/spring-mvc-showcase
+https://github.com/spring-projects/spring-boot
 
+spring security guides
+http://docs.spring.io/spring-security/site/docs/3.2.5.RELEASE/guides/

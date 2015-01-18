@@ -1,7 +1,6 @@
 package com.tz.tpcs.dao;
 
-import com.tz.tpcs.AppConfig;
-import com.tz.tpcs.dao.ClazzDao;
+import com.tz.WebAppConfig;
 import com.tz.tpcs.entity.Clazz;
 import org.fluttercode.datafactory.impl.DataFactory;
 import org.junit.Assert;
@@ -23,7 +22,7 @@ import java.util.List;
  * ClazzDao 单元测试类
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = AppConfig.class)
+@SpringApplicationConfiguration(classes = WebAppConfig.class)
 @TransactionConfiguration(defaultRollback = false)//自动回滚测试数据
 @Transactional
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)

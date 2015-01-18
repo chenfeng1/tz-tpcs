@@ -1,4 +1,5 @@
 <%@ page pageEncoding="utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
@@ -48,6 +49,14 @@
         <!-- nav bar -->
     </div>
 </nav>
+
+<div c:if="${param.error}" class="alert alert-error">
+    Invalid username and password.
+</div>
+<div c:if="${param.logout}" class="alert alert-success">
+    You have been logged out.
+</div>
+
 <!-- 登录区 -->
 <div class="container">
     <div class="row">
@@ -56,7 +65,7 @@
             <div class="login_layout">
                 <fieldset>
                     <legend>用户登录入口</legend>
-                    <form id="loginForm" class="form-horizontal" role="form" method="post" action="${path}/employees/login">
+                    <form id="loginForm" class="form-horizontal" role="form" method="post" action="${path}/login">
                         <div class="form-group">
                             <label for="inputUserName" class="col-sm-2 control-label">用户名</label>
 
@@ -100,6 +109,9 @@
                                 <button type="submit" class="btn btn-primary">登录</button>
                             </div>
                         </div>
+                        <%--<input type="hidden"--%>
+                               <%--name="${_csrf.parameterName}"--%>
+                               <%--value="${_csrf.token}"/>--%>
                     </form>
                 </fieldset>
             </div>

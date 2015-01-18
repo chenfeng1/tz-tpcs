@@ -20,8 +20,8 @@ public class PathListener implements ServletContextListener {
         logger.debug("项目启动了");
         ServletContext application = event.getServletContext();
         String path = application.getContextPath();
-        logger.debug("将项目名"+path+"存入application作用域");
-        application.setAttribute("path", path);
+        logger.debug("将项目名["+path+"]存入application作用域");
+        application.setAttribute(IConstant.PATH, path);
     }
 
     @Override

@@ -10,11 +10,8 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <!--启用注解配置-->
-    <context:annotation-config/>
-
-    <!--导入其他java模块配置信息-->
-    <bean id="appConfig" class="com.tz.tpcs.AppConfig"/>
+    <!-- 导入java注解配置模块 -->
+    <bean id="appConfig" class="com.tz.WebAppConfig"/>
 
     <!--tiles3布局支持部分-->
     <mvc:default-servlet-handler/>
@@ -22,6 +19,9 @@
     <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
         <property name="definitions" value="/WEB-INF/tiles.xml"/>
     </bean>
+
+    <!--启用注解配置-->
+    <context:annotation-config/>
 
     <!-- 定义国际化资源文件 basename -->
     <bean id="messageSource"

@@ -30,28 +30,4 @@ import java.util.Map;
 @RequestMapping("/employees")
 public class EmployeeController {
 
-    @Resource
-    private EmployeeService employeeService;
-    @Resource
-    private MessageSource messageSource;
-
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ModelAndView login(@RequestParam String str,
-                              @RequestParam String password,
-                              HttpSession session,
-                              HttpServletRequest request,
-                              ModelMap model,
-                              Locale locale){
-        Employee emp = employeeService.login(str, password);
-        if(emp != null){
-            session.setAttribute(IConstant.LOGIN_USER, emp);
-            return new ModelAndView("baseLayout");
-        }else{
-            //获取国际化信息
-            String msg = messageSource.getMessage("error.invalid.username.or.password", null, locale);
-            model.addAttribute("passwordErrorMsg", msg);
-            return new ModelAndView("forward:/login.jsp", model);
-        }
-    }
-
 }
