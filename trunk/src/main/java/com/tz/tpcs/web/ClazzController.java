@@ -26,15 +26,6 @@ public class ClazzController {
         return "Hello World!";
     }
 
-    /*@RequestMapping(value = "/customer/save")
-    public String save(){
-        Customer customer = new Customer();
-        customer.setName("jack");
-        customer.setAge(23);
-//        customerDao.save(customer);
-        return "/test.html";
-    }*/
-
     @RequestMapping(value = "/classes/{id}")
     public Clazz get(@PathVariable String id){
         Clazz clazz = clazzDao.findOne(id);

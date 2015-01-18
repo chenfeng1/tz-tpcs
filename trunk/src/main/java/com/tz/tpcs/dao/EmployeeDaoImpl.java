@@ -23,6 +23,7 @@ public class EmployeeDaoImpl implements EmployeeDaoCustom {
         String ql = "select e from Employee as e where e."+prop+" = :value";
         Query query = em.createQuery(ql);
         query.setParameter("value", value);
+        @SuppressWarnings("unchecked")
         List<Employee> list = query.getResultList();
         if(list.size() ==0){
             return null;

@@ -6,6 +6,8 @@ import com.tz.tpcs.util.IConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,7 +24,7 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * Created by Administrator on 2015/1/16.
+ * Employee Controller
  */
 @RestController
 @RequestMapping("/employees")
@@ -30,35 +32,25 @@ public class EmployeeController {
 
     @Resource
     private EmployeeService employeeService;
-
-    @Autowired
+    @Resource
     private MessageSource messageSource;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView login(@RequestParam String str,
                               @RequestParam String password,
                               HttpSession session,
-                              Locale locale,
-                              HttpServletRequest request){
+                              HttpServletRequest request,
+                              ModelMap model,
+                              Locale locale){
         Employee emp = employeeService.login(str, password);
         if(emp != null){
             session.setAttribute(IConstant.LOGIN_USER, emp);
             return new ModelAndView("baseLayout");
         }else{
-            ApplicationContext ctx = RequestContextUtils.getWebApplicationContext(request);
-            Locale loc = RequestContextUtils.getLocale(request);
-            Object[] arg = null;    //替换变量参数
-            String mailmessage = messageSource.getMessage("error.invalid.username.or.password", arg, locale);
-            Object o = Locale.CHINA;
-            String msg = ctx.getMessage("error.invalid.username.or.password", arg, locale);
-            Map<String,Object> model = new HashMap<>();
-            model.put("errorMsg", msg);
-            //...
-            //从后台代码获取国际化信息
-            RequestContext requestContext = new RequestContext(request);
-            String sss = requestContext.getMessage("error.invalid.username.or.password");
-            System.out.println(sss);
-            return new ModelAndView("login", model);
+            //获取国际化信息
+            String msg = messageSource.getMessage("error.invalid.username.or.password", null, locale);
+            model.addAttribute("passwordErrorMsg", msg);
+            return new ModelAndView("forward:/login.jsp", model);
         }
     }
 

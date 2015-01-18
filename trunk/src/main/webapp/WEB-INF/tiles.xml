@@ -13,9 +13,9 @@
         <put-attribute name="footer" value="/WEB-INF/jsp/demo/footer.jsp" />
     </definition>
 
-    <definition name="login"
+    <!--<definition name="login"
                 template="/login.jsp">
-    </definition>
+    </definition>-->
 
     <definition name="*.*" extends="baseLayout">
         <!--国际化 title-->

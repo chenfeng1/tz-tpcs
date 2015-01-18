@@ -1,7 +1,8 @@
-package com.tz.tpcs;
+package com.tz.tpcs.web;
 
 import javax.annotation.Resource;
 
+import com.tz.tpcs.AppConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -12,11 +13,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.MyMediaType;
-import com.tz.tpcs.web.ClazzController;
-
 /**
- * Clazz 控制器单元测试类
+ * ClazzController 单元测试类
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = AppConfig.class)

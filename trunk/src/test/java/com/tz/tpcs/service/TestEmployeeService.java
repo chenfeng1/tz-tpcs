@@ -1,5 +1,6 @@
-package com.tz.tpcs;
+package com.tz.tpcs.service;
 
+import com.tz.tpcs.AppConfig;
 import com.tz.tpcs.entity.Employee;
 import com.tz.tpcs.service.EmployeeService;
 import org.junit.FixMethodOrder;

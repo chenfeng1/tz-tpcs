@@ -1,5 +1,6 @@
-package com.tz.tpcs;
+package com.tz.tpcs.dao;
 
+import com.tz.tpcs.AppConfig;
 import com.tz.tpcs.dao.ClazzDao;
 import com.tz.tpcs.dao.EmployeeDao;
 import com.tz.tpcs.entity.Employee;

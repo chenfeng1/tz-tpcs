@@ -9,13 +9,13 @@
     <title>登录页面</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="${path}/css/bootstrap.min.css" rel="stylesheet">
     <!-- BootStrap Theme css -->
-    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="${path}/css/bootstrap-theme.min.css" rel="stylesheet">
     <!-- 此案例的自定义样式 -->
-    <link href="css-prj/login.css" rel="stylesheet">
+    <link href="${path}/css-prj/login.css" rel="stylesheet">
     <!-- 导入外部的js文件 -->
-    <script type="application/javascript" src="js-prj/login.js"></script>
+    <script type="application/javascript" src="${path}/js-prj/login.js"></script>
 </head>
 <body>
 <!-- 导航栏区 -->
@@ -56,28 +56,27 @@
             <div class="login_layout">
                 <fieldset>
                     <legend>用户登录入口</legend>
-                    <form class="form-horizontal" role="form" method="post" action="${path}/employees/login">
+                    <form id="loginForm" class="form-horizontal" role="form" method="post" action="${path}/employees/login">
                         <div class="form-group">
-                            <label for="inputUserName2" class="col-sm-2 control-label">用户名</label>
+                            <label for="inputUserName" class="col-sm-2 control-label">用户名</label>
 
                             <div class="col-sm-5">
-                                <input type="text" name="str" class="form-control" id="inputUserName2"
+                                <input type="text" name="str" class="form-control" id="inputUserName"
                                        placeholder="请输入用户名"/>
                             </div>
                             <div class="col-sm-5">
-                                <label class="control-label alert-danger">login message</label>
+                                <label class="control-label alert-danger" id="labelUserName"></label>
                             </div>
                         </div>
-
                         <div class="form-group">
-                            <label for="inputPassword2" class="col-sm-2 control-label">密&nbsp;码</label>
+                            <label for="inputPassword" class="col-sm-2 control-label">密&nbsp;码</label>
 
                             <div class="col-sm-5">
-                                <input type="password" name="password" class="form-control" id="inputPassword2"
+                                <input type="password" name="password" class="form-control" id="inputPassword"
                                        placeholder="请输入密码"/>
                             </div>
                             <div class="col-sm-4">
-                                <label class="control-label alert-danger">${errorMsg}</label>
+                                <label class="control-label alert-danger" id="labelPassword">${passwordErrorMsg}</label>
                             </div>
                         </div>
 
@@ -113,7 +112,7 @@
         <div class="col-md-offset-2 col-md-8">
             <div class="row">
                 <div class="col-md-offset-4 col-md-2">
-                    <img src="images/logo-s.png">
+                    <img src="${path}/images/logo-s.png">
                 </div>
                 <div class="col-md-6">
                     <div class="row">
@@ -137,7 +136,27 @@
 </div>
 
 <!-- 导入相关的js -->
-<script src="js/jquery-1.9.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<script src="${path}/js/jquery-1.9.1.min.js"></script>
+<script src="${path}/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $("#loginForm").submit(function(){
+            $("#labelUserName").empty();
+            $("#labelPassword").empty();
+            var userName = $("#inputUserName").val();
+            var errorCount = 0;
+            if(userName == ""){
+                $("#labelUserName").html("用户名不能为空!");
+                errorCount++;
+            }
+            var password = $("#inputPassword").val();
+            if(password == ""){
+                $("#labelPassword").html("密码不能为空!");
+                errorCount++;
+            }
+            return errorCount ==0;
+        });
+    });
+</script>
 </body>
 </html>
