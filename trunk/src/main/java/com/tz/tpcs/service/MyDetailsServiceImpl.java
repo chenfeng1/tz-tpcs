@@ -3,6 +3,7 @@ package com.tz.tpcs.service;
 import com.tz.tpcs.dao.EmployeeDao;
 import com.tz.tpcs.entity.Employee;
 import com.tz.tpcs.entity.Role;
+import org.apache.log4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,13 +20,23 @@ import java.util.Set;
 /**
  * Spring Security 自定义验证类
  */
-@Service
+@Service("myDetailsServiceImpl")
 @Transactional
 public class MyDetailsServiceImpl implements UserDetailsService {
 
-    @SuppressWarnings("SpringJavaAutowiringInspection")
-    @Resource
+    private static final Logger logger = Logger.getLogger(MyDetailsServiceImpl.class);
+
+//    @SuppressWarnings("SpringJavaAutowiringInspection")
     private EmployeeDao employeeDao;
+    @Resource
+    public void setEmployeeDao(EmployeeDao employeeDao) {
+        logger.debug("setEmployeeDao() run...");
+        this.employeeDao = employeeDao;
+    }
+
+    public MyDetailsServiceImpl() {
+        logger.debug("MyDetailsServiceImpl empty constructor");
+    }
 
     @Override
     public UserDetails loadUserByUsername(String number) throws UsernameNotFoundException, DataAccessException {

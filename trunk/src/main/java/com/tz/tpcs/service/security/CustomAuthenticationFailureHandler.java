@@ -21,6 +21,8 @@ import java.io.IOException;
 public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
     public static final String SPRING_SECURITY_FORM_USERNAME_KEY = "j_username";
+    public static final String USERNAME_ERR_MSG = "usernameErrMsg";
+    public static final String PASSWORD_ERR_MSG = "passwordErrMsg";
 
     private String usernameParameter = SPRING_SECURITY_FORM_USERNAME_KEY;
 
@@ -69,8 +71,8 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
         return request.getParameter(usernameParameter).trim();
     }
 
-    private void addErrorMessage(HttpServletRequest request,String message){
-        request.setAttribute("errorMessage", message);
+    private void addErrorMessage(HttpServletRequest request,String key, String message){
+        request.setAttribute(key, message);
     }
 
     @Transactional
@@ -85,7 +87,7 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
 
         //根据错误类型, 返回不同错误页面
         if (exception instanceof BadCredentialsException) {
-            addErrorMessage(request, "密码错误");
+            addErrorMessage(request, PASSWORD_ERR_MSG, "用户名或密码错误");
             //如果用户不为空，且未被锁住
             if (employee != null && employee.isAccountNonLocked()) {
                 Integer failureCount = employee.getLoginFailureCount();
@@ -98,15 +100,19 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
                 employeeDao.save(employee);
             }
         } else if (exception instanceof AccountExpiredException) {
-            addErrorMessage(request, "账号已过期");
+            addErrorMessage(request, USERNAME_ERR_MSG, "账号已过期");
         } else if (exception instanceof LockedException) {
-            addErrorMessage(request, "账号已锁定");
+            if(employee.getRoles().size() == 0){
+                addErrorMessage(request, USERNAME_ERR_MSG, "此账号未分配角色");
+            }else{
+                addErrorMessage(request, USERNAME_ERR_MSG, "账号已锁定");
+            }
         } else if (exception instanceof CredentialsExpiredException) {
-            addErrorMessage(request, "授权已过期");
+            addErrorMessage(request, USERNAME_ERR_MSG, "授权已过期");
         } else if(exception instanceof DisabledException){
-            addErrorMessage(request, "账号已禁用");
+            addErrorMessage(request, USERNAME_ERR_MSG, "账号已禁用");
         } else{
-            addErrorMessage(request,"未知错误");
+            addErrorMessage(request, USERNAME_ERR_MSG, "未知错误");
         }
         super.onAuthenticationFailure(request, response, exception);
     }
