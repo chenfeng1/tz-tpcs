@@ -14,9 +14,15 @@ import java.util.Set;
 @Table(name = "sys_resources")
 public class Resources extends BaseEntity{
 
+    enum Type{
+        FOLDER, //功能或模块的文件夹
+        URL //URL资源
+    }
+
+
     private String name; //资源名
     private String code; //资源代码
-    private String type; //资源类型 (模块文件夹 / 超链接 / ...)
+    private Type type; //资源类型
     private String value; //资源值
     private Resources parent; //父资源
     private Set<Resources> children; //多个子资源
@@ -61,11 +67,11 @@ public class Resources extends BaseEntity{
     }
 
     @Column(name = "res_type", unique = true, nullable = false)
-    public String getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Type type) {
         this.type = type;
     }
 

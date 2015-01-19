@@ -51,7 +51,7 @@ public class InitData {
 
     @Test
     public void test02InitResource(){
-        
+
     }
 
 }

@@ -17,6 +17,8 @@ public class TestResourcesDao extends BaseTest {
     @Test
     public void test1(){
         Resources res = new Resources();
+        res.setCode("test code");
+//        res.setType();
     }
 
 }
