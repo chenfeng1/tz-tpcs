@@ -1,0 +1,17 @@
+/******
+ * 本项目案例的主要样式文件
+ * author: yejf
+ * date: 2015/1/17
+ */
+
+.footer {
+    background-color: #f5f5f5;
+    margin-top: 70px;
+    padding: 30px 0;
+    text-align: center;
+    border-top: 1px solid #e5e5e5;
+}
+
+.gap{
+    margin-top: 70px;
+}
