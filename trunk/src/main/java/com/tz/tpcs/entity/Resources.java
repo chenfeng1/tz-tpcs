@@ -11,19 +11,19 @@ import java.util.Set;
  * @since 2015-01-14
  */
 @Entity
-@Table(name = "sys_resource")
-public class Resource extends BaseEntity{
+@Table(name = "sys_resources")
+public class Resources extends BaseEntity{
 
     private String name; //资源名
     private String code; //资源代码
-    private String type; //资源类型
+    private String type; //资源类型 (模块文件夹 / 超链接 / ...)
     private String value; //资源值
-    private Resource parent; //父资源
-    private Set<Resource> children; //多个子资源
+    private Resources parent; //父资源
+    private Set<Resources> children; //多个子资源
     private String icon; //子功能图标
     private int seq;//用于排序的序号
 
-    public Resource() {
+    public Resources() {
     }
 
     public String getIcon() {
@@ -35,11 +35,11 @@ public class Resource extends BaseEntity{
     }
 
     @OneToMany(mappedBy = "parent")
-    public Set<Resource> getChildren() {
+    public Set<Resources> getChildren() {
         return children;
     }
 
-    public void setChildren(Set<Resource> children) {
+    public void setChildren(Set<Resources> children) {
         this.children = children;
     }
 
@@ -51,6 +51,7 @@ public class Resource extends BaseEntity{
         this.name = name;
     }
 
+    @Column(name = "res_code", unique = true, nullable = false)
     public String getCode() {
         return code;
     }
@@ -59,6 +60,7 @@ public class Resource extends BaseEntity{
         this.code = code;
     }
 
+    @Column(name = "res_type", unique = true, nullable = false)
     public String getType() {
         return type;
     }
@@ -67,6 +69,7 @@ public class Resource extends BaseEntity{
         this.type = type;
     }
 
+    @Column(name = "res_value")
     public String getValue() {
         return value;
     }
@@ -75,28 +78,40 @@ public class Resource extends BaseEntity{
         this.value = value;
     }
 
+    public int getSeq() {
+        return seq;
+    }
+
+    public void setSeq(int seq) {
+        this.seq = seq;
+    }
+
     @ManyToOne
-    public Resource getParent() {
+    public Resources getParent() {
         return parent;
     }
 
-    public void setParent(Resource parent) {
+    public void setParent(Resources parent) {
         this.parent = parent;
     }
 
     @Override
     public String toString() {
-        return "Resources{" +
+        return "Resource{" +
                 "name='" + name + '\'' +
                 ", code='" + code + '\'' +
                 ", type='" + type + '\'' +
                 ", value='" + value + '\'' +
+                ", parent=" + parent +
+                ", children=" + children +
+                ", icon='" + icon + '\'' +
+                ", seq=" + seq +
                 '}';
     }
 
-    public void addChild(Resource child){
+    public void addChild(Resources child){
         if(children == null){
-            children = new HashSet<Resource>();
+            children = new HashSet<Resources>();
         }
         //添加到集合中
         children.add(child);

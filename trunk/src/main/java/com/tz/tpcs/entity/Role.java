@@ -20,7 +20,7 @@ public class Role extends BaseEntity{
     private Boolean isSystem;// 是否为系统内置角色
     private int seq; //排序
 
-    private Set<Resource> resources;//资源集合
+    private Set<Resources> resources;//资源集合
 
     public Role() {
     }
@@ -69,11 +69,11 @@ public class Role extends BaseEntity{
     @JoinTable(name="sys_role_to_res",
             joinColumns={@JoinColumn(name="role_id")},
             inverseJoinColumns={@JoinColumn(name="res_id")})
-    public Set<Resource> getResources() {
+    public Set<Resources> getResources() {
         return resources;
     }
 
-    public void setResources(Set<Resource> resources) {
+    public void setResources(Set<Resources> resources) {
         this.resources = resources;
     }
 
@@ -92,31 +92,9 @@ public class Role extends BaseEntity{
                 "name='" + name + '\'' +
                 ", code='" + code + '\'' +
                 ", desc='" + desc + '\'' +
+                ", isSystem=" + isSystem +
                 ", seq=" + seq +
+                ", resources=" + resources +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Role role = (Role) o;
-
-        if (seq != role.seq) return false;
-        if (code != null ? !code.equals(role.code) : role.code != null) return false;
-        if (desc != null ? !desc.equals(role.desc) : role.desc != null) return false;
-        if (name != null ? !name.equals(role.name) : role.name != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
-        result = 31 * result + (code != null ? code.hashCode() : 0);
-        result = 31 * result + (desc != null ? desc.hashCode() : 0);
-        result = 31 * result + seq;
-        return result;
     }
 }
