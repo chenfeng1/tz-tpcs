@@ -22,7 +22,7 @@ import javax.annotation.Resource;
 */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/spring-mvc.xml"})
+@ContextConfiguration(locations={"file:../../../../../../main/resources/spring-mvc.xml"})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestEmployeeController {
 

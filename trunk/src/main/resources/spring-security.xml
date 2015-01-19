@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:security="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/security
+                        http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <!-- url 访问权限 -->
+    <security:http auto-config="true" use-expressions="true">
+        <security:form-login login-page="/login.jsp"
+                    login-processing-url="/loginVerify"
+                    authentication-success-handler-ref="customAuthenticationSuccessHandler"
+                    authentication-failure-handler-ref="customAuthenticationFailureHandler"/>
+        <!--匿名可访问-->
+        <security:intercept-url pattern="/login.jsp" access="permitAll"/>
+        <security:intercept-url pattern="/loginFailed.jsp" access="permitAll"/>
+        <!--登录授权可访问-->
+        <!--<security:intercept-url pattern="/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>-->
+        <security:intercept-url pattern="/**" access="isAuthenticated()"/>
+        <!--<security:intercept-url pattern="/**" access="permitAll"/>-->
+        <!-- logout 跳转 url -->
+        <security:logout invalidate-session="true" logout-success-url="/login.jsp"/>
+
+        <!-- session 控制 -->
+        <security:custom-filter position="CONCURRENT_SESSION_FILTER" ref="concurrencyFilter" />
+
+        <security:session-management
+                session-authentication-error-url="/sessionAuthenticationError.html"
+                invalid-session-url="/sessionExpired.html"
+                session-authentication-strategy-ref="sas">
+        </security:session-management>
+    </security:http>
+
+    <!-- session 并发失效控制 -->
+    <beans:bean id="concurrencyFilter" class="org.springframework.security.web.session.ConcurrentSessionFilter">
+        <beans:property name="sessionRegistry" ref="sessionRegistry" />
+        <beans:property name="expiredUrl" value="/sessionExpired.html" />
+    </beans:bean>
+    <!--sessionRegistry 实例,维护有关用户登录的 session 信息-->
+    <beans:bean id="sessionRegistry" class="org.springframework.security.core.session.SessionRegistryImpl" />
+    <!--session-authentication-strategy-->
+    <beans:bean id="sas" class="org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy">
+        <beans:constructor-arg name="sessionRegistry" ref="sessionRegistry" />
+        <!-- 单一登录 -->
+        <beans:property name="maximumSessions" value="1" />
+        <!--true:第二次登陆会失败，除非第一次登陆失效 -->
+        <!--false:第二次登陆会踢掉第一次登陆-->
+        <beans:property name="exceptionIfMaximumExceeded" value="false"/>
+    </beans:bean>
+
+
+    <!--自定义用户认证类-->
+    <beans:bean id="userDetailService"
+                class="com.tz.tpcs.service.MyDetailsServiceImpl"/>
+
+    <!-- 后台管理权限认证 -->
+    <security:authentication-manager alias="authenticationManager">
+        <!--定义认证提供接口  -->
+        <security:authentication-provider user-service-ref="userDetailService">
+            <!-- TODO 定义密码加密算法 -->
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+    <!--自定义 AuthenticationSuccessHandler-->
+    <!--default-target-url 的值根据本机 gwt:run 给出地址自行替换-->
+    <!--/index.html?gwt.codesvr=127.0.0.1:9997"-->
+    <beans:bean id="customAuthenticationSuccessHandler"
+                class="com.tz.tpcs.service.security.CustomAuthenticationSuccessHandler">
+        <!--<beans:property name="defaultTargetUrl" value="${defaultTargetUrl}"/>-->
+        <beans:property name="defaultTargetUrl" value="/defaultTargetUrl"/>
+        <beans:property name="alwaysUseDefaultTargetUrl" value="true"/>
+    </beans:bean>
+
+    <!--自定义AuthenticationFailureHandler-->
+    <beans:bean id="customAuthenticationFailureHandler"
+                class="com.tz.tpcs.service.security.CustomAuthenticationFailureHandler">
+        <!--错误提示页面-->
+        <beans:property name="defaultFailureUrl" value="/loginFailed.jsp"/>
+        <!--最大密码输入错误次数, 否则账号锁定-->
+        <beans:property name="maxLoginFailureCount" value="3"/>
+        <!--使用服务器转发到错误页面-->
+        <beans:property name="useForward" value="true"/>
+    </beans:bean>
+
+
+
+</beans:beans>

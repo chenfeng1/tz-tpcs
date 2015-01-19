@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -9,9 +10,6 @@
         http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
-
-    <!-- 导入java注解配置模块 -->
-    <bean id="appConfig" class="com.tz.WebAppConfig"/>
 
     <!--tiles3布局支持部分-->
     <mvc:default-servlet-handler/>
