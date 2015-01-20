@@ -21,13 +21,10 @@ import java.util.List;
 /**
  * ClazzDao 单元测试类
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = WebAppConfig.class)
-@TransactionConfiguration(defaultRollback = false)//自动回滚测试数据
-@Transactional
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class TestClazzDao {
+@TransactionConfiguration(defaultRollback = true)//是否回滚测试数据
+public class TestClazzDao extends BaseTest{
 
+    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Resource
     private ClazzDao clazzDao;
 

@@ -19,7 +19,6 @@ public class Resources extends BaseEntity{
         URL //URL资源
     }
 
-
     private String name; //资源名
     private String code; //资源代码
     private Type type; //资源类型
@@ -53,6 +52,7 @@ public class Resources extends BaseEntity{
     }
 
     @OneToMany(mappedBy = "parent")
+    @OrderBy(value="seq ASC")//通过自关联查到的childs也能按照seq自动升序排序
     public Set<Resources> getChildren() {
         return children;
     }
@@ -121,20 +121,10 @@ public class Resources extends BaseEntity{
                 ", code='" + code + '\'' +
                 ", type='" + type + '\'' +
                 ", value='" + value + '\'' +
-                ", parent=" + parent +
                 ", children=" + children +
                 ", icon='" + icon + '\'' +
                 ", seq=" + seq +
                 '}';
-    }
-
-    public void addChild(Resources child){
-        if(children == null){
-            children = new HashSet<Resources>();
-        }
-        //添加到集合中
-        children.add(child);
-        child.setParent(this);
     }
 
 }

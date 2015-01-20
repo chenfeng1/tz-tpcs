@@ -23,6 +23,9 @@ public class Clazz extends BaseEntity {
         WEB, //javaweb
         FRAMEWORK, //框架
         CLOSE //毕业
+//        第1阶段, todo
+//        第2阶段,
+//        第3阶段,
     }
 
     private String name; //班级名

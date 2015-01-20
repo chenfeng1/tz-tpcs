@@ -1,6 +1,8 @@
 package com.tz.tpcs.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -25,12 +27,15 @@ public class Role extends BaseEntity{
     public Role() {
     }
 
-    public Role(String name, String code, String desc) {
+    public Role(String name, String code, String desc, Boolean isSystem, int seq) {
         this.name = name;
         this.code = code;
         this.desc = desc;
+        this.isSystem = isSystem;
+        this.seq = seq;
     }
 
+    @Column(name = "role_name", unique = true, nullable = false)
     public String getName() {
         return name;
     }
@@ -39,6 +44,7 @@ public class Role extends BaseEntity{
         this.name = name;
     }
 
+    @Column(name = "role_code", unique = true, nullable = false)
     public String getCode() {
         return code;
     }
@@ -47,7 +53,7 @@ public class Role extends BaseEntity{
         this.code = code;
     }
 
-    @Column(name = "r_desc")
+    @Column(name = "role_desc")
     public String getDesc() {
         return desc;
     }
@@ -70,6 +76,9 @@ public class Role extends BaseEntity{
             joinColumns={@JoinColumn(name="role_id")},
             inverseJoinColumns={@JoinColumn(name="res_id")})
     public Set<Resources> getResources() {
+        if(resources == null){
+            resources = new LinkedHashSet<>();//LinkedHashSet 保持资源唯一且有序
+        }
         return resources;
     }
 

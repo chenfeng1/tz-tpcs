@@ -26,16 +26,16 @@ public class MyDetailsServiceImpl implements UserDetailsService {
 
     private static final Logger logger = Logger.getLogger(MyDetailsServiceImpl.class);
 
-//    @SuppressWarnings("SpringJavaAutowiringInspection")
     private EmployeeDao employeeDao;
     @Resource
+    @SuppressWarnings("SpringJavaAutowiringInspection")
     public void setEmployeeDao(EmployeeDao employeeDao) {
-        logger.debug("setEmployeeDao() run...");
+        logger.trace("setEmployeeDao() run...");
         this.employeeDao = employeeDao;
     }
 
     public MyDetailsServiceImpl() {
-        logger.debug("MyDetailsServiceImpl empty constructor");
+        logger.trace("MyDetailsServiceImpl empty constructor");
     }
 
     @Override

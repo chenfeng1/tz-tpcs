@@ -178,6 +178,7 @@ public class Employee extends BaseEntity implements UserDetails {
     }
 
     @Override
+    @Column(name = "account_non_expired")
     public boolean isAccountNonExpired() {
         return accountNonExpired;
     }
@@ -187,6 +188,7 @@ public class Employee extends BaseEntity implements UserDetails {
     }
 
     @Override
+    @Column(name = "account_non_locked")
     public boolean isAccountNonLocked() {
         return accountNonLocked;
     }
@@ -196,6 +198,7 @@ public class Employee extends BaseEntity implements UserDetails {
     }
 
     @Override
+    @Column(name = "credentials_non_expired")
     public boolean isCredentialsNonExpired() {
         return credentialsNonExpired;
     }
@@ -213,6 +216,7 @@ public class Employee extends BaseEntity implements UserDetails {
         this.enabled = enabled;
     }
 
+    @Column(name = "login_failure_count")
     public int getLoginFailureCount() {
         return loginFailureCount;
     }
@@ -221,6 +225,7 @@ public class Employee extends BaseEntity implements UserDetails {
         this.loginFailureCount = loginFailureCount;
     }
 
+    @Column(name="locked_date")
     public Date getLockedDate() {
         return lockedDate;
     }
@@ -229,6 +234,7 @@ public class Employee extends BaseEntity implements UserDetails {
         this.lockedDate = lockedDate;
     }
 
+    @Column(name="login_date")
     public Date getLoginDate() {
         return loginDate;
     }
@@ -237,6 +243,7 @@ public class Employee extends BaseEntity implements UserDetails {
         this.loginDate = loginDate;
     }
 
+    @Column(name="login_ip")
     public String getLoginIp() {
         return loginIp;
     }

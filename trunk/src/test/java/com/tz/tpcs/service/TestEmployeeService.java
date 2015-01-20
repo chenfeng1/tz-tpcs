@@ -1,6 +1,7 @@
 package com.tz.tpcs.service;
 
 import com.tz.WebAppConfig;
+import com.tz.tpcs.dao.BaseTest;
 import com.tz.tpcs.entity.Employee;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -16,12 +17,8 @@ import javax.transaction.Transactional;
 /**
  * Created by Administrator on 2015/1/16.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = WebAppConfig.class)
-@TransactionConfiguration(defaultRollback = false)//自动回滚测试数据
-@Transactional
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class TestEmployeeService {
+@TransactionConfiguration(defaultRollback = true)//自动回滚测试数据
+public class TestEmployeeService extends BaseTest{
 
     @Resource
     private EmployeeService employeeService;

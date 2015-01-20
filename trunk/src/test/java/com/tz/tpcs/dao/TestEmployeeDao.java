@@ -16,13 +16,10 @@ import javax.transaction.Transactional;
 /**
  * Created by Administrator on 2015/1/16.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = WebAppConfig.class)
-@TransactionConfiguration(defaultRollback = false)//自动回滚测试数据
-@Transactional
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class TestEmployeeDao {
+@TransactionConfiguration(defaultRollback = true)//是否回滚测试数据
+public class TestEmployeeDao extends BaseTest{
 
+    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Resource
     private EmployeeDao employeeDao;
 
