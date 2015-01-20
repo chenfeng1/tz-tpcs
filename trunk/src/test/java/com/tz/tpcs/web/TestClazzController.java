@@ -1,8 +1,6 @@
 package com.tz.tpcs.web;
 
-import javax.annotation.Resource;
-
-import com.tz.tpcs.AppConfig;
+import com.tz.WebAppConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -13,11 +11,13 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import javax.annotation.Resource;
+
 /**
  * ClazzController 单元测试类
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = AppConfig.class)
+@ContextConfiguration(classes = WebAppConfig.class)
 @WebAppConfiguration
 public class TestClazzController {
 

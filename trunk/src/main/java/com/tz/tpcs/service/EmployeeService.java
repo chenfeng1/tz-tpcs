@@ -10,9 +10,11 @@ public interface EmployeeService {
 
     /**
      * 员工登录功能
+     * @deprecated 已在 {@link com.tz.tpcs.service.security.MyDetailsServiceImpl MyDetailsServiceImpl} 中实现
      * @param str 可能是number、email、mobilePhone
      * @param pass 密码
      * @return 员工实例
      */
-    Employee login(String str, String pass);
+//    @Deprecated
+//    Employee login(String str, String pass);
 }

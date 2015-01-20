@@ -7,4 +7,6 @@ public interface IConstant {
 
     String LOGIN_USER = "loginUser";
 
+    String PATH = "path";
+
 }

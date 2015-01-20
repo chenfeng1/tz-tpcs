@@ -1,6 +1,7 @@
 package com.tz.tpcs.entity;
 
 import javax.persistence.*;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -20,17 +21,20 @@ public class Role extends BaseEntity{
     private Boolean isSystem;// 是否为系统内置角色
     private int seq; //排序
 
-    private Set<Resource> resources;//资源集合
+    private Set<Resources> resources;//资源集合
 
     public Role() {
     }
 
-    public Role(String name, String code, String desc) {
+    public Role(String name, String code, String desc, Boolean isSystem, int seq) {
         this.name = name;
         this.code = code;
         this.desc = desc;
+        this.isSystem = isSystem;
+        this.seq = seq;
     }
 
+    @Column(name = "role_name", unique = true, nullable = false)
     public String getName() {
         return name;
     }
@@ -39,6 +43,7 @@ public class Role extends BaseEntity{
         this.name = name;
     }
 
+    @Column(name = "role_code", unique = true, nullable = false)
     public String getCode() {
         return code;
     }
@@ -47,7 +52,7 @@ public class Role extends BaseEntity{
         this.code = code;
     }
 
-    @Column(name = "r_desc")
+    @Column(name = "role_desc")
     public String getDesc() {
         return desc;
     }
@@ -69,11 +74,14 @@ public class Role extends BaseEntity{
     @JoinTable(name="sys_role_to_res",
             joinColumns={@JoinColumn(name="role_id")},
             inverseJoinColumns={@JoinColumn(name="res_id")})
-    public Set<Resource> getResources() {
+    public Set<Resources> getResources() {
+        if(resources == null){
+            resources = new LinkedHashSet<>();//LinkedHashSet 保持资源唯一且有序
+        }
         return resources;
     }
 
-    public void setResources(Set<Resource> resources) {
+    public void setResources(Set<Resources> resources) {
         this.resources = resources;
     }
 
@@ -92,31 +100,9 @@ public class Role extends BaseEntity{
                 "name='" + name + '\'' +
                 ", code='" + code + '\'' +
                 ", desc='" + desc + '\'' +
+                ", isSystem=" + isSystem +
                 ", seq=" + seq +
+                ", resources=" + resources +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Role role = (Role) o;
-
-        if (seq != role.seq) return false;
-        if (code != null ? !code.equals(role.code) : role.code != null) return false;
-        if (desc != null ? !desc.equals(role.desc) : role.desc != null) return false;
-        if (name != null ? !name.equals(role.name) : role.name != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
-        result = 31 * result + (code != null ? code.hashCode() : 0);
-        result = 31 * result + (desc != null ? desc.hashCode() : 0);
-        result = 31 * result + seq;
-        return result;
     }
 }

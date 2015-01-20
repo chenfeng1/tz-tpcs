@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -10,12 +11,6 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <!--启用注解配置-->
-    <context:annotation-config/>
-
-    <!--导入其他java模块配置信息-->
-    <bean id="appConfig" class="com.tz.tpcs.AppConfig"/>
-
     <!--tiles3布局支持部分-->
     <mvc:default-servlet-handler/>
     <bean id="viewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"/>
@@ -23,23 +18,12 @@
         <property name="definitions" value="/WEB-INF/tiles.xml"/>
     </bean>
 
-    <!-- 定义国际化资源文件 basename -->
-    <bean id="messageSource"
-          class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-        <property name="basename"  value="classpath:messages"/>
-        <property name="defaultEncoding" value="UTF-8"/>
-        <property name="useCodeAsDefaultMessage" value="true" />
-    </bean>
-
-    <!--国际化支持部分-->
-    <bean id="localeResolver"
-                class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
-        <property name="defaultLocale" value="zh" />
-    </bean>
+    <!--启用注解配置-->
+    <context:annotation-config/>
 
     <mvc:interceptors>
         <bean id="localeChangeInterceptor"
-              class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
+              class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/>
     </mvc:interceptors>
 
 </beans>

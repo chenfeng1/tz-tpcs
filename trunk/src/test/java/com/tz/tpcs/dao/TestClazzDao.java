@@ -1,34 +1,23 @@
 package com.tz.tpcs.dao;
 
-import com.tz.tpcs.AppConfig;
-import com.tz.tpcs.dao.ClazzDao;
 import com.tz.tpcs.entity.Clazz;
 import org.fluttercode.datafactory.impl.DataFactory;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import javax.annotation.Resource;
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * ClazzDao 单元测试类
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = AppConfig.class)
-@TransactionConfiguration(defaultRollback = false)//自动回滚测试数据
-@Transactional
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class TestClazzDao {
+@TransactionConfiguration(defaultRollback = true)//是否回滚测试数据
+public class TestClazzDao extends BaseTest{
 
+    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Resource
     private ClazzDao clazzDao;
 

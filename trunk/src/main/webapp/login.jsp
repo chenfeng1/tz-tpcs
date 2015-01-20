@@ -1,4 +1,5 @@
 <%@ page pageEncoding="utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
@@ -48,6 +49,7 @@
         <!-- nav bar -->
     </div>
 </nav>
+
 <!-- 登录区 -->
 <div class="container">
     <div class="row">
@@ -56,27 +58,27 @@
             <div class="login_layout">
                 <fieldset>
                     <legend>用户登录入口</legend>
-                    <form id="loginForm" class="form-horizontal" role="form" method="post" action="${path}/employees/login">
+                    <form id="loginForm" class="form-horizontal" role="form" method="post" action="${path}/loginVerify">
                         <div class="form-group">
                             <label for="inputUserName" class="col-sm-2 control-label">用户名</label>
 
                             <div class="col-sm-5">
-                                <input type="text" name="str" class="form-control" id="inputUserName"
+                                <input type="text" name="j_username" class="form-control" id="inputUserName"
                                        placeholder="请输入用户名"/>
                             </div>
                             <div class="col-sm-5">
-                                <label class="control-label alert-danger" id="labelUserName"></label>
+                                <label class="control-label alert-danger" id="labelUserName">${usernameErrMsg}</label>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputPassword" class="col-sm-2 control-label">密&nbsp;码</label>
 
                             <div class="col-sm-5">
-                                <input type="password" name="password" class="form-control" id="inputPassword"
+                                <input type="password" name="j_password" class="form-control" id="inputPassword"
                                        placeholder="请输入密码"/>
                             </div>
                             <div class="col-sm-4">
-                                <label class="control-label alert-danger" id="labelPassword">${passwordErrorMsg}</label>
+                                <label class="control-label alert-danger" id="labelPassword">${passwordErrMsg}</label>
                             </div>
                         </div>
 
@@ -100,6 +102,9 @@
                                 <button type="submit" class="btn btn-primary">登录</button>
                             </div>
                         </div>
+                        <%--<input type="hidden"--%>
+                               <%--name="${_csrf.parameterName}"--%>
+                               <%--value="${_csrf.token}"/>--%>
                     </form>
                 </fieldset>
             </div>

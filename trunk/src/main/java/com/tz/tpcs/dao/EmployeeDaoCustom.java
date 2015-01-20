@@ -2,8 +2,6 @@ package com.tz.tpcs.dao;
 
 import com.tz.tpcs.entity.Employee;
 
-import java.util.List;
-
 /**
  * Employee 自定义扩展 Dao 接口类
  */

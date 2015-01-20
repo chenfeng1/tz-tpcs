@@ -1,28 +1,17 @@
 package com.tz.tpcs.service;
 
-import com.tz.tpcs.AppConfig;
+import com.tz.tpcs.dao.BaseTest;
 import com.tz.tpcs.entity.Employee;
-import com.tz.tpcs.service.EmployeeService;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import javax.annotation.Resource;
-import javax.transaction.Transactional;
 
 /**
  * Created by Administrator on 2015/1/16.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = AppConfig.class)
-@TransactionConfiguration(defaultRollback = false)//自动回滚测试数据
-@Transactional
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class TestEmployeeService {
+@TransactionConfiguration(defaultRollback = true)//自动回滚测试数据
+public class TestEmployeeService extends BaseTest{
 
     @Resource
     private EmployeeService employeeService;

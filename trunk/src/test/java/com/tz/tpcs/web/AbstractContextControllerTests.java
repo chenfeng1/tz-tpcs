@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/spring-mvc.xml"})
+@ContextConfiguration(locations={"file:../../../../../../main/resources/spring-mvc.xml"})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AbstractContextControllerTests {
 
