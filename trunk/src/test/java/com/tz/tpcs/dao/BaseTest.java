@@ -16,7 +16,6 @@ import javax.transaction.Transactional;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = WebAppConfig.class)
-@TransactionConfiguration(defaultRollback = false)//自动回滚测试数据
 @Transactional
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class BaseTest {

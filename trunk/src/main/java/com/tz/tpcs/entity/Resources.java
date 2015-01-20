@@ -14,7 +14,7 @@ import java.util.Set;
 @Table(name = "sys_resources")
 public class Resources extends BaseEntity{
 
-    enum Type{
+    public enum Type{
         FOLDER, //功能或模块的文件夹
         URL //URL资源
     }
@@ -30,6 +30,18 @@ public class Resources extends BaseEntity{
     private int seq;//用于排序的序号
 
     public Resources() {
+    }
+
+    public Resources(String name, String code, Type type, String value,
+                     Resources parent, String icon,int seq) {
+        super();
+        this.name = name;
+        this.code = code;
+        this.type = type;
+        this.value = value;
+        this.parent = parent;
+        this.icon = icon;
+        this.seq = seq;
     }
 
     public String getIcon() {
@@ -66,7 +78,8 @@ public class Resources extends BaseEntity{
         this.code = code;
     }
 
-    @Column(name = "res_type", unique = true, nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "res_type", nullable = false)
     public Type getType() {
         return type;
     }
