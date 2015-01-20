@@ -5,21 +5,29 @@
 <tiles-definitions>
 
     <definition name="baseLayout"
-                template="/WEB-INF/jsp/demo/baseLayout.jsp">
+                template="/WEB-INF/jsp/clazz/baseLayout.jsp">
         <put-attribute name="title" value="BaseHome" />
-        <put-attribute name="header" value="/WEB-INF/jsp/demo/header.jsp" />
-        <put-attribute name="menu" value="/WEB-INF/jsp/demo/menu.jsp" />
-        <put-attribute name="body" value="/WEB-INF/jsp/demo/body.jsp" />
-        <put-attribute name="footer" value="/WEB-INF/jsp/demo/footer.jsp" />
+        <put-attribute name="header" value="/WEB-INF/jsp/clazz/header.jsp" />
+        <put-attribute name="body" value="/WEB-INF/jsp/clazz/main.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/jsp/clazz/footer.jsp" />
     </definition>
 
     <!--<definition name="login"
                 template="/login.jsp">
     </definition>-->
 
-    <definition name="*.*" extends="baseLayout">
-        <!--国际化 title-->
-        <put-attribute name="body"   value="/WEB-INF/jsp/{1}/{2}.jsp"/>
+    <!-- <definition name="*.*" extends="baseLayout">
+        国际化 title
+        <put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}.jsp"/>
+    </definition> -->
+    <definition name="addClass" extends="baseLayout">
+    	<put-attribute name="body" value="/WEB-INF/jsp/clazz/add_class.jsp"  />
     </definition>
+    
+      <definition name="listClass" extends="baseLayout">
+    	<put-attribute name="body" value="/WEB-INF/jsp/clazz/body.jsp"  />
+    </definition>
+    
+    
 
 </tiles-definitions>

@@ -31,10 +31,10 @@ public class TestEmployeeDao {
     @Test
     public void test01Save(){
         Employee employee = new Employee();
-        employee.setNumber("EMP_001");
-        employee.setEmail("user@website.com");
-        employee.setMobilePhone("13812345678");
-        employee.setPassword("123");
+        employee.setNumber("EMP_002");
+        employee.setEmail("user2@website.com");
+        employee.setMobilePhone("15812345678");
+        employee.setPassword("234");
         employeeDao.save(employee);
     }
 
