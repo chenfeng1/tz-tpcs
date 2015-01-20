@@ -29,7 +29,7 @@ public class LoginController {
     private MessageSource messageSource;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView test(HttpServletRequest request){
+    public ModelAndView initLogin(HttpServletRequest request){
         String path = (String) request.getServletContext().getAttribute(IConstant.PATH);
         return new ModelAndView("forward:"+path+"/login.jsp");
     }
@@ -38,7 +38,6 @@ public class LoginController {
     public ModelAndView login(@RequestParam String str,
                               @RequestParam String password,
                               HttpSession session,
-                              HttpServletRequest request,
                               ModelMap model,
                               Locale locale){
         Employee emp = employeeService.login(str, password);
@@ -51,6 +50,12 @@ public class LoginController {
             model.addAttribute("passwordErrorMsg", msg);
             return new ModelAndView("forward:/login.jsp", model);
         }
+    }
+
+    @RequestMapping(value = "/loginSuccess", method = RequestMethod.GET)
+    public ModelAndView loginSuccess(HttpServletRequest request){
+        String path = (String) request.getServletContext().getAttribute(IConstant.PATH);
+        return new ModelAndView("forward:"+path+"/classes");
     }
 
 }

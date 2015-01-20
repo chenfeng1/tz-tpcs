@@ -148,7 +148,7 @@
                     <!--启动端口号-->
                     <port>8888</port>
                     <!--访问项目名-->
-                    <path>/</path>
+                    <path>/tpcs</path>
                 </configuration>
             </plugin>
         </plugins>

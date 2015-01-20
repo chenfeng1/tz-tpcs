@@ -73,8 +73,7 @@
     <!--自定义 AuthenticationSuccessHandler-->
     <beans:bean id="customAuthenticationSuccessHandler"
                 class="com.tz.tpcs.service.security.CustomAuthenticationSuccessHandler">
-        <!--<beans:property name="defaultTargetUrl" value="${defaultTargetUrl}"/>-->
-        <beans:property name="defaultTargetUrl" value="/defaultTargetUrl"/>
+        <beans:property name="defaultTargetUrl" value="/loginSuccess"/>
         <beans:property name="alwaysUseDefaultTargetUrl" value="true"/>
     </beans:bean>
 
