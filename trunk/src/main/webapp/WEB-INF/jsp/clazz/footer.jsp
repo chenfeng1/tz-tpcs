@@ -1,7 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
- 	<!-- -------------------------------------------------------- -->
+<%@ page pageEncoding="utf-8" %>
 <!-- 页脚区 -->
 <div class="footer">
     <div class="container">
@@ -22,4 +19,4 @@
         </p>
     </div>
 </div>
-</html>
+

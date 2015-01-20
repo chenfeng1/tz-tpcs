@@ -1,24 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 指定页面显示的图标 -->
-    <link rel="icon" href="${pageContext.request.contextPath }/icon/show.ico">
-    <title>新增班级</title>
-
-    <!-- Bootstrap -->
-    <link href="${pageContext.request.contextPath }/css/bootstrap.min.css" rel="stylesheet">
-    <!-- BootStrap Theme css -->
-    <link href="${pageContext.request.contextPath }/css/bootstrap-theme.min.css" rel="stylesheet">
-    <!-- 此案例的自定义样式 -->
-    <link href="${pageContext.request.contextPath }/css-prj/main.css" rel="stylesheet">
-    <!-- 导入外部的js文件 -->
-</head>
-<body>
-<!-- 内容区 -->
+<%@ page pageEncoding="utf-8" %>
 <div class="container">
     <form class="form-horizontal" role="form" action="${pageContext.request.contextPath}/clazz/save" method="post" >
         <div class="form-group">
@@ -79,5 +59,3 @@
         </div>
     </form>
 </div>
-</body>
-</html>

@@ -1,14 +1,4 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-<head>
-	<style>
-		#btn{
-			margin-left: 105px;
-		}
-		
-	</style>
-</head>
   <!-- 导航栏区 -->
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
@@ -205,11 +195,4 @@
     </div>
 </div>
 <!-- //模态框内容结束 -->
-
-<!-- 其它内容 -->
-<div class="container">
-
-   
-    </div>
-    <hr/>
-</html>
+<hr/>

@@ -1,10 +1,5 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-   <!-- 其它内容 -->
+<%@ page pageEncoding="utf-8" %>
 <div class="container">
-
     <!-- 查询区 -->
     <form class="form-horizontal" role="form" action="#">
         <div class="form-group">
@@ -130,5 +125,4 @@
         </ul>
     </div>
 </div>
-  
-</html>
+

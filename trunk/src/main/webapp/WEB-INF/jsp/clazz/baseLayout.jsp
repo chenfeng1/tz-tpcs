@@ -16,6 +16,12 @@
     <!-- 此案例的自定义样式 -->
     <link href="${pageContext.request.contextPath }/css-prj/main.css" rel="stylesheet">
     <!-- 导入外部的js文件 -->
+	<style>
+		#btn{
+			margin-left: 105px;
+		}
+		
+	</style>
 </head>
 <body id="project">
 	
