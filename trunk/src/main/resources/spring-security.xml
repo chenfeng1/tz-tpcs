@@ -14,7 +14,8 @@
 
     <!-- url 访问权限 -->
     <security:http auto-config="true" use-expressions="true">
-        <security:form-login login-page="/initLogin"
+        <security:form-login
+                    login-page="/initLogin"
                     login-processing-url="/loginVerify"
                     username-parameter="j_username"
                     password-parameter="j_password"
@@ -56,9 +57,9 @@
         <beans:constructor-arg name="sessionRegistry" ref="sessionRegistry" />
         <!-- 单一登录 -->
         <beans:property name="maximumSessions" value="1" />
-        <!--true:第二次登陆会失败，除非第一次登陆失效 -->
-        <!--false:第二次登陆会踢掉第一次登陆-->
-        <beans:property name="exceptionIfMaximumExceeded" value="false"/>
+        <!--true:新的登陆会失败，除非之前的登陆失效 -->
+        <!--false:新的登陆会踢掉之前的登陆-->
+        <!--<beans:property name="exceptionIfMaximumExceeded" value="false"/>-->
     </beans:bean>
 
     <!-- 后台管理权限认证 -->

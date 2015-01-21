@@ -27,7 +27,7 @@
                             <%--迭代第2级菜单--%>
                             <c:forEach items="${res.children}" var="subRes">
                                 <c:if test="${subRes.show == true}">
-                                    <li><a href="${path}/${subRes.value}">${subRes.name}</a></li>
+                                    <li><a href="${path}${subRes.value}">${subRes.name}</a></li>
                                 </c:if>
                             </c:forEach>
                         </ul>

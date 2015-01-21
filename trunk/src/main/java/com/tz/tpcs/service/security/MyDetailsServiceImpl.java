@@ -43,7 +43,7 @@ public class MyDetailsServiceImpl implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
-        Employee employee = employeeService.getByPhoneNumberEmail(username);
+        Employee employee = employeeService.findByPhoneNumberEmail(username);
         if (employee == null) {
             throw new UsernameNotFoundException("Employee [" + username + "] not found!");
         }

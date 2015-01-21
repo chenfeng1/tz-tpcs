@@ -53,7 +53,7 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
     @Transactional
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         String username = obtainUsername(request);
-        Employee employee = employeeService.getByPhoneNumberEmail(username);
+        Employee employee = employeeService.findByPhoneNumberEmail(username);
 
         //默认密码输出错误次数
         if (maxLoginFailureCount == null) {

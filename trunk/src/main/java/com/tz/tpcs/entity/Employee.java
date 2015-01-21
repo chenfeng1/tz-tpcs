@@ -275,4 +275,20 @@ public class Employee extends BaseEntity implements UserDetails {
                 ", authorities=" + authorities +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object rhs) {
+        if (rhs instanceof Employee) {
+            return number.equals(((Employee) rhs).number);
+        }
+        return false;
+    }
+
+    /**
+     * Returns the hashcode of the {@code username}.
+     */
+    @Override
+    public int hashCode() {
+        return number.hashCode();
+    }
 }
