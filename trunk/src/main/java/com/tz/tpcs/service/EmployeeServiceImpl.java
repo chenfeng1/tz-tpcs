@@ -26,17 +26,17 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee getByPhoneNumberEmail(String str) {
         //先根据手机号查询
-        Employee emp = employeeDao.getSingleByProp("mobilePhone", str);
+        Employee emp = employeeDao.findSingleByProp("mobilePhone", str);
         if(emp != null){
             return emp;
         }else{
             //再根据员工号查询
-            emp = employeeDao.getSingleByProp("number", str);
+            emp = employeeDao.findSingleByProp("number", str);
             if(emp != null){
                 return emp;
             }else {
                 //最后根据邮箱查询
-                emp = employeeDao.getSingleByProp("email", str);
+                emp = employeeDao.findSingleByProp("email", str);
                 return emp != null? emp:null;
             }
         }

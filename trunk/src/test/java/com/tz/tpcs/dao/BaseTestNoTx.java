@@ -10,15 +10,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.transaction.Transactional;
 
 /**
- * 基础单元测试类 (有事务支持)
- * 提供spring容器的初始化， 依赖注入， 顺序执行等常用配置。
- * 如果单元测试的数据，需要在测试成功后回滚/撤销的，
- * 在继承此父类后测试和运行。
- * Created by hu jing ling on 2015/1/19.
+ * 基础单元测试类 (无事务支持)
+ * 如有可能发生 org.hibernate.LazyInitializationException 的接口或方法，
+ * 在继承此父类后测试并运行正常后，
+ * 再到控制器中调用。
+ * Created by hu jing ling on 2015/1/21.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = WebAppConfig.class)
-@Transactional
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class BaseTest {
+public class BaseTestNoTx {
 }

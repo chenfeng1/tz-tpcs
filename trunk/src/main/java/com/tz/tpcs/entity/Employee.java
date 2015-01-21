@@ -264,7 +264,6 @@ public class Employee extends BaseEntity implements UserDetails {
                 ", email='" + email + '\'' +
                 ", mobilePhone='" + mobilePhone + '\'' +
                 ", remark='" + remark + '\'' +
-                ", roles=" + roles +
                 ", accountNonExpired=" + accountNonExpired +
                 ", accountNonLocked=" + accountNonLocked +
                 ", credentialsNonExpired=" + credentialsNonExpired +

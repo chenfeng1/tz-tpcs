@@ -19,7 +19,7 @@ public class EmployeeDaoImpl implements EmployeeDaoCustom {
     }
 
     @Override
-    public Employee getSingleByProp(String prop, Object value) {
+    public Employee findSingleByProp(String prop, Object value) {
         String ql = "select e from Employee as e where e."+prop+" = :value";
         Query query = em.createQuery(ql);
         query.setParameter("value", value);

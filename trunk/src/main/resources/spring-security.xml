@@ -47,6 +47,7 @@
     <beans:bean id="concurrencyFilter" class="org.springframework.security.web.session.ConcurrentSessionFilter">
         <beans:property name="sessionRegistry" ref="sessionRegistry" />
         <beans:property name="expiredUrl" value="/initLogin" />
+        <!--<beans:property name="logoutHandlers" ref="xx"/>-->
     </beans:bean>
     <!--sessionRegistry 实例,维护有关用户登录的 session 信息-->
     <beans:bean id="sessionRegistry" class="org.springframework.security.core.session.SessionRegistryImpl" />

@@ -1,5 +1,8 @@
 package com.tz.tpcs.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -11,7 +14,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "sys_resources")
-public class Resources extends BaseEntity{
+public class Resources extends BaseEntity {
 
     public enum Type{
         FOLDER, //功能或模块的文件夹
@@ -26,6 +29,7 @@ public class Resources extends BaseEntity{
     private Set<Resources> children; //多个子资源
     private String icon; //子功能图标
     private int seq;//用于排序的序号
+    private boolean show; //需在导航栏中显示
 
     public Resources() {
     }
@@ -40,6 +44,19 @@ public class Resources extends BaseEntity{
         this.parent = parent;
         this.icon = icon;
         this.seq = seq;
+    }
+
+    public Resources(String name, String code, Type type, String value,
+                     Resources parent, String icon,int seq,boolean show) {
+        super();
+        this.name = name;
+        this.code = code;
+        this.type = type;
+        this.value = value;
+        this.parent = parent;
+        this.icon = icon;
+        this.seq = seq;
+        this.show = show;
     }
 
     public String getIcon() {
@@ -113,16 +130,26 @@ public class Resources extends BaseEntity{
         this.parent = parent;
     }
 
+    @Column(name = "res_show")
+    public boolean isShow() {
+        return show;
+    }
+
+    public void setShow(boolean show) {
+        this.show = show;
+    }
+
     @Override
     public String toString() {
-        return "Resource{" +
+        return "Resources{" +
                 "name='" + name + '\'' +
                 ", code='" + code + '\'' +
-                ", type='" + type + '\'' +
+                ", type=" + type +
                 ", value='" + value + '\'' +
-                ", children=" + children +
+                ", parent=" + parent +
                 ", icon='" + icon + '\'' +
                 ", seq=" + seq +
+                ", show=" + show +
                 '}';
     }
 

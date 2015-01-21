@@ -6,7 +6,7 @@ package com.tz.tpcs.util;
 public interface IConstant {
 
     String LOGIN_USER = "loginUser";
-
+    String LOGIN_USER_RES = "loginUserResources";
     String PATH = "path";
 
 }

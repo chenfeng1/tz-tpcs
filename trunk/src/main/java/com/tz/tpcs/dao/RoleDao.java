@@ -9,7 +9,7 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface RoleDao extends CrudRepository<Role,String> {
 
-    //根据getBy后面的属性名 code 属性查询
-    Role getByCode(String code);
+    //根据 By 后面的属性名查询
+    Role findByCode(String code);
 
 }

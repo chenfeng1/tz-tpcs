@@ -74,6 +74,7 @@ public class Role extends BaseEntity{
     @JoinTable(name="sys_role_to_res",
             joinColumns={@JoinColumn(name="role_id")},
             inverseJoinColumns={@JoinColumn(name="res_id")})
+    @OrderBy(value="seq ASC")//通过关联查询按照seq升序排序
     public Set<Resources> getResources() {
         if(resources == null){
             resources = new LinkedHashSet<>();//LinkedHashSet 保持资源唯一且有序
@@ -102,7 +103,6 @@ public class Role extends BaseEntity{
                 ", desc='" + desc + '\'' +
                 ", isSystem=" + isSystem +
                 ", seq=" + seq +
-                ", resources=" + resources +
                 '}';
     }
 }

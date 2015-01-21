@@ -13,6 +13,6 @@ public interface EmployeeDaoCustom {
      * @param value 属性值
      * @return 符合条件的单个 Employee
      */
-    Employee getSingleByProp(String prop, Object value);
+    Employee findSingleByProp(String prop, Object value);
 
 }

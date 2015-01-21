@@ -30,7 +30,7 @@ public class TestEmployeeDao extends BaseTest{
     public void test02GetByNumber(){
         String prop = "number";
         String value = "EMP_001";
-        Employee emp = employeeDao.getSingleByProp(prop, value);
+        Employee emp = employeeDao.findSingleByProp(prop, value);
         System.out.println(emp);
     }
 
@@ -38,7 +38,7 @@ public class TestEmployeeDao extends BaseTest{
     public void test03GetByEmail(){
         String prop = "email";
         String value = "user@website.com";
-        Employee emp = employeeDao.getSingleByProp(prop, value);
+        Employee emp = employeeDao.findSingleByProp(prop, value);
         System.out.println(emp);
     }
 
@@ -46,7 +46,7 @@ public class TestEmployeeDao extends BaseTest{
     public void test04GetByMobilePhone(){
         String prop = "mobilePhone";
         String value = "13812345678";
-        Employee emp = employeeDao.getSingleByProp(prop, value);
+        Employee emp = employeeDao.findSingleByProp(prop, value);
         System.out.println(emp);
     }
 

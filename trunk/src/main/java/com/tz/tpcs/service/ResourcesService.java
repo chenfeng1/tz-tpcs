@@ -1,8 +1,10 @@
 package com.tz.tpcs.service;
 
+import com.tz.tpcs.entity.Employee;
 import com.tz.tpcs.entity.Resources;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Resources Service 接口类
@@ -17,4 +19,10 @@ public interface ResourcesService {
      */
     List<Resources> findByCodes(String[] codes);
 
+    /**
+     * 根据员工id，查询分配的资源集合
+     * @param employeeId 员工id
+     * @return
+     */
+    Set<Resources> findResByEmployeeId(String employeeId);
 }
