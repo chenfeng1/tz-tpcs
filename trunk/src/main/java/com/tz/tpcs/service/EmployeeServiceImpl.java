@@ -14,28 +14,32 @@ import javax.transaction.Transactional;
 @Transactional
 public class EmployeeServiceImpl implements EmployeeService {
 
+    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Resource
     private EmployeeDao employeeDao;
 
     @Override
-    public Employee login(String str, String pass) {
-        //增加对大小写不区分的支持 todo
-        //先根据 number 匹配
-        Employee emp = employeeDao.getSingleByProp("number", str);
+    public void update(Employee employee) {
+        employeeDao.save(employee);
+    }
+
+    @Override
+    public Employee getByPhoneNumberEmail(String str) {
+        //先根据手机号查询
+        Employee emp = employeeDao.getSingleByProp("mobilePhone", str);
         if(emp != null){
-            if(emp.getPassword().equals(pass)){
+            return emp;
+        }else{
+            //再根据员工号查询
+            emp = employeeDao.getSingleByProp("number", str);
+            if(emp != null){
                 return emp;
-            }else{
-                return null;
+            }else {
+                //最后根据邮箱查询
+                emp = employeeDao.getSingleByProp("email", str);
+                return emp != null? emp:null;
             }
         }
-        //todo
-        //再根据 email 匹配
-        //最后根据 mobilePhone 匹配
-        //登录连续失败3次，冻结账号
-        //登录成功，清空登录失败计数，并更新最后登录时间和ip
-
-        return null;
     }
 
 }

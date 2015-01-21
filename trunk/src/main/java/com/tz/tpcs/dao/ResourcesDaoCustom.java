@@ -2,8 +2,6 @@ package com.tz.tpcs.dao;
 
 import com.tz.tpcs.entity.Resources;
 
-import java.util.List;
-
 /**
  * Created by Hu Jing Ling on 2015/1/20.
  */

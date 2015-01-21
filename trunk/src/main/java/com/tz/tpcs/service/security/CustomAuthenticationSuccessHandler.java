@@ -18,9 +18,11 @@ import java.util.Date;
  * @author : Hu jing ling
  * @since : 2015-1-19
  * 自定义 Authentication Success Handler 类
+ * 写登录成功的逻辑
  */
 public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
+    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Resource
     private EmployeeDao employeeDao;
 

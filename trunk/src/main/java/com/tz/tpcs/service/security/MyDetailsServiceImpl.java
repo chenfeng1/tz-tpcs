@@ -1,8 +1,8 @@
 package com.tz.tpcs.service.security;
 
-import com.tz.tpcs.dao.EmployeeDao;
 import com.tz.tpcs.entity.Employee;
 import com.tz.tpcs.entity.Role;
+import com.tz.tpcs.service.EmployeeService;
 import org.apache.log4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.GrantedAuthority;
@@ -26,28 +26,26 @@ public class MyDetailsServiceImpl implements UserDetailsService {
 
     private static final Logger logger = Logger.getLogger(MyDetailsServiceImpl.class);
 
-    private EmployeeDao employeeDao;
-    @Resource
     @SuppressWarnings("SpringJavaAutowiringInspection")
-    public void setEmployeeDao(EmployeeDao employeeDao) {
-        logger.trace("setEmployeeDao() run...");
-        this.employeeDao = employeeDao;
-    }
+    @Resource
+    private EmployeeService employeeService;
 
     public MyDetailsServiceImpl() {
         logger.trace("MyDetailsServiceImpl empty constructor");
     }
 
+    /**
+     * 根据员工号匹配验证
+     * @param username
+     * @return
+     * @throws UsernameNotFoundException
+     * @throws DataAccessException
+     */
     @Override
-    public UserDetails loadUserByUsername(String number) throws UsernameNotFoundException, DataAccessException {
-        Employee employee = null;
-        try {
-            employee = employeeDao.getSingleByProp("number", number);
-        } catch (Exception e) {
-            throw new UsernameNotFoundException("Employee [" + number + "] not found");
-        }
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
+        Employee employee = employeeService.getByPhoneNumberEmail(username);
         if (employee == null) {
-            throw new UsernameNotFoundException("Employee [" + number + "] not found!");
+            throw new UsernameNotFoundException("Employee [" + username + "] not found!");
         }
         employee.setAuthorities(getGrantedAuthorities(employee));
         return employee;

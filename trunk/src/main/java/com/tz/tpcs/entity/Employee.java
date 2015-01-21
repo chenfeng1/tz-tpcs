@@ -27,7 +27,6 @@ public class Employee extends BaseEntity implements UserDetails {
     private String gender; //性别
     private Date birthDate; //生日
     private String email; //邮箱地址
-//    private String phone; //电话
     private String mobilePhone;//移动电话
     private String remark; //备注
     private Set<Role> roles; //角色集合

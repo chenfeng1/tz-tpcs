@@ -1,7 +1,8 @@
 package com.tz.tpcs.entity;
 
-import javax.persistence.*;
-import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * 学员项目案例 实体类

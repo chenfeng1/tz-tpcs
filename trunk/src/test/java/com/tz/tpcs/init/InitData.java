@@ -48,13 +48,15 @@ public class InitData {
         List<Resources> list = new ArrayList<>();
         //客户管理
         Resources r1 = new Resources("班级", "menu_clazz",Type.FOLDER, "", null, null,1);
-        Resources r11 = new Resources("班级列表", "menu_clazz_list",Type.URL, "/classes/initList", r1, null,11);
-        Resources r12 = new Resources("导入班级", "menu_clazz_import",Type.URL, "/classes/initImport", r1, null,12);
-        Resources r13 = new Resources("班级活动", "menu_clazz_campaign",Type.URL, "/classesCampaign/initList", r1, null,12);
+        Resources r11 = new Resources("班级列表", "menu_clazz_list",Type.URL, "/clazz/list", r1, null,11);
+        Resources r12 = new Resources("导入班级", "menu_clazz_import",Type.URL, "/clazz/initImport", r1, null,12);
+        Resources r13 = new Resources("班级活动", "menu_clazz_campaign",Type.URL, "/clazzCampaign/initList", r1, null,13);
+        Resources r14 = new Resources("添加班级", "menu_clazz_initAdd",Type.URL, "/clazzCampaign/initAdd", r1, null,14);
         list.add(r1);
         list.add(r11);
         list.add(r12);
         list.add(r13);
+        list.add(r14);
 
         Resources r2 = new Resources("学员", "menu_student",Type.FOLDER, "", null, null,2);
         Resources r21 = new Resources("学员列表", "menu_student_list",Type.URL, "/students/initList", r2, null,21);
@@ -117,11 +119,13 @@ public class InitData {
     @Test
     public void test03SaveEmployees(){
         Employee emp1 = new Employee();
-        emp1.setNumber("classTeacher");
-        emp1.setPassword("classTeacher");
-        emp1.setRealname("测试班主任");
+        emp1.setNumber("EMP_001");
+        emp1.setEmail("EMP_001@sz-tz.com");
+        emp1.setMobilePhone("13811111111");
+        emp1.setPassword("123");
+        emp1.setRealname("测试管理员");
         emp1.setEnabled(true);
-        emp1.setJob("测试班主任");
+        emp1.setJob("测试管理员");
         emp1.setAccountNonExpired(true);
         emp1.setAccountNonLocked(true);
         emp1.setCredentialsNonExpired(true);
@@ -132,11 +136,13 @@ public class InitData {
 
 
         Employee emp2 = new Employee();
-        emp2.setNumber("admin");
-        emp2.setPassword("admin");
-        emp2.setRealname("测试管理员");
+        emp2.setNumber("EMP_002");
+        emp2.setEmail("EMP_002@sz-tz.com");
+        emp2.setMobilePhone("13822222222");
+        emp2.setPassword("456");
+        emp2.setRealname("测试班主任");
         emp2.setEnabled(true);
-        emp2.setJob("测试管理员");
+        emp2.setJob("测试班主任");
         emp2.setAccountNonExpired(true);
         emp2.setAccountNonLocked(true);
         emp2.setCredentialsNonExpired(true);
@@ -147,8 +153,10 @@ public class InitData {
 
 
         Employee emp3 = new Employee();
-        emp3.setNumber("lecturer");
-        emp3.setPassword("lecturer");
+        emp3.setNumber("EMP_003");
+        emp3.setEmail("EMP_003@sz-tz.com");
+        emp3.setMobilePhone("13833333333");
+        emp3.setPassword("789");
         emp3.setRealname("测试讲师");
         emp3.setEnabled(true);
         emp3.setJob("测试讲师");
@@ -161,8 +169,9 @@ public class InitData {
         employeeDao.save(emp3);
 
         Employee emp4 = new Employee();
-        emp4.setNumber("user4");
-        emp4.setPassword("user4");
+        emp4.setNumber("EMP_004");
+        emp4.setEmail("");
+        emp4.setPassword("456789");
         emp4.setRealname("测试讲师兼职班主任");
         emp4.setEnabled(true);
         emp4.setJob("测试讲师兼职班主任");

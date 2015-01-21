@@ -4,7 +4,6 @@ import com.tz.tpcs.entity.Resources;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.List;
 
 /**
  * Created by Hu Jing Ling on 2015/1/20.

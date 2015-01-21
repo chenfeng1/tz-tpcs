@@ -1,20 +1,13 @@
 package com.tz.tpcs.dao;
 
-import com.tz.WebAppConfig;
 import com.tz.tpcs.entity.Clazz;
 import org.fluttercode.datafactory.impl.DataFactory;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import javax.annotation.Resource;
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,6 +62,4 @@ public class TestClazzDao extends BaseTest{
         }
         clazzDao.save(list);
     }
-
-
 }

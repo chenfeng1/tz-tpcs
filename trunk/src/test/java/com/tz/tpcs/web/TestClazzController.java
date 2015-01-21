@@ -1,7 +1,5 @@
 package com.tz.tpcs.web;
 
-import javax.annotation.Resource;
-
 import com.tz.WebAppConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +10,8 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import javax.annotation.Resource;
 
 /**
  * ClazzController 单元测试类

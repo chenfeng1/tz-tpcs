@@ -3,8 +3,6 @@ package com.tz.tpcs.dao;
 import com.tz.tpcs.entity.Resources;
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.List;
-
 /**
  * ResourceDao 接口类
  * Created by Hu jing ling on 2015/1/19.

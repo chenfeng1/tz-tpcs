@@ -3,6 +3,7 @@ package com.tz.tpcs.service;
 import com.tz.tpcs.dao.ResourcesDao;
 import com.tz.tpcs.entity.Resources;
 import com.tz.tpcs.util.ResourcesUtil;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -17,9 +18,15 @@ import java.util.List;
 @Transactional
 public class ResourcesServiceImpl implements ResourcesService {
 
+    private static final Logger logger = Logger.getLogger(ResourcesServiceImpl.class);
+
     @SuppressWarnings("SpringJavaAutowiringInspection")
     @Resource
     private ResourcesDao resourcesDao;
+
+    public ResourcesServiceImpl() {
+        logger.trace("ResourcesServiceImpl empty constructor...");
+    }
 
     @Override
     public List<Resources> findByCodes(String[] codes) {

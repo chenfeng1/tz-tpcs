@@ -1,17 +1,10 @@
 package com.tz.tpcs.dao;
 
-import com.tz.WebAppConfig;
 import com.tz.tpcs.entity.Employee;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import javax.annotation.Resource;
-import javax.transaction.Transactional;
 
 /**
  * Created by Administrator on 2015/1/16.
@@ -26,10 +19,10 @@ public class TestEmployeeDao extends BaseTest{
     @Test
     public void test01Save(){
         Employee employee = new Employee();
-        employee.setNumber("EMP_001");
-        employee.setEmail("user@website.com");
-        employee.setMobilePhone("13812345678");
-        employee.setPassword("123");
+        employee.setNumber("EMP_002");
+        employee.setEmail("user2@website.com");
+        employee.setMobilePhone("15812345678");
+        employee.setPassword("234");
         employeeDao.save(employee);
     }
 

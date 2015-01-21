@@ -1,61 +1,62 @@
 package com.tz.tpcs.web;
 
-import com.tz.tpcs.entity.Employee;
-import com.tz.tpcs.service.EmployeeService;
-import com.tz.tpcs.util.IConstant;
-import org.springframework.context.MessageSource;
-import org.springframework.ui.ModelMap;
+import com.tz.tpcs.service.ResourcesService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Locale;
 
 /**
+ * 专门负责登录 / 登出的控制器
  * Created by hjl on 2015/1/18.
  */
 @RestController
 public class LoginController {
 
     @Resource
-    private EmployeeService employeeService;
-    @Resource
-    private MessageSource messageSource;
+    private ResourcesService resourcesService;
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView initLogin(HttpServletRequest request){
-        String path = (String) request.getServletContext().getAttribute(IConstant.PATH);
-        return new ModelAndView("forward:"+path+"/login.jsp");
+    /**
+     * 进入登录页面
+     * @return
+     */
+    @RequestMapping(value = "/initLogin", method = RequestMethod.GET)
+    public ModelAndView initLogin(){
+        //todo...初始化  登录页面可能用到 所需数据...
+        return new ModelAndView("forward:/login.jsp");
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ModelAndView login(@RequestParam String str,
-                              @RequestParam String password,
-                              HttpSession session,
-                              ModelMap model,
-                              Locale locale){
-        Employee emp = employeeService.login(str, password);
-        if(emp != null){
-            session.setAttribute(IConstant.LOGIN_USER, emp);
-            return new ModelAndView("baseLayout");
-        }else{
-            //获取国际化信息
-            String msg = messageSource.getMessage("error.invalid.username.or.password", null, locale);
-            model.addAttribute("passwordErrorMsg", msg);
-            return new ModelAndView("forward:/login.jsp", model);
-        }
-    }
-
+    /**
+     * 登录成功
+     * @return
+     */
     @RequestMapping(value = "/loginSuccess", method = RequestMethod.GET)
-    public ModelAndView loginSuccess(HttpServletRequest request){
-        String path = (String) request.getServletContext().getAttribute(IConstant.PATH);
-        return new ModelAndView("forward:"+path+"/classes");
+    public ModelAndView loginSuccess(){
+        //todo...初始化  登录成功后的欢迎页面 所需数据...
+        return new ModelAndView("baseLayout");
+    }
+
+    /**
+     * 处理登录成功后直接访问根目录的情况
+     * @return
+     */
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public ModelAndView webRoot(){
+        return new ModelAndView("redirect:/loginSuccess");
+    }
+
+    /**
+     * 登出
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public ModelAndView logout(HttpSession session){
+        session.invalidate();//清空 session
+        return new ModelAndView("redirect:/login.jsp");
     }
 
 }

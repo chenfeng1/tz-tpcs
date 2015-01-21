@@ -21,23 +21,9 @@
     <!--启用注解配置-->
     <context:annotation-config/>
 
-    <!-- 定义国际化资源文件 basename -->
-    <bean id="messageSource"
-          class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-        <property name="basename"  value="classpath:messages"/>
-        <property name="defaultEncoding" value="UTF-8"/>
-        <property name="useCodeAsDefaultMessage" value="true" />
-    </bean>
-
-    <!--国际化支持部分-->
-    <bean id="localeResolver"
-                class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
-        <property name="defaultLocale" value="zh" />
-    </bean>
-
     <mvc:interceptors>
         <bean id="localeChangeInterceptor"
-              class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
+              class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/>
     </mvc:interceptors>
 
 </beans>
