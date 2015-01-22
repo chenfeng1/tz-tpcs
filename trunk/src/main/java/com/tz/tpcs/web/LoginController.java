@@ -31,16 +31,6 @@ public class LoginController {
     private ResourcesService resourcesService;
 
     /**
-     * 进入登录页面
-     * @return
-     */
-    @RequestMapping(value = "/initLogin", method = RequestMethod.GET)
-    public ModelAndView initLogin(){
-        //todo...初始化  登录页面可能用到 所需数据...
-        return new ModelAndView("forward:/login.jsp");
-    }
-
-    /**
      * 登录成功
      * @return
      */

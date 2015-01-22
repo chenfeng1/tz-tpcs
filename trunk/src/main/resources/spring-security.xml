@@ -14,14 +14,13 @@
 
     <security:http auto-config="true" use-expressions="true">
         <security:form-login
-                    login-page="/initLogin"
+                    login-page="/login.jsp"
                     login-processing-url="/loginVerify"
                     username-parameter="j_username"
                     password-parameter="j_password"
                     authentication-success-handler-ref="customAuthenticationSuccessHandler"
                     authentication-failure-handler-ref="customAuthenticationFailureHandler"/>
         <!--匿名可访问-->
-        <security:intercept-url pattern="/initLogin" access="permitAll"/>
         <security:intercept-url pattern="/login.jsp" access="permitAll"/>
         <security:intercept-url pattern="/css*/**" access="permitAll"/>
         <security:intercept-url pattern="/js*/**" access="permitAll"/>
@@ -32,16 +31,17 @@
         <!--登录授权可访问-->
         <security:intercept-url pattern="/**" access="isAuthenticated()"/>
         <!-- logout 跳转 url -->
-        <security:logout invalidate-session="true" logout-success-url="/login.jsp"/>
+        <security:logout logout-url="/logout" logout-success-url="/login.jsp"/>
 
         <security:session-management
                 session-authentication-error-url="/html/sessionAuthenticationError.html"
-                invalid-session-url="/initLogin">
+                invalid-session-url="/login.jsp">
                 <security:concurrency-control max-sessions="1"
-                                              error-if-maximum-exceeded="false"
-                                              session-registry-alias="sessionRegistry"/>
-                <!--max-sessions:最大同时登录数-->
+                                              error-if-maximum-exceeded="true"
+                                              expired-url="/login.jsp"/>
+                <!--max-sessions:最大同时登录数 -->
                 <!--error-if-maximum-exceeded: true 新的登陆会失败,除非之前的登陆失效; false:新的登陆会踢掉之前的登陆-->
+                <!--expired-url: 失效后跳转的页面-->
         </security:session-management>
     </security:http>
 

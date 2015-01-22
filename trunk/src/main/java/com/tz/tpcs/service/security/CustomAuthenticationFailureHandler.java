@@ -44,7 +44,12 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
 
     //从 HttpServletRequest 获取用户名
     protected String obtainUsername(HttpServletRequest request) {
-        return request.getParameter(SPRING_SECURITY_FORM_USERNAME_KEY).trim();
+        String username = request.getParameter(SPRING_SECURITY_FORM_USERNAME_KEY);
+        if(username == null){
+            return "";
+        }else{
+            return username.trim();
+        }
     }
 
     private void addErrorMessage(HttpServletRequest request,String key, String message){
@@ -98,9 +103,12 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
         } else if(exception instanceof DisabledException){
             addErrorMessage(request, USERNAME_ERR_MSG, "账号已禁用，请联系管理员!");
         } else if(exception instanceof SessionAuthenticationException) {
-            addErrorMessage(request, USERNAME_ERR_MSG, "到达最大同时登录数!");
+            //addErrorMessage(request, USERNAME_ERR_MSG, "到达最大同时登录数");
+            addErrorMessage(request, USERNAME_ERR_MSG, "此账号正在使用中");
+        } else if(exception instanceof AuthenticationServiceException) {
+            addErrorMessage(request, USERNAME_ERR_MSG, "请通过表单登录");
         } else{
-            addErrorMessage(request, USERNAME_ERR_MSG, "未知错误，请联系管理员!");
+            addErrorMessage(request, USERNAME_ERR_MSG, exception.getMessage()+"，请联系管理员!");
         }
         super.onAuthenticationFailure(request, response, exception);
     }
