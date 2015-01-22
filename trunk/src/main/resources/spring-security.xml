@@ -12,39 +12,80 @@
 
     <context:annotation-config/>
 
-    <security:http auto-config="true" use-expressions="true">
+    <!--匿名可访问-->
+    <security:http pattern="/initLogin" security="none"/>
+    <security:http pattern="/login.jsp" security="none"/>
+    <security:http pattern="/css*/**" security="none"/>
+    <security:http pattern="/js*/**" security="none"/>
+    <security:http pattern="/font/**" security="none"/>
+    <security:http pattern="/icon/**" security="none"/>
+    <security:http pattern="/images/**" security="none"/>
+    <security:http pattern="/html/**" security="none"/>
+
+    <security:http auto-config="true"
+                   use-expressions="true">
+        <!--access-decision-manager-ref="accessDecisionManager">-->
         <security:form-login
-                    login-page="/login.jsp"
-                    login-processing-url="/loginVerify"
-                    username-parameter="j_username"
-                    password-parameter="j_password"
-                    authentication-success-handler-ref="customAuthenticationSuccessHandler"
-                    authentication-failure-handler-ref="customAuthenticationFailureHandler"/>
-        <!--匿名可访问-->
-        <security:intercept-url pattern="/initLogin" access="permitAll"/>
-        <security:intercept-url pattern="/login.jsp" access="permitAll"/>
-        <security:intercept-url pattern="/css*/**" access="permitAll"/>
-        <security:intercept-url pattern="/js*/**" access="permitAll"/>
-        <security:intercept-url pattern="/font/**" access="permitAll"/>
-        <security:intercept-url pattern="/icon/**" access="permitAll"/>
-        <security:intercept-url pattern="/images/**" access="permitAll"/>
-        <security:intercept-url pattern="/html/**" access="permitAll"/>
+                login-page="/login.jsp"
+                login-processing-url="/loginVerify"
+                username-parameter="j_username"
+                password-parameter="j_password"
+                authentication-success-handler-ref="customAuthenticationSuccessHandler"
+                authentication-failure-handler-ref="customAuthenticationFailureHandler"/>
         <!--登录授权可访问-->
         <security:intercept-url pattern="/**" access="isAuthenticated()"/>
         <!-- logout 跳转 url -->
         <security:logout logout-url="/logout" logout-success-url="/login.jsp"/>
 
         <security:session-management
+                session-authentication-strategy-ref="sessionAuthenticationStrategy"
                 session-authentication-error-url="/html/sessionAuthenticationError.html"
                 invalid-session-url="/login.jsp">
-                <security:concurrency-control max-sessions="1"
-                                              error-if-maximum-exceeded="true"
-                                              expired-url="/login.jsp"/>
-                <!--max-sessions:最大同时登录数 -->
-                <!--error-if-maximum-exceeded: true 新的登陆会失败,除非之前的登陆失效; false:新的登陆会踢掉之前的登陆-->
-                <!--expired-url: 失效后跳转的页面-->
         </security:session-management>
+        <security:custom-filter position="CAS_FILTER" ref="concurrencyFilter"/>
     </security:http>
+
+    <!--session 注册类-->
+    <beans:bean id="sessionRegistry"
+                class="org.springframework.security.core.session.SessionRegistryImpl" />
+    <!--session 并发 过滤器类-->
+    <beans:bean id="concurrencyFilter"
+                class="org.springframework.security.web.session.ConcurrentSessionFilter">
+        <beans:property name="sessionRegistry" ref="sessionRegistry" />
+        <beans:property name="expiredUrl" value="/html/sessionExpired.html" />
+    </beans:bean>
+    <!--session 认证策略类-->
+    <beans:bean id="sessionAuthenticationStrategy"
+                class="org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy">
+        <beans:constructor-arg name="sessionRegistry" ref="sessionRegistry" />
+        <!-- 最大同时登录数 -->
+        <beans:property name="maximumSessions" value="1"/>
+        <!--true 新的登陆会失败,除非之前的登陆失效; false:新的登陆会踢掉之前的登陆-->
+        <beans:property name="exceptionIfMaximumExceeded" value="true"/>
+    </beans:bean>
+
+    <!-- 访问决策器，决定某个用户具有的角色，是否有足够的权限去访问某个资源 -->
+    <beans:bean id="accessDecisionManager"
+                class="com.tz.tpcs.service.security.MyAccessDecisionManager">
+    </beans:bean>
+
+    <!-- 资源源数据定义，即定义某一资源可以被哪些角色访问 -->
+    <beans:bean id="securityMetadataSource" class="com.tz.tpcs.service.security.MyInvocationSecurityMetadataSource"/>
+
+    <!-- cas 认证过滤器 -->
+    <beans:bean id="casFilter"
+                class="com.tz.tpcs.service.security.MyFilterSecurityInterceptor">
+        <beans:property name="authenticationManager" ref="authenticationManager" />
+        <beans:property name="accessDecisionManager" ref="accessDecisionManager"/>
+        <beans:property name="securityMetadataSource" ref="securityMetadataSource"/>
+        <!--<beans:property name="authenticationFailureHandler"-->
+        <!--ref="authenticationFailureHandler" />-->
+        <!--<beans:property name="authenticationSuccessHandler"-->
+        <!--ref="authenticationSuccessHandler" />-->
+        <!--<beans:property name="filterProcessesUrl" value="/j_spring_cas_security_check.do" />-->
+        <!--<beans:property name="sessionAuthenticationStrategy"-->
+        <!--ref="sessionAuthenticationStrategy" />-->
+    </beans:bean>
 
     <!-- 后台管理权限认证 -->
     <security:authentication-manager alias="authenticationManager">
@@ -53,6 +94,16 @@
             <!-- TODO 定义密码加密算法 -->
         </security:authentication-provider>
     </security:authentication-manager>
+
+    <!--自定义url授权逻辑-->
+    <!--<beans:bean id="accessDecisionManager" class="com.tz.tpcs.service.security.CustomAccessDecisionManager">
+        <beans:property name="allowIfAllAbstainDecisions" value="false"/>
+        <beans:constructor-arg>
+            <beans:list>
+                <beans:bean class="org.springframework.security.web.access.expression.WebExpressionVoter"/>
+            </beans:list>
+        </beans:constructor-arg>
+    </beans:bean>-->
 
     <!-- 自定义认证成功逻辑  -->
     <beans:bean id="customAuthenticationSuccessHandler"
