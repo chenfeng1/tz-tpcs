@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -37,6 +38,12 @@ public class TestResourcesService extends BaseTestNoTx {
         Set<Resources> resourcesSet = resourcesService.findResByEmployeeId(employeeId);
         //3.
         System.out.println(resourcesSet);
+    }
+
+    @Test
+    public void test3FindResByEmployee(){
+        Map<String,Set<String>> map = resourcesService.getRes2RoleMap();
+        System.out.println(map);
     }
 
 }

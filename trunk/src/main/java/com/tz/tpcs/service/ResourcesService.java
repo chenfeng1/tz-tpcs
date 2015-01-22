@@ -4,6 +4,7 @@ import com.tz.tpcs.entity.Employee;
 import com.tz.tpcs.entity.Resources;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -25,4 +26,10 @@ public interface ResourcesService {
      * @return
      */
     Set<Resources> findResByEmployeeId(String employeeId);
+
+    /**
+     * URL资源值 <==映射==> 角色名
+     * @return
+     */
+    Map<String,Set<String>> getRes2RoleMap();
 }

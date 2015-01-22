@@ -1,55 +1,60 @@
 package com.tz.tpcs.service.security;
 
+import com.tz.tpcs.entity.Employee;
 import org.apache.log4j.Logger;
-import org.springframework.security.access.AccessDecisionVoter;
+import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
-import org.springframework.security.access.vote.AbstractAccessDecisionManager;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.FilterInvocation;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.Iterator;
 
 /**
- * 自定义url授权逻辑
- * Created by Hu Jing Ling on 2015/1/22.
+ * 判断用户是否拥有所请求URL的角色
+ * @author Hu Jing Ling
+ * @since 2015/1/22 21:58
+ * @version 1.0
  */
-public class CustomAccessDecisionManager extends AbstractAccessDecisionManager {
+@Service("accessDecisionManager")
+public class CustomAccessDecisionManager implements AccessDecisionManager {
 
-    private static final Logger logger = Logger.getLogger(CustomAccessDecisionManager.class);
+    private static final Logger log = Logger.getLogger(CustomAccessDecisionManager.class);
 
-    public CustomAccessDecisionManager(List<AccessDecisionVoter> decisionVoters) {
-        super(decisionVoters);
+    public void decide(Authentication authentication, Object filter, Collection<ConfigAttribute> configAttributes) throws AccessDeniedException, InsufficientAuthenticationException {
+        if (configAttributes == null) {
+            return;
+        }
+        //所请求的资源拥有的权限(一个URL资源对应多个角色)
+        Iterator<ConfigAttribute> iterator = configAttributes.iterator();
+        while (iterator.hasNext()) {
+            ConfigAttribute configAttribute = iterator.next();
+            //访问所请求资源所需要的权限
+            String needPermission = configAttribute.getAttribute();
+            //用户所拥有的权限authentication
+            for (GrantedAuthority ga : authentication.getAuthorities()) {
+                if (needPermission.equals(ga.getAuthority())) {
+                    return;
+                }
+            }
+        }
+        //没有权限
+        Employee employee = (Employee) authentication.getPrincipal();
+        String realname = employee.getRealname();
+        String requestResource = ((FilterInvocation) filter).getRequestUrl();
+        log.warn(realname+"没有权限访问资源: "+requestResource);
+        throw new AccessDeniedException(" 没有权限访问！ ");
     }
 
-    @Override
-    public void decide(Authentication authentication, Object filter, Collection<ConfigAttribute> configAttributes) throws AccessDeniedException, InsufficientAuthenticationException {
-        logger.debug("decide() run...");
-        //判断 filter 非空
-        if ((filter == null) || !this.supports(filter.getClass())) {
-            throw new IllegalArgumentException("Object must be a FilterInvocation");
-        }
+    public boolean supports(ConfigAttribute attribute) {
+        return true;
+    }
 
-        String url = ((FilterInvocation) filter).getRequestUrl();
-        logger.trace("url:" + url);
-
-        int deny = 0;
-        for (AccessDecisionVoter voter : getDecisionVoters()) {
-            deny = voter.vote(authentication, filter, configAttributes);
-        }
-        //根据 deny 取值进行判断
-        if (deny == AccessDecisionVoter.ACCESS_GRANTED) {
-            //判断当前用户是否获得此URL资源的授权
-            if (true) {
-                logger.debug("获得授权 URL:" + url);
-            }
-        } else if (deny < 0 || !isAllowIfAllAbstainDecisions()){
-            //未获得授权，URL 不放行
-            logger.debug("拒绝授权 URL:" + url);
-            throw new AccessDeniedException(messages.getMessage("AbstractAccessDecisionManager.accessDenied",
-                    "Access is denied"));
-        }
+    public boolean supports(Class<?> clazz) {
+        return true;
     }
 }

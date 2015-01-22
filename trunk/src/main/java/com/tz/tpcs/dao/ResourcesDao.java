@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Set;
+
 /**
  * ResourceDao 接口类
  * Created by Hu jing ling on 2015/1/19.
@@ -23,4 +25,10 @@ public interface ResourcesDao extends CrudRepository<Resources, String>, Resourc
             "where res.code =:code")
     Resources getResEager(@Param("code") String code);
 
+    /**
+     * 根据资源类型查询
+     * @param type
+     * @return
+     */
+    Set<Resources> getResByType(Resources.Type type);
 }
