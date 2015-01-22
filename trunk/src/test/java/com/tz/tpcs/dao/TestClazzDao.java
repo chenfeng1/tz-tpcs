@@ -3,6 +3,8 @@ package com.tz.tpcs.dao;
 import com.tz.tpcs.AppConfig;
 import com.tz.tpcs.dao.ClazzDao;
 import com.tz.tpcs.entity.Clazz;
+import com.tz.tpcs.web.form.Paging;
+
 import org.fluttercode.datafactory.impl.DataFactory;
 import org.junit.Assert;
 import org.junit.Before;
@@ -15,6 +17,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +33,16 @@ import java.util.List;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestClazzDao {
 
+	@PersistenceContext
+	private EntityManager em;
+
+	public void setEm(EntityManager em) {
+		this.em = em;
+	}
+	
     @Resource
     private ClazzDao clazzDao;
-
+    
     private Clazz clazz;
 
     @Before
@@ -51,7 +62,7 @@ public class TestClazzDao {
     public void test02update(){
         clazzDao.save(clazz);
         Clazz c = clazzDao.findOne(clazz.getId());
-        c.setStatus(Clazz.ClazzStatus.CLOSE);
+        c.setStatus(Clazz.ClazzStatus.PHASE1);
         clazzDao.save(c);
     }
 
@@ -73,4 +84,69 @@ public class TestClazzDao {
         }
         clazzDao.save(list);
     }
+
+    /**
+     * 查所有
+     */
+    @Test
+    public void testGetAll(){
+    	List<Clazz> list = clazzDao.getAllByCondition(null,null,null);
+    	System.out.println(list.size());
+    }
+    
+    
+    /**
+     * 多条件总条数
+     */
+    @Test
+    public void testPageSize(){
+    	Long count = clazzDao.getRowCount("JSD1312", null, null);
+    	System.out.println(count);
+    }
+    /**
+     * 分页多条件查询
+     */
+    @Test
+    public void testPage(){
+    	Paging p = clazzDao.getAll(null, null, null, 4, 2);
+    	List<Clazz> c = p.getClazzs();
+    	for (Clazz clazz : c) {
+			System.out.println(clazz);
+		}
+    }
+    
+    /**
+     * 根据ID来删除
+     */
+    @Test
+    public void testDel(){
+    	clazzDao.delById("f074e503-e7a7-479e-a11a-98b4a43025b6");
+    }
+    /**
+     * 根据ID来修改
+     */
+    @Test
+    public void testUpdate(){
+    	//Clazz clazz  = em.find(Clazz.class, "e4a7aba9-ccff-4550-a016-41a0d59e3932");
+    	Clazz clazz = clazzDao.findOne("e4a7aba9-ccff-4550-a016-41a0d59e3932");
+    	//Clazz clazz = new Clazz();
+    	//clazz.setId("e4a7aba9-ccff-4550-a016-41a0d59e3932");
+    	
+    	//clazz.setAdvisor("曹妍");
+    	clazz.setClaz_name("AAB");
+    	//clazz.setName("JSD1111");
+    	clazzDao.update(clazz);
+    	
+    }
+    
+    /**
+     * 根据ID来查询
+     */
+    @Test
+    public void testGetById(){
+    	Clazz c = clazzDao.findOne("e4a7aba9-ccff-4550-a016-41a0d59e3932");
+    	System.out.println(c);
+    	
+    }
+
 }
