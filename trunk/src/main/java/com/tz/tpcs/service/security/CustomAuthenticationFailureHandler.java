@@ -1,11 +1,12 @@
 package com.tz.tpcs.service.security;
 
-import com.tz.tpcs.dao.EmployeeDao;
 import com.tz.tpcs.entity.Employee;
+import com.tz.tpcs.service.EmployeeService;
 import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+import org.springframework.security.web.authentication.session.SessionAuthenticationException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.LocaleResolver;
 
@@ -28,9 +29,8 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
     public static final String USERNAME_ERR_MSG = "usernameErrMsg";
     public static final String PASSWORD_ERR_MSG = "passwordErrMsg";
 
-    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Resource
-    private EmployeeDao employeeDao;
+    private EmployeeService employeeService;
     @Resource
     private MessageSource messageSource;
     @Resource
@@ -43,7 +43,12 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
 
     //从 HttpServletRequest 获取用户名
     protected String obtainUsername(HttpServletRequest request) {
-        return request.getParameter(SPRING_SECURITY_FORM_USERNAME_KEY).trim();
+        String username = request.getParameter(SPRING_SECURITY_FORM_USERNAME_KEY);
+        if(username == null){
+            return "";
+        }else{
+            return username.trim();
+        }
     }
 
     private void addErrorMessage(HttpServletRequest request,String key, String message){
@@ -52,8 +57,8 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
 
     @Transactional
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-        String number = obtainUsername(request);
-        Employee employee = employeeDao.getSingleByProp("number", number);
+        String username = obtainUsername(request);
+        Employee employee = employeeService.findByPhoneNumberEmail(username);
 
         //默认密码输出错误次数
         if (maxLoginFailureCount == null) {
@@ -76,10 +81,10 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
                     employee.setAccountNonLocked(false);
                 }
                 employee.setLoginFailureCount(failureCount);
-                employeeDao.save(employee);
+                employeeService.update(employee);
                 String msg = "连续失败3次将会锁定账户";
                 if(failureCount>=3){
-                    msg = "账户已被锁定!";
+                    msg = "账号已锁定，请联系管理员!";
                 }
                 addErrorMessage(request, USERNAME_ERR_MSG, msg);
             }
@@ -96,8 +101,13 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
             addErrorMessage(request, USERNAME_ERR_MSG, "授权已过期");
         } else if(exception instanceof DisabledException){
             addErrorMessage(request, USERNAME_ERR_MSG, "账号已禁用，请联系管理员!");
+        } else if(exception instanceof SessionAuthenticationException) {
+            //addErrorMessage(request, USERNAME_ERR_MSG, "到达最大同时登录数");
+            addErrorMessage(request, USERNAME_ERR_MSG, "此账号正在使用中");
+        } else if(exception instanceof AuthenticationServiceException) {
+            addErrorMessage(request, USERNAME_ERR_MSG, "请通过表单登录");
         } else{
-            addErrorMessage(request, USERNAME_ERR_MSG, "未知错误，请联系管理员!");
+            addErrorMessage(request, USERNAME_ERR_MSG, exception.getMessage()+"，请联系管理员!");
         }
         super.onAuthenticationFailure(request, response, exception);
     }

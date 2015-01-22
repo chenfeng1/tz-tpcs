@@ -7,14 +7,16 @@ import com.tz.tpcs.entity.Employee;
  */
 public interface EmployeeService {
 
+    /**
+     * 更新功能
+     * @param employee
+     */
+    void update(Employee employee);
 
     /**
-     * 员工登录功能
-     * @deprecated 已在 {@link com.tz.tpcs.service.security.MyDetailsServiceImpl MyDetailsServiceImpl} 中实现
-     * @param str 可能是number、email、mobilePhone
-     * @param pass 密码
-     * @return 员工实例
+     * 根据 number、email、mobilePhone 查询员工
+     * @param str 可能是 手机号、员工号、邮箱
+     * @return 如果存在，返回员工实例；如果不存在，返回null
      */
-//    @Deprecated
-//    Employee login(String str, String pass);
+    Employee findByPhoneNumberEmail(String str);
 }

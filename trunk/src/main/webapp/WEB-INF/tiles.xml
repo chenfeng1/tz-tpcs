@@ -4,6 +4,7 @@
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 
+    <!-- 父布局 -->
     <definition name="baseLayout"
                 template="/WEB-INF/jsp/common/baseLayout.jsp">
         <put-attribute name="title" value="BaseHome" />
@@ -12,22 +13,11 @@
         <put-attribute name="footer" value="/WEB-INF/jsp/common/footer.jsp" />
     </definition>
 
-    <!--<definition name="login"
-                template="/login.jsp">
-    </definition>-->
-
-    <!-- <definition name="*.*" extends="baseLayout">
-        国际化 title
+    <!-- tiles3 COC 配置-->
+    <definition name="*.*" extends="baseLayout">
+        <!--国际化 title-->
         <put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}.jsp"/>
-    </definition> -->
-    <definition name="addClass" extends="baseLayout">
-    	<put-attribute name="body" value="/WEB-INF/jsp/clazz/add.jsp"  />
     </definition>
-    
-      <definition name="listClass" extends="baseLayout">
-    	<put-attribute name="body" value="/WEB-INF/jsp/clazz/list.jsp"  />
-    </definition>
-    
-    
+    <!--此文件已做 COC 配置，开发期间无需再修改!! -->
 
 </tiles-definitions>

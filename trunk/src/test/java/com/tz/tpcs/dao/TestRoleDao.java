@@ -27,10 +27,8 @@ public class TestRoleDao extends BaseTest {
 
     @Test
     public void test2(){
-        Role role = roleDao.getByCode("admin");
+        Role role = roleDao.findByCode("admin");
         System.out.println(role);
     }
-
-
 
 }

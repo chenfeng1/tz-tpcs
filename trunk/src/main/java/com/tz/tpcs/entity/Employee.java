@@ -27,7 +27,6 @@ public class Employee extends BaseEntity implements UserDetails {
     private String gender; //性别
     private Date birthDate; //生日
     private String email; //邮箱地址
-//    private String phone; //电话
     private String mobilePhone;//移动电话
     private String remark; //备注
     private Set<Role> roles; //角色集合
@@ -265,7 +264,6 @@ public class Employee extends BaseEntity implements UserDetails {
                 ", email='" + email + '\'' +
                 ", mobilePhone='" + mobilePhone + '\'' +
                 ", remark='" + remark + '\'' +
-                ", roles=" + roles +
                 ", accountNonExpired=" + accountNonExpired +
                 ", accountNonLocked=" + accountNonLocked +
                 ", credentialsNonExpired=" + credentialsNonExpired +
@@ -276,5 +274,21 @@ public class Employee extends BaseEntity implements UserDetails {
                 ", loginIp='" + loginIp + '\'' +
                 ", authorities=" + authorities +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object rhs) {
+        if (rhs instanceof Employee) {
+            return number.equals(((Employee) rhs).number);
+        }
+        return false;
+    }
+
+    /**
+     * Returns the hashcode of the {@code username}.
+     */
+    @Override
+    public int hashCode() {
+        return number.hashCode();
     }
 }

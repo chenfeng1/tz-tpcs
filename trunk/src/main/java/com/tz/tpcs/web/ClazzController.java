@@ -23,7 +23,7 @@ public class ClazzController {
     private ClazzDao clazzDao;
 
     @RequestMapping(value = "/", method= RequestMethod.GET)
-    public List<Clazz> list(){
+    public List<Clazz> listForJson(){
         List<Clazz> customerList = (List<Clazz>) clazzDao.findAll();
         return customerList;
     }
@@ -39,8 +39,8 @@ public class ClazzController {
      * @return
      */
     @RequestMapping(value = "/list", method= RequestMethod.GET)
-    public ModelAndView list2(){
-        return new ModelAndView("listClass");
+    public ModelAndView list(){
+        return new ModelAndView("clazz.list");
     }
 
     /**
@@ -49,7 +49,7 @@ public class ClazzController {
      */
     @RequestMapping(value = "/initAdd", method= RequestMethod.GET)
     public ModelAndView add(){
-        return new ModelAndView("addClass");
+        return new ModelAndView("clazz.add");
     }
 
 }

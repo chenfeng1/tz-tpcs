@@ -20,8 +20,8 @@ public class TestEmployeeService extends BaseTest{
     public void test1login(){
         String str = "EMP_001";
         String pass = "123";
-        Employee emp = employeeService.login(str, pass);
-        System.out.println(emp);
+//        Employee emp = employeeService.login(str, pass);
+//        System.out.println(emp);
     }
 
 }
