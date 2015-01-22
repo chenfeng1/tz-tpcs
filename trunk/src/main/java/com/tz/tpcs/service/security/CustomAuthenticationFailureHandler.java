@@ -7,6 +7,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+import org.springframework.security.web.authentication.session.SessionAuthenticationException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.LocaleResolver;
 
@@ -96,6 +97,8 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
             addErrorMessage(request, USERNAME_ERR_MSG, "授权已过期");
         } else if(exception instanceof DisabledException){
             addErrorMessage(request, USERNAME_ERR_MSG, "账号已禁用，请联系管理员!");
+        } else if(exception instanceof SessionAuthenticationException) {
+            addErrorMessage(request, USERNAME_ERR_MSG, "到达最大同时登录数!");
         } else{
             addErrorMessage(request, USERNAME_ERR_MSG, "未知错误，请联系管理员!");
         }

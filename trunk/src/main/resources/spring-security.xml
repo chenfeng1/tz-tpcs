@@ -12,7 +12,6 @@
 
     <context:annotation-config/>
 
-    <!-- url 访问权限 -->
     <security:http auto-config="true" use-expressions="true">
         <security:form-login
                     login-page="/initLogin"
@@ -34,33 +33,17 @@
         <security:intercept-url pattern="/**" access="isAuthenticated()"/>
         <!-- logout 跳转 url -->
         <security:logout invalidate-session="true" logout-success-url="/login.jsp"/>
-        <!-- session 控制 -->
-        <security:custom-filter position="CONCURRENT_SESSION_FILTER" ref="concurrencyFilter" />
 
         <security:session-management
                 session-authentication-error-url="/html/sessionAuthenticationError.html"
-                invalid-session-url="/initLogin"
-                session-authentication-strategy-ref="sas">
+                invalid-session-url="/initLogin">
+                <security:concurrency-control max-sessions="1"
+                                              error-if-maximum-exceeded="false"
+                                              session-registry-alias="sessionRegistry"/>
+                <!--max-sessions:最大同时登录数-->
+                <!--error-if-maximum-exceeded: true 新的登陆会失败,除非之前的登陆失效; false:新的登陆会踢掉之前的登陆-->
         </security:session-management>
     </security:http>
-
-    <!-- session 并发失效控制 -->
-    <beans:bean id="concurrencyFilter" class="org.springframework.security.web.session.ConcurrentSessionFilter">
-        <beans:property name="sessionRegistry" ref="sessionRegistry" />
-        <beans:property name="expiredUrl" value="/initLogin" />
-        <!--<beans:property name="logoutHandlers" ref="xx"/>-->
-    </beans:bean>
-    <!--sessionRegistry 实例,维护有关用户登录的 session 信息-->
-    <beans:bean id="sessionRegistry" class="org.springframework.security.core.session.SessionRegistryImpl" />
-    <!--session-authentication-strategy-->
-    <beans:bean id="sas" class="org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy">
-        <beans:constructor-arg name="sessionRegistry" ref="sessionRegistry" />
-        <!-- 单一登录 -->
-        <beans:property name="maximumSessions" value="1" />
-        <!--true:新的登陆会失败，除非之前的登陆失效 -->
-        <!--false:新的登陆会踢掉之前的登陆-->
-        <!--<beans:property name="exceptionIfMaximumExceeded" value="false"/>-->
-    </beans:bean>
 
     <!-- 后台管理权限认证 -->
     <security:authentication-manager alias="authenticationManager">
@@ -70,14 +53,14 @@
         </security:authentication-provider>
     </security:authentication-manager>
 
-    <!--自定义 Authentication Success Handler-->
+    <!-- 自定义认证成功逻辑  -->
     <beans:bean id="customAuthenticationSuccessHandler"
                 class="com.tz.tpcs.service.security.CustomAuthenticationSuccessHandler">
         <beans:property name="defaultTargetUrl" value="/loginSuccess"/>
         <beans:property name="alwaysUseDefaultTargetUrl" value="true"/>
     </beans:bean>
 
-    <!--自定义 Authentication Failure Handler-->
+    <!-- 自定义认证成功逻辑 -->
     <beans:bean id="customAuthenticationFailureHandler"
                 class="com.tz.tpcs.service.security.CustomAuthenticationFailureHandler">
         <!--错误提示页面-->
