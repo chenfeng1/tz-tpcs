@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * 班级 实体类
- *
+ * 
  * @author 胡荆陵
  * @version 1.0
  * @since 2015-01-14
@@ -14,80 +14,116 @@ import java.util.Date;
 @Table(name = "clz_clazz")
 public class Clazz extends BaseEntity {
 
-    //课程阶段枚举
-    public enum ClazzStatus {
-        TRAINING, //训练营
-        SE,  //javase
-        DB, //java db
-        WEB, //javaweb
-        FRAMEWORK, //框架
-        CLOSE //毕业
-//        第1阶段, todo
-//        第2阶段,
-//        第3阶段,
-    }
+	// 课程阶段枚举
+	public enum ClazzStatus {
+		// TRAINING, //训练营
+		// SE, //javase
+		// DB, //java db
+		// WEB, //javaweb
+		// FRAMEWORK, //框架
+		// CLOSE //毕业
+		PHASE1, // 第一阶段
+		PHASE2, PHASE3, PHASE4
+	}
 
-    private String name; //班级名
-    private Date open; //开班日期
-    private Date close; //毕业时间
-    private String advisor; //班主任
-    private ClazzStatus status; //状态
+	private String name; // 班级名
+	private Date open; // 开班日期
+	private Date close; // 毕业时间
+	private String advisor; // 班主任
+	private ClazzStatus status; // 状态
+	private Integer count;// 开班人数
+	private Date training_date;// 训练营日期
+	private String lector;// 讲师名
+	private String claz_name;// 所在教室
 
-    public Clazz() {
-    }
+	public Clazz() {
+	}
+	
+	@Column
+	public Integer getCount() {
+		return count;
+	}
 
-    @Column(name = "clazz_name", unique = true, nullable = false)
-    public String getName() {
-        return name;
-    }
+	public void setCount(Integer count) {
+		this.count = count;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	@Column
+	public Date getTraining_date() {
+		return training_date;
+	}
 
-    @Temporal(TemporalType.DATE)
-    public Date getOpen() {
-        return open;
-    }
+	public void setTraining_date(Date training_date) {
+		this.training_date = training_date;
+	}
 
-    public void setOpen(Date open) {
-        this.open = open;
-    }
+	@Column
+	public String getLector() {
+		return lector;
+	}
 
-    @Temporal(TemporalType.DATE)
-    public Date getClose() {
-        return close;
-    }
+	public void setLector(String lector) {
+		this.lector = lector;
+	}
 
-    public void setClose(Date close) {
-        this.close = close;
-    }
+	@Column
+	public String getClaz_name() {
+		return claz_name;
+	}
 
-    public String getAdvisor() {
-        return advisor;
-    }
+	public void setClaz_name(String claz_name) {
+		this.claz_name = claz_name;
+	}
 
-    public void setAdvisor(String advisor) {
-        this.advisor = advisor;
-    }
+	@Column(name = "clazz_name", unique = true, nullable = false)
+	public String getName() {
+		return name;
+	}
 
-    @Enumerated(EnumType.STRING)
-    public ClazzStatus getStatus() {
-        return status;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setStatus(ClazzStatus status) {
-        this.status = status;
-    }
+	@Temporal(TemporalType.DATE)
+	public Date getOpen() {
+		return open;
+	}
 
-    @Override
-    public String toString() {
-        return "Clazz{" +
-                "name='" + name + '\'' +
-                ", open=" + open +
-                ", close=" + close +
-                ", advisor=" + advisor +
-                ", status=" + status +
-                '}';
-    }
+	public void setOpen(Date open) {
+		this.open = open;
+	}
+
+	@Temporal(TemporalType.DATE)
+	public Date getClose() {
+		return close;
+	}
+
+	public void setClose(Date close) {
+		this.close = close;
+	}
+
+	@Column
+	public String getAdvisor() {
+		return advisor;
+	}
+
+	public void setAdvisor(String advisor) {
+		this.advisor = advisor;
+	}
+
+	@Enumerated(EnumType.STRING)
+	public ClazzStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(ClazzStatus status) {
+		this.status = status;
+	}
+
+	@Override
+	public String toString() {
+		return "Clazz{" + "name='" + name + '\'' + ", open=" + open
+				+ ", close=" + close + ", advisor=" + advisor + ", status="
+				+ status + '}';
+	}
 }

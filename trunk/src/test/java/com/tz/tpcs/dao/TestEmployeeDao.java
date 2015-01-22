@@ -19,10 +19,10 @@ public class TestEmployeeDao extends BaseTest{
     @Test
     public void test01Save(){
         Employee employee = new Employee();
-        employee.setNumber("EMP_002");
+        employee.setNumber("EMP_001");
         employee.setEmail("user2@website.com");
         employee.setMobilePhone("15812345678");
-        employee.setPassword("234");
+        employee.setPassword("123");
         employeeDao.save(employee);
     }
 
@@ -49,5 +49,4 @@ public class TestEmployeeDao extends BaseTest{
         Employee emp = employeeDao.findSingleByProp(prop, value);
         System.out.println(emp);
     }
-
 }
