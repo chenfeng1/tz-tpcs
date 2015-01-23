@@ -1,6 +1,7 @@
 package com.tz.tpcs.dao;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -12,6 +13,7 @@ import org.junit.Test;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import com.tz.tpcs.entity.Clazz;
+import com.tz.tpcs.entity.ProjectCase;
 import com.tz.tpcs.web.form.Paging;
 
 /**
@@ -23,6 +25,23 @@ public class TestClazzDao extends BaseTest{
     @SuppressWarnings("SpringJavaAutowiringInspection")
     @Resource
     private ClazzDao clazzDao;
+    
+    @Resource
+    private ProjectCaseDao projectCaseDao;
+    
+    @Test
+    public void test(){
+    	System.out.println(projectCaseDao);
+		ProjectCase p1 = new ProjectCase();
+		p1.setCreateDate(new Date());
+		p1.setModifyDate(new Date());
+		p1.setVersion(1);
+		p1.setCode("book001");
+		p1.setDesc("完成CRUD");
+		p1.setName("在线书城");
+		p1.setSnapshot("/images/001.png");
+		projectCaseDao.save(p1);
+    }
     
     private Clazz clazz;
 
@@ -55,9 +74,10 @@ public class TestClazzDao extends BaseTest{
 
     @Test
     public void test04batchSave(){
+    	System.out.println(clazzDao+"---");
         DataFactory df = new DataFactory();
         List<Clazz> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 11; i < 20; i++) {
             Clazz c = new Clazz();
             c.setName("JSD" + df.getNumberBetween(1000, 9999));
             c.setOpen(df.getBirthDate());
@@ -81,7 +101,7 @@ public class TestClazzDao extends BaseTest{
      */
     @Test
     public void testPageSize(){
-    	Long count = clazzDao.getRowCount("JSD1312", null, null);
+    	Long count = clazzDao.getRowCount(null, null, null);
     	System.out.println(count);
     }
     /**

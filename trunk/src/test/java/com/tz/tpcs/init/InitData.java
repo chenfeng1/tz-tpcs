@@ -2,9 +2,11 @@ package com.tz.tpcs.init;
 
 import com.tz.WebAppConfig;
 import com.tz.tpcs.dao.EmployeeDao;
+import com.tz.tpcs.dao.ProjectCaseDao;
 import com.tz.tpcs.dao.ResourcesDao;
 import com.tz.tpcs.dao.RoleDao;
 import com.tz.tpcs.entity.Employee;
+import com.tz.tpcs.entity.ProjectCase;
 import com.tz.tpcs.entity.Resources;
 import com.tz.tpcs.entity.Resources.Type;
 import com.tz.tpcs.entity.Role;
@@ -20,6 +22,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,6 +37,9 @@ import java.util.List;
 @SuppressWarnings("SpringJavaAutowiringInspection")
 public class InitData {
 
+	@Resource
+	private ProjectCaseDao projectCaseDao;
+	
     @Resource
     private ResourcesDao resourcesDao;
     @Resource
@@ -191,4 +197,17 @@ public class InitData {
         employeeDao.save(emp4);
     }
 
+    @Test
+	public void test01Save(){
+		System.out.println(projectCaseDao);
+		ProjectCase p1 = new ProjectCase();
+		p1.setCreateDate(new Date());
+		p1.setModifyDate(new Date());
+	     p1.setVersion(1);
+		p1.setCode("book002");
+		p1.setDesc("完成CRUD");
+		p1.setName("万商");
+		p1.setSnapshot("/images/002.png");
+		projectCaseDao.save(p1);
+	}
 }

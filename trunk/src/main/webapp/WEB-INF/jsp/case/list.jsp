@@ -3,106 +3,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <script src="${path }/js/jquery-1.9.1.min.js" type="text/javascript"></script>
 <script type="text/javascript">
-	function transfer(cid,name,claz_name,open,count,advider,trainner_date,lector){
-		$("#hid").val(cid);
-		$("#classname").val(name);
-		$("#classroom").val(claz_name);
-		$("#open_date").val(open);
-		$("#class_students").val(count);
-		$("#class_adviser").val(advider);
-		$("#trainer_date").val(trainner_date);
-		$("#teachername").val(lector);
-	}
-	function update(){
-		document.getElementById("myClassForm").action = "${path}/clazz/update";
-		document.getElementById("myClassForm").submit();
-	}
-	function go(){
-		var name = $("#cname").val();
-		var min = $("#min_nums").val();
-		var max = $("#max_nums").val();
-		var v = $("#pageSize").val();
-		window.location="${path}/clazz/list?pageSize="+v+"&name="+name+"&min="+min+"&max="+max;
-	}
-	function next(){
-		var name = $("#cname").val();
-		var min = $("#min_nums").val();
-		var max = $("#max_nums").val();
-		var size = $("#pageSize").val();
-		$("#next").attr("href","${path }/clazz/list?pageNow=${paging.pageNow+1}&name="+name+"&min="+min+"&max="+max+"&pageSize="+size);
-	}
-	function next2(){
-		var name = $("#cname").val();
-		var min = $("#min_nums").val();
-		var max = $("#max_nums").val();
-		var size = $("#pageSize").val();
-		$("#next2").attr("href","${path }/clazz/list?pageNow=${paging.pageCount}&name="+name+"&min="+min+"&max="+max+"&pageSize="+size);
-	}
-	function back(){
-		var name = $("#cname").val();
-		var min = $("#min_nums").val();
-		var max = $("#max_nums").val();
-		var size = $("#pageSize").val();
-		$("#up").attr("href","${path }/clazz/list?pageNow=${paging.pageNow-1}&name="+name+"&min="+min+"&max="+max+"&pageSize="+size);
-	}
-	function back2(){
-		var name = $("#cname").val();
-		var min = $("#min_nums").val();
-		var max = $("#max_nums").val();
-		var size = $("#pageSize").val();
-		$("#up2").attr("href","${path }/clazz/list?pageNow=1&name="+name+"&min="+min+"&max="+max+"&pageSize="+size);
-	}
-	function goNext(obj){
-		var name = $("#cname").val();
-		var min = $("#min_nums").val();
-		var max = $("#max_nums").val();
-		var size = $("#pageSize").val();
-		var pageNow = obj.id;
-		
-		window.location="${path }/clazz/list?pageNow="+pageNow+"&name="+name+"&min="+min+"&max="+max+"&pageSize="+size;
-	}
 	
-	function goNext2(obj){
-		var name = $("#cname").val();
-		var min = $("#min_nums").val();
-		var max = $("#max_nums").val();
-		var size = $("#pageSize").val();
-		var pageNow = obj.id;
-		window.location="${path }/clazz/list?pageNow="+pageNow+"&name="+name+"&min="+min+"&max="+max+"&pageSize="+size;
-	}
-	
-	function del(obj){
-	//	alert(obj.id);
-		if(confirm("是否确定删除?")){
-			var v = obj.id;
-			$("#"+v).remove();
-			window.location="${path }/clazz/del?cid="+obj.id;
-			
-		}else{
-			return false;
-		}
-	}
 </script>
 
 <div class="container">
     <!-- 查询区 -->
-    <form class="form-horizontal" role="form" action="${path }/clazz/list" method="get">
+    <form class="form-horizontal" role="form" action="" method="get">
         <div class="form-group">
-            <label for="cname" class="col-md-1 control-label">班级名：</label>
+            <label for="cname" class="col-md-1 control-label">项目名：</label>
 
             <div class="col-md-2">
-                <input type="text" id="cname" class="form-control" placeholder="查询班级名" name="name" value="${name }"/>
+                <input type="text" id="cname" class="form-control" placeholder="查询班级名" name="name" value=""/>
             </div>
-            <label for="min_nums" class="col-md-2 control-label">开班人数：</label>
-
-            <div class="col-md-2">
-                <input type="text" id="min_nums" class="form-control" placeholder="最少人数" name="min" value="${min }"/>
-            </div>
-            <label for="max_nums" class="col-md-1 control-label">至：</label>
-
-            <div class="col-md-2">
-                <input type="text" id="max_nums" class="form-control" placeholder="最多人数" name="max" value="${max }"/>
-            </div>
+           
             <div class="col-md-2">
                 <button type="submit" class="btn btn-primary">
                     <span class="glyphicon glyphicon-search"></span>
@@ -140,7 +53,7 @@
                     <div class="form-group">
                         <label for="classname" class="col-md-2 control-label">开班日期</label>
                         <div class="col-md-5">
-                            <input type="date" id="open_date" name="open_date" class="form-control" value=""/>
+                            <input type="date" id="open_date" name="open_date" class="form-control" placeholder="2015-01-27"/>
                         </div>
                         <div class="col-md-5" id="open_date_id"></div>
                     </div>
@@ -162,7 +75,7 @@
                     <div class="form-group">
                         <label for="trainer_date" class="col-md-2 control-label">训练营日</label>
                         <div class="col-md-5">
-                            <input type="date" id="trainer_date" name="tdate" class="form-control" value=""/>
+                            <input type="date" id="trainer_date" name="tdate" class="form-control" placeholder="2015-01-18"/>
                         </div>
                         <div class="col-md-5" id="trainer_date_id"></div>
                     </div>
@@ -200,33 +113,16 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>班级名</th>
-                    <th>所在教室</th>
-                    <th>开班时间</th>
-                    <th>开班人数</th>
-                    <th>班主任</th>
-                    <th>训练营日期</th>
-                    <th>训练营讲师</th>
-                    <th>操作</th>
+                    <th>项目代码</th>
+                    <th>项目名</th>
+                    <th>创建日期</th>
+                    <th>版本</th>
+                    <th>项目描述</th>
+                    <th>项目截图</th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="list" items="${clazzList }" varStatus="v">
-                	<tr id="${list.id }">
-                		<td>${v.count }</td>
-                        <td>${list.name }</td>
-                		<td>${list.claz_name }</td>
-                		<td><fmt:formatDate value="${list.open }" type="date"></fmt:formatDate></td>
-                		<td>${list.count }</td>
-                		<td>${list.advisor}</td>
-                		<td><fmt:formatDate value="${list.training_date }" type="date"></fmt:formatDate></td>
-                		<td>${list.lector }</td>
-                		<td>
-                        	<a href="" class="label label-default" data-toggle="modal" data-target="#myClassModal" onclick="transfer('${list.id }','${list.name}','${list.claz_name }','${list.open }','${list.count }','${list.advisor}','${list.training_date }','${list.lector }')"><span class="glyphicon glyphicon-refresh"></span></a>&nbsp;
-                       	 	<a id=${list.id } onclick="del(this)" class="label label-danger"><span class="glyphicon glyphicon-trash"></span></a>&nbsp;
-                    	</td>
-                	</tr>
-                </c:forEach>
+                	
                 </tbody>
             </table>
         </div>
