@@ -12,7 +12,7 @@ import javax.persistence.Table;
  * @since 2015-01-14
  */
 @Entity
-@Table(name = "cse_case")
+@Table(name = "project_case")
 public class ProjectCase extends BaseEntity {
 
     private String code; //代码

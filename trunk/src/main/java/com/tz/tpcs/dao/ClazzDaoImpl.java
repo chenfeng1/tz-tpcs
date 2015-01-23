@@ -31,6 +31,7 @@ public class ClazzDaoImpl implements ClazzDaoCustom {
 		this.em = em;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Clazz> getAllByCondition(String name, Integer min, Integer max) {
 		StringBuilder hql = new StringBuilder(
@@ -94,6 +95,7 @@ public class ClazzDaoImpl implements ClazzDaoCustom {
 		paging.setPageCount(pageCount);
 		paging.setPageNow(pageNow);
 		paging.setPageSize(pageSize);
+		@SuppressWarnings("unchecked")
 		List<Clazz> list = em.createQuery(hql.toString()).setFirstResult(pageSize*(pageNow-1)).setMaxResults(pageSize).getResultList();
 		paging.setClazzs(list);
 		return paging;

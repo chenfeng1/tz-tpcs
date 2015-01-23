@@ -2,6 +2,7 @@ package com.tz.tpcs.service;
 
 import com.tz.tpcs.dao.EmployeeDao;
 import com.tz.tpcs.dao.ResourcesDao;
+import com.tz.tpcs.dao.RoleDao;
 import com.tz.tpcs.entity.Employee;
 import com.tz.tpcs.entity.Resources;
 import com.tz.tpcs.entity.Role;
@@ -14,7 +15,10 @@ import javax.transaction.Transactional;
 import java.util.*;
 
 /**
- * Created by Hu Jing Ling on 2015/1/20.
+ * ResourcesService 实现类
+ * @author Hu Jing Ling
+ * @since 2015/1/20
+ * @version 1.0
  */
 @Service
 @Transactional
@@ -25,6 +29,8 @@ public class ResourcesServiceImpl implements ResourcesService {
 
     @Resource
     private ResourcesDao resourcesDao;
+    @Resource
+    private RoleDao roleDao;
     @Resource
     private EmployeeDao employeeDao;
 
@@ -47,11 +53,9 @@ public class ResourcesServiceImpl implements ResourcesService {
     public Set<Resources> findResByEmployeeId(String employeeId) {
         //1.初始化 TreeSet
         //按照 Resources 的 seq 属性排序
-        Set<Resources> resourcesSet = new TreeSet<>(new Comparator(){
+        Set<Resources> resourcesSet = new TreeSet<>(new Comparator<Resources>(){
             @Override
-            public int compare(Object o1, Object o2) {
-                Resources res1 = (Resources) o1;
-                Resources res2 = (Resources) o2;
+            public int compare(Resources res1, Resources res2) {
                 if(res1.getSeq() == res2.getSeq()){
                     return 0;
                 }else{
@@ -75,6 +79,21 @@ public class ResourcesServiceImpl implements ResourcesService {
         }
 
         return resourcesSet;
+    }
+
+    @Override
+    public Map<String, Set<String>> getRes2RoleMap() {
+        //初始化返回值
+        Map<String, Set<String>> map = new HashMap<>();
+        //获得所有 URL 类型资源
+        Set<Resources> resourcesSet = resourcesDao.getResByType(Resources.Type.URL);
+        for(Resources res : resourcesSet){
+            //查询匹配资源的角色
+            List<String> list = roleDao.findCodesByResValue(res.getValue());
+            //存入map
+            map.put(res.getValue(), new HashSet<String>(list));
+        }
+        return map;
     }
 
 }

@@ -16,6 +16,8 @@
     <!-- tiles3 COC 配置-->
     <definition name="*.*" extends="baseLayout">
         <!--国际化 title-->
+        <put-attribute name="title"  value="i18n.title.{1}.{2}"/>
+        <!--替换主题部分-->
         <put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}.jsp"/>
     </definition>
     <!--此文件已做 COC 配置，开发期间无需再修改!! -->

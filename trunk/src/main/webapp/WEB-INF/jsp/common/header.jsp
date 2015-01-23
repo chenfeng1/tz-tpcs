@@ -11,12 +11,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="javascript:void(0);">TPCS[要换成一个图标]</a>
+            <a class="navbar-brand" href="javascript:void(0);" style="padding-top: 0px;">
+                <img src="${path}/images/LOGO-b.png"/>
+            </a>
         </div>
 
         <div class="navbar-collapse collapse" id="mynav">
             <ul class="nav navbar-nav">
-                <li><a href="#">主页</a></li>
+                <li><a href="${path}/">首页</a></li>
                 <%--迭代第1级菜单--%>
                 <c:forEach items="${sessionScope.loginUserResources}" var="res" varStatus="stat">
                     <!-- 下接菜单: 班级 -->
@@ -78,14 +80,12 @@
     <!-- 菜单提示栏 -->
     <div class="panel panel-default">
         <!-- 里面的值需要通过JS来操作，它的值是根据当前的菜单来定的 -->
-        <div class="panel-heading">
-            <%--toReplace 测试区域，使用后注释--%>
-            <%--<div style="background-color: #ffff00">测试区域 a:${sessionScope.loginUser.number} , b:${sessionScope.loginUserResources}</div>--%>
-            首页&nbsp;
-            <span class="glyphicon glyphicon-arrow-right"></span>&nbsp;
-            <span id="module">班级</span>&nbsp;
-            <span class="glyphicon glyphicon-arrow-right"></span>&nbsp;
-            <span id="function">班级列表</span>&nbsp;
+        <div class="panel-heading" id="breadcrumbBar">
+            <span>当前位置:</span>
+            <%-- breadcrumb 是基于 jQuery 实现的导航栏 --%>
+            <span id="breadcrumb"></span>
         </div>
     </div>
 </div>
+
+<script type="text/javascript" src="${path}/js-prj/breadcrumb.js"></script>

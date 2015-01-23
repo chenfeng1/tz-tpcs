@@ -1,17 +1,17 @@
 package com.tz.tpcs.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * 学员 实体类
- *
  * @author 胡荆陵
  * @version 1.0
  * @since 2015-01-14
+ *
+ * 2015-01-23 add by 胡荆陵:
+ * 考虑到后期市场部的使用需求，
+ * 追加原 CRM 系统中，Customer 实体类的主要属性
  */
 @Entity
 @Table(name = "stu_student")
@@ -19,14 +19,14 @@ public class Student extends BaseEntity{
 
     private String number; //学号（登录）
     private String realname; //姓名
-    private String password; //密码
+    private String password; //密码 ，用于后期的学员登录页面
     private String image; //头像
-    private String gender; //性别
+    private Gender gender; //性别
     private Date birthDate; //生日
     private String email; //邮箱地址
     private String phone; //电话
     private String bakPhone; //备用电话
-    private String identityCard; //身份证
+    private String identityCard; //身份证号
     private String province; //省份
     private String city; //城市
     private String currentLoc; //当前所在地
@@ -35,10 +35,10 @@ public class Student extends BaseEntity{
     private String major; //专业
     private String degree; //学历
     private Date graduationDate; //毕业时间
-    private int workingYears; //工作年限
+    private int workingYears; //已有工作年限
     private double paid; //已交费用
     private String feeType; //学费类型
-    private String source; //渠道
+    private Source source; //渠道来源
     private String emergencyContact; //紧急联系人
     private String emergencyPhone; //紧急联系电话
     private boolean needDesign; //是否需要毕设
@@ -47,21 +47,60 @@ public class Student extends BaseEntity{
     private double initialScore = 100;      //初始分值，为100分
     private double currentScore;      //当前分值
     private Clazz clazz;  //所在班级
-    private int status = 1; //状态，　１表示正常[默认值]，０表示禁用
     private String remark;  //备注
     private String qq; //qq号码
+
+    //2015-01-23 add by 胡荆陵 start
+    public enum Status{
+        UNSIGNED,//未签约
+        SEA,//公海
+        UNSIGNED_YICHUSHI,//已初试
+        UNSIGNED_YIFUSHI,//已复试
+        SIGNED,//服务中签约
+        SIGNED_LEAVE//签约后离开
+    }
+
+    public enum Source{
+        VISIT, //上门拜访
+        WEB_SEARCH, //网络搜索
+        YELLOW_PAGE,  //企业黄页
+        INTRODUCE,  //转介绍
+        WALK_IN    //客户来访
+    }
+
+    public enum Level {
+        ONE,    //★
+        TWO,    //★★
+        THREE,  //★★★
+        FOUR,  //★★★★
+        FIVE,  //★★★★★
+    }
+
+    private String address; //联系地址1
+    private String address2; //联系地址2
+    private Level level; //成熟度 (用于未签约的学员)
+    private Employee owner;// 学员所属的服务专员 (这个学员是由市场部哪个人招的)
+    private Status status;//状态
+
+    //目前不需要，后期可能需要的部分
+//    private Set<VisitRecord> visitRecodeSet;//拜访记录
+
+    //2015-01-23 add by 胡荆陵 end
 
     public Student() {
     }
 
-    public int getStatus() {
+    @Enumerated(EnumType.STRING)
+    @Column(name = "stu_status", nullable = false)
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
+    @Column(name = "stu_qq")
     public String getQq() {
         return qq;
     }
@@ -70,6 +109,7 @@ public class Student extends BaseEntity{
         this.qq = qq;
     }
 
+    @Column(name = "stu_remark")
     public String getRemark() {
         return remark;
     }
@@ -79,6 +119,7 @@ public class Student extends BaseEntity{
     }
 
     @ManyToOne
+    @JoinColumn(name = "clazz_id")
     public Clazz getClazz() {
         return clazz;
     }
@@ -87,6 +128,7 @@ public class Student extends BaseEntity{
         this.clazz = clazz;
     }
 
+    @Column(name = "stu_initial_score")
     public double getInitialScore() {
         return initialScore;
     }
@@ -95,6 +137,7 @@ public class Student extends BaseEntity{
         this.initialScore = initialScore;
     }
 
+    @Column(name = "stu_current_score")
     public double getCurrentScore() {
         return currentScore;
     }
@@ -103,7 +146,7 @@ public class Student extends BaseEntity{
         this.currentScore = currentScore;
     }
 
-    @Column(name = "s_num")
+    @Column(name = "stu_number")
     public String getNumber() {
         return number;
     }
@@ -112,6 +155,7 @@ public class Student extends BaseEntity{
         this.number = number;
     }
 
+    @Column(name = "stu_password")
     public String getPassword() {
         return password;
     }
@@ -120,6 +164,7 @@ public class Student extends BaseEntity{
         this.password = password;
     }
 
+    @Column(name = "stu_realname", nullable = false)
     public String getRealname() {
         return realname;
     }
@@ -128,6 +173,7 @@ public class Student extends BaseEntity{
         this.realname = realname;
     }
 
+    @Column(name = "stu_image")
     public String getImage() {
         return image;
     }
@@ -136,14 +182,18 @@ public class Student extends BaseEntity{
         this.image = image;
     }
 
-    public String getGender() {
+    @Enumerated(EnumType.STRING)
+    @Column(name = "stu_gender")
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 
+    @Temporal(TemporalType.DATE)
+    @Column(name = "stu_birth_date")
     public Date getBirthDate() {
         return birthDate;
     }
@@ -152,6 +202,7 @@ public class Student extends BaseEntity{
         this.birthDate = birthDate;
     }
 
+    @Column(name = "stu_email")
     public String getEmail() {
         return email;
     }
@@ -160,6 +211,7 @@ public class Student extends BaseEntity{
         this.email = email;
     }
 
+    @Column(name = "stu_phone")
     public String getPhone() {
         return phone;
     }
@@ -168,6 +220,7 @@ public class Student extends BaseEntity{
         this.phone = phone;
     }
 
+    @Column(name = "stu_bakPhone")
     public String getBakPhone() {
         return bakPhone;
     }
@@ -176,6 +229,7 @@ public class Student extends BaseEntity{
         this.bakPhone = bakPhone;
     }
 
+    @Column(name = "stu_idCard")
     public String getIdentityCard() {
         return identityCard;
     }
@@ -184,6 +238,7 @@ public class Student extends BaseEntity{
         this.identityCard = identityCard;
     }
 
+    @Column(name = "stu_province")
     public String getProvince() {
         return province;
     }
@@ -192,6 +247,7 @@ public class Student extends BaseEntity{
         this.province = province;
     }
 
+    @Column(name = "stu_city")
     public String getCity() {
         return city;
     }
@@ -200,6 +256,7 @@ public class Student extends BaseEntity{
         this.city = city;
     }
 
+    @Column(name = "stu_current_loc")
     public String getCurrentLoc() {
         return currentLoc;
     }
@@ -208,6 +265,7 @@ public class Student extends BaseEntity{
         this.currentLoc = currentLoc;
     }
 
+    @Column(name = "stu_work_loc")
     public String getWorkLoc() {
         return workLoc;
     }
@@ -216,6 +274,7 @@ public class Student extends BaseEntity{
         this.workLoc = workLoc;
     }
 
+    @Column(name = "stu_school", nullable = false)
     public String getSchool() {
         return school;
     }
@@ -224,6 +283,7 @@ public class Student extends BaseEntity{
         this.school = school;
     }
 
+    @Column(name = "stu_major", nullable = false)
     public String getMajor() {
         return major;
     }
@@ -232,6 +292,7 @@ public class Student extends BaseEntity{
         this.major = major;
     }
 
+    @Column(name = "stu_degree")
     public String getDegree() {
         return degree;
     }
@@ -240,6 +301,8 @@ public class Student extends BaseEntity{
         this.degree = degree;
     }
 
+    @Temporal(TemporalType.DATE)
+    @Column(name = "stu_graduation_date")
     public Date getGraduationDate() {
         return graduationDate;
     }
@@ -248,6 +311,7 @@ public class Student extends BaseEntity{
         this.graduationDate = graduationDate;
     }
 
+    @Column(name = "stu_working_years")
     public int getWorkingYears() {
         return workingYears;
     }
@@ -256,6 +320,7 @@ public class Student extends BaseEntity{
         this.workingYears = workingYears;
     }
 
+    @Column(name = "stu_paid")
     public double getPaid() {
         return paid;
     }
@@ -264,6 +329,7 @@ public class Student extends BaseEntity{
         this.paid = paid;
     }
 
+    @Column(name = "stu_fee_type")
     public String getFeeType() {
         return feeType;
     }
@@ -272,15 +338,18 @@ public class Student extends BaseEntity{
         this.feeType = feeType;
     }
 
-    @Column(name = "s_source")
-    public String getSource() {
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "stu_source")
+    public Source getSource() {
         return source;
     }
 
-    public void setSource(String source) {
+    public void setSource(Source source) {
         this.source = source;
     }
 
+    @Column(name = "stu_emergency_contact")
     public String getEmergencyContact() {
         return emergencyContact;
     }
@@ -289,6 +358,7 @@ public class Student extends BaseEntity{
         this.emergencyContact = emergencyContact;
     }
 
+    @Column(name = "stu_emergency_phone")
     public String getEmergencyPhone() {
         return emergencyPhone;
     }
@@ -297,6 +367,7 @@ public class Student extends BaseEntity{
         this.emergencyPhone = emergencyPhone;
     }
 
+    @Column(name = "stu_need_design")
     public boolean isNeedDesign() {
         return needDesign;
     }
@@ -305,6 +376,7 @@ public class Student extends BaseEntity{
         this.needDesign = needDesign;
     }
 
+    @Column(name = "stu_design_date")
     public Date getDesignDate() {
         return designDate;
     }
@@ -313,14 +385,50 @@ public class Student extends BaseEntity{
         this.designDate = designDate;
     }
 
+    @Column(name = "stu_address")
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    @Column(name = "stu_address2")
+    public String getAddress2() {
+        return address2;
+    }
+
+    public void setAddress2(String address2) {
+        this.address2 = address2;
+    }
+
+    @Column(name = "stu_level")
+    public Level getLevel() {
+        return level;
+    }
+
+    public void setLevel(Level level) {
+        this.level = level;
+    }
+
+    @Column(name = "stu_owner")
+    public Employee getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Employee owner) {
+        this.owner = owner;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
                 "number='" + number + '\'' +
-                ", password='" + password + '\'' +
                 ", realname='" + realname + '\'' +
+                ", password='" + password + '\'' +
                 ", image='" + image + '\'' +
-                ", gender='" + gender + '\'' +
+                ", gender=" + gender +
                 ", birthDate=" + birthDate +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
@@ -337,11 +445,21 @@ public class Student extends BaseEntity{
                 ", workingYears=" + workingYears +
                 ", paid=" + paid +
                 ", feeType='" + feeType + '\'' +
-                ", source='" + source + '\'' +
+                ", source=" + source +
                 ", emergencyContact='" + emergencyContact + '\'' +
                 ", emergencyPhone='" + emergencyPhone + '\'' +
                 ", needDesign=" + needDesign +
                 ", designDate=" + designDate +
+                ", initialScore=" + initialScore +
+                ", currentScore=" + currentScore +
+                ", clazz=" + clazz +
+                ", remark='" + remark + '\'' +
+                ", qq='" + qq + '\'' +
+                ", address='" + address + '\'' +
+                ", address2='" + address2 + '\'' +
+                ", level=" + level +
+                ", owner=" + owner +
+                ", status=" + status +
                 '}';
     }
 }

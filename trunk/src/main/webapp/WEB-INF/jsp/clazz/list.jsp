@@ -1,7 +1,6 @@
 <%@ page pageEncoding="utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<script src="${path }/js/jquery-1.9.1.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 	function transfer(cid,name,claz_name,open,count,advider,trainner_date,lector){
 		$("#hid").val(cid);

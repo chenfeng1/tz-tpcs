@@ -5,6 +5,10 @@ import org.junit.Test;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Hu Jing Ling on 2015/1/20.
@@ -15,6 +19,9 @@ public class TestRoleDao extends BaseTest {
     @SuppressWarnings("SpringJavaAutowiringInspection")
     @Resource
     private RoleDao roleDao;
+
+    @Resource
+    private EntityManager em;
 
     @Test
     public void test1(){
@@ -29,6 +36,16 @@ public class TestRoleDao extends BaseTest {
     public void test2(){
         Role role = roleDao.findByCode("admin");
         System.out.println(role);
+    }
+
+    @Test
+    public void test3(){
+        //1.
+        String value = "/clazz/list";
+        //2.
+        List<String> list = roleDao.findCodesByResValue(value);
+        //3.
+        System.out.println(list);
     }
 
 }
