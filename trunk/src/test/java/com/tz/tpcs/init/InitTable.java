@@ -15,7 +15,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Date;
 
 /**
  * 自动创建数据库表结构
@@ -36,9 +35,6 @@ public class InitTable {
         SchemaExport schemaExport = new SchemaExport(cfg);
 //        schemaExport.create(true, false);
         schemaExport.create(true, true);
-        Date date = new Date();
-        date.toLocaleString();
-        date.toGMTString();
     }
 
 }

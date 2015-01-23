@@ -18,10 +18,10 @@ import java.io.IOException;
 import java.util.Locale;
 
 /**
- * @author : Hu jing ling
- * @since : 2013-7-2
  * 自定义 Authentication Failure Handler类
  * 写登录失败的逻辑
+ * @author : Hu jing ling
+ * @since : 2013-7-2
  */
 public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 

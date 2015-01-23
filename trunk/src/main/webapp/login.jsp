@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 指定页面显示的图标 -->
-    <link rel="icon" href="icon/show.ico">
+    <link rel="icon" href="icon/tpcs.ico">
     <title>登录页面</title>
 
     <!-- Bootstrap -->
@@ -141,7 +141,7 @@
 </div>
 
 <!-- 导入相关的js -->
-<script src="${path}/js/jquery-1.9.1.min.js"></script>
+<script src="${path}/js/jquery-1.11.2.min.js"></script>
 <script src="${path}/js/bootstrap.min.js"></script>
 <script type="text/javascript">
     $(function(){
