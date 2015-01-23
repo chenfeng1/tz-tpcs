@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 指定页面显示的图标 -->
-    <link rel="icon" href="../icon/show.ico">
+    <link rel="icon" href="../icon/tpcs.ico">
     <title>班级列表</title>
 
     <!-- Bootstrap -->
@@ -15,7 +15,7 @@
     <!-- 此案例的自定义样式 -->
     <link href="../css-prj/main.css" rel="stylesheet">
     <!-- 导入外部的js文件 -->
-
+    <script type="text/javascript" src="../js-prj/main.js"></script>
 </head>
 <body>
 <!-- 导航栏区 -->
@@ -29,7 +29,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="javascript:void(0);">TPCS[要换成一个图标]</a>
+            <a class="navbar-brand" href="javascript:void(0);" style="padding-top: 0px;">
+                <img src="../images/LOGO-b.png"/>
+            </a>
         </div>
 
         <div class="navbar-collapse collapse" id="mynav">
@@ -355,7 +357,7 @@
                     <td>孙毅</td>
                     <td>
                         <a href="#" class="label label-default" data-toggle="modal" data-target="#myClassModal"><span class="glyphicon glyphicon-refresh"></span></a>&nbsp;
-                        <a href="#" class="label label-danger"><span class="glyphicon glyphicon-trash"></span></a>&nbsp;
+                        <a class="label label-danger" onclick="delClass(1)"><span class="glyphicon glyphicon-trash"></span></a>&nbsp;
                     </td>
                 </tr>
                 <tr>
@@ -441,7 +443,7 @@
 </div>
 
 <!-- 导入相关的js -->
-<script src="../js/jquery-1.9.1.min.js"></script>
+<script src="../js/jquery-1.11.2.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 </body>
 </html>
