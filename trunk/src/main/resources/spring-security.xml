@@ -42,7 +42,7 @@
                 session-authentication-error-url="/html/sessionAuthenticationError.html"
                 invalid-session-url="/login.jsp">
             <security:concurrency-control max-sessions="1"
-                                          error-if-maximum-exceeded="true"
+                                          error-if-maximum-exceeded="false"
                                           expired-url="/login.jsp"/>
         </security:session-management>
         <!--访问受限跳转页面-->

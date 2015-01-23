@@ -145,6 +145,7 @@
 <script src="${path}/js/bootstrap.min.js"></script>
 <script type="text/javascript">
     $(function(){
+        //非空校验
         $("#loginForm").submit(function(){
             $("#labelUserName").empty();
             $("#labelPassword").empty();
@@ -161,6 +162,9 @@
             }
             return errorCount ==0;
         });
+        //清空之前的导航栏
+        sessionStorage.breadcrumb1 = "";
+        sessionStorage.breadcrumb2 = "";
     });
 </script>
 </body>
