@@ -43,11 +43,17 @@ public class CustomAccessDecisionManager implements AccessDecisionManager {
             }
         }
         //没有权限
-        Employee employee = (Employee) authentication.getPrincipal();
-        String realname = employee.getRealname();
-        String requestResource = ((FilterInvocation) filter).getRequestUrl();
-        log.warn(realname+"没有权限访问资源: "+requestResource);
-        throw new AccessDeniedException(" 没有权限访问！ ");
+        Object obj = authentication.getPrincipal();
+        if(obj instanceof Employee){
+            Employee employee = (Employee) obj;
+            String realname = employee.getRealname();
+            String requestResource = ((FilterInvocation) filter).getRequestUrl();
+            log.warn(realname+"没有权限访问资源: "+requestResource);
+            throw new AccessDeniedException("没有权限访问!");
+        }else{
+            log.warn("没有权限访问资源");
+            throw new AccessDeniedException("没有权限访问!");
+        }
     }
 
     public boolean supports(ConfigAttribute attribute) {
