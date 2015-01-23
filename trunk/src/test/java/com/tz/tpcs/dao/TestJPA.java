@@ -47,10 +47,10 @@ public class TestJPA extends BaseTest{
         //后面有其他条件再可以添加...
 
         //1.先做分页查询
-        Query query = em.createQuery(cq);
-        query.setFirstResult(0);
-        query.setMaxResults(2);
-        List list = query.getResultList();
+        List<Clazz> list = em.createQuery(cq)
+                            .setFirstResult(0)
+                            .setMaxResults(2)
+                            .getResultList();
         System.out.println(list);
         //2.再做投影查询
         cq.select(cb.countDistinct(root));
