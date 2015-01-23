@@ -11,7 +11,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="javascript:void(0);">TPCS[要换成一个图标]</a>
+            <a class="navbar-brand" href="javascript:void(0);" style="padding-top: 0px;">
+                <img src="${path}/images/LOGO-b.png"/>
+            </a>
         </div>
 
         <div class="navbar-collapse collapse" id="mynav">
