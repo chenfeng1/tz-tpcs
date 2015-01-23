@@ -37,7 +37,7 @@ public class Student extends BaseEntity{
     private Date graduationDate; //毕业时间
     private int workingYears; //已有工作年限
     private double paid; //已交费用
-    private String feeType; //学费类型
+    private String loanStatus; //贷款状态
     private Source source; //渠道来源
     private String emergencyContact; //紧急联系人
     private String emergencyPhone; //紧急联系电话
@@ -329,15 +329,14 @@ public class Student extends BaseEntity{
         this.paid = paid;
     }
 
-    @Column(name = "stu_fee_type")
-    public String getFeeType() {
-        return feeType;
+    @Column(name = "stu_loan_status")
+    public String getLoanStatus() {
+        return loanStatus;
     }
 
-    public void setFeeType(String feeType) {
-        this.feeType = feeType;
+    public void setLoanStatus(String loanStatus) {
+        this.loanStatus = loanStatus;
     }
-
 
     @Enumerated(EnumType.STRING)
     @Column(name = "stu_source")
@@ -444,7 +443,7 @@ public class Student extends BaseEntity{
                 ", graduationDate=" + graduationDate +
                 ", workingYears=" + workingYears +
                 ", paid=" + paid +
-                ", feeType='" + feeType + '\'' +
+                ", loanStatus='" + loanStatus + '\'' +
                 ", source=" + source +
                 ", emergencyContact='" + emergencyContact + '\'' +
                 ", emergencyPhone='" + emergencyPhone + '\'' +
