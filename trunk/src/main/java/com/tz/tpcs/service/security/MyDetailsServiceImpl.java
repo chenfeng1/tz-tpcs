@@ -39,8 +39,8 @@ public class MyDetailsServiceImpl implements UserDetailsService {
      * 根据员工号匹配验证
      * @param username
      * @return
-     * @throws UsernameNotFoundException
-     * @throws DataAccessException
+     * @throws org.springframework.security.core.userdetails.UsernameNotFoundException
+     * @throws org.springframework.dao.DataAccessException
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {

@@ -59,7 +59,6 @@
         <module name="IllegalImport"/>
         <module name="RedundantImport"/>
         <module name="UnusedImports"/>
-
         <!-- 长度检查部分 -->
         <!--每行不超过150个字-->
         <module name="LineLength">
@@ -68,11 +67,6 @@
         <module name="MethodLength"/>
         <module name="ParameterNumber">
             <property name="max" value="8"/>
-        </module>
-        <!-- 禁止使用System.out.println输出 -->
-        <module name="Regexp">
-            <property name="format" value="System\.out\.println"/>
-            <property name="illegalPattern" value="true"/>
         </module>
         <!-- Checks for whitespace  -->
         <module name="EmptyForIteratorPad"/>
@@ -92,7 +86,14 @@
         <module name="NeedBraces"/>
         <!--右侧大括号位置检查-->
         <module name="RightCurly"/>
-        <!-- Checks for common coding problems -->
+        <!-- 常见编码问题 -->
+        <!-- 禁止使用System.out.println输出 -->
+        <module name="Regexp">
+            <property name="format" value="System\.out\.println"/>
+            <property name="illegalPattern" value="true"/>
+        </module>
+        <!--避免 null.equals("sss")情况-->
+        <module name="EqualsAvoidNull"/>
         <module name="EmptyStatement"/>
         <module name="EqualsHashCode"/>
         <module name="IllegalInstantiation"/>
@@ -100,7 +101,6 @@
         <!--不允许 MagicNumber-->
         <module name="MagicNumber"/>
         <module name="MissingSwitchDefault"/>
-        <!--<module name="RedundantThrows"/>-->
         <module name="SimplifyBooleanExpression"/>
         <module name="SimplifyBooleanReturn"/>
         <!-- Checks for class design -->

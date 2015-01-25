@@ -1,4 +1,4 @@
-//package com.tz.tpcs.web.form;
+package com.tz.tpcs.web.form;//package tpcs.test.web.form;
 //
 //import com.tz.tpcs.entity.Clazz;
 //
@@ -60,10 +60,10 @@
 //	public void setTrainingDate(Date training_date) {
 //		this.training_date = training_date;
 //	}
-//	public String getLector() {
+//	public String getLecturer() {
 //		return lector;
 //	}
-//	public void setLector(String lector) {
+//	public void setLecturer(String lector) {
 //		this.lector = lector;
 //	}
 //}

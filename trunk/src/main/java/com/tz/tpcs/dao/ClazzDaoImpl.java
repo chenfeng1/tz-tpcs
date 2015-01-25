@@ -53,8 +53,8 @@ public class ClazzDaoImpl implements ClazzDaoCustom {
 	@Override
 	public void update(Clazz clazz) {
 	//	clazz = em.find(Clazz.class, clazz.getId());
-		String string = clazz.getClazzName();
-		clazz.setClazzName(string);
+		String string = clazz.getRoom();
+		clazz.setRoom(string);
 		em.merge(clazz);
 	}
 

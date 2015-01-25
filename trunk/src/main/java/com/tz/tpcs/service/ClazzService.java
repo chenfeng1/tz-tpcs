@@ -19,7 +19,7 @@ public interface ClazzService {
 	/**
 	 * 分页多条件查询
 	 */
-	List<Clazz> selectAllByCondition(String name,Integer min,Integer max);
+	List<Clazz> selectAllByCondition(String name, Integer min, Integer max);
 	
 	/**
 	 * 根据id来删除

@@ -105,8 +105,8 @@ public class ClazzController {
 	public ModelAndView save(HttpServletRequest request) {
 
 		Clazz c = new Clazz();
-		c.setName(request.getParameter("ccname"));// 设置班级名称
-		c.setClazzName(request.getParameter("clazzName"));// 设置所在教室
+		c.setName(request.getParameter("name"));// 设置班级名称
+		c.setRoom(request.getParameter("room"));// 设置所在教室
 		String openDate = request.getParameter("open");
 		Date open = null;
 		try {
@@ -126,7 +126,7 @@ public class ClazzController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		c.setLector(request.getParameter("lector"));
+		c.setLecturer(request.getParameter("lecturer"));
 		Calendar cal = Calendar.getInstance();
 		cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + DURATION,
 				cal.get(Calendar.DATE));
@@ -167,7 +167,7 @@ public class ClazzController {
 			HttpServletRequest request) {
 		Clazz clazz = clazzDao.findOne(hid);
 		clazz.setName(classname);
-		clazz.setClazzName(classroom);
+		clazz.setRoom(classroom);
 		String open = request.getParameter("open_date");
 		Date openDate;
 		try {
@@ -188,7 +188,7 @@ public class ClazzController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		clazz.setLector(teachername);
+		clazz.setLecturer(teachername);
 		clazzDao.update(clazz);
 		return new ModelAndView("/clazz/list");
 	}

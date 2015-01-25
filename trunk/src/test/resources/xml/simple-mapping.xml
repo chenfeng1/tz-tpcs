@@ -2,7 +2,7 @@
 <mapping>
 	<description>Description of the mapping</description>
 		
-	<class name="com.tz.tpcs.xml.Mobile">
+	<class name="tpcs.test.xml.Mobile">
 	   <map-to xml="mobile-device"/>
 	   <field name="name" type="string">
 	      <bind-xml name="name" node="attribute"/>
