@@ -30,6 +30,7 @@ public class ClazzController {
 
 	private static final int DURATION = 4; //毕业时间---正式开班之后大约四个月
 
+	@SuppressWarnings("SpringJavaAutowiringInspection")
 	@Resource
 	private ClazzDao clazzDao;
 
@@ -174,7 +175,6 @@ public class ClazzController {
 			String s = new SimpleDateFormat("yyyy-MM-dd").format(openDate);
 			Date op = new SimpleDateFormat("yyyy-MM-dd").parse(s);
 			clazz.setOpen(op);
-			System.out.println(op);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
