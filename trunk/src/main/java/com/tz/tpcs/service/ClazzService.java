@@ -1,9 +1,8 @@
 package com.tz.tpcs.service;
 
-import java.util.List;
-
 import com.tz.tpcs.entity.Clazz;
-import com.tz.tpcs.web.form.ClazzForm;
+
+import java.util.List;
 
 /**
  * Clazz Service 接口类

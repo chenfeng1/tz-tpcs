@@ -1,5 +1,6 @@
 package com.tz.tpcs.init;
 
+import com.alibaba.fastjson.JSON;
 import com.tz.WebAppConfig;
 import com.tz.tpcs.dao.EmployeeDao;
 import com.tz.tpcs.dao.ResourcesDao;
@@ -99,7 +100,8 @@ public class InitData {
         list.add(r53);
 
 
-        resourcesDao.save(list);
+//        resourcesDao.save(list);
+        JSON.toJSONString(list);
     }
 
     @Test

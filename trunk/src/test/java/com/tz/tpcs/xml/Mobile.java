@@ -1,6 +1,8 @@
 package com.tz.tpcs.xml;
 
-public class Mobile {
+import java.io.Serializable;
+
+public class Mobile implements Serializable{
 
     private String name;
     private String model;
@@ -28,5 +30,14 @@ public class Mobile {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Mobile{" +
+                "name='" + name + '\'' +
+                ", model='" + model + '\'' +
+                ", price=" + price +
+                '}';
     }
 }

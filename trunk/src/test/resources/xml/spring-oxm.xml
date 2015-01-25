@@ -6,7 +6,8 @@
       http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="castorMarshaller" class="org.springframework.oxm.castor.CastorMarshaller">
-        <property name="mappingLocation" value="classpath:simple-mapping.xml"/>
+        <property name="encoding" value="UTF-8"/>
+        <property name="mappingLocation" value="classpath:xml/simple-mapping.xml"/>
     </bean>
 
 </beans>

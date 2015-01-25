@@ -2,10 +2,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <script type="text/javascript">
-	function transfer(cid,name,claz_name,open,count,advider,trainner_date,lector){
+	function transfer(cid,name,clazzName,open,count,advider,trainner_date,lector){
 		$("#hid").val(cid);
 		$("#classname").val(name);
-		$("#classroom").val(claz_name);
+		$("#classroom").val(clazzName);
 		$("#open_date").val(open);
 		$("#class_students").val(count);
 		$("#class_adviser").val(advider);
@@ -214,14 +214,14 @@
                 	<tr id="${list.id }">
                 		<td>${v.count }</td>
                         <td>${list.name }</td>
-                		<td>${list.claz_name }</td>
+                		<td>${list.clazzName }</td>
                 		<td><fmt:formatDate value="${list.open }" type="date"></fmt:formatDate></td>
                 		<td>${list.count }</td>
                 		<td>${list.advisor}</td>
-                		<td><fmt:formatDate value="${list.training_date }" type="date"></fmt:formatDate></td>
+                		<td><fmt:formatDate value="${list.trainingDate }" type="date"></fmt:formatDate></td>
                 		<td>${list.lector }</td>
                 		<td>
-                        	<a href="" class="label label-default" data-toggle="modal" data-target="#myClassModal" onclick="transfer('${list.id }','${list.name}','${list.claz_name }','${list.open }','${list.count }','${list.advisor}','${list.training_date }','${list.lector }')"><span class="glyphicon glyphicon-refresh"></span></a>&nbsp;
+                        	<a href="" class="label label-default" data-toggle="modal" data-target="#myClassModal" onclick="transfer('${list.id }','${list.name}','${list.clazzName }','${list.open }','${list.count }','${list.advisor}','${list.trainingDate }','${list.lector }')"><span class="glyphicon glyphicon-refresh"></span></a>&nbsp;
                        	 	<a id=${list.id } onclick="del(this)" class="label label-danger"><span class="glyphicon glyphicon-trash"></span></a>&nbsp;
                     	</td>
                 	</tr>

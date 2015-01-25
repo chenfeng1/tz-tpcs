@@ -1,23 +1,15 @@
 package com.tz.tpcs.dao;
 
 import com.tz.tpcs.entity.Clazz;
-import com.tz.tpcs.web.form.Paging;
-import org.fluttercode.datafactory.impl.DataFactory;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
-import javax.persistence.metamodel.EntityType;
-import javax.persistence.metamodel.Metamodel;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

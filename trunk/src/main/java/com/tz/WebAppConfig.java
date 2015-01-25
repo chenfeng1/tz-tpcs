@@ -6,8 +6,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-/**
- * User: Hu Jing Ling
+/** .
+ *User: Hu Jing Ling
  * Date: 2014-09-24
  */
 @Configuration  //当前类含有配置信息

@@ -1,7 +1,6 @@
 package com.tz.tpcs.service;
 
 import com.tz.tpcs.dao.BaseTest;
-import com.tz.tpcs.entity.Employee;
 import org.junit.Test;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 

@@ -28,6 +28,7 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
     public static final String SPRING_SECURITY_FORM_USERNAME_KEY = "j_username";
     public static final String USERNAME_ERR_MSG = "usernameErrMsg";
     public static final String PASSWORD_ERR_MSG = "passwordErrMsg";
+    public static final int DEFAULT_MAX_RETRY = 3;
 
     @Resource
     private EmployeeService employeeService;
@@ -41,7 +42,9 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
         this.maxLoginFailureCount = maxLoginFailureCount;
     }
 
-    //从 HttpServletRequest 获取用户名
+    /**
+     * 从 HttpServletRequest 获取用户名
+     */
     protected String obtainUsername(HttpServletRequest request) {
         String username = request.getParameter(SPRING_SECURITY_FORM_USERNAME_KEY);
         if(username == null){
@@ -51,23 +54,26 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
         }
     }
 
+    /**
+     * 添加错误信息
+     */
     private void addErrorMessage(HttpServletRequest request,String key, String message){
         request.setAttribute(key, message);
     }
 
     @Transactional
-    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+    @Override
+    public void onAuthenticationFailure(HttpServletRequest request,
+                                        HttpServletResponse response,
+                                        AuthenticationException exception) throws IOException, ServletException {
         String username = obtainUsername(request);
         Employee employee = employeeService.findByPhoneNumberEmail(username);
-
         //默认密码输出错误次数
         if (maxLoginFailureCount == null) {
-            maxLoginFailureCount = 3; //如果未设置，默认=3
+            maxLoginFailureCount = DEFAULT_MAX_RETRY; //如果未设置，默认=3
         }
-
         //获取国际化语种
         Locale locale = localeResolver.resolveLocale(request);
-
         //根据错误类型, 返回不同错误页面
         if (exception instanceof BadCredentialsException) {
             String message = messageSource.getMessage("error.invalid.username.or.password", null, locale);
@@ -83,7 +89,7 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
                 employee.setLoginFailureCount(failureCount);
                 employeeService.update(employee);
                 String msg = "连续失败3次将会锁定账户";
-                if(failureCount>=3){
+                if(failureCount>= DEFAULT_MAX_RETRY){
                     msg = "账号已锁定，请联系管理员!";
                 }
                 addErrorMessage(request, USERNAME_ERR_MSG, msg);

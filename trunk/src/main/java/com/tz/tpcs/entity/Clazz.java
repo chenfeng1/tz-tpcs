@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * 班级 实体类
- * 
+ *
  * @author 胡荆陵
  * @version 1.0
  * @since 2015-01-14
@@ -14,7 +14,7 @@ import java.util.Date;
 @Table(name = "clz_clazz")
 public class Clazz extends BaseEntity {
 
-	// 课程阶段枚举
+	/** 课程阶段枚举 */
 	public enum ClazzStatus {
 		// TRAINING, //训练营
 		// SE, //javase
@@ -32,10 +32,11 @@ public class Clazz extends BaseEntity {
 	private String advisor; // 班主任
 	private ClazzStatus status; // 状态
 	private Integer count;// 开班人数
-	private Date training_date;// 训练营日期
+	private Date trainingDate;// 训练营日期
 	private String lector;// 讲师名
-	private String claz_name;// 所在教室
+	private String clazzName;// 所在教室
 
+	/** 空参构造 */
 	public Clazz() {
 	}
 	
@@ -49,12 +50,12 @@ public class Clazz extends BaseEntity {
 	}
 
 	@Column
-	public Date getTraining_date() {
-		return training_date;
+	public Date getTrainingDate() {
+		return trainingDate;
 	}
 
-	public void setTraining_date(Date training_date) {
-		this.training_date = training_date;
+	public void setTrainingDate(Date trainingDate) {
+		this.trainingDate = trainingDate;
 	}
 
 	@Column
@@ -67,12 +68,12 @@ public class Clazz extends BaseEntity {
 	}
 
 	@Column
-	public String getClaz_name() {
-		return claz_name;
+	public String getClazzName() {
+		return clazzName;
 	}
 
-	public void setClaz_name(String claz_name) {
-		this.claz_name = claz_name;
+	public void setClazzName(String clazzName) {
+		this.clazzName = clazzName;
 	}
 
 	@Column(name = "clazz_name", unique = true, nullable = false)

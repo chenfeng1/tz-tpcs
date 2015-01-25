@@ -1,18 +1,16 @@
 package com.tz.tpcs.dao;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Resource;
-
+import com.tz.tpcs.entity.Clazz;
+import com.tz.tpcs.web.form.Paging;
 import org.fluttercode.datafactory.impl.DataFactory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
-import com.tz.tpcs.entity.Clazz;
-import com.tz.tpcs.web.form.Paging;
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * ClazzDao 单元测试类
@@ -114,7 +112,7 @@ public class TestClazzDao extends BaseTest{
     	//clazz.setId("e4a7aba9-ccff-4550-a016-41a0d59e3932");
     	
     	//clazz.setAdvisor("曹妍");
-    	clazz.setClaz_name("AAB");
+    	clazz.setClazzName("AAB");
     	//clazz.setName("JSD1111");
     	clazzDao.update(clazz);
     	

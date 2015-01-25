@@ -13,7 +13,11 @@ import java.util.Set;
 /**
  * Created by Administrator on 2015/1/19.
  */
-public class ConfigurationUtil {
+public final class ConfigurationUtil {
+
+    /** 私有空参构造 */
+    private ConfigurationUtil() {
+    }
 
     /**
      * 根据 EntityManager 和 配置文件输入流，初始化 Hibernate Configuration 实例
@@ -26,9 +30,9 @@ public class ConfigurationUtil {
         EntityManagerFactory entityManagerFactory = em.getEntityManagerFactory();
         final Set<ManagedType<?>> managedTypes =
                 entityManagerFactory.getMetamodel().getManagedTypes();
-        for ( ManagedType<?> managedType : managedTypes ) {
+        for (ManagedType<?> managedType : managedTypes) {
             final Class<?> javaType = managedType.getJavaType();
-            cfg.addAnnotatedClass(javaType );
+            cfg.addAnnotatedClass(javaType);
         }
         Properties properties = new Properties();
         try {

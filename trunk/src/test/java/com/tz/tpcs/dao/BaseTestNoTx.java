@@ -7,8 +7,6 @@ import org.junit.runners.MethodSorters;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.transaction.Transactional;
-
 /**
  * 基础单元测试类 (无事务支持)
  * 如有可能发生 org.hibernate.LazyInitializationException 的接口或方法，

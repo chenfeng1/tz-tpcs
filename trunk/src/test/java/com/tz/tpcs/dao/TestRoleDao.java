@@ -6,9 +6,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Hu Jing Ling on 2015/1/20.

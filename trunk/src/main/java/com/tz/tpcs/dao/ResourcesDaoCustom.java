@@ -9,8 +9,8 @@ public interface ResourcesDaoCustom {
 
     /**
      * 根据 code 查询 Resources（包含下属子资源）
-     * @param code
-     * @return
+     * @param code 代号
+     * @return 一个资源对象
      */
     Resources findByCodeWithChildren(String code);
 
