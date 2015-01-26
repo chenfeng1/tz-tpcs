@@ -15,8 +15,8 @@ public interface ResourcesDao extends CrudRepository<Resources, String>, Resourc
 
     /**
      * 根据code查询资源，eager 取出下属子资源 (级别可通过 JPQL 调整)
-     * @param code
-     * @return
+     * @param code 代号
+     * @return 一个资源对象
      */
     @Query(value = "select res from Resources as res " +
             "left join fetch res.children as c1 " +
@@ -27,8 +27,8 @@ public interface ResourcesDao extends CrudRepository<Resources, String>, Resourc
 
     /**
      * 根据资源类型查询
-     * @param type
-     * @return
+     * @param type 类型
+     * @return 资源Set集合
      */
     Set<Resources> getResByType(Resources.Type type);
 }

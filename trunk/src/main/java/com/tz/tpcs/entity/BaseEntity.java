@@ -17,13 +17,15 @@ import java.util.Date;
 @MappedSuperclass
 public class BaseEntity implements Serializable {
 
-	private String id;// ID
-    private Date createDate;// 创建日期
-    private Date modifyDate;// 修改日期
+    private static final int ID_LENGTH = 36;
+
+	private String id; //ID
+    private Date createDate; // 创建日期
+    private Date modifyDate; // 修改日期
     private Integer version; //版本锁
 
     @Id
-    @Column(length = 36, nullable = false)
+    @Column(length = ID_LENGTH, nullable = false)
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")  //生成器名称，uuid生成类
     public String getId() {

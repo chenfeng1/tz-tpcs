@@ -27,21 +27,22 @@ public class Employee extends BaseEntity implements UserDetails {
     private String gender; //性别
     private Date birthDate; //生日
     private String email; //邮箱地址
-    private String mobilePhone;//移动电话
+    private String mobilePhone; //移动电话
     private String remark; //备注
     private Set<Role> roles; //角色集合
 
     //add by Hu Jing Ling: for spring security framework usage
-    private boolean accountNonExpired;// 账号未过期-true
-    private boolean accountNonLocked;// 账号未锁定-true
-    private boolean credentialsNonExpired;//账号未过期-true
-    private boolean enabled;//账号已启用-true
-    private int loginFailureCount;// 连续登录失败的次数
-    private Date lockedDate;// 账号锁定日期
-    private Date loginDate;// 最后登录日期
-    private String loginIp;// 最后登录IP
-    private Set<GrantedAuthority> authorities;// 角色信息
+    private boolean accountNonExpired; // 账号未过期-true
+    private boolean accountNonLocked; // 账号未锁定-true
+    private boolean credentialsNonExpired; //账号未过期-true
+    private boolean enabled; //账号已启用-true
+    private int loginFailureCount; // 连续登录失败的次数
+    private Date lockedDate; // 账号锁定日期
+    private Date loginDate; // 最后登录日期
+    private String loginIp; // 最后登录IP
+    private Set<GrantedAuthority> authorities; // 角色信息
 
+    /** 空参构造 */
     public Employee() {
     }
 
@@ -151,7 +152,7 @@ public class Employee extends BaseEntity implements UserDetails {
     /***********
      * add by yejf at 2013/5/10 19:28
      * 添加角色到用户中
-     * @param role
+     * @param role 角色
      */
     public void addRole(Role role){
         if(roles == null){

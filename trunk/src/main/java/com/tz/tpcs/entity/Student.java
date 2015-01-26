@@ -15,7 +15,9 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "stu_student")
-public class Student extends BaseEntity{
+public class Student extends BaseEntity {
+
+    public static final double MAX_SCORE = 100.0D;
 
     private String number; //学号（登录）
     private String realname; //姓名
@@ -44,23 +46,29 @@ public class Student extends BaseEntity{
     private boolean needDesign; //是否需要毕设
     private Date designDate; //毕设时间
     //add by yejf
-    private double initialScore = 100;      //初始分值，为100分
+    private double initialScore = MAX_SCORE;      //初始分值，为100分
     private double currentScore;      //当前分值
     private Clazz clazz;  //所在班级
     private String remark;  //备注
     private String qq; //qq号码
 
     //2015-01-23 add by 胡荆陵 start
-    public enum Status{
-        UNSIGNED,//未签约
-        SEA,//公海
-        UNSIGNED_YICHUSHI,//已初试
-        UNSIGNED_YIFUSHI,//已复试
-        SIGNED,//服务中签约
-        SIGNED_LEAVE//签约后离开
+    /**
+     * 状态
+     */
+    public enum Status {
+        UNSIGNED, //未签约
+        SEA, //公海
+        UNSIGNED_YICHUSHI, //已初试
+        UNSIGNED_YIFUSHI, //已复试
+        SIGNED, //服务中签约
+        SIGNED_LEAVE //签约后离开
     }
 
-    public enum Source{
+    /**
+     * 来源
+     */
+    public enum Source {
         VISIT, //上门拜访
         WEB_SEARCH, //网络搜索
         YELLOW_PAGE,  //企业黄页
@@ -68,6 +76,9 @@ public class Student extends BaseEntity{
         WALK_IN    //客户来访
     }
 
+    /**
+     * 等级
+     */
     public enum Level {
         ONE,    //★
         TWO,    //★★
@@ -79,14 +90,15 @@ public class Student extends BaseEntity{
     private String address; //联系地址1
     private String address2; //联系地址2
     private Level level; //成熟度 (用于未签约的学员)
-    private Employee owner;// 学员所属的服务专员 (这个学员是由市场部哪个人招的)
-    private Status status;//状态
+    private Employee owner; // 学员所属的服务专员 (这个学员是由市场部哪个人招的)
+    private Status status; //状态
 
     //目前不需要，后期可能需要的部分
 //    private Set<VisitRecord> visitRecodeSet;//拜访记录
 
     //2015-01-23 add by 胡荆陵 end
 
+    /** 空参构造 */
     public Student() {
     }
 

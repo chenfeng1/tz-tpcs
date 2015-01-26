@@ -22,7 +22,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<Resources> getSortedResByRoles(Set<Role> roles) {
         for(Role role : roles){
-            System.out.println(role);
+            role.getName();
         }
         return null;
     }
