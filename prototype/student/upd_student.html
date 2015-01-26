@@ -360,20 +360,33 @@
                     <input type="date" id="designDate" class="form-control"/>
                 </div>
             </div>
+
             <div class="form-group">
-                <label for="emergencyContact" class="col-md-offset-1 col-md-1 control-label">紧急联系人</label>
-                <div class="col-md-2">
+                <label for="emergencyContact" class="col-md-2 control-label">紧急联系人</label>
+                <div class="col-md-4">
                     <input type="text" id="emergencyContact" class="form-control" placeholder="紧急联系人"/>
                 </div>
-                <label for="emergencyPhone" class="col-md-1 control-label">紧急联系电话</label>
-                <div class="col-md-2">
+                <label for="emergencyPhone" class="col-md-2 control-label">紧急联系电话</label>
+                <div class="col-md-4">
                     <input type="text" id="emergencyPhone" class="form-control" placeholder="紧急联系电话"/>
                 </div>
-                <label for="remark" class="col-md-1 control-label">备注</label>
-                <div class="col-md-4">
+            </div>
+            <div class="form-group">
+                <label for="remark" class="col-md-offset-1 col-md-1 control-label">备注</label>
+                <div class="col-md-5">
                     <input type="text" id="remark" class="form-control" placeholder="学员的备注信息"/>
                 </div>
+                <label class="col-md-1 control-label">性别</label>
+                <div class="col-md-2">
+                    <label class="radio-inline">
+                        <input type="radio" name="gender" value="MALE" checked/>男
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="gender" value="FEMALE"/>女
+                    </label>
+                </div>
             </div>
+
         </div>
 
         <!-- 由于学员CRM信息，下面的输入框默认是不显示的，可以点击更多来显示 -->
@@ -399,7 +412,7 @@
                         <option value="公海">公海</option>
                         <option value="已初试">已初试</option>
                         <option value="已复试">已复试</option>
-                        <option value="服务中签约">服务中签约</option>
+                        <option value="服务中签约" selected>服务中签约</option>
                         <option value="服务中离开">服务中离开</option>
                     </select>
                 </div>
@@ -421,7 +434,7 @@
                         <option value="TWO">★★</option>
                         <option value="THREE">★★★</option>
                         <option value="FOUR">★★★★</option>
-                        <option value="FIVE">★★★★★</option>
+                        <option value="FIVE" selected>★★★★★</option>
                     </select>
                 </div>
             </div>
