@@ -5,15 +5,25 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Selection;
 
 import org.fluttercode.datafactory.impl.DataFactory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import com.tz.tpcs.entity.Clazz;
-import com.tz.tpcs.entity.ProjectCase;
 import com.tz.tpcs.web.form.Paging;
 
 /**
@@ -26,24 +36,10 @@ public class TestClazzDao extends BaseTest{
     @Resource
     private ClazzDao clazzDao;
     
-    @Resource
-    private ProjectCaseDao projectCaseDao;
-    
-    @Test
-    public void test(){
-    	System.out.println(projectCaseDao);
-		ProjectCase p1 = new ProjectCase();
-		p1.setCreateDate(new Date());
-		p1.setModifyDate(new Date());
-		p1.setVersion(1);
-		p1.setCode("book001");
-		p1.setDesc("完成CRUD");
-		p1.setName("在线书城");
-		p1.setSnapshot("/images/001.png");
-		projectCaseDao.save(p1);
-    }
-    
     private Clazz clazz;
+    
+    @Resource
+    private EntityManager em;
 
     @Before
     public void initCustomer(){
@@ -147,7 +143,75 @@ public class TestClazzDao extends BaseTest{
     public void testGetById(){
     	Clazz c = clazzDao.findOne("e4a7aba9-ccff-4550-a016-41a0d59e3932");
     	System.out.println(c);
-    	
     }
+    
+    @Test
+    public void testPage2(){
+    	
+    	 //初始化
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery cq = cb.createQuery(Clazz.class);
+        //同一组条件(name like %1%)
+        Root<Clazz> root = cq.from(Clazz.class);
+        Path<String> name = root.get("name");
+        cq.where(cb.like(name, "%1%"));
+        //后面有其他条件再可以添加...
 
+        //1.先做分页查询
+        List<Clazz> list = em.createQuery(cq)
+                            .setFirstResult(0)
+                            .setMaxResults(1)
+                            .getResultList();
+        System.out.println(list);
+        //2.再做投影查询
+        cq.select(cb.countDistinct(root));
+        Long total = (Long) em.createQuery(cq).getSingleResult();
+        System.out.println("total:"+total);
+    	
+    	//---------------------
+    	
+    	/*CriteriaBuilder cb = em.getCriteriaBuilder();
+    	CriteriaQuery cq = cb.createQuery(Clazz.class);
+    	Root<Clazz> root = cq.from(Clazz.class);
+    	
+    	Path<String> nameExp = root.get("name");
+		cq.where(cb.like(nameExp, "%1%"));
+		
+		//1.projection
+		cq.select(cb.count(root));
+		int count = ((Long) em.createQuery(cq).getSingleResult()).intValue(); 
+    	System.out.println("count:"+count);
+    	
+		//2.page
+    	CriteriaQuery<Clazz> cq2 = cb.createQuery(Clazz.class);
+    	//Root<Clazz> root2 = cq2.from(Clazz.class);
+		Query query = em.createQuery(cq2);
+		query.setFirstResult(0);
+		query.setMaxResults(1);
+		List list = query.getResultList();
+		System.out.println(list);*/
+    	//----------------
+//    	Page<Clazz> page = clazzDao.findAll(new Specification<Clazz>() {
+//			@Override
+//			public Predicate toPredicate(Root<Clazz> root,
+//					CriteriaQuery<?> query, CriteriaBuilder cb) {
+//				// TODO Auto-generated method stub
+//				//root = query.from(Clazz.class);//做关联查询
+//				Path<String> nameExp = root.get("name");
+//				Path<Date> d = root.get("open");
+//				Path<String> nameExp2 = root.get("lector");
+//				query.where(cb.like(nameExp, "%1%"));
+//				//query.where(cb.like(nameExp2, "%sun%"));
+//				query.orderBy(cb.desc(d));//按照日期降序
+//				return null;
+//			}
+//		},new PageRequest(0,1));
+//    	
+//    	
+//    	
+//    	List<Clazz> list = page.getContent();
+//    	for (Clazz clazz : list) {
+//			System.out.println(clazz);
+//		}
+    }
 }

@@ -43,4 +43,5 @@ public interface ClazzDaoCustom {
 	
 	Long getRowCount(String name,Integer min,Integer max);
 	
+	
 }
