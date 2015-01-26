@@ -29,7 +29,6 @@ public interface ClazzDaoCustom {
 	 * @param pageSize 每页显示大小
 	 * @param pageNow 当前页
 	 * @return Paging
-	 * @author 管成功
 	 */
 	Paging getAll(String name,Integer min,Integer max,Integer pageSize,Integer pageNow);
 	
