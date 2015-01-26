@@ -9,3 +9,23 @@ function delClass(id){
         alert("你要删除的班级ID是："+id);
     }
 }
+
+function deleteStu(id){
+    alert("删除学员");
+}
+
+/******
+ * 切换添加学员时的 “更多”输入框
+ */
+function showMore(){
+    $("#more").slideToggle(500);
+}
+
+function showCRMInfo(){
+    $("#crmInfo").slideToggle(500);
+}
+
+function gotoUpdateStu(){
+    //转到更新学员信息页面
+    window.location.href = "../student/upd_student.html";
+}

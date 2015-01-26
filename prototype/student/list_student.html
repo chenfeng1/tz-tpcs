@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 指定页面显示的图标 -->
     <link rel="icon" href="../icon/tpcs.ico">
-    <title>班级列表</title>
+    <title>学员列表</title>
 
     <!-- Bootstrap -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -38,21 +38,21 @@
             <ul class="nav navbar-nav">
                 <li><a href="#">主页</a></li>
                 <!-- 下接菜单: 班级 -->
-                <li class="dropdown active">
+                <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">班级<strong class="caret"></strong></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">班级列表</a></li>
-                        <li><a href="#">导入班级</a></li>
+                        <li><a href="../class/list_class.html">班级列表</a></li>
+                        <li><a href="../class/import_class.html">导入班级</a></li>
                         <li class="divider"></li>
                         <li><a href="#">班级活动</a></li>
                     </ul>
                 </li>
                 <!-- 下接菜单: 学员 -->
-                <li class="dropdown">
+                <li class="dropdown active">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">学员<strong class="caret"></strong></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="../student/list_student.html">学员列表</a></li>
-                        <li><a href="../student/import_student.html">导入学员</a></li>
+                        <li><a href="#">学员列表</a></li>
+                        <li><a href="import_student.html">导入学员</a></li>
                     </ul>
                 </li>
                 <!-- 下接菜单: 知识库 -->
@@ -210,109 +210,51 @@
         <div class="panel-heading">
             首页&nbsp;
             <span class="glyphicon glyphicon-arrow-right"></span>&nbsp;
-            <span id="module">班级</span>&nbsp;
+            <span id="module">学员</span>&nbsp;
             <span class="glyphicon glyphicon-arrow-right"></span>&nbsp;
-            <span id="function">班级列表</span>&nbsp;
+            <span id="function">学员列表</span>&nbsp;
         </div>
     </div>
+
 </div>
 
-<!-- 模态框 中的内容 -->
-<!-- Modal -->
-<div class="modal fade" id="myClassModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="myModalLabel">班级更新</h4>
-            </div>
-            <div class="modal-body">
-                <form class="form-horizontal" role="form" action="#" id="myClassForm">
-                    <div class="form-group">
-                        <label for="classname" class="col-md-2 control-label">班级名</label>
-                        <div class="col-md-5">
-                            <input type="text" id="classname" class="form-control" placeholder="班级的名称"/>
-                        </div>
-                        <div class="col-md-5" id="classname_id">提示信息</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="classroom" class="col-md-2 control-label">所在教室</label>
-                        <div class="col-md-5">
-                            <input type="text" id="classroom" class="form-control" placeholder="教室的名称"/>
-                        </div>
-                        <div class="col-md-5" id="classroom_id"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="classname" class="col-md-2 control-label">开班日期</label>
-                        <div class="col-md-5">
-                            <input type="date" id="open_date" class="form-control" placeholder="2015-01-27"/>
-                        </div>
-                        <div class="col-md-5" id="open_date_id"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="classname" class="col-md-2 control-label">开班人数</label>
-                        <div class="col-md-5">
-                            <input type="number" id="class_students" class="form-control" placeholder="30"/>
-                        </div>
-                        <div class="col-md-5" id="class_students_id"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="class_adviser" class="col-md-2 control-label">班主任</label>
-                        <div class="col-md-5">
-                            <input type="text" id="class_adviser" class="form-control" placeholder="班主任名"/>
-                        </div>
-                        <div class="col-md-5" id="class_adviser_id"></div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="trainer_date" class="col-md-2 control-label">训练营日</label>
-                        <div class="col-md-5">
-                            <input type="date" id="trainer_date" class="form-control" placeholder="2015-01-18"/>
-                        </div>
-                        <div class="col-md-5" id="trainer_date_id"></div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="teachername" class="col-md-2 control-label">讲师名</label>
-                        <div class="col-md-5">
-                            <input type="text" id="teachername" class="form-control" placeholder="讲师名"/>
-                        </div>
-                        <div class="col-md-5" id="teachername_id"></div>
-                    </div>
-
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="通过JS来提交表单">更新</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- //模态框内容结束 -->
 
 <!-- 其它内容 -->
 <div class="container">
 
     <!-- 查询区 -->
-    <form class="form-horizontal" role="form" action="#">
+    <form class="form-horizontal" role="form" action="#" style="background-color: #e8e8e8;">
         <div class="form-group">
-            <label for="cname" class="col-md-1 control-label">班级名：</label>
-
+            <label for="cname" class="col-md-1 control-label">班级名</label>
             <div class="col-md-2">
-                <input type="text" id="cname" class="form-control" placeholder="查询班级名"/>
+                <input type="text" id="cname" class="form-control" placeholder="输入班级名"/>
             </div>
-            <label for="min_nums" class="col-md-2 control-label">开班人数：</label>
 
+            <label for="sname" class="col-md-1 control-label">学员名</label>
             <div class="col-md-2">
-                <input type="text" id="min_nums" class="form-control" placeholder="最少人数"/>
+                <input type="text" id="sname" class="form-control" placeholder="输入学员名"/>
             </div>
-            <label for="max_nums" class="col-md-1 control-label">至：</label>
 
+            <label for="degree" class="col-md-1 control-label">学历</label>
             <div class="col-md-2">
-                <input type="text" id="max_nums" class="form-control" placeholder="最多人数"/>
+                <select class="form-control" id="degree">
+                    <option value="-1">-请选择-</option>
+                    <option value="本科">本科</option>
+                    <option value="专科">专科</option>
+                    <option value="硕士">硕士</option>
+                    <option value="高中">高中</option>
+                    <option value="博士">博士</option>
+                    <option value="其它">其它</option>
+                </select>
             </div>
-            <div class="col-md-2">
+
+            <label for="loanStatus" class="col-md-1 control-label">未放款</label>
+            <div class="col-md-1 checkbox">
+                <label>
+                    <input id="loanStatus" type="checkbox" value="未放款" class="checkbox" style="width: 22px;height: 22px;">
+                </label>
+            </div>
+            <div class="col-md-1">
                 <button type="submit" class="btn btn-primary">
                     <span class="glyphicon glyphicon-search"></span>
                 </button>
@@ -324,8 +266,8 @@
     <!-- 内容区 -->
     <div class="row">
         <div class="col-md-1">
-            <button type="button" class="btn btn-primary" onclick="javaScript:window.location.href='add_class.html'">
-                <span class="glyphicon glyphicon-plus">&nbsp;添加</span>
+            <button type="button" class="btn btn-primary" onclick="javaScript:window.location.href='add_student.html'">
+                <span class="glyphicon glyphicon-plus">&nbsp;添加学员</span>
             </button>
         </div>
     </div>
@@ -336,72 +278,68 @@
                 <tr>
                     <th>#</th>
                     <th>班级名</th>
-                    <th>所在教室</th>
-                    <th>开班时间</th>
-                    <th>开班人数</th>
-                    <th>班主任</th>
-                    <th>训练营日期</th>
-                    <th>训练营讲师</th>
+                    <th>学员名</th>
+                    <th>电话</th>
+                    <th>备用电话</th>
+                    <th>生日</th>
+                    <th>邮箱</th>
+                    <th>学历</th>
+                    <th>专业</th>
+                    <th>贷款状态</th>
                     <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
                     <td>1</td>
-                    <td>JSD1410</td>
-                    <td>第一教室</td>
-                    <td>2014/10/28</td>
-                    <td>32人</td>
-                    <td>孙伟</td>
-                    <td>2014年10月16号</td>
-                    <td>孙毅</td>
+                    <td>JSD1411</td>
+                    <td>张三丰</td>
+                    <td>18765490987</td>
+                    <td>0534-90987621</td>
+                    <td>1988-12-23</td>
+                    <td>zhangsf@163.com</td>
+                    <td>本科</td>
+                    <td>计算机及其应用</td>
+                    <td>已放款</td>
+                    <td>
+                        <a class="label label-default" onclick="gotoUpdateStu()"><span class="glyphicon glyphicon-refresh"></span></a>&nbsp;
+                        <a class="label label-danger" onclick="deleteStu(1)"><span class="glyphicon glyphicon-trash"></span></a>&nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>JSD1412</td>
+                    <td>张无记</td>
+                    <td>1897645098</td>
+                    <td>0675-09876532</td>
+                    <td>1990-12-21</td>
+                    <td>jackz@qq.com</td>
+                    <td>专科</td>
+                    <td>化学</td>
+                    <td>未放款</td>
                     <td>
                         <a href="#" class="label label-default" data-toggle="modal" data-target="#myClassModal"><span class="glyphicon glyphicon-refresh"></span></a>&nbsp;
                         <a class="label label-danger" onclick="delClass(1)"><span class="glyphicon glyphicon-trash"></span></a>&nbsp;
                     </td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>JSD1411</td>
-                    <td>第四教室</td>
-                    <td>2014/11/30</td>
-                    <td>37人</td>
-                    <td>程静</td>
-                    <td>2014年11月21号</td>
-                    <td>叶加飞</td>
-                    <td>
-                        <a href="#" class="label label-default" data-toggle="modal" data-target="#myClassModal"><span class="glyphicon glyphicon-refresh"></span></a>&nbsp;
-                        <a href="#" class="label label-danger"><span class="glyphicon glyphicon-trash"></span></a>&nbsp;
-                    </td>
-                </tr>
+
                 <tr>
                     <td>3</td>
                     <td>JSD1412</td>
-                    <td>第三教室</td>
-                    <td>2014/12/31</td>
-                    <td>43人</td>
-                    <td>周萍</td>
-                    <td>2014年12月21号</td>
-                    <td>孙毅</td>
+                    <td>张无记</td>
+                    <td>1897645098</td>
+                    <td>0675-09876532</td>
+                    <td>1990-12-21</td>
+                    <td>jackz@qq.com</td>
+                    <td>专科</td>
+                    <td>化学</td>
+                    <td>信用卡</td>
                     <td>
                         <a href="#" class="label label-default" data-toggle="modal" data-target="#myClassModal"><span class="glyphicon glyphicon-refresh"></span></a>&nbsp;
-                        <a href="#" class="label label-danger"><span class="glyphicon glyphicon-trash"></span></a>&nbsp;
+                        <a class="label label-danger" onclick="delClass(1)"><span class="glyphicon glyphicon-trash"></span></a>&nbsp;
                     </td>
                 </tr>
-                <tr>
-                    <td>3</td>
-                    <td>JSD1412</td>
-                    <td>第三教室</td>
-                    <td>2014/12/31</td>
-                    <td>43人</td>
-                    <td>周萍</td>
-                    <td>2014年12月21号</td>
-                    <td>孙毅</td>
-                    <td>
-                        <a href="#" class="label label-default" data-toggle="modal" data-target="#myClassModal"><span class="glyphicon glyphicon-refresh"></span></a>&nbsp;
-                        <a href="#" class="label label-danger"><span class="glyphicon glyphicon-trash"></span></a>&nbsp;
-                    </td>
-                </tr>
+
                 </tbody>
             </table>
         </div>
