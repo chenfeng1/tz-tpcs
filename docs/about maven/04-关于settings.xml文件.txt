@@ -1,0 +1,5 @@
+除了定义仓库路径
+<localRepository>E:\repo</localRepository>
+其他都用默认值即可
+
+但是当前用户名录/.m2/目录下，记得也要放一份.

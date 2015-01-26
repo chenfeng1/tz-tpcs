@@ -1,8 +1,5 @@
 package com.tz.tpcs.entity;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -16,6 +13,9 @@ import java.util.Set;
 @Table(name = "sys_resources")
 public class Resources extends BaseEntity {
 
+    /**
+     * 资源类型
+     */
     public enum Type{
         FOLDER, //功能或模块的文件夹
         URL //URL资源
@@ -28,12 +28,14 @@ public class Resources extends BaseEntity {
     private Resources parent; //父资源
     private Set<Resources> children; //多个子资源
     private String icon; //子功能图标
-    private int seq;//用于排序的序号
+    private int seq; //用于排序的序号
     private boolean show; //需在导航栏中显示
 
+    /** 空参构造 */
     public Resources() {
     }
 
+    /** 有参构造 */
     public Resources(String name, String code, Type type, String value,
                      Resources parent, String icon,int seq) {
         super();
@@ -46,8 +48,9 @@ public class Resources extends BaseEntity {
         this.seq = seq;
     }
 
+    /** 有参构造 */
     public Resources(String name, String code, Type type, String value,
-                     Resources parent, String icon,int seq,boolean show) {
+                     Resources parent, String icon, int seq, boolean show) {
         super();
         this.name = name;
         this.code = code;
@@ -146,7 +149,6 @@ public class Resources extends BaseEntity {
                 ", code='" + code + '\'' +
                 ", type=" + type +
                 ", value='" + value + '\'' +
-                ", parent=" + parent +
                 ", icon='" + icon + '\'' +
                 ", seq=" + seq +
                 ", show=" + show +

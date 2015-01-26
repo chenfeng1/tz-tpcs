@@ -21,6 +21,7 @@ public class ProjectCase extends BaseEntity {
     //add by yejf
     private String snapshot; //项目截图
 
+    /** 空参构造 */
     public ProjectCase() {
     }
 

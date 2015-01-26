@@ -28,7 +28,9 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
     @Override
     @Transactional
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+    public void onAuthenticationSuccess(HttpServletRequest request,
+                                        HttpServletResponse response,
+                                        Authentication authentication) throws IOException, ServletException {
         //登录成功：更新登录IP和日期, 并重置登录失败次数
         String loginIp = ((WebAuthenticationDetails) authentication.getDetails()).getRemoteAddress();
         Employee emp = (Employee) authentication.getPrincipal();

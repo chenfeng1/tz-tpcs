@@ -1,8 +1,8 @@
 package com.tz.tpcs.web.form;
 
-import java.util.List;
-
 import com.tz.tpcs.entity.Clazz;
+
+import java.util.List;
 
 /**
  * 班级分页

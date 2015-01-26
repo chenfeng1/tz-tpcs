@@ -1,0 +1,5 @@
+05-关于可能出现的乱码
+
+配置环境变量
+名:MAVEN_OPTS
+值:-Dfile.encoding="UTF-8"

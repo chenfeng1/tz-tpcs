@@ -23,9 +23,11 @@ public class Role extends BaseEntity{
 
     private Set<Resources> resources;//资源集合
 
+    /** 空参构造 */
     public Role() {
     }
 
+    /** 有参构造 */
     public Role(String name, String code, String desc, Boolean isSystem, int seq) {
         this.name = name;
         this.code = code;
@@ -69,6 +71,7 @@ public class Role extends BaseEntity{
         this.seq = seq;
     }
 
+    /** 多对多 */
     @ManyToMany
     //定义中间表名，字段名
     @JoinTable(name="sys_role_to_res",

@@ -20,24 +20,28 @@ import java.util.*;
 @Service("securityMetadataSource")
 public class CustomSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
 
-    private static final Logger log = Logger.getLogger(CustomSecurityMetadataSource.class);
+    private static final Logger LOGGER = Logger.getLogger(CustomSecurityMetadataSource.class);
 
     @Resource
     private ResourcesService resourcesService;
 
     private static Map<String, Collection<ConfigAttribute>> resourceMap = null;
 
+    @Override
     public Collection<ConfigAttribute> getAllConfigAttributes() {
         return new ArrayList<ConfigAttribute>();//这个方法未用到
     }
 
+    @Override
     public boolean supports(Class<?> clazz) {
         return true;
     }
 
-    //加载URL与资源名的映射关系
+    /**
+     * 加载URL与资源名的映射关系
+     */
     private void loadResourceDefine() {
-        resourceMap = new HashMap<String, Collection<ConfigAttribute>>();
+        resourceMap = new HashMap<>();
         Map<String,Set<String>> map = resourcesService.getRes2RoleMap();
         for(Map.Entry<String,Set<String>> entry : map.entrySet()){
             String key = entry.getKey();
@@ -52,10 +56,13 @@ public class CustomSecurityMetadataSource implements FilterInvocationSecurityMet
         }
     }
 
-    //返回所请求资源所需要的权限  
+    /**
+     * 返回所请求资源所需要的权限
+     */
+    @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
         String requestUrl = ((FilterInvocation) object).getRequestUrl();
-        log.info("requestUrl is " + requestUrl);
+        LOGGER.info("requestUrl is " + requestUrl);
         if (resourceMap == null) {
             loadResourceDefine();
         }

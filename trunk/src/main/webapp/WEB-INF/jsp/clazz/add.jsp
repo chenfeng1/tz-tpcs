@@ -4,14 +4,14 @@
         <div class="form-group">
             <label for="classname" class="col-md-offset-1 col-md-1 control-label">班级名</label>
             <div class="col-md-3">
-                <input type="text" id="classname" class="form-control" placeholder="班级的名称" name="ccname"/>
+                <input type="text" id="classname" class="form-control" placeholder="班级的名称" name="name"/>
             </div>
             <div class="col-md-7" id="classname_id">提示信息</div>
         </div>
         <div class="form-group">
             <label for="classroom" class="col-md-offset-1 col-md-1 control-label">所在教室</label>
             <div class="col-md-3">
-                <input type="text" id="classroom" class="form-control" placeholder="教室的名称" name="clazz_name"/>
+                <input type="text" id="classroom" class="form-control" placeholder="教室的名称" name="room"/>
             </div>
             <div class="col-md-7" id="classroom_id"></div>
         </div>
@@ -40,7 +40,7 @@
         <div class="form-group">
             <label for="trainer_date" class="col-md-offset-1 col-md-1 control-label">训练营日</label>
             <div class="col-md-2">
-                <input type="date" id="trainer_date" class="form-control" placeholder="2015-01-18" name="training_date"/>
+                <input type="date" id="trainer_date" class="form-control" placeholder="2015-01-18" name="trainingDate"/>
             </div>
             <div class="col-md-8" id="trainer_date_id"></div>
         </div>
@@ -48,7 +48,7 @@
         <div class="form-group">
             <label for="teachername" class="col-md-offset-1 col-md-1 control-label">讲师名</label>
             <div class="col-md-3">
-                <input type="text" id="teachername" class="form-control" placeholder="讲师名" name="lector"/>
+                <input type="text" id="teachername" class="form-control" placeholder="讲师名" name="lecturer"/>
             </div>
             <div class="col-md-7" id="teachername_id"></div>
         </div>
