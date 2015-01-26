@@ -112,8 +112,7 @@ public class InitData {
         role1.getResources().addAll(resourcesList);
         roleDao.save(role1);
 
-//        List<Resources> resourcesList2 = resourcesService.findByCodes(new String[]{"menu_clazz", "menu_student"});
-        List<Resources> resourcesList2 = resourcesService.findByCodes(new String[]{ "menu_student"});
+        List<Resources> resourcesList2 = resourcesService.findByCodes(new String[]{"menu_clazz", "menu_student"});
         role2.getResources().addAll(resourcesList2);
         roleDao.save(role2);
 

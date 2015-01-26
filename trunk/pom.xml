@@ -151,11 +151,10 @@
             <artifactId>commons-io</artifactId>
             <version>2.4</version>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>com.googlecode.json-simple</groupId>
             <artifactId>json-simple</artifactId>
-            <version>1.1.1</version>
-        </dependency>
+        </dependency>-->
         <!--tiles3 dependency-->
         <dependency>
             <groupId>org.apache.tiles</groupId>
@@ -190,7 +189,6 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-oxm</artifactId>
         </dependency>
-        <!-- Castor Xml -->
         <dependency>
             <groupId>org.codehaus.castor</groupId>
             <artifactId>castor</artifactId>
