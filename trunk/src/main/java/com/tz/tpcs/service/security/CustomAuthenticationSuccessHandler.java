@@ -2,6 +2,9 @@ package com.tz.tpcs.service.security;
 
 import com.tz.tpcs.dao.EmployeeDao;
 import com.tz.tpcs.entity.Employee;
+import com.tz.tpcs.entity.Resources;
+import com.tz.tpcs.service.ResourcesService;
+import com.tz.tpcs.util.IConstant;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
@@ -11,8 +14,10 @@ import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * @author : Hu jing ling
@@ -25,6 +30,8 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     @SuppressWarnings("SpringJavaAutowiringInspection")
     @Resource
     private EmployeeDao employeeDao;
+    @Resource
+    private ResourcesService resourcesService;
 
     @Override
     @Transactional
@@ -38,6 +45,12 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         emp.setLoginDate(new Date());
         emp.setLoginFailureCount(0);
         employeeDao.save(emp);
+        //在session中存入登录员工的实例
+        HttpSession session = request.getSession();
+        session.setAttribute(IConstant.LOGIN_USER, emp);
+        //在session中存入员工可访问资源的集合
+        Set<Resources> resourcesSet = resourcesService.findResByEmployeeId(emp.getId());
+        session.setAttribute(IConstant.LOGIN_USER_RES, resourcesSet);
 
         super.onAuthenticationSuccess(request, response, authentication);
     }

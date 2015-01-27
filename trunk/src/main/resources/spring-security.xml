@@ -75,8 +75,8 @@
     </bean>
 
     <!-- 自定义URL授权拦截器类 -->
-    <bean id="urlSecurityInterceptor" class="com.tz.tpcs.service.security.CustomUrlSecurityInterceptor">
         <!-- 1.查询用户拥有的角色 -->
+    <bean id="urlSecurityInterceptor" class="com.tz.tpcs.service.security.CustomUrlSecurityInterceptor">
         <property name="authenticationManager" ref="authenticationManager"/>
         <!-- 2.维护URL与角色的映射关系-->
         <property name="securityMetadataSource" ref="securityMetadataSource"/>

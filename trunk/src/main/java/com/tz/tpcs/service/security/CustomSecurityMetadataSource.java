@@ -62,7 +62,7 @@ public class CustomSecurityMetadataSource implements FilterInvocationSecurityMet
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
         String requestUrl = ((FilterInvocation) object).getRequestUrl();
-        LOGGER.info("requestUrl is " + requestUrl);
+        LOGGER.debug("requestUrl is " + requestUrl);
         if (resourceMap == null) {
             loadResourceDefine();
         }
