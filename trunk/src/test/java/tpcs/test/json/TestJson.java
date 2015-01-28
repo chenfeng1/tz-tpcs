@@ -88,4 +88,11 @@ public class TestJson {
         System.out.println(list);
     }
 
+    @Test
+    public void test03String() throws IOException {
+//        String s = "《终结者》（The Terminator）是一部1984年上映的美国科幻动作片，由詹姆斯·卡梅隆执导，阿诺德·施瓦辛格、迈克尔·比恩和琳达";
+        String s = "tjqevznxclmndaawethajnahzxgxzzdurifeubrhhqajaiohnjurnrlpcjxfarpbqzqaph";
+        System.out.println(s.length());
+    }
+
 }

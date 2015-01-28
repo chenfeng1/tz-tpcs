@@ -36,8 +36,7 @@ public class ProjectCaseDaoImpl implements ProjectCaseDaoCustom{
             cq.where(cb.like(cb.lower(codePath), "%"+code.trim().toLowerCase()+"%"));
         }
         //设置按seq排序
-        cq.orderBy(cb.asc(root.get("seq")));
-//        cq.orderBy(Order.)
+        cq.orderBy(cb.desc(root.get("modifyDate")));
         //1.先做分页查询
         List<ProjectCase> list = em.createQuery(cq)
                 .setFirstResult((pager.getPageNumber()-1)*pager.getPageSize())

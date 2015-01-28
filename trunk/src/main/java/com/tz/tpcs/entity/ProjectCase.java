@@ -15,6 +15,8 @@ import javax.persistence.Table;
 @Table(name = "project_case")
 public class ProjectCase extends BaseEntity {
 
+    private static final int DESC_MAX_LEN = 500; //项目描述最大长度
+
     private String name; //项目名
     private String code; //代码
     private String desc; //描述
@@ -46,7 +48,7 @@ public class ProjectCase extends BaseEntity {
         this.code = code;
     }
 
-    @Column(name = "case_desc", nullable = false)
+    @Column(name = "case_desc", nullable = false, length = DESC_MAX_LEN)
     public String getDesc() {
         return desc;
     }

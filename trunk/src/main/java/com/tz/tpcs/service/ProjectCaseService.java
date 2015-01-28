@@ -25,4 +25,31 @@ public interface ProjectCaseService {
      * @param id ProjectCase ID
      */
     void delete(String id);
+
+    /**
+     * 保存 ProjectCase
+     * @param projectCase 项目案例实例
+     */
+    void save(ProjectCase projectCase);
+
+    /**
+     * 检查名称
+     * @param name 名称
+     * @return 如果存在返回 true;如果不存在返回false
+     */
+    boolean existName(String name);
+
+    /**
+     * 检查代号
+     * @param code 代号
+     * @return 如果存在返回 true;如果不存在返回false
+     */
+    boolean existCode(String code);
+
+    /**
+     * 根据 ID 查询
+     * @param id ID
+     * @return ProjectCase
+     */
+    ProjectCase findById(String id);
 }

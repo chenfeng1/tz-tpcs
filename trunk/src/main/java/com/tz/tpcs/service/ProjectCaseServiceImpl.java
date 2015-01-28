@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
 /**
+ * ProjectCase Service 实现类
  * @author Hu Jing Ling
  * @version 1.0
  * @since 2015/1/27 14:55
@@ -38,6 +39,28 @@ public class ProjectCaseServiceImpl implements ProjectCaseService {
             //todo..添加后续的业务逻辑，比如此项目案例下属有项目记录...
             projectCaseDao.delete(id);
         }
+    }
+
+    @Override
+    public void save(ProjectCase projectCase) {
+        projectCaseDao.save(projectCase);
+    }
+
+    @Override
+    public boolean existName(String name) {
+        ProjectCase projectCase = projectCaseDao.findByName(name);
+        return projectCase != null;
+    }
+
+    @Override
+    public boolean existCode(String code) {
+        ProjectCase projectCase = projectCaseDao.findByCode(code);
+        return projectCase != null;
+    }
+
+    @Override
+    public ProjectCase findById(String id) {
+        return projectCaseDao.findOne(id);
     }
 
 }

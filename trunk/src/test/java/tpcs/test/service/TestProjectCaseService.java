@@ -6,6 +6,7 @@ import com.tz.tpcs.web.form.Pager;
 import org.junit.Test;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import tpcs.test.dao.BaseTest;
+import tpcs.test.dao.BaseTestNoTx;
 
 import javax.annotation.Resource;
 
@@ -14,8 +15,7 @@ import javax.annotation.Resource;
  * @version 1.0
  * @since 2015/1/27 14:20
  */
-@TransactionConfiguration(defaultRollback = false)//自动回滚测试数据
-public class TestProjectCaseService extends BaseTest {
+public class TestProjectCaseService extends BaseTestNoTx {
 
     @Resource
     private ProjectCaseService projectCaseService;
@@ -35,5 +35,14 @@ public class TestProjectCaseService extends BaseTest {
         }
     }
 
+    @Test
+    public void test02CheckName(){
+        //1.
+        String name = "testProject1";
+        //2.
+        boolean b = projectCaseService.existName(name);
+        //3.
+        System.out.println(b);
+    }
 
 }

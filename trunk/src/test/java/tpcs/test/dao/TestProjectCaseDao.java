@@ -3,6 +3,7 @@ package tpcs.test.dao;
 import com.tz.tpcs.dao.ProjectCaseDao;
 import com.tz.tpcs.dao.ProjectCaseDaoCustom;
 import com.tz.tpcs.entity.ProjectCase;
+import org.fluttercode.datafactory.impl.DataFactory;
 import org.junit.Test;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
@@ -21,6 +22,8 @@ public class TestProjectCaseDao extends BaseTest{
 
     @Resource
     private ProjectCaseDao projectCaseDao;
+
+    private DataFactory dataFactory = new DataFactory();
 
     @Test
     public void test01Save(){
@@ -43,7 +46,11 @@ public class TestProjectCaseDao extends BaseTest{
             ProjectCase projectCase = new ProjectCase();
             projectCase.setName("testProject"+i);
             projectCase.setCode("testCode"+i);
-            projectCase.setDesc("testDesc"+i);
+            if(i%2==0){
+                projectCase.setDesc(dataFactory.getRandomText(300, 400));
+            }else{
+                projectCase.setDesc(dataFactory.getRandomText(10, 20));
+            }
             projectCase.setSeq(i);
             projectCaseDao.save(projectCase);
         }
