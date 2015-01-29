@@ -3,6 +3,7 @@ package com.tz.tpcs.web.form;
 import java.util.List;
 
 import com.tz.tpcs.entity.Clazz;
+import com.tz.tpcs.entity.Student;
 
 /**
  * 班级分页
@@ -16,6 +17,7 @@ public class Paging {
 	private Integer pageNow;// 当前页
 	private Integer pageCount;// 总页数
 	private List<Clazz> clazzs;
+	private List<Student> students;
 
 	public Integer getPageSize() {
 		return pageSize;
@@ -49,4 +51,11 @@ public class Paging {
 		this.clazzs = clazzs;
 	}
 
+	public List<Student> getStudents() {
+		return students;
+	}
+
+	public void setStudents(List<Student> students) {
+		this.students = students;
+	}
 }

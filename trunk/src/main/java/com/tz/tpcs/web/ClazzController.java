@@ -2,6 +2,7 @@ package com.tz.tpcs.web;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tz.tpcs.dao.ClazzDao;
+import com.tz.tpcs.entity.Area;
 import com.tz.tpcs.entity.Clazz;
 import com.tz.tpcs.entity.Clazz.ClazzStatus;
 import com.tz.tpcs.service.ClazzService;
@@ -67,7 +69,7 @@ public class ClazzController {
 			paging = clazzDao.getAll(name, null, null,
 					Integer.valueOf(pageSize), Integer.valueOf(pageNow));
 
-		} else if (min == "" && max == "") {
+		} else if (min.equals("") && max.equals("")) {
 			paging = clazzDao.getAll(name, null, null,
 					Integer.valueOf(pageSize), Integer.valueOf(pageNow));
 		} else {
@@ -178,4 +180,15 @@ public class ClazzController {
 		return new ModelAndView("/clazz/list");
 	}
 
+	  @RequestMapping(value = "/checkClazz", method= RequestMethod.POST)
+	  public String initAdd(HttpServletRequest request){
+		  	String msg = clazzDao.getByName2(request.getParameter("clazz_name"));
+		  	String result="";
+		  	if(null!=msg){
+		  		result="0";
+		  	}else{
+		  		result="1";
+		  	}
+		  	return result;
+	  }
 }

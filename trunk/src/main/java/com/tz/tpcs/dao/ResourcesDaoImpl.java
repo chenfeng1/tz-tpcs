@@ -1,5 +1,7 @@
 package com.tz.tpcs.dao;
 
+import java.io.Serializable;
+
 import com.tz.tpcs.entity.Resources;
 
 import javax.persistence.EntityManager;
@@ -8,7 +10,7 @@ import javax.persistence.PersistenceContext;
 /**
  * Created by Hu Jing Ling on 2015/1/20.
  */
-public class ResourcesDaoImpl implements ResourcesDaoCustom {
+public class ResourcesDaoImpl implements ResourcesDaoCustom,Serializable {
 
     @PersistenceContext
     private EntityManager em;

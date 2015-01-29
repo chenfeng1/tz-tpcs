@@ -1,16 +1,20 @@
 package com.tz.tpcs.init;
 
 import com.tz.WebAppConfig;
+import com.tz.tpcs.dao.AreaDao;
 import com.tz.tpcs.dao.EmployeeDao;
 import com.tz.tpcs.dao.ProjectCaseDao;
 import com.tz.tpcs.dao.ResourcesDao;
 import com.tz.tpcs.dao.RoleDao;
+import com.tz.tpcs.entity.Area;
 import com.tz.tpcs.entity.Employee;
 import com.tz.tpcs.entity.ProjectCase;
 import com.tz.tpcs.entity.Resources;
 import com.tz.tpcs.entity.Resources.Type;
 import com.tz.tpcs.entity.Role;
 import com.tz.tpcs.service.ResourcesService;
+import com.tz.tpcs.xml.AreaDomParser;
+
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,6 +43,9 @@ public class InitData {
 
 	@Resource
 	private ProjectCaseDao projectCaseDao;
+	
+	@Resource
+	private AreaDao areaDao;
 	
     @Resource
     private ResourcesDao resourcesDao;
@@ -69,7 +76,7 @@ public class InitData {
 //        list.add(r16);
 
         Resources r2 = new Resources("学员", "menu_student",Type.FOLDER, "", null, null,2,true);
-        Resources r21 = new Resources("学员列表", "menu_student_list",Type.URL, "/students/list", r2, null,21,true);
+        Resources r21 = new Resources("学员列表", "menu_student_list",Type.URL, "/students/initList", r2, null,21,true);
         Resources r22 = new Resources("导入学员", "menu_student_import",Type.URL, "/students/initImport", r2, null,22,true);
         list.add(r2);
         list.add(r21);
@@ -210,4 +217,28 @@ public class InitData {
 		p1.setSnapshot("/images/002.png");
 		projectCaseDao.save(p1);
 	}
+    
+    /**
+     * 保存省市
+     */
+    @Test
+    public void testArea(){
+    	AreaDomParser ad = new AreaDomParser();
+		List<Area> areas = ad.getAreaFromXML("com/tz/tpcs/xml/area.xml");
+		for (Area a : areas) {
+			Area area = new Area();
+			area.setName(a.getName());
+			area.setCode(a.getCode());
+			area.setLevel(1);
+			areaDao.save(area);
+			for (Area c : a.getChildren()) {
+				Area area1 = new Area();
+				area1.setName(c.getName());
+				area1.setCode(c.getCode());
+				area1.setLevel(2);
+				area1.setParent(area);
+				areaDao.save(area1);
+			}
+		}
+    }
 }

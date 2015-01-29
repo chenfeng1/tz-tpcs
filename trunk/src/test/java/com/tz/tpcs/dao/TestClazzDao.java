@@ -125,12 +125,12 @@ public class TestClazzDao extends BaseTest{
     @Test
     public void testUpdate(){
     	//Clazz clazz  = em.find(Clazz.class, "e4a7aba9-ccff-4550-a016-41a0d59e3932");
-    	Clazz clazz = clazzDao.findOne("e4a7aba9-ccff-4550-a016-41a0d59e3932");
+    	Clazz clazz = clazzDao.findOne("c2858af1-ca2d-43e4-ab34-37356eea73f9");
     	//Clazz clazz = new Clazz();
     	//clazz.setId("e4a7aba9-ccff-4550-a016-41a0d59e3932");
     	
     	//clazz.setAdvisor("曹妍");
-    	clazz.setClaz_name("AAB");
+    	clazz.setClaz_name("AABccc");
     	//clazz.setName("JSD1111");
     	clazzDao.update(clazz);
     	
@@ -213,5 +213,13 @@ public class TestClazzDao extends BaseTest{
 //    	for (Clazz clazz : list) {
 //			System.out.println(clazz);
 //		}
+    }
+    /**
+     * 根据班级名来查找班级
+     */
+    @Test
+    public void testFindByName(){
+    	Clazz c = clazzDao.getByName("JSD1312");
+    	System.out.println(c);
     }
 }

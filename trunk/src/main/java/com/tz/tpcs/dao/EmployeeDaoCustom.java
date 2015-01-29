@@ -14,5 +14,5 @@ public interface EmployeeDaoCustom {
      * @return 符合条件的单个 Employee
      */
     Employee findSingleByProp(String prop, Object value);
-
+    
 }

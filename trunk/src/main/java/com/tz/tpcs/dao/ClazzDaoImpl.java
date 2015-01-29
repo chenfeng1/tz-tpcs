@@ -8,11 +8,13 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 import com.tz.tpcs.entity.Clazz;
+import com.tz.tpcs.entity.Student;
 import com.tz.tpcs.web.form.Paging;
 
 /**
@@ -106,17 +108,7 @@ public class ClazzDaoImpl implements ClazzDaoCustom {
 	 */
 	@Override
 	public Long getRowCount(String name,Integer min,Integer max){
-		//构建CriteriaBuilder工厂对象
-	/*	CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-		CriteriaQuery<Clazz> criteriaQuery = criteriaBuilder.createQuery(Clazz.class);
-		Root<Clazz> clazz = criteriaQuery.from(Clazz.class);
-		Predicate condition = criteriaBuilder.gt(clazz.getC, min);
-		criteriaQuery.where(condition);
-		TypedQuery<Clazz> typedQuery = em.createQuery(criteriaQuery);
-		List<Clazz> result = typedQuery.getResultList();
-		System.out.println(result.size());
-		*/
-		
+	
 		StringBuilder hql = new StringBuilder(
 				"select count(*) from Clazz as c where 1=1");
 		if (null != name && name.toString().length() > 0) {
@@ -132,5 +124,26 @@ public class ClazzDaoImpl implements ClazzDaoCustom {
 		Object count = query.getSingleResult();
 		return Long.valueOf(String.valueOf(count));
 		//return null;
+	}
+
+	@Override
+	public String getByName2(String name) {
+		String hql="from Clazz as c where c.name=:name";
+		Query query = em.createQuery(hql).setParameter("name", name);
+		String str=null;
+		try {
+			 query.getSingleResult();
+		} catch (Exception e) {
+			str="not found entity";
+		}
+		return str;
+	}
+
+	@Override
+	public Clazz getByName(String name) {
+		String hql="from Clazz as c where c.name=:name";
+		Query query = em.createQuery(hql).setParameter("name", name);
+		Clazz c = (Clazz) query.getSingleResult();
+		return c;
 	}
 }

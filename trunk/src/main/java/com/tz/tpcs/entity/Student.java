@@ -17,7 +17,9 @@ import java.util.Date;
 @Table(name = "stu_student")
 public class Student extends BaseEntity{
 
-    private String number; //学号（登录）
+	private static final long serialVersionUID = -572371066049960967L;
+	
+	private String number; //学号（登录）
     private String realname; //姓名
     private String password; //密码 ，用于后期的学员登录页面
     private String image; //头像
@@ -30,14 +32,14 @@ public class Student extends BaseEntity{
     private String province; //省份
     private String city; //城市
     private String currentLoc; //当前所在地
-    private String workLoc; //工作地
+    private String workLoc; //期望工作地
     private String school; //院校
     private String major; //专业
-    private String degree; //学历
+    private Degree degree; //学历
     private Date graduationDate; //毕业时间
     private int workingYears; //已有工作年限
     private double paid; //已交费用
-    private String loanStatus; //贷款状态
+    private LoanStatus loanStatus; //贷款状态
     private Source source; //渠道来源
     private String emergencyContact; //紧急联系人
     private String emergencyPhone; //紧急联系电话
@@ -50,6 +52,14 @@ public class Student extends BaseEntity{
     private String remark;  //备注
     private String qq; //qq号码
 
+    //2014-01-29 add by 管成功 start
+    public enum LoanStatus{
+    	LOAN,//已放款
+    	UNLOAN,//未放款
+    	CASH,//现金
+    	CREDIT//信用卡
+    }
+    
     //2015-01-23 add by 胡荆陵 start
     public enum Status{
         UNSIGNED,//未签约
@@ -292,14 +302,15 @@ public class Student extends BaseEntity{
         this.major = major;
     }
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "stu_degree")
-    public String getDegree() {
-        return degree;
-    }
+    public Degree getDegree() {
+		return degree;
+	}
 
-    public void setDegree(String degree) {
-        this.degree = degree;
-    }
+	public void setDegree(Degree degree) {
+		this.degree = degree;
+	}
 
     @Temporal(TemporalType.DATE)
     @Column(name = "stu_graduation_date")
@@ -307,7 +318,7 @@ public class Student extends BaseEntity{
         return graduationDate;
     }
 
-    public void setGraduationDate(Date graduationDate) {
+	public void setGraduationDate(Date graduationDate) {
         this.graduationDate = graduationDate;
     }
 
@@ -329,12 +340,13 @@ public class Student extends BaseEntity{
         this.paid = paid;
     }
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "stu_loan_status")
-    public String getLoanStatus() {
+    public LoanStatus getLoanStatus() {
         return loanStatus;
     }
 
-    public void setLoanStatus(String loanStatus) {
+    public void setLoanStatus(LoanStatus loanStatus) {
         this.loanStatus = loanStatus;
     }
 
