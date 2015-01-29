@@ -48,15 +48,7 @@
             $.ajax({
                 url: '${path}/projects/ajaxUploadImg',  //Server script to process data
                 type: 'post',
-//                xhr: function() {  // Custom XMLHttpRequest
-//                    var myXhr = $.ajaxSettings.xhr();
-//                    if(myXhr.upload){ // Check if upload property exists
-//                        myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // For handling the progress of the upload
-//                    }
-//                    return myXhr;
-//                },
                 //Ajax events
-                //beforeSend: beforeSendHandler,
                 success: function(result){
                     if(result.success){
                         //alert("上传成功!");
@@ -182,7 +174,7 @@
                 </c:if>
                 <p>
                     <c:if test="${projectCase.functionSpec != null}" var="hasFunctionSpec">
-                        <!-- 此部份将来链接到项目规格说明书上，以PDF的格式下载或是预览 -->
+                        <%--此部份将来链接到项目规格说明书上，以PDF的格式下载或是预览--%>
                         <a href="${path}/upload/projectCase/fs/${projectCase.functionSpec}" target="_blank" class="label label-info">项目规格说明书</a>
                         <span class="help-block">以PDF的格式下载或是预览</span>
                     </c:if>

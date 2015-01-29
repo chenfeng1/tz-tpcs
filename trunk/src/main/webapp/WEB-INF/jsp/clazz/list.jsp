@@ -84,7 +84,7 @@
 </script>
 
 <div class="container">
-    <!-- 查询区 -->
+	<%--查询区--%>
     <form class="form-horizontal" role="form" action="${path }/clazz/list" method="get">
         <div class="form-group">
             <label for="cname" class="col-md-1 control-label">班级名：</label>
@@ -110,8 +110,8 @@
         </div>
     </form>
     <hr/>
-<!-- 模态框 中的内容 -->
-<!-- Modal -->
+<%--模态框 中的内容--%>
+<%--Modal--%>
 <div class="modal fade" id="myClassModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -184,8 +184,7 @@
     </div>
 </div>
 
-
-    <!-- 内容区 -->
+	<%--内容区--%>
     <div class="row">
         <div class="col-md-1">
             <button type="button" class="btn btn-primary" onclick="javaScript:window.location.href='${path}/clazz/initAdd'">
@@ -231,7 +230,7 @@
         </div>
     </div>
 
-    <!-- 分页模块 -->
+	<%--分页模块--%>
     <div class="pull-right">
     	<span style="color: red">当前页</span>${paging.pageNow }/${paging.pageCount}<span style="color: red">总页</span>
         <ul class="pagination">

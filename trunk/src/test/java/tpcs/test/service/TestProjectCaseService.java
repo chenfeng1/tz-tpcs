@@ -40,9 +40,9 @@ public class TestProjectCaseService extends BaseTestNoTx {
         //1.
         String name = "testProject1";
         //2.
-        boolean b = projectCaseService.existName(name);
+        ProjectCase projectCase = projectCaseService.findByName(name);
         //3.
-        System.out.println(b);
+        System.out.println(projectCase);
     }
 
 }
