@@ -35,10 +35,14 @@
         });
         //点击更换项目案例图片
         $(".changeProCaseImg").click(function(){
-            var id = $(this).attr("pcId");
-            console.log("click:"+id +" on "+Date.now());
-            $("#hiddenForm #id").val(id);
-            $("#fileupload").click();
+            if(msieversion()) {
+                alert("亲用的是IE浏览器，请在修改页面进行此操作!")
+            }else{
+                var id = $(this).attr("pcId");
+                console.log("click:"+id +" on "+Date.now());
+                $("#hiddenForm #id").val(id);
+                $("#fileupload").click();
+            }
         });
 
         //点击更换项目案例图片
@@ -79,6 +83,22 @@
         $("#pageNumber").val(num);
         $("#searchForm").submit();
     }
+
+    //判断是否IE浏览器
+    function msieversion() {
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf("MSIE ");
+        // If Internet Explorer, return version number
+        if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)){
+            var version = parseInt(ua.substring(msie + 5, ua.indexOf(".", msie)));
+            console.log("IE "+version);
+            return true;
+        }else{
+            // If another browser, return 0
+            return false;
+        }
+    }
+
 </script>
 
 <div style="display:none">

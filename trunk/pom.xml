@@ -226,6 +226,12 @@
             <artifactId>commons-fileupload</artifactId>
             <version>1.3.1</version>
         </dependency>
+        <!--编码规范-->
+        <dependency>
+            <groupId>com.puppycrawl.tools</groupId>
+            <artifactId>checkstyle</artifactId>
+            <version>6.2</version>
+        </dependency>
     </dependencies>
 
     <build>
