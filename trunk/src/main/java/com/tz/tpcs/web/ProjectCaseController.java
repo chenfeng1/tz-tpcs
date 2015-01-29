@@ -82,8 +82,9 @@ public class ProjectCaseController {
      * @return ModelAndView
      */
     @RequestMapping(value = "/initAdd", method= RequestMethod.GET)
-    public ModelAndView initAdd(){
-        return new ModelAndView("projects.edit");
+    public ModelAndView initAdd(ModelMap model){
+        model.addAttribute("actionType", "add");
+        return new ModelAndView("projects.edit", model);
     }
 
     /**
@@ -100,14 +101,14 @@ public class ProjectCaseController {
                             HttpServletRequest request){
         if(!bindingResult.hasFieldErrors("name")){
             //数据库检查项目名
-            if(projectCaseService.existName(form.getName())){
+            if(projectCaseService.findByName(form.getName()) != null){
                 String msg = messageSource.getMessage("projectCase.name.used", null, locale);
                 bindingResult.addError(new ObjectError("name", msg));
             }
         }
         if(!bindingResult.hasFieldErrors("code")){
             //数据库检查项目代号
-            if(projectCaseService.existCode(form.getCode())){
+            if(projectCaseService.findByCode(form.getCode()) != null){
                 String msg = messageSource.getMessage("projectCase.code.used", null, locale);
                 bindingResult.addError(new ObjectError("code", msg));
             }
@@ -154,6 +155,7 @@ public class ProjectCaseController {
                                    ModelMap model){
         ProjectCase projectCase = projectCaseService.findById(id);
         model.addAttribute("projectCase", projectCase);
+        model.addAttribute("actionType", "update");
         return new ModelAndView("projects.edit", model);
     }
 
@@ -161,8 +163,54 @@ public class ProjectCaseController {
      * 更新
      * @return ModelAndView
      */
-    @RequestMapping(value = "/update", method= RequestMethod.GET)
-    public ModelAndView update(){
+    @RequestMapping(value = "/update", method= RequestMethod.POST)
+    public ModelAndView update(ModelMap model,
+                               @Valid ProjectCaseForm form,
+                               BindingResult bindingResult,
+                               @RequestParam MultipartFile functionSpec,
+                               @RequestParam MultipartFile snapshot,
+                               Locale locale,
+                               HttpServletRequest request){
+        if(!bindingResult.hasFieldErrors("name")){
+            //检查项目名
+            ProjectCase projectCase = projectCaseService.findByName(form.getName());
+            if(projectCase != null){
+                if(!projectCase.getId().equals(form.getId())){
+                    String msg = messageSource.getMessage("projectCase.name.used", null, locale);
+                    bindingResult.addError(new ObjectError("name", msg));
+                }
+            }
+        }
+        if(!bindingResult.hasFieldErrors("code")){
+            //检查项目代号
+            ProjectCase projectCase = projectCaseService.findByCode(form.getCode());
+            if(projectCase != null){
+                if(!projectCase.getId().equals(form.getId())){
+                    String msg = messageSource.getMessage("projectCase.code.used", null, locale);
+                    bindingResult.addError(new ObjectError("code", msg));
+                }
+            }
+        }
+        if(bindingResult.hasErrors()){
+            model.addAttribute("projectCase", form);
+            model.addAttribute("errors", bindingResult.getAllErrors());
+            return new ModelAndView("projects.edit");
+        }
+        ProjectCase projectCase = mapper.map(form, ProjectCase.class);
+        //判断包含有上传的文件1:项目规格说明书
+        if(functionSpec.getSize()>0){
+            String realPath = request.getServletContext().getRealPath("/upload/projectCase/fs");
+            String savedFileName = FileUtil.copyFileToPath(functionSpec, realPath);
+            projectCase.setFunctionSpec(savedFileName);
+        }
+        //判断包含有上传的文件2:项目截图
+        if(snapshot.getSize()>0){
+            String realPath = request.getServletContext().getRealPath("/upload/projectCase/snapshot");
+            String savedFileName = FileUtil.copyFileToPath(snapshot, realPath);
+            projectCase.setSnapshot(savedFileName);
+        }
+        //保存
+        projectCaseService.update(projectCase);
         return new ModelAndView("redirect:/projects/list");
     }
 }

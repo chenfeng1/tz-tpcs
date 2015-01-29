@@ -278,11 +278,19 @@
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.2</version>
                 <configuration>
-                    <!--启动端口号-->
+                    <url>http://localhost:8888/manager/text</url>
+                    <server>myTomcat7</server>
                     <port>8888</port>
-                    <!--访问项目名-->
+                    <username>tomcat</username>
+                    <password>tomcat</password>
                     <path>/tpcs</path>
                 </configuration>
+                <!--<configuration>-->
+                    <!--&lt;!&ndash;启动端口号&ndash;&gt;-->
+                    <!--<port>8888</port>-->
+                    <!--&lt;!&ndash;访问项目名&ndash;&gt;-->
+                    <!--<path>/tpcs</path>-->
+                <!--</configuration>-->
             </plugin>
             <plugin>
                 <artifactId>maven-checkstyle-plugin</artifactId>

@@ -7,10 +7,15 @@
 		</encoder>
 	</appender>
 
-	<root level="warn">
+	<root level="debug">
 		<appender-ref ref="console" />
 	</root>
 
+	<logger name="log4j.logger.org.apache.jasper.compiler.TldLocationsCache" level="debug" />
+	<logger name="org.apache.tiles" level="warn" />
+	<logger name="org.apache.commons" level="warn" />
+	<logger name="org.hibernate" level="warn" />
+	<logger name="org.dozer" level="warn" />
 	<logger name="org.springframework" level="error" />
 	<logger name="org.springframework.boot.autoconfigure.security" level="info" />
 	<logger name="com.tz.tpcs" level="info" />

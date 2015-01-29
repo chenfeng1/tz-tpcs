@@ -91,7 +91,7 @@
                 <strong>${projectCase.name}</strong>
             </div>
             <div class="col-md-1">
-                <a class="label label-default" href="${path}/projects/initUpdate?${projectCase.id}"><span class="glyphicon glyphicon-refresh"></span></a>&nbsp;
+                <a class="label label-default" href="${path}/projects/initUpdate?id=${projectCase.id}"><span class="glyphicon glyphicon-refresh"></span></a>&nbsp;
                 <a class="label label-danger" href="${path}/projects/delete?id=${projectCase.id}" onclick="return confirm('确定要删除吗?');"><span class="glyphicon glyphicon-trash"></span></a>&nbsp;
             </div>
         </div>
@@ -102,13 +102,15 @@
         </div>
         <div class="row">
             <div class="col-md-3">
+                <c:if test="${projectCase.snapshot != null}" var="hasSnapshot">
+                    <c:set value="${path}/upload/projectCase/snapshot/${projectCase.snapshot}" var="imgPath"/>
+                </c:if>
+                <c:if test="${!hasSnapshot}">
+                    <c:set value="${path}/upload/img/p-default.jpg" var="imgPath"/>
+                </c:if>
+
                 <a href="" onclick="" class="img-thumbnail">
-                    <c:if test="${projectCase.snapshot != null}" var="hasSnapshot">
-                        <img width="128px" height="128px" src="${path}/uploadFiles/projectCase/snapshot/${projectCase.snapshot}">
-                    </c:if>
-                    <c:if test="${!hasSnapshot}">
-                        <img width="128px" height="128px" src="../upload/img/p-default.jpg"><br/>
-                    </c:if>
+                    <img width="128px" height="128px" src="${imgPath}">
                     <center>更换图片</center>
                 </a>
             </div>
@@ -123,10 +125,15 @@
                 <c:if test="${!simple}">
                     <p class="myWorkBreak">${projectCase.desc}</p>
                 </c:if>
-                <!-- 此部份将来链接到项目规格说明书上，以PDF的格式下载或是预览 -->
                 <p>
-                    <a href="${path}/uploadFiles/projectCase/fs/${projectCase.functionSpec}" target="_blank" class="label label-info">项目规格说明书</a>
-                    <span class="help-block">以PDF的格式下载或是预览</span>
+                    <c:if test="${projectCase.functionSpec != null}" var="hasFunctionSpec">
+                        <!-- 此部份将来链接到项目规格说明书上，以PDF的格式下载或是预览 -->
+                        <a href="${path}/upload/projectCase/fs/${projectCase.functionSpec}" target="_blank" class="label label-info">项目规格说明书</a>
+                        <span class="help-block">以PDF的格式下载或是预览</span>
+                    </c:if>
+                    <c:if test="${!hasFunctionSpec}">
+                        <span class="label label-default">项目规格说明书</span>
+                    </c:if>
                 </p>
             </div>
         </div> <!-- forEach Over -->

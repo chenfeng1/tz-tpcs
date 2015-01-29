@@ -11,15 +11,25 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 public class ProjectCaseForm {
 
+    private String id; //ID
     @NotBlank(message = "{projectCase.name.blank}")
     private String name; //项目名
     @NotBlank(message = "{projectCase.code.blank}")
     private String code; //代码
     @NotBlank(message = "{projectCase.desc.blank}")
     private String desc; //描述
+    private Integer version; //版本锁
 
     /** 空参构造 */
     public ProjectCaseForm() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -46,12 +56,12 @@ public class ProjectCaseForm {
         this.desc = desc;
     }
 
-    @Override
-    public String toString() {
-        return "ProjectCaseForm{" +
-                "name='" + name + '\'' +
-                ", code='" + code + '\'' +
-                ", desc='" + desc + '\'' +
-                '}';
+    public Integer getVersion() {
+        return version;
     }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
 }

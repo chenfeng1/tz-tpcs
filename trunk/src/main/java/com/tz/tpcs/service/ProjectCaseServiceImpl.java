@@ -3,6 +3,7 @@ package com.tz.tpcs.service;
 import com.tz.tpcs.dao.ProjectCaseDao;
 import com.tz.tpcs.entity.ProjectCase;
 import com.tz.tpcs.web.form.Pager;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -47,20 +48,35 @@ public class ProjectCaseServiceImpl implements ProjectCaseService {
     }
 
     @Override
-    public boolean existName(String name) {
+    public ProjectCase findByName(String name) {
         ProjectCase projectCase = projectCaseDao.findByName(name);
-        return projectCase != null;
+        return projectCase;
     }
 
     @Override
-    public boolean existCode(String code) {
+    public ProjectCase findByCode(String code) {
         ProjectCase projectCase = projectCaseDao.findByCode(code);
-        return projectCase != null;
+        return projectCase;
     }
 
     @Override
     public ProjectCase findById(String id) {
         return projectCaseDao.findOne(id);
+    }
+
+    @Override
+    public void update(ProjectCase projectCase) {
+        ProjectCase temp = projectCaseDao.findOne(projectCase.getId());
+        temp.setName(projectCase.getName());
+        temp.setCode(projectCase.getCode());
+        temp.setDesc(projectCase.getDesc());
+        if(StringUtils.isNotBlank(projectCase.getFunctionSpec())){
+            temp.setFunctionSpec(projectCase.getFunctionSpec());
+        }
+        if(StringUtils.isNotBlank(projectCase.getSnapshot())){
+            temp.setSnapshot(projectCase.getSnapshot());
+        }
+        projectCaseDao.save(temp);
     }
 
 }

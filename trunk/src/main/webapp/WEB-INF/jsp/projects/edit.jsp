@@ -15,7 +15,9 @@
     </c:if>
 
     <%--表单部分--%>
-    <form class="form-horizontal" role="form" action="${path}/projects/add" method="post" enctype="multipart/form-data">
+    <form class="form-horizontal" role="form" action="${path}/projects/${actionType}" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="${projectCase.id}">
+        <input type="hidden" name="version" value="${projectCase.version}">
         <div class="form-group">
             <label for="name" class="col-md-1 control-label">项目名称<span style="color: red">*</span></label>
             <div class="col-md-4">
@@ -29,7 +31,7 @@
         <div class="form-group">
             <label for="desc" class="col-md-1 control-label">项目描述<span style="color: red">*</span></label>
             <div class="col-md-7">
-                <textarea rows="12" id="desc" name="desc" value="${projectCase.desc}" class="form-control" placeholder="项目描述"></textarea>
+                <textarea rows="12" id="desc" name="desc" class="form-control" placeholder="项目描述">${projectCase.desc}</textarea>
             </div>
         </div>
 

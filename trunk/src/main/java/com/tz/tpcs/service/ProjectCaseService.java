@@ -37,14 +37,14 @@ public interface ProjectCaseService {
      * @param name 名称
      * @return 如果存在返回 true;如果不存在返回false
      */
-    boolean existName(String name);
+    ProjectCase findByName(String name);
 
     /**
      * 检查代号
      * @param code 代号
      * @return 如果存在返回 true;如果不存在返回false
      */
-    boolean existCode(String code);
+    ProjectCase findByCode(String code);
 
     /**
      * 根据 ID 查询
@@ -52,4 +52,10 @@ public interface ProjectCaseService {
      * @return ProjectCase
      */
     ProjectCase findById(String id);
+
+    /**
+     * 更新
+     * @param projectCase
+     */
+    void update(ProjectCase projectCase);
 }
