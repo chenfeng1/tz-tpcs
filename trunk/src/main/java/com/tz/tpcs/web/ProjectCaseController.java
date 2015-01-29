@@ -3,6 +3,7 @@ package com.tz.tpcs.web;
 import com.tz.tpcs.entity.ProjectCase;
 import com.tz.tpcs.service.ProjectCaseService;
 import com.tz.tpcs.util.FileUtil;
+import com.tz.tpcs.web.form.AjaxResult;
 import com.tz.tpcs.web.form.Pager;
 import com.tz.tpcs.web.form.ProjectCaseForm;
 import org.apache.log4j.Logger;
@@ -213,6 +214,30 @@ public class ProjectCaseController {
         projectCaseService.update(projectCase);
         return new ModelAndView("redirect:/projects/list");
     }
+
+    /**
+     * Ajax上传图片
+     * @param id ID
+     * @param image 图片
+     * @param request HttpServletRequest
+     * @return AjaxResult
+     */
+    @RequestMapping(value = "/ajaxUploadImg", method= RequestMethod.POST)
+    public AjaxResult ajaxUploadImg(@RequestParam String id,
+                                    @RequestParam MultipartFile image,
+                                    HttpServletRequest request){
+        if(image.getSize()>0){
+            ProjectCase projectCase = projectCaseService.findById(id);
+            String realPath = request.getServletContext().getRealPath("/upload/projectCase/snapshot");
+            String savedFileName = FileUtil.copyFileToPath(image, realPath);
+            projectCase.setSnapshot(savedFileName);
+            projectCaseService.update(projectCase);
+            return new AjaxResult(true, savedFileName);
+        }else{
+            return new AjaxResult();
+        }
+    }
+
 }
 
 

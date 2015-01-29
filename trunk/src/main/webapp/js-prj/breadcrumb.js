@@ -1,5 +1,5 @@
 $(function(){
-    console.log("helloWorld!");
+    //console.log("helloWorld!");
     //顶部菜单点击事件监听器
     $("#mynav a").click(function(){
         var $tar = $(this);

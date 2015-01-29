@@ -33,6 +33,53 @@
             $row.find(".simpleDesc").hide();
             $row.find(".fullDesc").show();
         });
+        //点击更换项目案例图片
+        $(".changeProCaseImg").click(function(){
+            var id = $(this).attr("pcId");
+            console.log("click:"+id +" on "+Date.now());
+            $("#hiddenForm #id").val(id);
+            $("#fileupload").click();
+        });
+
+        //点击更换项目案例图片
+        $("#fileupload").change(function(){
+            //alert("change!!");
+            var formData = new FormData($('#hiddenForm')[0]);
+            $.ajax({
+                url: '${path}/projects/ajaxUploadImg',  //Server script to process data
+                type: 'post',
+//                xhr: function() {  // Custom XMLHttpRequest
+//                    var myXhr = $.ajaxSettings.xhr();
+//                    if(myXhr.upload){ // Check if upload property exists
+//                        myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // For handling the progress of the upload
+//                    }
+//                    return myXhr;
+//                },
+                //Ajax events
+                //beforeSend: beforeSendHandler,
+                success: function(result){
+                    if(result.success){
+                        //alert("上传成功!");
+                        //console.log(result.obj);
+                        var newPath = "${path}/upload/projectCase/snapshot/" + result.obj;
+                        var id = "#SnapshotImg_"+$("#hiddenForm #id").val();
+                        $(id).attr("src", newPath);
+                    }else{
+                        alert("上传失败!");
+                    }
+                },
+                error: function(e){
+                    alert("error:"+e);
+                },
+                // Form data
+                data: formData,
+                //tell jQuery not to process data or worry about content-type.
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+        });
+
     });
     //提交查询表单
     function submitForm(num){
@@ -42,8 +89,16 @@
     }
 </script>
 
+<div style="display:none">
+    <form id="hiddenForm" enctype="multipart/form-data">
+        <input type="text" id="id" name="id" value="xxx" />
+        <input id="fileupload" type="file" name="image" />
+        <input type="button" value="Upload" />
+    </form>
+</div>
+
 <div class="container">
-    <!-- 查询区 -->
+    <%-- 查询区 --%>
     <form id="searchForm" class="form-horizontal" role="form" action="${path}/projects/list" method="post">
         <div class="form-group">
             <label for="cname" class="col-md-1 control-label">项目名</label>
@@ -66,7 +121,7 @@
     </form>
     <hr/>
 
-    <!-- 内容区 -->
+    <%--内容区--%>
     <div class="row">
         <div class="col-md-1">
             <button type="button" class="btn btn-primary" onclick="javascript:window.location.href='${path}/projects/initAdd'">
@@ -77,7 +132,7 @@
 
     <c:forEach items="${pager.list}" var="projectCase">
         <hr/>
-        <!-- 此处循环 迭代 -->
+        <%--此处循环 迭代--%>
         <div class="row">
             <div class="col-md-1">
                 <span>1</span>
@@ -109,8 +164,8 @@
                     <c:set value="${path}/upload/img/p-default.jpg" var="imgPath"/>
                 </c:if>
 
-                <a href="" onclick="" class="img-thumbnail">
-                    <img width="128px" height="128px" src="${imgPath}">
+                <a href="javascript:void(0)" pcId="${projectCase.id}" class="img-thumbnail changeProCaseImg">
+                    <img id="SnapshotImg_${projectCase.id}" width="128px" height="128px" src="${imgPath}">
                     <center>更换图片</center>
                 </a>
             </div>
@@ -136,10 +191,10 @@
                     </c:if>
                 </p>
             </div>
-        </div> <!-- forEach Over -->
+        </div>
     </c:forEach>
 
-    <!-- 分页模块 -->
+    <%--分页模块--%>
     <nav>
         <ul class="pager">
             <c:if test="${pager.pageNumber > 1}">

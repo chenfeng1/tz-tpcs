@@ -70,6 +70,7 @@ public class ProjectCaseServiceImpl implements ProjectCaseService {
         temp.setName(projectCase.getName());
         temp.setCode(projectCase.getCode());
         temp.setDesc(projectCase.getDesc());
+        temp.setVersion(projectCase.getVersion());
         if(StringUtils.isNotBlank(projectCase.getFunctionSpec())){
             temp.setFunctionSpec(projectCase.getFunctionSpec());
         }
