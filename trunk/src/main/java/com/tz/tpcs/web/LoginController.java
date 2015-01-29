@@ -1,11 +1,6 @@
 package com.tz.tpcs.web;
 
-import com.tz.tpcs.entity.Employee;
-import com.tz.tpcs.entity.Resources;
 import com.tz.tpcs.service.ResourcesService;
-import com.tz.tpcs.util.IConstant;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +8,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import java.util.Set;
 
 /**
  * 专门负责登录 / 登出的控制器
@@ -30,13 +24,8 @@ public class LoginController {
      * @return
      */
     @RequestMapping(value = "/loginSuccess", method = RequestMethod.GET)
-    public ModelAndView loginSuccess(HttpSession session){
+    public ModelAndView loginSuccess(){
         //todo...初始化  登录成功后的欢迎页面 所需数据...
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Employee employee = (Employee) auth.getPrincipal();
-        Set<Resources> resourcesSet = resourcesService.findResByEmployeeId(employee.getId());
-        session.setAttribute(IConstant.LOGIN_USER, employee);
-        session.setAttribute(IConstant.LOGIN_USER_RES, resourcesSet);
         return new ModelAndView("baseLayout");
     }
 
