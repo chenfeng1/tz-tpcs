@@ -12,11 +12,23 @@ import javax.servlet.http.HttpServletRequest;
  * @author guan
  * 
  */
-public class ResolveDate {
+public final class ResolveDate {
 
-	public static Date StringToDate(HttpServletRequest request, String date) {
+	/**
+	 * 私有的空参
+	 */
+	private ResolveDate() {
+		
+	}
+	/**
+	 * 
+	 * @param request
+	 * @param date
+	 * @return
+	 */
+	public static Date stringToDate(HttpServletRequest request, String date) {
 		Date d = null;
-		if (null != date || !date.equals("")) {
+		if (null != date || !("").equals(date)) {
 			String ds = request.getParameter(date);
 			if (null != ds && ds.trim().length() > 0) {
 				try {

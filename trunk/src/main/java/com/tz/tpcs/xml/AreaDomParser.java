@@ -3,9 +3,7 @@ package com.tz.tpcs.xml;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -28,13 +26,12 @@ public class AreaDomParser {
 	//用来保存地区的集合
 	private List<Area> areas = new ArrayList<Area>();
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		AreaDomParser sd = new AreaDomParser();
 		List<Area> areas= sd.getAreaFromXML("com/tz/tpcs/xml/area.xml");
 		for (Area a : areas) {
-			System.out.println(a);
 		}
-	}
+	}*/
 
 	/**
 	 * 采用DOM解析XML文档放入集合中

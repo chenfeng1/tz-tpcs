@@ -1,5 +1,5 @@
 <%@ page pageEncoding="utf-8" %>
-<!-- 页脚区 -->
+<%--页脚区--%>
 <div class="footer">
     <div class="container">
         <p>

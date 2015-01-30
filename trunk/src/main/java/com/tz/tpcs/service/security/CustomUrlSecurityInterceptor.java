@@ -6,7 +6,6 @@ import org.springframework.security.access.intercept.InterceptorStatusToken;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 
-import javax.annotation.Resource;
 import javax.servlet.*;
 import java.io.IOException;
 
@@ -32,12 +31,16 @@ public class CustomUrlSecurityInterceptor extends AbstractSecurityInterceptor im
         return this.securityMetadataSource;
     }
 
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain) throws IOException, ServletException {
         FilterInvocation fi = new FilterInvocation(request, response, chain);
         invoke(fi);
     }
 
+    /**
+     *  invoke FilterInvocation
+     */
     private void invoke(FilterInvocation fi) throws IOException, ServletException {
         InterceptorStatusToken token = super.beforeInvocation(fi);
         try {
@@ -47,22 +50,18 @@ public class CustomUrlSecurityInterceptor extends AbstractSecurityInterceptor im
         }
     }
 
-
-
-
-
+    @Override
     public void init(FilterConfig arg0) throws ServletException {
-        // TODO Auto-generated method stub
+        //blank implement
     }
 
+    @Override
     public void destroy() {
-        // TODO Auto-generated method stub
-
+        //blank implement
     }
 
     @Override
     public Class<? extends Object> getSecureObjectClass() {
-        //下面的MyAccessDecisionManager的supports方面必须放回true,否则会提醒类型错误
         return FilterInvocation.class;
     }
 

@@ -70,7 +70,7 @@
 			<label for="classname" class="col-md-offset-1 col-md-1 control-label">班级名<span
 				style="color: red">*</span></label>
 			<div class="col-md-2">
-				<input type="text" id="classname" class="form-control" name="clazz_name" onblur="checkClazzName()"
+				<input type="text" id="classname" class="form-control" name="clazzname" onblur="checkClazzName()"
 					placeholder="班级的名称" />
 			</div>
 			<label for="stuName" class="col-md-1 control-label">学员名<span

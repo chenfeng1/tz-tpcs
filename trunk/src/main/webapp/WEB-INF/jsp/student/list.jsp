@@ -16,7 +16,7 @@
 		}
 		$("#next").attr(
 				"href",
-				"${path }/students/initList?pageNow=${paging.pageNow+1}&clazz_name2="
+				"${path }/students/initList?pageNow=${paging.pageNow+1}&clazzname2="
 						+ cname + "&realname2=" + sname + "&degree2=" + degree+"&pageSize="+v
 						+ "&loanStatus2=" + loanStatus);
 	}
@@ -35,7 +35,7 @@
 
 		$("#next2").attr(
 				"href",
-				"${path }/students/initList?pageNow=${paging.pageCount}&clazz_name2="
+				"${path }/students/initList?pageNow=${paging.pageCount}&clazzname2="
 						+ cname + "&realname2=" + sname + "&degree2=" + degree+"&pageSize="+v
 						+ "&loanStatus2=" + loanStatus);
 	}
@@ -54,7 +54,7 @@
 
 		$("#back").attr(
 				"href",
-				"${path }/students/initList?pageNow=1&clazz_name2=" + cname+"&pageSize="+v
+				"${path }/students/initList?pageNow=1&clazzname2=" + cname+"&pageSize="+v
 						+ "&realname2=" + sname + "&degree2=" + degree
 						+ "&loanStatus2=" + loanStatus);
 	}
@@ -73,7 +73,7 @@
 
 		$("#back2").attr(
 				"href",
-				"${path }/students/initList?pageNow=${paging.pageNow-1}&clazz_name2="
+				"${path }/students/initList?pageNow=${paging.pageNow-1}&clazzname2="
 						+ cname + "&realname2=" + sname + "&degree2=" + degree+"&pageSize="+v
 						+ "&loanStatus2=" + loanStatus);
 	}
@@ -93,7 +93,7 @@
 		}
 
 		window.location = "${path }/students/initList?pageNow=" + pageNow+"&pageSize="+v
-				+ "&clazz_name2=" + cname + "&realname2=" + sname + "&degree2="
+				+ "&clazzname2=" + cname + "&realname2=" + sname + "&degree2="
 				+ degree + "&loanStatus2=" + loanStatus;
 	}
 
@@ -113,7 +113,7 @@
 		}
 
 		window.location = "${path}/students/initList?pageSize=" + v
-				+ "&clazz_name2=" + cname + "&realname2=" + sname + "&degree2="
+				+ "&clazzname2=" + cname + "&realname2=" + sname + "&degree2="
 				+ degree + "&loanStatus2=" + loanStatus;
 	}
 
@@ -140,7 +140,7 @@
 			<label for="cname" class="col-md-1 control-label">班级名</label>
 			<div class="col-md-2">
 				<input type="text" id="cname" class="form-control"
-					placeholder="输入班级名" name="clazz_name2" value="${clazz_name2 }" />
+					placeholder="输入班级名" name="clazzname2" value="${clazzname2 }" />
 			</div>
 
 			<label for="sname" class="col-md-1 control-label">学员名</label>

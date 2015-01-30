@@ -1,9 +1,8 @@
 package com.tz.tpcs.service;
 
-import java.util.List;
-
 import com.tz.tpcs.entity.Clazz;
-import com.tz.tpcs.web.form.ClazzForm;
+
+import java.util.List;
 
 /**
  * Clazz Service 接口类
@@ -20,7 +19,7 @@ public interface ClazzService {
 	/**
 	 * 分页多条件查询
 	 */
-	List<Clazz> selectAllByCondition(String name,Integer min,Integer max);
+	List<Clazz> selectAllByCondition(String name, Integer min, Integer max);
 	
 	/**
 	 * 根据id来删除

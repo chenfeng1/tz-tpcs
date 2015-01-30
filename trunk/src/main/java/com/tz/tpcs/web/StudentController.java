@@ -36,6 +36,8 @@ import com.tz.tpcs.web.form.Paging;
 @RequestMapping("/students")
 public class StudentController {
 
+	private static final Double SCORE=100.00;
+	
 	@Resource
 	private AreaDao areaDao;
 	
@@ -45,21 +47,32 @@ public class StudentController {
 	@Resource
 	private StudentDao studentDao;
 	
+	/**
+	 * 
+	 * @param clazzname2
+	 * @param realname2
+	 * @param degree2
+	 * @param loanStatus2
+	 * @param pageSize
+	 * @param pageNow
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/initList", method = RequestMethod.GET)
-	public ModelAndView initList(String clazz_name2,String realname2,String degree2,String loanStatus2,Integer pageSize,Integer pageNow,
+	public ModelAndView initList(String clazzname2,String realname2,String degree2,String loanStatus2,Integer pageSize,Integer pageNow,
 								HttpServletRequest request) {
 	
 		Degree[] degree = Degree.values();
 		
-		Paging paging = studentDao.getStudentByCondition(clazz_name2, realname2, degree2, loanStatus2, pageNow, pageSize);
+		Paging paging = studentDao.getStudentByCondition(clazzname2, realname2, degree2, loanStatus2, pageNow, pageSize);
 		request.setAttribute("paging", paging);
-		if(clazz_name2!=null){
-			request.setAttribute("clazz_name2", clazz_name2);
+		if(null!=clazzname2){
+			request.setAttribute("clazz_name2", clazzname2);
 		}
-		if(realname2!=null){
+		if(null!=realname2){
 			request.setAttribute("realname2", realname2);
 		}
-		if(null!=degree2 && !degree2.equals("-1")){
+		if(null!=degree2 && !("-1").equals(degree2)){
 			request.setAttribute("degree2", degree2);
 		}
 		if(null!=loanStatus2){
@@ -69,6 +82,11 @@ public class StudentController {
 		return new ModelAndView("student.list");
 	}
 
+	/**
+	 * 
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/initAdd", method = RequestMethod.GET)
 	public ModelAndView initAdd(HttpServletRequest request) {
 		
@@ -87,7 +105,7 @@ public class StudentController {
 		request.setAttribute("loanStatus", loanStatus);
 		request.setAttribute("map", map);
 		request.setAttribute("source", source);
-		request.setAttribute("level",level );
+		request.setAttribute("level",level);
 		request.setAttribute("status", status);
 		return new ModelAndView("student.add");
 	}
@@ -96,39 +114,49 @@ public class StudentController {
 	 * 此处 日期类型不知为何无法自动封装到实体中？？
 	 * 
 	 * @param student
-	 * @param clazz_name
+	 * @param clazzname
 	 * @param email2
 	 * @param request
 	 * @return
 	 */
 	@RequestMapping(value = "/save", method = RequestMethod.GET)
-	public ModelAndView save(Student student, String clazz_name, String email2,
+	public ModelAndView save(Student student, String clazzname, String email2,
 			HttpServletRequest request) {
 		
 		// 根据班级名来查找班级
-		Clazz clazz = clazzDao.getByName(clazz_name);
+		Clazz clazz = clazzDao.getByName(clazzname);
 		student.setClazz(clazz);
 		// 生日
-		student.setBirthDate(ResolveDate.StringToDate(request, "birthDate2"));
+		student.setBirthDate(ResolveDate.stringToDate(request, "birthDate2"));
 		// 毕业时间
-		student.setGraduationDate(ResolveDate.StringToDate(request,
+		student.setGraduationDate(ResolveDate.stringToDate(request,
 				"graduationDate2"));
 		// 毕设时间
-		student.setDesignDate(ResolveDate.StringToDate(request, "designDate2"));
+		student.setDesignDate(ResolveDate.stringToDate(request, "designDate2"));
 		// 邮箱
 		student.setEmail(email2);
 		// 咨询专员--根据专员名称来查找Employee---待定！！！
-		student.setInitialScore(100.00);
-		student.setCurrentScore(100.00);
+		student.setInitialScore(SCORE);
+		student.setCurrentScore(SCORE);
 		studentDao.save(student);
 		return new ModelAndView("/students/initList");
 	}
-	
+	/**
+	 * 
+	 * @param sid
+	 * @return
+	 */
 	@RequestMapping(value = "/del", method = RequestMethod.GET)
 	public ModelAndView del(String sid) {
 		studentDao.delete(sid);
 		return new ModelAndView("/students/initList");
 	}
+	/**
+	 * 
+	 * @param sid
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/initUpdate", method = RequestMethod.GET)
 	public ModelAndView initUpdate(String sid,HttpServletRequest request) {
 		
@@ -157,18 +185,26 @@ public class StudentController {
 		request.setAttribute("status", status);
 		return new ModelAndView("student.update");
 	}
+	/**
+	 * 
+	 * @param student
+	 * @param request
+	 * @param clazzname3
+	 * @param email3
+	 * @return
+	 */
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public ModelAndView update(Student student,HttpServletRequest request,
-								String clazz_name3,
+								String clazzname3,
 								String email3) {
 		Student s = studentDao.findOne(student.getId());
 		student.setVersion(s.getVersion());
-		Clazz c = clazzDao.getByName(clazz_name3);
+		Clazz c = clazzDao.getByName(clazzname3);
 		student.setClazz(c);
 		student.setEmail(email3);
-		student.setGraduationDate(ResolveDate.StringToDate(request, "graduationDate3"));
-		student.setBirthDate(ResolveDate.StringToDate(request, "birthDate3"));
-		student.setDesignDate(ResolveDate.StringToDate(request, "designDate3"));
+		student.setGraduationDate(ResolveDate.stringToDate(request, "graduationDate3"));
+		student.setBirthDate(ResolveDate.stringToDate(request, "birthDate3"));
+		student.setDesignDate(ResolveDate.stringToDate(request, "designDate3"));
 		student.setCurrentScore(s.getCurrentScore());
 		studentDao.update(student);
 		request.setAttribute("student", student);

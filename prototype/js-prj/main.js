@@ -29,3 +29,8 @@ function gotoUpdateStu(){
     //转到更新学员信息页面
     window.location.href = "../student/upd_student.html";
 }
+
+function gotoUpdateProject(id){
+    //转到更新项目案例页面
+    window.location.href = "upd_project.html";
+}

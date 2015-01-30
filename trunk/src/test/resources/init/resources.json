@@ -1,0 +1,186 @@
+[
+  {
+    "code": "menu_clazz",
+    "name": "班级",
+    "seq": 1,
+    "show": true,
+    "type": "FOLDER",
+    "value": ""
+  },
+  {
+    "code": "menu_clazz_list",
+    "name": "班级列表",
+    "parent": {"$ref": "$[0]"},
+    "seq": 11,
+    "show": true,
+    "type": "URL",
+    "value": "/clazz/list"
+  },
+  {
+    "code": "menu_clazz_initAdd",
+    "name": "添加班级",
+    "parent": {"$ref": "$[0]"},
+    "seq": 12,
+    "show": false,
+    "type": "URL",
+    "value": "/clazz/initAdd"
+  },
+  {
+    "code": "menu_clazz_import",
+    "name": "导入班级",
+    "parent": {"$ref": "$[0]"},
+    "seq": 13,
+    "show": true,
+    "type": "URL",
+    "value": "/clazz/initImport"
+  },
+  {
+    "code": "menu_clazz_campaign",
+    "name": "班级活动",
+    "parent": {"$ref": "$[0]"},
+    "seq": 14,
+    "show": true,
+    "type": "URL",
+    "value": "/clazzCampaign/list"
+  },
+  {
+    "code": "menu_student",
+    "name": "学员",
+    "seq": 2,
+    "show": true,
+    "type": "FOLDER",
+    "value": ""
+  },
+  {
+    "code": "menu_student_list",
+    "name": "学员列表",
+    "parent": {"$ref": "$[5]"},
+    "seq": 21,
+    "show": true,
+    "type": "URL",
+    "value": "/students/list"
+  },
+  {
+    "code": "menu_student_import",
+    "name": "导入学员",
+    "parent": {"$ref": "$[5]"},
+    "seq": 22,
+    "show": true,
+    "type": "URL",
+    "value": "/students/initImport"
+  },
+  {
+    "code": "menu_knowledge",
+    "name": "知识库",
+    "seq": 3,
+    "show": true,
+    "type": "FOLDER",
+    "value": ""
+  },
+  {
+    "code": "menu_course_list",
+    "name": "课程列表",
+    "parent": {"$ref": "$[8]"},
+    "seq": 31,
+    "show": true,
+    "type": "URL",
+    "value": "/knowledge/list"
+  },
+  {
+    "code": "menu_view_course",
+    "name": "查看课程",
+    "parent": {"$ref": "$[8]"},
+    "seq": 32,
+    "show": true,
+    "type": "URL",
+    "value": "/knowledge/initView"
+  },
+  {
+    "code": "menu_knowledge_center",
+    "name": "知识中心",
+    "parent": {"$ref": "$[8]"},
+    "seq": 33,
+    "show": true,
+    "type": "URL",
+    "value": "/knowledge/initCenter"
+  },
+  {
+    "code": "menu_project",
+    "name": "项目案例",
+    "seq": 4,
+    "show": true,
+    "type": "FOLDER",
+    "value": ""
+  },
+  {
+    "code": "menu_project_list",
+    "name": "项目列表",
+    "parent": {"$ref": "$[12]"},
+    "seq": 41,
+    "show": true,
+    "type": "URL",
+    "value": "/projects/list"
+  },
+  {
+    "code": "menu_assign_project",
+    "name": "分配项目",
+    "parent": {"$ref": "$[12]"},
+    "seq": 42,
+    "show": true,
+    "type": "URL",
+    "value": "/projects/initAssign"
+  },
+  {
+    "code": "menu_project_pending",
+    "name": "进行中的项目",
+    "parent": {"$ref": "$[12]"},
+    "seq": 43,
+    "show": true,
+    "type": "URL",
+    "value": "/projects/initPending"
+  },
+  {
+    "code": "menu_track",
+    "name": "项目追踪",
+    "parent": {"$ref": "$[12]"},
+    "seq": 44,
+    "show": true,
+    "type": "URL",
+    "value": "/knowledge/initTrack"
+  },
+  {
+    "code": "menu_employee",
+    "name": "员工",
+    "seq": 5,
+    "show": true,
+    "type": "FOLDER",
+    "value": ""
+  },
+  {
+    "code": "menu_employee_list",
+    "name": "员工列表",
+    "parent": {"$ref": "$[17]"},
+    "seq": 51,
+    "show": true,
+    "type": "URL",
+    "value": "/employees/list"
+  },
+  {
+    "code": "menu_add_employee",
+    "name": "新增员工",
+    "parent": {"$ref": "$[17]"},
+    "seq": 52,
+    "show": true,
+    "type": "URL",
+    "value": "/employees/initAdd"
+  },
+  {
+    "code": "menu_employee_addressBook",
+    "name": "通讯录",
+    "parent": {"$ref": "$[17]"},
+    "seq": 53,
+    "show": true,
+    "type": "URL",
+    "value": "/employees/addressBook"
+  }
+]

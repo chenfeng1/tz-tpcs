@@ -23,9 +23,12 @@ import java.util.Iterator;
 @Service("accessDecisionManager")
 public class CustomAccessDecisionManager implements AccessDecisionManager {
 
-    private static final Logger log = Logger.getLogger(CustomAccessDecisionManager.class);
+    private static final Logger LOGGER = Logger.getLogger(CustomAccessDecisionManager.class);
 
-    public void decide(Authentication authentication, Object filter, Collection<ConfigAttribute> configAttributes) throws AccessDeniedException, InsufficientAuthenticationException {
+    @Override
+    public void decide(Authentication authentication,
+                       Object filter,
+                       Collection<ConfigAttribute> configAttributes) throws AccessDeniedException, InsufficientAuthenticationException {
         if (configAttributes == null) {
             return;
         }
@@ -48,18 +51,20 @@ public class CustomAccessDecisionManager implements AccessDecisionManager {
             Employee employee = (Employee) obj;
             String realname = employee.getRealname();
             String requestResource = ((FilterInvocation) filter).getRequestUrl();
-            log.warn(realname+"没有权限访问资源: "+requestResource);
+            LOGGER.warn(realname + "没有权限访问资源: " + requestResource);
             throw new AccessDeniedException("没有权限访问!");
         }else{
-            log.warn("没有权限访问资源");
+            LOGGER.warn("没有权限访问资源");
             throw new AccessDeniedException("没有权限访问!");
         }
     }
 
+    @Override
     public boolean supports(ConfigAttribute attribute) {
         return true;
     }
 
+    @Override
     public boolean supports(Class<?> clazz) {
         return true;
     }

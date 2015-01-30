@@ -32,7 +32,12 @@ public class EntityInterceptor extends EmptyInterceptor {
 
 	// 更新数据时回调此方法
 	@Override
-	public boolean onFlushDirty(Object entity, Serializable id, Object[] currentState, Object[] previousState, String[] propertyNames, Type[] types) {
+	public boolean onFlushDirty(Object entity,
+								Serializable id,
+								Object[] currentState,
+								Object[] previousState,
+								String[] propertyNames,
+								Type[] types) {
 		Date updateDate = new Date();
 		for (int i = 0; i < propertyNames.length; i++) {
 			if (MODIFY_DATE.equals(propertyNames[i])) {

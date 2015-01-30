@@ -1,6 +1,5 @@
 package com.tz.tpcs.dao;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,12 +14,6 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.util.StringUtils;
-
 import com.tz.tpcs.entity.Clazz;
 import com.tz.tpcs.entity.Degree;
 import com.tz.tpcs.entity.Student;
@@ -37,6 +30,9 @@ import com.tz.tpcs.web.form.Paging;
 @Transactional
 public class StudentDaoImpl implements StudentDaoCustom {
 
+	private static final Integer PAGESIZE=5;//每页默认值大小
+	private static final Integer PAGENOW=1;//起始页默认从第一页开始
+	
 	@Resource
 	private StudentDao studentDao;
 
@@ -49,7 +45,7 @@ public class StudentDaoImpl implements StudentDaoCustom {
 
 	@SuppressWarnings("all")
 	@Override
-	public Paging getStudentByCondition(String clazz_name, String realname,
+	public Paging getStudentByCondition(String clazzname, String realname,
 			String degree, String loanStatus, Integer pageNow, Integer pageSize) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery cq = cb.createQuery(Student.class);
@@ -66,11 +62,11 @@ public class StudentDaoImpl implements StudentDaoCustom {
 				.getSingularAttribute("clazz", Clazz.class), JoinType.LEFT);
 		Predicate p = cb.like(id, "%-%");// 类似于 where 1=1的作用
 		Predicate p1 =null;
-		if(clazz_name!=null){
-		  p1 = cb.like(depJoin.get("name").as(String.class), "%"+clazz_name.toUpperCase()+"%");// 条件一：班级名
+		if(null!=clazzname){
+		  p1 = cb.like(depJoin.get("name").as(String.class), "%"+clazzname.toUpperCase()+"%");// 条件一：班级名
 		}
 		Predicate p2=null;
-		if(realname!=null){
+		if(null!=realname){
 			
 			p2 = cb.like(cb.lower(realName) , "%" + realname.toLowerCase() + "%");// 条件二：学员
 		}
@@ -80,23 +76,23 @@ public class StudentDaoImpl implements StudentDaoCustom {
 		root.join("clazz", JoinType.LEFT);
 		p = cb.and(p);
 		// 动态组合条件
-		if (clazz_name != null && clazz_name.trim().length()>0) {
+		if (null!=clazzname && clazzname.trim().length()>0) {
 			p = cb.and(p1);
 		}
-		if (realname != null && realname.trim().length()>0) {
+		if (null!=realname && realname.trim().length()>0) {
 			p = cb.and(p2, p);
 		}
-		if (null != degree && degree.trim().length()>0 && !degree.equals("-1")) {
+		if (null != degree && degree.trim().length()>0 && !("-1").equals(degree)) {
 			p = cb.and(p3, p);
 		}
 		if (null != loanStatus && loanStatus.trim().length()>0) {
 			p = cb.and(p4, p);
 		}
 		if (null == pageNow) {
-			pageNow = 1;
+			pageNow = PAGENOW;
 		}
 		if (null == pageSize) {
-			pageSize = 5;
+			pageSize = PAGESIZE;
 		}
 		// 后面有其他条件再可以添加...
 		cq.where(p);

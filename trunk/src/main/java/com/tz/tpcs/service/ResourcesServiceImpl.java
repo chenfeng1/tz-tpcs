@@ -12,8 +12,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
-
-import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -27,7 +25,7 @@ import java.util.*;
 @SuppressWarnings("SpringJavaAutowiringInspection")
 public class ResourcesServiceImpl implements ResourcesService {
 
-    private static final Logger logger = Logger.getLogger(ResourcesServiceImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(ResourcesServiceImpl.class);
 
     @Resource
     private ResourcesDao resourcesDao;
@@ -36,8 +34,9 @@ public class ResourcesServiceImpl implements ResourcesService {
     @Resource
     private EmployeeDao employeeDao;
 
+    /** 空参构造 */
     public ResourcesServiceImpl() {
-        logger.trace("ResourcesServiceImpl empty constructor...");
+        LOGGER.trace("ResourcesServiceImpl empty constructor...");
     }
 
     @Override

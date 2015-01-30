@@ -10,8 +10,13 @@ import java.util.Set;
  * Resources 实体类 工具类
  * Created by Hu Jing Ling on 2015/1/20.
  */
-public class ResourcesUtil {
+public final class ResourcesUtil {
 
+    /**
+     * 私有空参构造
+     */
+    private ResourcesUtil() {
+    }
 
     /**
      * 将一个含有资源(含子资源)，转换为 List

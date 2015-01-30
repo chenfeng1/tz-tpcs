@@ -1,18 +1,27 @@
 package com.tz.tpcs.dao;
 
+import com.tz.tpcs.entity.ProjectCase;
 import org.springframework.data.repository.CrudRepository;
 
-import com.tz.tpcs.entity.ProjectCase;
-
-
-
 /**
- * 项目案例Dao 接口类
- * @author 管成功
- * @since 2015-01-23
+ * ProjectCase Dao 接口类
+ * @author Hu Jing Ling
  * @version 1.0
- *
+ * @since 2015/1/27 15:19
  */
-public interface ProjectCaseDao extends CrudRepository<ProjectCase,String>,ProjectCaseDaoCustom{
+public interface ProjectCaseDao extends CrudRepository<ProjectCase, String>, ProjectCaseDaoCustom {
 
+    /**
+     * 根据name精确查询
+     * @param name 项目名称
+     * @return ProjectCase
+     */
+    ProjectCase findByName(String name);
+
+    /**
+     * 根据code精确查询
+     * @param code 项目代号
+     * @return ProjectCase
+     */
+    ProjectCase findByCode(String code);
 }

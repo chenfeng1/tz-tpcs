@@ -1,21 +1,15 @@
 package com.tz.tpcs.dao;
 
-import java.util.List;
+import com.tz.tpcs.entity.Clazz;
+import com.tz.tpcs.web.form.Paging;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Path;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
-import com.tz.tpcs.entity.Clazz;
-import com.tz.tpcs.entity.Student;
-import com.tz.tpcs.web.form.Paging;
+import java.util.List;
+
 
 /**
  * ClazzDao 实现类
@@ -61,8 +55,8 @@ public class ClazzDaoImpl implements ClazzDaoCustom {
 	@Override
 	public void update(Clazz clazz) {
 	//	clazz = em.find(Clazz.class, clazz.getId());
-		String string = clazz.getClaz_name();
-		clazz.setClaz_name(string);
+		String string = clazz.getRoom();
+		clazz.setRoom(string);
 		em.merge(clazz);
 	}
 
@@ -98,7 +92,10 @@ public class ClazzDaoImpl implements ClazzDaoCustom {
 		paging.setPageNow(pageNow);
 		paging.setPageSize(pageSize);
 		@SuppressWarnings("unchecked")
-		List<Clazz> list = em.createQuery(hql.toString()).setFirstResult(pageSize*(pageNow-1)).setMaxResults(pageSize).getResultList();
+		List<Clazz> list = em.createQuery(hql.toString())
+							.setFirstResult(pageSize * (pageNow - 1))
+							.setMaxResults(pageSize)
+							.getResultList();
 		paging.setClazzs(list);
 		return paging;
 	}

@@ -24,22 +24,23 @@ import java.util.Set;
 @Transactional
 public class MyDetailsServiceImpl implements UserDetailsService {
 
-    private static final Logger logger = Logger.getLogger(MyDetailsServiceImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(MyDetailsServiceImpl.class);
 
     @SuppressWarnings("SpringJavaAutowiringInspection")
     @Resource
     private EmployeeService employeeService;
 
+    /** 空参构造 */
     public MyDetailsServiceImpl() {
-        logger.trace("MyDetailsServiceImpl empty constructor");
+        LOGGER.trace("MyDetailsServiceImpl empty constructor");
     }
 
     /**
      * 根据员工号匹配验证
      * @param username
      * @return
-     * @throws UsernameNotFoundException
-     * @throws DataAccessException
+     * @throws org.springframework.security.core.userdetails.UsernameNotFoundException
+     * @throws org.springframework.dao.DataAccessException
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
@@ -51,7 +52,11 @@ public class MyDetailsServiceImpl implements UserDetailsService {
         return employee;
     }
 
-    // 获得管理角色数组
+    /**
+     * 获得管理角色数组
+     * @param employee
+     * @return
+     */
     private Set<GrantedAuthority> getGrantedAuthorities(Employee employee) {
         Set<GrantedAuthority> grantedAuthorities = new HashSet<GrantedAuthority>();
         for (Role role : employee.getRoles()) {
