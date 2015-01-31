@@ -30,9 +30,9 @@ public class EntityColumnCheck extends Check {
     public void visitToken(DetailAST ast) {
         if(beginWithGet(ast)
                 && isEntityClass(ast)
-                && noAnnotationTransient(ast)){
+                && notSpecialCase(ast)){
             if(noAnnotationColumn(ast)){
-                String message = "@Column is required";
+                String message = "@Column or @JoinXxx or @JoinTable is required";
                 log(ast.getLineNo(), message);
             }else{
                 if(noAttrName(columnAST)){
@@ -83,19 +83,18 @@ public class EntityColumnCheck extends Check {
     }
 
     /**
-     * 方法没有加 @Transient，即不是瞬态的，
-     * 因为Hibernate中，可以存在瞬态的属性，
-     * 是以get开头，但无需持久化到数据库中。
-     * 所以检查时需要加以排除。
+     * 方法没有 @Transient，即不是瞬态的，
+     * 方法没有 @XxxToXxx，即非关联关系
+     * 以上特例，规范检查时需要加以排除。
      * @param ast DetailAST
      * @return 如果发现有，则返回false;如果没发现，则返回true
      */
-    private boolean noAnnotationTransient(DetailAST ast) {
+    private boolean notSpecialCase(DetailAST ast) {
         DetailAST modifiersAST = ast.findFirstToken(TokenTypes.MODIFIERS);
         for (DetailAST i = modifiersAST.getFirstChild(); i != null; i = i.getNextSibling()) {
             if (i.getType() == TokenTypes.ANNOTATION) {
                 String name = i.findFirstToken(TokenTypes.IDENT).getText();
-                if("Transient".equals(name)){
+                if("Transient".equals(name) || name.indexOf("To")>2){
                     return false;
                 }
             }

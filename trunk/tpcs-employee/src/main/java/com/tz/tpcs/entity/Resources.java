@@ -62,6 +62,7 @@ public class Resources extends BaseEntity {
         this.show = show;
     }
 
+    @Column(name = "res_icon")
     public String getIcon() {
         return icon;
     }
@@ -80,6 +81,7 @@ public class Resources extends BaseEntity {
         this.children = children;
     }
 
+    @Column(name = "res_name")
     public String getName() {
         return name;
     }
@@ -116,6 +118,7 @@ public class Resources extends BaseEntity {
         this.value = value;
     }
 
+    @Column(name = "res_seq")
     public int getSeq() {
         return seq;
     }

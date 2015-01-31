@@ -7,7 +7,6 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
  * 方法数限制 Check 类 (HelloWorld)
- * http://checkstyle.sourceforge.net/writingchecks.html
  * @author Hu Jing Ling
  * @version 1.0
  * @since 2015/1/29 17:05

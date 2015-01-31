@@ -63,6 +63,7 @@ public class Role extends BaseEntity{
         this.desc = desc;
     }
 
+    @Column(name = "role_seq")
     public int getSeq() {
         return seq;
     }
@@ -89,7 +90,7 @@ public class Role extends BaseEntity{
         this.resources = resources;
     }
 
-    @Column(nullable = false)
+    @Column(name = "role_is_system", nullable = false)
     public Boolean getSystem() {
         return isSystem;
     }

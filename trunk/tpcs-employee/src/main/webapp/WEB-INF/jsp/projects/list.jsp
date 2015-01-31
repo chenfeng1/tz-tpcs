@@ -136,7 +136,7 @@
     <%--内容区--%>
     <div class="row">
         <div class="col-md-1">
-            <button type="button" class="btn btn-primary" onclick="javascript:window.location.href='${path}/projects/initAdd'">
+            <button type="button" class="btn btn-primary" onclick="location.href='${path}/projects/initAdd'">
                 <span class="glyphicon glyphicon-plus">&nbsp;添加新项目</span>
             </button>
         </div>
