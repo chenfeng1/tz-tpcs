@@ -5,10 +5,7 @@ import com.tz.WebAppConfig;
 import com.tz.tpcs.dao.EmployeeDao;
 import com.tz.tpcs.dao.ResourcesDao;
 import com.tz.tpcs.dao.RoleDao;
-import com.tz.tpcs.entity.Employee;
 import com.tz.tpcs.entity.Resources;
-import com.tz.tpcs.entity.Resources.Type;
-import com.tz.tpcs.entity.Role;
 import com.tz.tpcs.service.ResourcesService;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -22,7 +19,6 @@ import tpcs.test.json.JsonUtil;
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

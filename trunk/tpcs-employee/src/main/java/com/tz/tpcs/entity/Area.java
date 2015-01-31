@@ -1,13 +1,7 @@
 package com.tz.tpcs.entity;
 
+import javax.persistence.*;
 import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 /**
  * 地区实体类
@@ -42,7 +36,7 @@ public class Area extends BaseEntity {
 		this.name = name;
 	}
 
-	@Column(name = "a_name")
+	@Column(name = "a_name", nullable = false)
 	public String getName() {
 		return name;
 	}
@@ -51,7 +45,7 @@ public class Area extends BaseEntity {
 		this.name = name;
 	}
 
-	@Column(name = "a_code")
+	@Column(name = "a_code", unique = true, nullable = false)
 	public String getCode() {
 		return code;
 	}

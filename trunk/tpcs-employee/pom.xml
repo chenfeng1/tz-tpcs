@@ -7,20 +7,20 @@
     <parent>
         <groupId>com.tz</groupId>
         <artifactId>tpcs-root</artifactId>
-        <version>0.1-SNAPSHOT</version>
+        <version>0.2-SNAPSHOT</version>
     </parent>
 
     <groupId>com.tz</groupId>
     <artifactId>tpcs-employee</artifactId>
     <description>TPCS 员工端主程序</description>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.2-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <dependencies>
         <dependency>
             <groupId>com.tz</groupId>
             <artifactId>checkstyle-ext</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>0.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -141,6 +141,10 @@
             </plugin>
             <plugin>
                 <artifactId>maven-site-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

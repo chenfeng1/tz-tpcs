@@ -47,7 +47,7 @@ public class ProjectCaseDaoImpl implements ProjectCaseDaoCustom{
         //2.再做投影查询
         cq.select(cb.countDistinct(root));
         Long total = (Long) em.createQuery(cq).getSingleResult();
-        int iTotal = Integer.valueOf(String.valueOf(total));
+        int iTotal = total.intValue();
         pager.setTotalCount(iTotal);
         return pager;
     }

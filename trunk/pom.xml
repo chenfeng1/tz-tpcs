@@ -7,7 +7,7 @@
     <artifactId>tpcs-root</artifactId>
 	<name>Training Process Control System</name>
 	<description>培训过程管控系统 root pom</description>
-	<version>0.1-SNAPSHOT</version>
+	<version>0.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
     <properties>
@@ -214,7 +214,7 @@
                         <dependency>
                             <groupId>com.tz</groupId>
                             <artifactId>checkstyle-ext</artifactId>
-                            <version>0.1-SNAPSHOT</version>
+                            <version>0.2-SNAPSHOT</version>
                         </dependency>
                         <dependency>
                             <groupId>com.puppycrawl.tools</groupId>

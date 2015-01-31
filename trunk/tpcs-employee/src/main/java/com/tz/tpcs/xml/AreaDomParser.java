@@ -1,20 +1,18 @@
 package com.tz.tpcs.xml;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
+import com.tz.tpcs.entity.Area;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.tz.tpcs.entity.Area;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -25,13 +23,6 @@ import com.tz.tpcs.entity.Area;
 public class AreaDomParser {
 	//用来保存地区的集合
 	private List<Area> areas = new ArrayList<Area>();
-
-	/*public static void main(String[] args) {
-		AreaDomParser sd = new AreaDomParser();
-		List<Area> areas= sd.getAreaFromXML("com/tz/tpcs/xml/area.xml");
-		for (Area a : areas) {
-		}
-	}*/
 
 	/**
 	 * 采用DOM解析XML文档放入集合中

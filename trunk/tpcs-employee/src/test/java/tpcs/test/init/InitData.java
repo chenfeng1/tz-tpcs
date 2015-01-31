@@ -1,21 +1,12 @@
 package tpcs.test.init;
 
-import com.alibaba.fastjson.JSON;
 import com.tz.WebAppConfig;
-import com.tz.tpcs.dao.AreaDao;
-import com.tz.tpcs.dao.EmployeeDao;
-import com.tz.tpcs.dao.ProjectCaseDao;
-import com.tz.tpcs.dao.ResourcesDao;
-import com.tz.tpcs.dao.RoleDao;
-import com.tz.tpcs.entity.Area;
-import com.tz.tpcs.entity.Employee;
-import com.tz.tpcs.entity.ProjectCase;
-import com.tz.tpcs.entity.Resources;
+import com.tz.tpcs.dao.*;
+import com.tz.tpcs.entity.*;
 import com.tz.tpcs.entity.Resources.Type;
-import com.tz.tpcs.entity.Role;
 import com.tz.tpcs.service.ResourcesService;
 import com.tz.tpcs.xml.AreaDomParser;
-
+import org.fluttercode.datafactory.impl.DataFactory;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +18,6 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,10 +34,8 @@ public class InitData {
 
 	@Resource
 	private ProjectCaseDao projectCaseDao;
-	
 	@Resource
 	private AreaDao areaDao;
-	
     @Resource
     private ResourcesDao resourcesDao;
     @Resource
@@ -56,6 +44,7 @@ public class InitData {
     private RoleDao roleDao;
     @Resource
     private EmployeeDao employeeDao;
+    private DataFactory dataFactory = new DataFactory();
 
     @Test
     public void test01SaveResources(){
@@ -204,38 +193,39 @@ public class InitData {
     }
 
     @Test
-	public void test01Save(){
-		System.out.println(projectCaseDao);
-		ProjectCase p1 = new ProjectCase();
-		p1.setCreateDate(new Date());
-		p1.setModifyDate(new Date());
-	     p1.setVersion(1);
-		p1.setCode("book002");
-		p1.setDesc("完成CRUD");
-		p1.setName("万商");
-		p1.setSnapshot("/images/002.png");
-		projectCaseDao.save(p1);
-	}
+    public void test04ProjectCase(){
+        for (int i = 1; i <= 10; i++) {
+            ProjectCase projectCase = new ProjectCase();
+            projectCase.setName("testProject"+i);
+            projectCase.setCode("testCode"+i);
+            if(i%2==0){
+                projectCase.setDesc(dataFactory.getRandomText(300, 400));
+            }else{
+                projectCase.setDesc(dataFactory.getRandomText(10, 20));
+            }
+            projectCase.setSeq(i);
+            projectCaseDao.save(projectCase);
+        }
+    }
     
-    /**
-     * 保存省市
-     */
     @Test
-    public void testArea(){
+    public void test05Area(){
     	AreaDomParser ad = new AreaDomParser();
-		List<Area> areas = ad.getAreaFromXML("com/tz/tpcs/xml/area.xml");
+		List<Area> areas = ad.getAreaFromXML("xml/area.xml");
 		for (Area a : areas) {
 			Area area = new Area();
 			area.setName(a.getName());
 			area.setCode(a.getCode());
 			area.setLevel(1);
+            System.out.println("即将保存11:"+area);
 			areaDao.save(area);
-			for (Area c : a.getChildren()) {
+            for (Area c : a.getChildren()) {
 				Area area1 = new Area();
 				area1.setName(c.getName());
 				area1.setCode(c.getCode());
 				area1.setLevel(2);
 				area1.setParent(area);
+                System.out.println("即将保存22:"+area1);
 				areaDao.save(area1);
 			}
 		}
