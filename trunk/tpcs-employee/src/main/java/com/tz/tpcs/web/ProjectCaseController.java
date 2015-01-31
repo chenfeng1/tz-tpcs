@@ -30,13 +30,15 @@ import java.util.Locale;
  * @version 1.0
  * @since 2015/1/26 15:38
  */
+@SuppressWarnings("all")
 @RestController
 @RequestMapping("/projects")
 public class ProjectCaseController {
 
     private static final int SIMPLE_DESC_LEN = 100; //简单信息最大长度
 
-    private static final Logger LOGGER = Logger.getLogger(ProjectCaseController.class);
+    
+	private static final Logger LOGGER = Logger.getLogger(ProjectCaseController.class);
 
     @Resource
     private ProjectCaseService projectCaseService;
@@ -239,5 +241,3 @@ public class ProjectCaseController {
     }
 
 }
-
-
