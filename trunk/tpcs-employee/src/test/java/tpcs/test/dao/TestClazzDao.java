@@ -8,9 +8,6 @@ import org.fluttercode.datafactory.impl.DataFactory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import javax.annotation.Resource;
@@ -19,7 +16,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -124,13 +120,9 @@ public class TestClazzDao extends BaseTest{
     	Clazz clazz = clazzDao.findOne("c2858af1-ca2d-43e4-ab34-37356eea73f9");
     	//Clazz clazz = new Clazz();
     	//clazz.setId("e4a7aba9-ccff-4550-a016-41a0d59e3932");
-    	
     	//clazz.setAdvisor("曹妍");
-
-    	clazz.setClaz_name("AABccc");
-
+//    	clazz.setClaz_name("AABccc");
     	clazz.setRoom("AAB");
-
     	//clazz.setName("JSD1111");
     	clazzDao.update(clazz);
     	
@@ -145,6 +137,7 @@ public class TestClazzDao extends BaseTest{
     	System.out.println(c);
     }
     
+    @SuppressWarnings("unchecked")
     @Test
     public void testPage2(){
     	
@@ -195,7 +188,6 @@ public class TestClazzDao extends BaseTest{
 //			@Override
 //			public Predicate toPredicate(Root<Clazz> root,
 //					CriteriaQuery<?> query, CriteriaBuilder cb) {
-//				// TODO Auto-generated method stub
 //				//root = query.from(Clazz.class);//做关联查询
 //				Path<String> nameExp = root.get("name");
 //				Path<Date> d = root.get("open");

@@ -1,16 +1,15 @@
-package com.tz.tpcs.dao;
+package tpcs.test.dao;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-
+import com.tz.tpcs.dao.AreaDao;
+import com.tz.tpcs.entity.Area;
 import org.junit.Test;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
-import com.tz.tpcs.entity.Area;
+import javax.annotation.Resource;
+import java.util.List;
 
 @TransactionConfiguration(defaultRollback = true)//是否回滚测试数据
-public class TestAreaDao extends BaseTest{
+public class TestAreaDao extends BaseTest {
 
 	@Resource
 	private AreaDao areaDao;

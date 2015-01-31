@@ -1,19 +1,7 @@
-package com.tz.tpcs.dao;
+package tpcs.test.dao;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Path;
-import javax.persistence.criteria.Root;
-
-import org.junit.Test;
-import org.springframework.test.context.transaction.TransactionConfiguration;
-
+import com.tz.tpcs.dao.ClazzDao;
+import com.tz.tpcs.dao.StudentDao;
 import com.tz.tpcs.entity.Clazz;
 import com.tz.tpcs.entity.Degree;
 import com.tz.tpcs.entity.Gender;
@@ -23,6 +11,14 @@ import com.tz.tpcs.entity.Student.LoanStatus;
 import com.tz.tpcs.entity.Student.Source;
 import com.tz.tpcs.entity.Student.Status;
 import com.tz.tpcs.web.form.Paging;
+import org.junit.Test;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * StudentDao 测试类
@@ -30,7 +26,7 @@ import com.tz.tpcs.web.form.Paging;
  *
  */
 @TransactionConfiguration(defaultRollback = false)//是否回滚测试数据
-public class TestStudentDao extends BaseTest{
+public class TestStudentDao extends BaseTest {
 	@Resource
 	private StudentDao studentDao;
 	

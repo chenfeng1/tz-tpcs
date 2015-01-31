@@ -20,6 +20,7 @@ public class ProjectCaseDaoImpl implements ProjectCaseDaoCustom{
     @PersistenceContext
     private EntityManager em;
 
+    @SuppressWarnings("unchecked")
     @Override
     public Pager<ProjectCase> findByPager(String name, String code, Pager<ProjectCase> pager) {
         //初始化

@@ -30,7 +30,6 @@ import java.util.Locale;
  * @version 1.0
  * @since 2015/1/26 15:38
  */
-@SuppressWarnings("all")
 @RestController
 @RequestMapping("/projects")
 public class ProjectCaseController {
@@ -70,7 +69,7 @@ public class ProjectCaseController {
     @RequestMapping(value = "/list", method= RequestMethod.POST)
     public ModelAndView listByPager(String name,
                                     String code,
-                                    Pager pager,
+                                    Pager<ProjectCase> pager,
                                     ModelMap modelMap){
         Pager<ProjectCase> result = projectCaseService.findByPager(name, code, pager);
         modelMap.addAttribute("name", name);

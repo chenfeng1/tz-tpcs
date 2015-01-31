@@ -1,24 +1,17 @@
 package com.tz.tpcs.dao;
 
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.JoinType;
-import javax.persistence.criteria.Path;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import javax.transaction.Transactional;
 import com.tz.tpcs.entity.Clazz;
 import com.tz.tpcs.entity.Degree;
 import com.tz.tpcs.entity.Student;
 import com.tz.tpcs.entity.Student.LoanStatus;
 import com.tz.tpcs.web.form.Paging;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.*;
+import javax.transaction.Transactional;
+import java.util.Date;
+import java.util.List;
 
 /**
  * StudentDao 实现类
@@ -33,9 +26,6 @@ public class StudentDaoImpl implements StudentDaoCustom {
 	private static final Integer PAGESIZE=5;//每页默认值大小
 	private static final Integer PAGENOW=1;//起始页默认从第一页开始
 	
-	@Resource
-	private StudentDao studentDao;
-
 	@PersistenceContext
 	private EntityManager em;
 
@@ -43,7 +33,7 @@ public class StudentDaoImpl implements StudentDaoCustom {
 		this.em = em;
 	}
 
-	@SuppressWarnings("all")
+	@SuppressWarnings("unchecked")
 	@Override
 	public Paging getStudentByCondition(String clazzname, String realname,
 			String degree, String loanStatus, Integer pageNow, Integer pageSize) {
