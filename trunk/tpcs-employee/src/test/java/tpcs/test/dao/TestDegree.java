@@ -1,4 +1,4 @@
-package com.tz.tpcs.dao;
+package tpcs.test.dao;
 
 import com.tz.tpcs.entity.Degree;
 

@@ -143,7 +143,7 @@ public class ClazzController {
 	@RequestMapping(value = "/del", method = RequestMethod.GET)
 	public ModelAndView del(HttpServletRequest request) {
 		String cid = request.getParameter("cid");
-		clazzDao.delById(cid);
+		clazzDao.delete(cid);
 		return new ModelAndView("/clazz/list");
 	}
 
@@ -188,7 +188,7 @@ public class ClazzController {
 			e.printStackTrace();
 		}
 		clazz.setLecturer(teachername);
-		clazzDao.update(clazz);
+		clazzDao.save(clazz);
 		return new ModelAndView("/clazz/list");
 	}
 	  /**
@@ -198,9 +198,9 @@ public class ClazzController {
 	   */
 	  @RequestMapping(value = "/checkClazz", method= RequestMethod.POST)
 	  public String initAdd(HttpServletRequest request){
-		  	String msg = clazzDao.getByName2(request.getParameter("clazz_name"));
+		  	Clazz clazz = clazzDao.findByName(request.getParameter("clazz_name"));
 		  	String result="";
-		  	if(null!=msg){
+		  	if(null != clazz){
 		  		result="0";
 		  	}else{
 		  		result="1";

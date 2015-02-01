@@ -1,5 +1,6 @@
-package com.tz.tpcs.dao;
+package com.tz.tpcs.dao.impl;
 
+import com.tz.tpcs.dao.StudentDaoCustom;
 import com.tz.tpcs.entity.Clazz;
 import com.tz.tpcs.entity.Degree;
 import com.tz.tpcs.entity.Student;

@@ -1,4 +1,4 @@
-package com.tz.tpcs.service;
+package com.tz.tpcs.service.impl;
 
 import com.tz.tpcs.dao.EmployeeDao;
 import com.tz.tpcs.dao.ResourcesDao;
@@ -6,6 +6,7 @@ import com.tz.tpcs.dao.RoleDao;
 import com.tz.tpcs.entity.Employee;
 import com.tz.tpcs.entity.Resources;
 import com.tz.tpcs.entity.Role;
+import com.tz.tpcs.service.ResourcesService;
 import com.tz.tpcs.util.ResourcesUtil;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;

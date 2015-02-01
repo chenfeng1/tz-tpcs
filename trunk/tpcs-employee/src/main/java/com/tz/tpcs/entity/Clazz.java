@@ -16,14 +16,10 @@ public class Clazz extends BaseEntity {
 
 	/** 课程阶段枚举 */
 	public enum ClazzStatus {
-		// TRAINING, //训练营
-		// SE, //javase
-		// DB, //java db
-		// WEB, //javaweb
-		// FRAMEWORK, //框架
-		// CLOSE //毕业
-		PHASE1, // 第一阶段
-		PHASE2, PHASE3, PHASE4
+		PHASE1, // 第1阶段
+		PHASE2, // 第2阶段
+		PHASE3, // 第3阶段
+		PHASE4 // 第4阶段
 	}
 
 	private String name; // 班级名

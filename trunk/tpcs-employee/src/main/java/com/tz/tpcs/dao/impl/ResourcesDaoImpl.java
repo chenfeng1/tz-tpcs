@@ -1,5 +1,6 @@
-package com.tz.tpcs.dao;
+package com.tz.tpcs.dao.impl;
 
+import com.tz.tpcs.dao.ResourcesDaoCustom;
 import com.tz.tpcs.entity.Resources;
 
 import javax.annotation.Resource;
@@ -8,7 +9,7 @@ import javax.persistence.EntityManager;
 /**
  * Created by Hu Jing Ling on 2015/1/20.
  */
-public class ResourcesDaoImpl implements ResourcesDaoCustom{
+public class ResourcesDaoImpl implements ResourcesDaoCustom {
 
     @Resource
     private EntityManager em;

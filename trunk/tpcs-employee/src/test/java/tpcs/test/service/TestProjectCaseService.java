@@ -4,9 +4,6 @@ import com.tz.tpcs.entity.ProjectCase;
 import com.tz.tpcs.service.ProjectCaseService;
 import com.tz.tpcs.web.form.Pager;
 import org.junit.Test;
-import org.springframework.test.context.transaction.TransactionConfiguration;
-import tpcs.test.dao.BaseTest;
-import tpcs.test.dao.BaseTestNoTx;
 
 import javax.annotation.Resource;
 

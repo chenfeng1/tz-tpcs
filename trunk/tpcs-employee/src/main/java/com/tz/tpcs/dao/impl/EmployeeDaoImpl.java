@@ -1,5 +1,6 @@
-package com.tz.tpcs.dao;
+package com.tz.tpcs.dao.impl;
 
+import com.tz.tpcs.dao.EmployeeDaoCustom;
 import com.tz.tpcs.entity.Employee;
 
 import javax.persistence.EntityManager;

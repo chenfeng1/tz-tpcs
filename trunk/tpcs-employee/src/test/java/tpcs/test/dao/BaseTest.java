@@ -1,9 +1,7 @@
 package tpcs.test.dao;
 
 import com.tz.WebAppConfig;
-import org.junit.FixMethodOrder;
 import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -19,6 +17,5 @@ import javax.transaction.Transactional;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = WebAppConfig.class)
 @Transactional
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class BaseTest {
 }

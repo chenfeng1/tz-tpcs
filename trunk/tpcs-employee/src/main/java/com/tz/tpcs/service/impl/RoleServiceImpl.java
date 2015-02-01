@@ -1,7 +1,9 @@
-package com.tz.tpcs.service;
+package com.tz.tpcs.service.impl;
 
 import com.tz.tpcs.entity.Resources;
 import com.tz.tpcs.entity.Role;
+import com.tz.tpcs.service.ResourcesService;
+import com.tz.tpcs.service.RoleService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

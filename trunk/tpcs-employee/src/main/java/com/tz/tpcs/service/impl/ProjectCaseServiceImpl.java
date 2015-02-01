@@ -1,7 +1,8 @@
-package com.tz.tpcs.service;
+package com.tz.tpcs.service.impl;
 
 import com.tz.tpcs.dao.ProjectCaseDao;
 import com.tz.tpcs.entity.ProjectCase;
+import com.tz.tpcs.service.ProjectCaseService;
 import com.tz.tpcs.web.form.Pager;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

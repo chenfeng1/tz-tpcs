@@ -1,4 +1,4 @@
-package tpcs.test.dao;
+package tpcs.test.service;
 
 import com.tz.WebAppConfig;
 import org.junit.FixMethodOrder;

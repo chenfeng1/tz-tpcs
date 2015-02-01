@@ -33,7 +33,6 @@ public class InitTable {
         InputStream in = this.getClass().getClassLoader().getResourceAsStream("application.properties");
         Configuration cfg = ConfigurationUtil.init(em, in);
         SchemaExport schemaExport = new SchemaExport(cfg);
-//        schemaExport.create(true, false);
         schemaExport.create(true, true);
     }
 

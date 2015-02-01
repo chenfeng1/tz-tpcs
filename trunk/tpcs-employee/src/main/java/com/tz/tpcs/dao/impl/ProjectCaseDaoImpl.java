@@ -1,5 +1,6 @@
-package com.tz.tpcs.dao;
+package com.tz.tpcs.dao.impl;
 
+import com.tz.tpcs.dao.ProjectCaseDaoCustom;
 import com.tz.tpcs.entity.Clazz;
 import com.tz.tpcs.entity.ProjectCase;
 import com.tz.tpcs.web.form.Pager;
@@ -15,7 +16,7 @@ import java.util.List;
  * @version 1.0
  * @since 2015/1/27 14:58
  */
-public class ProjectCaseDaoImpl implements ProjectCaseDaoCustom{
+public class ProjectCaseDaoImpl implements ProjectCaseDaoCustom {
 
     @PersistenceContext
     private EntityManager em;

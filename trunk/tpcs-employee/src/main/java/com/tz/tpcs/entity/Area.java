@@ -72,7 +72,7 @@ public class Area extends BaseEntity {
 		this.parent = parent;
 	}
 
-	@OneToMany(mappedBy = "parent", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "parent")
 	public List<Area> getChildren() {
 		return children;
 	}

@@ -1,7 +1,8 @@
-package com.tz.tpcs.service;
+package com.tz.tpcs.service.impl;
 
 import com.tz.tpcs.dao.EmployeeDao;
 import com.tz.tpcs.entity.Employee;
+import com.tz.tpcs.service.EmployeeService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

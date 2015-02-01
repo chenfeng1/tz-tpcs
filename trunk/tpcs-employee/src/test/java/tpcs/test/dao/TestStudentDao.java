@@ -70,7 +70,7 @@ public class TestStudentDao extends BaseTest {
 		s1.setPaid(0.0);
 		s1.setQq("23423423423");
 		s1.setRealname("管1");
-		Clazz c = clazzDao.getByName("JSD1312");
+		Clazz c = clazzDao.findByName("JSD1312");
 		s1.setClazz(c);
 		s1.setWorkingYears(1);
 		s1.setSource(Source.VISIT);
@@ -102,7 +102,7 @@ public class TestStudentDao extends BaseTest {
 		s2.setPaid(0.0);
 		s2.setQq("23423423423");
 		s2.setRealname("管1");
-		Clazz c1 = clazzDao.getByName("JSD2323");
+		Clazz c1 = clazzDao.findByName("JSD2323");
 		s2.setClazz(c1);
 		s2.setWorkingYears(1);
 		s2.setSource(Source.VISIT);
@@ -134,7 +134,7 @@ public class TestStudentDao extends BaseTest {
 		s3.setPaid(0.0);
 		s3.setQq("23423423423");
 		s3.setRealname("管2");
-		Clazz c2 = clazzDao.getByName("JSD2323");
+		Clazz c2 = clazzDao.findByName("JSD2323");
 		s3.setClazz(c2);
 		s3.setWorkingYears(1);
 		s3.setSource(Source.VISIT);

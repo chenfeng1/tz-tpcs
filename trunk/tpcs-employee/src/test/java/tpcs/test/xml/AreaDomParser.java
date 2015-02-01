@@ -1,4 +1,4 @@
-package com.tz.tpcs.xml;
+package tpcs.test.xml;
 
 import com.tz.tpcs.entity.Area;
 import org.w3c.dom.Document;
@@ -35,8 +35,7 @@ public class AreaDomParser {
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			//3.调用parse()方法来产生文档树
 			//3.1获取XML的文档输入流
-			InputStream in = Thread.currentThread().getContextClassLoader()
-					.getResourceAsStream(xmlpath);
+			InputStream in = this.getClass().getClassLoader().getResourceAsStream(xmlpath);
 			Document doc = builder.parse(in);
 			//处理文档树
 			processDoc(doc);

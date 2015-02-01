@@ -17,15 +17,15 @@ public class PathListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent event) {
-        logger.debug("项目启动了");
+        logger.debug("contextInitialized...");
         ServletContext application = event.getServletContext();
         String path = application.getContextPath();
-        logger.debug("将项目名["+path+"]存入application作用域");
+        logger.debug("contextPath["+path+"]save to application scope...");
         application.setAttribute(IConstant.PATH, path);
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent event) {
-        logger.debug("项目关闭了");
+        logger.debug("contextDestroyed...");
     }
 }

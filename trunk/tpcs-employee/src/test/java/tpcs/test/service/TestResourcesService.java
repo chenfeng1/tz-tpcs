@@ -3,8 +3,6 @@ package tpcs.test.service;
 import com.tz.tpcs.entity.Resources;
 import com.tz.tpcs.service.ResourcesService;
 import org.junit.Test;
-import tpcs.test.dao.BaseTestNoTx;
-
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;

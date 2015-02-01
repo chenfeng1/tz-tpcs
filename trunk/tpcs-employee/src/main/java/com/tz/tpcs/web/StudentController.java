@@ -1,17 +1,5 @@
 package com.tz.tpcs.web;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.tz.tpcs.dao.AreaDao;
 import com.tz.tpcs.dao.ClazzDao;
 import com.tz.tpcs.dao.StudentDao;
@@ -25,6 +13,16 @@ import com.tz.tpcs.entity.Student.Source;
 import com.tz.tpcs.entity.Student.Status;
 import com.tz.tpcs.util.ResolveDate;
 import com.tz.tpcs.web.form.Paging;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Student 控制器类
@@ -96,7 +94,7 @@ public class StudentController {
 		Level[] level = Level.values();//获取用户等级的枚举常量的数组
 		Status[] status = Status.values();//获取签约状态的枚举常量的数组
 		
-		List<Area> areas = areaDao.getAll(1);
+		List<Area> areas = areaDao.findByLevel(1);
 		Map<String, String> map = new LinkedHashMap<>();
 		for (Area area : areas) {
 			map.put(area.getCode(), area.getName());
@@ -124,7 +122,7 @@ public class StudentController {
 			HttpServletRequest request) {
 		
 		// 根据班级名来查找班级
-		Clazz clazz = clazzDao.getByName(clazzname);
+		Clazz clazz = clazzDao.findByName(clazzname);
 		student.setClazz(clazz);
 		// 生日
 		student.setBirthDate(ResolveDate.stringToDate(request, "birthDate2"));
@@ -166,7 +164,7 @@ public class StudentController {
 		Level[] level = Level.values();
 		Status[] status = Status.values();
 		Student student = studentDao.findOne(sid);
-		List<Area> areas = areaDao.getAll(1);
+		List<Area> areas = areaDao.findByLevel(1);
 		Map<String, String> map = new LinkedHashMap<>();
 		for (Area area : areas) {
 			map.put(area.getCode(), area.getName());
@@ -174,7 +172,7 @@ public class StudentController {
 		request.setAttribute("map", map);
 		request.setAttribute("student", student);
 		if(student.getCity()!=null){
-			request.setAttribute("city", areaDao.getName(student.getCity()));
+			request.setAttribute("city", areaDao.findNameByCode(student.getCity()));
 		}else{
 			request.setAttribute("city", "");
 		}
@@ -199,7 +197,7 @@ public class StudentController {
 								String email3) {
 		Student s = studentDao.findOne(student.getId());
 		student.setVersion(s.getVersion());
-		Clazz c = clazzDao.getByName(clazzname3);
+		Clazz c = clazzDao.findByName(clazzname3);
 		student.setClazz(c);
 		student.setEmail(email3);
 		student.setGraduationDate(ResolveDate.stringToDate(request, "graduationDate3"));

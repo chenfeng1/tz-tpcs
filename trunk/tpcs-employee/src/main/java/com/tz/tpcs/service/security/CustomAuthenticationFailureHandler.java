@@ -75,8 +75,9 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
         //获取国际化语种
         Locale locale = localeResolver.resolveLocale(request);
         //根据错误类型, 返回不同错误页面
+        String message = "";
         if (exception instanceof BadCredentialsException) {
-            String message = messageSource.getMessage("error.invalid.username.or.password", null, locale);
+            message = messageSource.getMessage("error.invalid.username.or.password", null, locale);
             addErrorMessage(request, PASSWORD_ERR_MSG, message);
             //如果用户不为空，且未被锁住
             if (employee != null && employee.isAccountNonLocked()) {
@@ -88,32 +89,31 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
                 }
                 employee.setLoginFailureCount(failureCount);
                 employeeService.update(employee);
-                String msg = "连续失败3次将会锁定账户";
-                if(failureCount>= DEFAULT_MAX_RETRY){
-                    msg = "账号已锁定，请联系管理员!";
+                if(failureCount < maxLoginFailureCount){
+                    message = messageSource.getMessage("continue.failed.will.lock.account", new Object[]{maxLoginFailureCount}, locale);
+                }else {
+                    message = messageSource.getMessage("account.has.locked", null, locale);
                 }
-                addErrorMessage(request, USERNAME_ERR_MSG, msg);
+                addErrorMessage(request, USERNAME_ERR_MSG, message);
             }
-            //todo...其余错误提示信息
         } else if (exception instanceof AccountExpiredException) {
-            addErrorMessage(request, USERNAME_ERR_MSG, "账号已过期，请联系管理员!");
+            addErrorMessage(request, USERNAME_ERR_MSG, messageSource.getMessage("account.has.expired", null, locale));
         } else if (exception instanceof LockedException) {
             if(employee.getRoles().size() == 0){
-                addErrorMessage(request, USERNAME_ERR_MSG, "此账号未分配角色，请联系管理员!");
+                addErrorMessage(request, USERNAME_ERR_MSG, messageSource.getMessage("account.is.not.assigned.roles", null, locale));
             }else{
-                addErrorMessage(request, USERNAME_ERR_MSG, "账号已锁定，请联系管理员!");
+                addErrorMessage(request, USERNAME_ERR_MSG, messageSource.getMessage("account.has.locked", null, locale));
             }
         } else if (exception instanceof CredentialsExpiredException) {
-            addErrorMessage(request, USERNAME_ERR_MSG, "授权已过期");
+            addErrorMessage(request, USERNAME_ERR_MSG, messageSource.getMessage("authorization.has.expired", null, locale));
         } else if(exception instanceof DisabledException){
-            addErrorMessage(request, USERNAME_ERR_MSG, "账号已禁用，请联系管理员!");
+            addErrorMessage(request, USERNAME_ERR_MSG, messageSource.getMessage("account.disabled", null, locale));
         } else if(exception instanceof SessionAuthenticationException) {
-            //addErrorMessage(request, USERNAME_ERR_MSG, "到达最大同时登录数");
-            addErrorMessage(request, USERNAME_ERR_MSG, "此账号正在使用中");
+            addErrorMessage(request, USERNAME_ERR_MSG, messageSource.getMessage("account.is.in.use", null, locale));
         } else if(exception instanceof AuthenticationServiceException) {
-            addErrorMessage(request, USERNAME_ERR_MSG, "请通过表单登录");
+            addErrorMessage(request, USERNAME_ERR_MSG, messageSource.getMessage("login.by.form", null, locale));
         } else{
-            addErrorMessage(request, USERNAME_ERR_MSG, exception.getMessage()+"，请联系管理员!");
+            addErrorMessage(request, USERNAME_ERR_MSG, exception.getMessage() + " " + messageSource.getMessage("please.contact.administrator", null, locale));
         }
         super.onAuthenticationFailure(request, response, exception);
     }

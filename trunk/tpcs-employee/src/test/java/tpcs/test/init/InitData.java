@@ -5,7 +5,6 @@ import com.tz.tpcs.dao.*;
 import com.tz.tpcs.entity.*;
 import com.tz.tpcs.entity.Resources.Type;
 import com.tz.tpcs.service.ResourcesService;
-import com.tz.tpcs.xml.AreaDomParser;
 import org.fluttercode.datafactory.impl.DataFactory;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -14,6 +13,7 @@ import org.junit.runners.MethodSorters;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
+import tpcs.test.xml.AreaDomParser;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
@@ -217,7 +217,6 @@ public class InitData {
 			area.setName(a.getName());
 			area.setCode(a.getCode());
 			area.setLevel(1);
-            System.out.println("即将保存11:"+area);
 			areaDao.save(area);
             for (Area c : a.getChildren()) {
 				Area area1 = new Area();
@@ -225,7 +224,6 @@ public class InitData {
 				area1.setCode(c.getCode());
 				area1.setLevel(2);
 				area1.setParent(area);
-                System.out.println("即将保存22:"+area1);
 				areaDao.save(area1);
 			}
 		}
