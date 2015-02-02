@@ -10,7 +10,6 @@ import java.util.Date;
 * Hibernate 拦截器 - 自动写入实体类的 创建时间和更新时间
 */
 
-//@Component
 public class EntityInterceptor extends EmptyInterceptor {
 
 	private static final long serialVersionUID = 7319416231145791577L;

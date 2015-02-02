@@ -46,14 +46,12 @@ public final class ConfigurationUtil {
         String username = properties.getProperty("spring.datasource.username");
         String password = properties.getProperty("spring.datasource.password");
         String dialect = properties.getProperty("spring.jpa.properties.hibernate.dialect");
-        String ddlAuto = properties.getProperty("spring.jpa.hibernate.ddl-auto");
 
         cfg.setProperty("hibernate.connection.driver_class", driver)
                 .setProperty("hibernate.connection.url" , url)
                 .setProperty("hibernate.connection.username" , username)
                 .setProperty("hibernate.connection.password", password)
-                .setProperty("hibernate.dialect", dialect)
-                .setProperty("hibernate.hbm2ddl.auto", ddlAuto);
+                .setProperty("hibernate.dialect", dialect);
         return cfg;
     }
 }

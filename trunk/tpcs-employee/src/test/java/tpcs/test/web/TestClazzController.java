@@ -1,15 +1,13 @@
 package tpcs.test.web;
 
 import org.junit.Test;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 /**
  * ClazzController 单元测试类
  */
-public class TestClazzController extends BaseController {
+public class TestClazzController extends AbstractControllerTest {
 
     @Test
     public void test1getAll() throws Exception {

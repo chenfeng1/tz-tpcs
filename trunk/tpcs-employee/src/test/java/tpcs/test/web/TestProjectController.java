@@ -6,9 +6,7 @@ import org.junit.runners.MethodSorters;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * @author Hu Jing Ling
@@ -16,7 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @since 2015/1/26 16:14
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class TestProjectController extends BaseController {
+public class TestProjectController extends AbstractControllerTest {
 
     @Test
     public void test01List() throws Exception {

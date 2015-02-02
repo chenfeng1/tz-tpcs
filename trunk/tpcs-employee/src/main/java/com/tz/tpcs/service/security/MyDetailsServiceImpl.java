@@ -10,8 +10,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.HashSet;
@@ -20,8 +18,6 @@ import java.util.Set;
 /**
  * Spring Security 自定义验证类
  */
-@Service("myDetailsServiceImpl")
-@Transactional
 public class MyDetailsServiceImpl implements UserDetailsService {
 
     private static final Logger LOGGER = Logger.getLogger(MyDetailsServiceImpl.class);
@@ -36,10 +32,10 @@ public class MyDetailsServiceImpl implements UserDetailsService {
 
     /**
      * 根据员工号匹配验证
-     * @param username
-     * @return
-     * @throws org.springframework.security.core.userdetails.UsernameNotFoundException
-     * @throws org.springframework.dao.DataAccessException
+     * @param username 用户名(逻辑上的)
+     * @return 用户信息
+     * @throws org.springframework.security.core.userdetails.UsernameNotFoundException 未找到匹配的用户
+     * @throws org.springframework.dao.DataAccessException 数据获取异常
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {

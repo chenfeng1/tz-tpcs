@@ -11,15 +11,19 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <!--tiles3布局支持部分-->
+    <!-- 导入 xml 配置 -->
+    <import resource="classpath:spring/web-config.xml"/>
+
+    <!--启用注解配置-->
+    <context:annotation-config/>
+
     <mvc:default-servlet-handler/>
+
+    <!--tiles3布局支持部分-->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"/>
     <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
         <property name="definitions" value="/WEB-INF/tiles.xml"/>
     </bean>
-
-    <!--启用注解配置-->
-    <context:annotation-config/>
 
     <!--国际化处理类-->
     <mvc:interceptors>

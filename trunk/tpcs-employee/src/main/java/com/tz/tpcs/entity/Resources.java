@@ -1,6 +1,7 @@
 package com.tz.tpcs.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -72,8 +73,11 @@ public class Resources extends BaseEntity {
     }
 
     @OneToMany(mappedBy = "parent")
-    @OrderBy(value="seq ASC")//通过自关联查到的childs也能按照seq自动升序排序
+    @OrderBy(value="seq ASC") //通过自关联查到的 children 按照 seq 自动升序排序
     public Set<Resources> getChildren() {
+        if(children == null){
+            children = new HashSet<>();
+        }
         return children;
     }
 

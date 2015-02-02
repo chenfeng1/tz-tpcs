@@ -1,30 +1,22 @@
 package tpcs.test.web;
 
-import com.tz.tpcs.entity.Employee;
-import com.tz.tpcs.service.EmployeeService;
 import com.tz.tpcs.util.IConstant;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
-import org.mockito.Mockito;
 import org.springframework.security.authentication.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.ResultMatcher;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -36,8 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @since 2015/1/26 16:56
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-//public class TestSpringSecurity extends BaseController {
-public class TestSpringSecurity extends BaseController {
+public class TestSpringSecurity extends AbstractControllerTest {
 
     @Resource
     private AuthenticationManager authenticationManager;
@@ -79,7 +70,6 @@ public class TestSpringSecurity extends BaseController {
         securityContext.setAuthentication(token);
         SecurityContextHolder.setContext(securityContext);
 
-
         String username = "testUser";
         String password = "testPassword";
         mockMvc.perform(post("/loginVerify")
@@ -116,7 +106,6 @@ public class TestSpringSecurity extends BaseController {
 //        SecureContextImpl secureContext = new SecureContextImpl();
         securityContext.setAuthentication(token);
         SecurityContextHolder.setContext(securityContext);
-
 
         String username = "testUser";
         String password = "testPassword";

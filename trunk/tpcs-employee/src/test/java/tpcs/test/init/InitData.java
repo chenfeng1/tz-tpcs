@@ -1,6 +1,6 @@
 package tpcs.test.init;
 
-import com.tz.tpcs.WebAppConfig;
+import com.tz.tpcs.DaoConfig;
 import com.tz.tpcs.dao.*;
 import com.tz.tpcs.entity.*;
 import com.tz.tpcs.entity.Resources.Type;
@@ -25,11 +25,10 @@ import java.util.List;
  * Created by Hu Jing Ling on 2015/1/20.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = WebAppConfig.class)
+@SpringApplicationConfiguration(classes = DaoConfig.class, locations = "classpath:spring/service-config.xml")
 @TransactionConfiguration(defaultRollback = false)//自动回滚测试数据
 @Transactional
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-@SuppressWarnings("SpringJavaAutowiringInspection")
 public class InitData {
 
 	@Resource
@@ -49,7 +48,6 @@ public class InitData {
     @Test
     public void test01SaveResources(){
         List<Resources> list = new ArrayList<>();
-        //客户管理
         Resources r1 = new Resources("班级", "menu_clazz",Type.FOLDER, "", null, null,1,true);
         Resources r11 = new Resources("班级列表", "menu_clazz_list",Type.URL, "/clazz/list", r1, null,11,true);
         Resources r12 = new Resources("添加班级", "menu_clazz_initAdd",Type.URL, "/clazz/initAdd", r1, null,12,false);

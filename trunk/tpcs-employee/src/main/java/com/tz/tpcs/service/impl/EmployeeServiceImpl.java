@@ -3,6 +3,8 @@ package com.tz.tpcs.service.impl;
 import com.tz.tpcs.dao.EmployeeDao;
 import com.tz.tpcs.entity.Employee;
 import com.tz.tpcs.service.EmployeeService;
+import com.tz.tpcs.util.IConstant;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -13,6 +15,7 @@ import javax.transaction.Transactional;
  */
 @Service
 @Transactional
+@Profile(IConstant.PROFILE_PRODUCTION)
 public class EmployeeServiceImpl implements EmployeeService {
 
     @Resource

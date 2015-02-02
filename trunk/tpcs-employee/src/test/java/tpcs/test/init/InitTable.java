@@ -1,18 +1,16 @@
 package tpcs.test.init;
 
-import com.tz.tpcs.WebAppConfig;
+import com.tz.tpcs.DaoConfig;
 import com.tz.tpcs.util.ConfigurationUtil;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.annotation.Resource;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -21,11 +19,10 @@ import java.io.InputStream;
  * Created by Hu Jing Ling on 2015/1/19.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = WebAppConfig.class)
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@SpringApplicationConfiguration(classes = DaoConfig.class, locations = "classpath:spring/service-config.xml")
 public class InitTable {
 
-    @PersistenceContext
+    @Resource
     private EntityManager em;
 
     @Test

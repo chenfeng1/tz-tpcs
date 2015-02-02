@@ -41,8 +41,8 @@ public class TestProjectCaseService extends AbstractServiceTxTest {
         DataFactory dataFactory = new DataFactory();
         for (int i = 1; i <= 10; i++) {
             ProjectCase projectCase = new ProjectCase();
-            projectCase.setName("testProject"+i);
-            projectCase.setCode("testCode"+i);
+            projectCase.setName("unitTestProject"+i);
+            projectCase.setCode("unitTestCode"+i);
             if(i%2==0){
                 projectCase.setDesc(dataFactory.getRandomText(300, 400));
             }else{
@@ -53,15 +53,15 @@ public class TestProjectCaseService extends AbstractServiceTxTest {
         }
 
         //1.
-        String name = "test";
-        String code = "test";
+        String name = "unittest";
+        String code = "unittest";
         Pager<ProjectCase> pager = new Pager<>();
         pager.setPageNumber(1);
         //2.
         pager = projectCaseService.findByPager(name, code, pager);
         //3.
         Assert.assertEquals(pager.getList().size(), 2);
-        Assert.assertEquals(pager.getPageCount(), new Integer(5));
+        Assert.assertEquals(new Integer(5), pager.getPageCount());
         for(ProjectCase pc : pager.getList()){
             System.out.println(pc);
         }

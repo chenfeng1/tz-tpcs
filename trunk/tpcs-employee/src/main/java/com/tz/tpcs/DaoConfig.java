@@ -16,5 +16,4 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories//提供 JPA 支持
 @PropertySource("classpath:application.properties") //配置文件路径
 public class DaoConfig {
-
 }

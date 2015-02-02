@@ -23,7 +23,7 @@ public interface RoleDao extends CrudRepository<Role,String> {
     /**
      * 根据资源类型，查询匹配的角色名
      * @param value 资源值
-     * @return 资源List
+     * @return 角色 List
      */
     @Query("select r.code from Role r join r.resources res where res.value =:value")
     List<String> findCodesByResValue(@Param("value") String value);

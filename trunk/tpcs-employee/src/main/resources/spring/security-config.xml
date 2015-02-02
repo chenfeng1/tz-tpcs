@@ -14,12 +14,12 @@
     <!--匿名可以访问-->
     <security:http pattern="/initLogin" security="none"/>
     <security:http pattern="/login.jsp" security="none"/>
-    <security:http pattern="/css*/**" security="none"/>
-    <security:http pattern="/js*/**" security="none"/>
+    <security:http pattern="/css-prj" security="none"/>
+    <security:http pattern="/js" security="none"/>
     <security:http pattern="/font/**" security="none"/>
-    <security:http pattern="/icon/**" security="none"/>
-    <security:http pattern="/images/**" security="none"/>
-    <security:http pattern="/html/**" security="none"/>
+    <security:http pattern="/icon" security="none"/>
+    <security:http pattern="/images" security="none"/>
+    <security:http pattern="/html" security="none"/>
     <!--需要授权访问-->
     <security:http auto-config="true" use-expressions="true">
         <security:form-login
@@ -30,7 +30,7 @@
                 authentication-success-handler-ref="customAuthenticationSuccessHandler"
                 authentication-failure-handler-ref="customAuthenticationFailureHandler"/>
         <!--登录授权可访问-->
-        <security:intercept-url pattern="/**" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/" access="isAuthenticated()"/>
         <!-- logout 跳转 url -->
         <security:logout logout-url="/logout" logout-success-url="/login.jsp"/>
         <!--URL授权-->
@@ -49,10 +49,11 @@
         <security:access-denied-handler error-page="/html/accessDeniedPage.jsp"/>
     </security:http>
 
+    <bean id="userDetailsService" class="com.tz.tpcs.service.security.MyDetailsServiceImpl"/>
     <!-- 用于根据 username 查询权限 -->
     <security:authentication-manager alias="authenticationManager">
         <!--自定义认证接口-->
-        <security:authentication-provider user-service-ref="myDetailsServiceImpl">
+        <security:authentication-provider user-service-ref="userDetailsService">
             <!-- TODO 定义密码加密算法 -->
         </security:authentication-provider>
     </security:authentication-manager>
@@ -74,6 +75,8 @@
         <property name="useForward" value="true"/>
     </bean>
 
+    <bean id="accessDecisionManager" class="com.tz.tpcs.service.security.CustomAccessDecisionManager"/>
+    <bean id="securityMetadataSource" class="com.tz.tpcs.service.security.CustomSecurityMetadataSource"/>
     <!-- 自定义URL授权拦截器类 -->
         <!-- 1.查询用户拥有的角色 -->
     <bean id="urlSecurityInterceptor" class="com.tz.tpcs.service.security.CustomUrlSecurityInterceptor">

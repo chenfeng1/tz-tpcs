@@ -6,7 +6,6 @@ import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -17,7 +16,6 @@ import java.util.*;
  * @since 2015/1/22 22:21
  * @version 1.0
  */
-@Service("securityMetadataSource")
 public class CustomSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
 
     private static final Logger LOGGER = Logger.getLogger(CustomSecurityMetadataSource.class);

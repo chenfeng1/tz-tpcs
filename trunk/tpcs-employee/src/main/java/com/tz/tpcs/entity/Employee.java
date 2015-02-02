@@ -154,11 +154,12 @@ public class Employee extends BaseEntity implements UserDetails {
      * 添加角色到用户中
      * @param role 角色
      */
-    public void addRole(Role role){
+    public Employee addRole(Role role){
         if(roles == null){
-            roles = new HashSet<Role>();
+            roles = new HashSet<>();
         }
         roles.add(role);
+        return this;
     }
 
     @Override

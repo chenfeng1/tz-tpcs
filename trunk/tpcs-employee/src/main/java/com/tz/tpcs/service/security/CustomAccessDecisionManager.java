@@ -9,7 +9,6 @@ import org.springframework.security.authentication.InsufficientAuthenticationExc
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.FilterInvocation;
-import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -20,7 +19,6 @@ import java.util.Iterator;
  * @since 2015/1/22 21:58
  * @version 1.0
  */
-@Service("accessDecisionManager")
 public class CustomAccessDecisionManager implements AccessDecisionManager {
 
     private static final Logger LOGGER = Logger.getLogger(CustomAccessDecisionManager.class);

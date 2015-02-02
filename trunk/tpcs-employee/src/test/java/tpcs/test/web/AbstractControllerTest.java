@@ -1,11 +1,9 @@
 package tpcs.test.web;
 
 import com.tz.tpcs.entity.Employee;
+import com.tz.tpcs.util.IConstant;
 import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,7 +13,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.FilterChainProxy;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -24,12 +22,11 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.annotation.Resource;
 
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
-
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(locations={"classpath:spring-app.xml"})
+@SpringApplicationConfiguration(locations={"applicationContext.xml", "spring/web-config.xml"})
 @WebAppConfiguration
-public class BaseController {
+@ActiveProfiles(IConstant.PROFILE_TEST)
+public abstract class AbstractControllerTest {
 
 	@Resource
 	private FilterChainProxy springSecurityFilterChain;
