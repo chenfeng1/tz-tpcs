@@ -2,18 +2,18 @@ package tpcs.test.dao;
 
 import com.tz.tpcs.dao.ResourcesDao;
 import com.tz.tpcs.entity.Resources;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.junit.runners.MethodSorters;
 
 import javax.annotation.Resource;
 
 /**
  * Created by Hu Jing Ling on 2015/1/19.
  */
-@TransactionConfiguration(defaultRollback = true)//是否回滚测试数据
-public class TestResourcesDao extends BaseTest {
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class TestResourcesDao extends AbstractDaoTxTest {
 
-    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Resource
     private ResourcesDao resourcesDao;
 
@@ -27,10 +27,8 @@ public class TestResourcesDao extends BaseTest {
 
     @Test
     public void test2(){
-        Resources res = resourcesDao.findByCodeWithChildren("menu_clazz");
+        Resources res = resourcesDao.findResEager("menu_clazz");
         System.out.println(res);
     }
-
-
 
 }

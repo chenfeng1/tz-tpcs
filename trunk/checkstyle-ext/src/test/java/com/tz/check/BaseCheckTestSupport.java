@@ -78,7 +78,7 @@ public abstract class BaseCheckTestSupport {
 
     protected static String getPath(String filename)
             throws IOException {
-        return new File("src/test/java/com/tz/check/" + filename).getCanonicalPath();
+        return new File("checkstyle-ext/src/test/java/com/tz/check/" + filename).getCanonicalPath();
     }
 
     protected static String getSrcPath(String filename) throws IOException {

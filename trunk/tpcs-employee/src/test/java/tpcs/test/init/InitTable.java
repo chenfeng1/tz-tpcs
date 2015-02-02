@@ -1,6 +1,6 @@
 package tpcs.test.init;
 
-import com.tz.WebAppConfig;
+import com.tz.tpcs.WebAppConfig;
 import com.tz.tpcs.util.ConfigurationUtil;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.hbm2ddl.SchemaExport;

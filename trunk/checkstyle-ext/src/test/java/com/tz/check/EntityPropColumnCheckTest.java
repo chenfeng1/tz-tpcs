@@ -23,7 +23,7 @@ public class EntityPropColumnCheckTest extends BaseCheckTestSupport{
     @Test
     public void test1() throws Exception {
         final String[] expected = {
-                "69: @Column is required",
+                "69: @Column or @JoinXxx or @JoinTable is required",
         };
         verify(checkConfig, getPath("ProjectCase.java"), expected);
     }

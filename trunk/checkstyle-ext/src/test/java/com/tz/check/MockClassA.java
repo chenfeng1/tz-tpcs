@@ -5,7 +5,7 @@ package com.tz.check;
  * @version 1.0
  * @since 2015/1/30 13:58
  */
-public class MockClassA extends MockParentClass{
+public class MockClassA {
 
     public void b(){};
     public void c(){};

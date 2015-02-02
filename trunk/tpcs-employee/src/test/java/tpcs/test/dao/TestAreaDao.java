@@ -3,8 +3,9 @@ package tpcs.test.dao;
 import com.tz.tpcs.dao.AreaDao;
 import com.tz.tpcs.entity.Area;
 import org.junit.Assert;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.junit.runners.MethodSorters;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -13,8 +14,8 @@ import java.util.List;
  * @amender Hu Jing Ling
  * @since 2015-2-1
  */
-@TransactionConfiguration(defaultRollback = true)//是否回滚测试数据
-public class TestAreaDao extends BaseTest {
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class TestAreaDao extends AbstractDaoTxTest {
 
 	@Resource
 	private AreaDao areaDao;

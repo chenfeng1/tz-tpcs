@@ -35,10 +35,9 @@
 			<city name="武清区" code="121400"/>
 			<city name="宝坻区" code="121500"/>
 	</province>
-	<province name="河北省" code="130000">
-		<city name="石家庄市" code="130100">
-			<area name="市辖区" code="130101"/>
-			<area name="长安区" code="130102"/>
+	<province name="河北省" code="300000">
+		<city name="石家庄市" code="050000">
+			<area name="长安区" code="050000"/>
 			<area name="桥东区" code="130103"/>
 			<area name="桥西区" code="130104"/>
 			<area name="新华区" code="130105"/>

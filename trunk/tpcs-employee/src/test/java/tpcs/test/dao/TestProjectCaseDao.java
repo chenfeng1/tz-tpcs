@@ -1,14 +1,13 @@
 package tpcs.test.dao;
 
 import com.tz.tpcs.dao.ProjectCaseDao;
-import com.tz.tpcs.dao.ProjectCaseDaoCustom;
 import com.tz.tpcs.entity.ProjectCase;
 import org.fluttercode.datafactory.impl.DataFactory;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.junit.runners.MethodSorters;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,8 +16,8 @@ import java.util.List;
  * @version 1.0
  * @since 2015/1/26 16:11
  */
-@TransactionConfiguration(defaultRollback = false)//是否回滚测试数据
-public class TestProjectCaseDao extends BaseTest{
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class TestProjectCaseDao extends AbstractDaoTxTest {
 
     @Resource
     private ProjectCaseDao projectCaseDao;

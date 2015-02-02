@@ -1,12 +1,9 @@
 package tpcs.test.xml;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.oxm.Marshaller;
 import org.springframework.oxm.Unmarshaller;
 import org.springframework.oxm.XmlMappingException;
-import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.FileInputStream;

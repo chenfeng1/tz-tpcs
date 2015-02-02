@@ -2,7 +2,10 @@ package tpcs.test.service;
 
 import com.tz.tpcs.entity.Resources;
 import com.tz.tpcs.service.ResourcesService;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +14,8 @@ import java.util.Set;
 /**
  * Created by Hu Jing Ling on 2015/1/20.
  */
-public class TestResourcesService extends BaseTestNoTx {
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class TestResourcesService extends AbstractServiceTxTest {
 
     @Resource
     private ResourcesService resourcesService;

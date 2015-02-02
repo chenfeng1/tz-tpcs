@@ -2,18 +2,18 @@ package tpcs.test.dao;
 
 import com.tz.tpcs.dao.EmployeeDao;
 import com.tz.tpcs.entity.Employee;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.junit.runners.MethodSorters;
 
 import javax.annotation.Resource;
 
 /**
  * Created by Administrator on 2015/1/16.
  */
-@TransactionConfiguration(defaultRollback = true)//是否回滚测试数据
-public class TestEmployeeDao extends BaseTest{
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class TestEmployeeDao extends AbstractDaoTxTest {
 
-    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Resource
     private EmployeeDao employeeDao;
 

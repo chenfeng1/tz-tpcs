@@ -23,7 +23,6 @@ import java.util.*;
  */
 @Service
 @Transactional
-@SuppressWarnings("SpringJavaAutowiringInspection")
 public class ResourcesServiceImpl implements ResourcesService {
 
     private static final Logger LOGGER = Logger.getLogger(ResourcesServiceImpl.class);
@@ -44,7 +43,7 @@ public class ResourcesServiceImpl implements ResourcesService {
     public List<Resources> findByCodes(String[] codes) {
         List<Resources> list = new ArrayList<>();
         for(String code : codes){
-            Resources res = resourcesDao.findByCodeWithChildren(code);
+            Resources res = resourcesDao.findResEager(code);
             List<Resources> tempList = ResourcesUtil.convertResToList(res);
             list.addAll(tempList);
         }
@@ -65,7 +64,6 @@ public class ResourcesServiceImpl implements ResourcesService {
                 }
             }
         });
-
         //2.获得用户的角色集合
         Employee employee = employeeDao.findOne(employeeId);
         Set<Role> roleSet = employee.getRoles();
@@ -75,11 +73,10 @@ public class ResourcesServiceImpl implements ResourcesService {
                 //判断是否属于 功能FOLDER
                 if(res.getType().equals(Resources.Type.FOLDER)){
                     //查询子资源后，添加到set
-                    resourcesSet.add(resourcesDao.getResEager(res.getCode()));
+                    resourcesSet.add(resourcesDao.findResEager(res.getCode()));
                 }
             }
         }
-
         return resourcesSet;
     }
 
@@ -88,7 +85,7 @@ public class ResourcesServiceImpl implements ResourcesService {
         //初始化返回值
         Map<String, Set<String>> map = new HashMap<>();
         //获得所有 URL 类型资源
-        Set<Resources> resourcesSet = resourcesDao.getResByType(Resources.Type.URL);
+        Set<Resources> resourcesSet = resourcesDao.findResByType(Resources.Type.URL);
         for(Resources res : resourcesSet){
             //查询匹配资源的角色
             List<String> list = roleDao.findCodesByResValue(res.getValue());

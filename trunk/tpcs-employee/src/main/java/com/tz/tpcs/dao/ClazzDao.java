@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 /**
  * 班级 Dao 接口类
- * @author 胡荆陵
+ * @amender 胡荆陵
  */
 
 public interface ClazzDao extends CrudRepository<Clazz,String>, ClazzDaoCustom, JpaSpecificationExecutor<Clazz> {

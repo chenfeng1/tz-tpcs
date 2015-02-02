@@ -1,6 +1,6 @@
 package tpcs.test.init;
 
-import com.tz.WebAppConfig;
+import com.tz.tpcs.WebAppConfig;
 import com.tz.tpcs.dao.*;
 import com.tz.tpcs.entity.*;
 import com.tz.tpcs.entity.Resources.Type;

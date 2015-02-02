@@ -26,7 +26,6 @@ public class MyDetailsServiceImpl implements UserDetailsService {
 
     private static final Logger LOGGER = Logger.getLogger(MyDetailsServiceImpl.class);
 
-    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Resource
     private EmployeeService employeeService;
 

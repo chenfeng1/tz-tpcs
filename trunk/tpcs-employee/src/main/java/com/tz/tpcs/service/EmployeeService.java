@@ -4,6 +4,7 @@ import com.tz.tpcs.entity.Employee;
 
 /**
  * Employee Service 接口类
+ * @author 胡荆陵
  */
 public interface EmployeeService {
 

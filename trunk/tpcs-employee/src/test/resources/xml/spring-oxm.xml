@@ -5,9 +5,11 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
       http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="castorMarshaller" class="org.springframework.oxm.castor.CastorMarshaller">
-        <property name="encoding" value="UTF-8"/>
-        <property name="mappingLocation" value="classpath:xml/simple-mapping.xml"/>
+    <bean id="castorMarshaller" class="org.springframework.oxm.castor.CastorMarshaller" />
+
+    <bean id="oxMapper" class="tpcs.test.xml.OxMapperImpl">
+        <property name="marshaller" ref="castorMarshaller" />
+        <property name="unmarshaller" ref="castorMarshaller" />
     </bean>
 
 </beans>

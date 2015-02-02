@@ -13,7 +13,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "project_case")
-public class ProjectCase extends BaseEntity {
+public class ProjectCase {
 
     private static final int DESC_MAX_LEN = 500; //项目描述最大长度
 
@@ -66,7 +66,6 @@ public class ProjectCase extends BaseEntity {
         this.snapshot = snapshot;
     }
 
-    @Column(name = "case_fs")
     public String getFunctionSpec() {
         return functionSpec;
     }
@@ -75,7 +74,7 @@ public class ProjectCase extends BaseEntity {
         this.functionSpec = functionSpec;
     }
 
-    @Column(unique = true)
+    @Column(name = "case_seq")
     public int getSeq() {
         return seq;
     }

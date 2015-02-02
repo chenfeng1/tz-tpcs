@@ -15,7 +15,6 @@ import javax.transaction.Transactional;
 @Transactional
 public class EmployeeServiceImpl implements EmployeeService {
 
-    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Resource
     private EmployeeDao employeeDao;
 

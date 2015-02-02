@@ -1,11 +1,8 @@
 package com.tz.check;
 
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
-import com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocMethodCheck;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.IOException;
 
 /**
  * @author Hu Jing Ling
@@ -30,14 +27,5 @@ public class MethodLimitCheckTest extends BaseCheckTestSupport {
         };
         verify(checkConfig, getPath("MockClassA.java"), expected);
     }
-
-    @Test
-    public void test2() throws Exception {
-        final String[] expected = {
-                "14: too many methods, only 2 are allowed",
-        };
-        verify(checkConfig, getPath("ProjectCase.java"), expected);
-    }
-
 
 }

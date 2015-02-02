@@ -1,19 +1,13 @@
 package tpcs.test.xml;
 
-import com.alibaba.fastjson.JSON;
-import com.tz.tpcs.entity.Resources;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.oxm.castor.CastorMarshaller;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 
 /**
  * @author Hu Jing Ling
@@ -22,33 +16,61 @@ import java.util.List;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:xml/spring-oxm.xml")
+@Ignore
 public class TestOxm {
 
     @Resource
-    private CastorMarshaller castorMarshaller;
+    private OxMapper oxMapper;
 
     @Test
-    public void test01ObjectToXml() throws Exception {
-        Mobile mobileObject = new Mobile();
-        mobileObject.setName("Nokia");
-        mobileObject.setModel("N8");
-        mobileObject.setPrice(32323D);
+    public void test1() throws IOException {
+        Person person = new Person();
+        person.setFirstname("Phil");
+        person.setLastname("Steffensen");
+        person.setDeveloper(true);
 
-        FileOutputStream outputStream = new FileOutputStream(new File("D:/mobile.xml"));
-        StreamResult xmlFileResult = new StreamResult(outputStream);
+        String filename = "d:/person.xml";
+        // Serialization
+        oxMapper.writeObjectToXml(person, filename);
 
-        castorMarshaller.marshal(mobileObject, xmlFileResult);
+        // Deserialization
+        Person deserializedPerson = (Person) oxMapper.readObjectFromXml(filename);
+
+        System.out.println("Firstname: " + deserializedPerson.getFirstname());
+        System.out.println("Lastname : " + deserializedPerson.getLastname());
+        System.out.println("Developer: " + deserializedPerson.isDeveloper());
     }
 
     @Test
-    public void test02XmlToObject() throws Exception {
-        FileInputStream inputStream = new FileInputStream(new File("D:/mobile.xml"));
-        StreamSource xmlFileSource = new StreamSource(inputStream);
+    public void test2() throws IOException {
+        Person person = new Person();
+        person.setFirstname("Phil");
+        person.setLastname("Steffensen");
+        person.setDeveloper(true);
 
-        castorMarshaller.setTargetClass(Mobile.class);
-        Mobile mobileObject = (Mobile) castorMarshaller.unmarshal(xmlFileSource);
+        Person friend1 = new Person();
+        friend1.setFirstname("Christian");
+        friend1.setLastname("Harms");
+        friend1.setDeveloper(true);
 
-        System.out.println(mobileObject);
+        person.addFriend(friend1);
+
+        Person friend2 = new Person();
+        friend2.setFirstname("John");
+        friend2.setLastname("Doe");
+        friend2.setDeveloper(false);
+
+        person.addFriend(friend2);
+
+        String filename = "d:/person_with_friends.xml";
+        oxMapper.writeObjectToXml(person, filename);
+
+        Person deserializedPerson = (Person) oxMapper.readObjectFromXml(filename);
+
+        System.out.println("Firstname: " + deserializedPerson.getFirstname());
+        System.out.println("Lastname : " + deserializedPerson.getLastname());
+        System.out.println("Developer: " + deserializedPerson.isDeveloper());
+        System.out.println("Friends  : " + deserializedPerson.getFriends().size());
     }
 
 }

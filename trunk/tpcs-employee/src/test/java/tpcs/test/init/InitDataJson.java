@@ -1,7 +1,7 @@
 package tpcs.test.init;
 
 import com.alibaba.fastjson.JSON;
-import com.tz.WebAppConfig;
+import com.tz.tpcs.WebAppConfig;
 import com.tz.tpcs.dao.EmployeeDao;
 import com.tz.tpcs.dao.ResourcesDao;
 import com.tz.tpcs.dao.RoleDao;
