@@ -97,7 +97,7 @@ public class StudentController {
 		List<Area> areas = areaDao.findByLevel(1);
 		Map<String, String> map = new LinkedHashMap<>();
 		for (Area area : areas) {
-			map.put(area.getCode(), area.getName());
+			map.put(area.getDivisionCode(), area.getName());
 		}
 		request.setAttribute("degree", degree);
 		request.setAttribute("loanStatus", loanStatus);
@@ -167,7 +167,7 @@ public class StudentController {
 		List<Area> areas = areaDao.findByLevel(1);
 		Map<String, String> map = new LinkedHashMap<>();
 		for (Area area : areas) {
-			map.put(area.getCode(), area.getName());
+			map.put(area.getDivisionCode(), area.getName());
 		}
 		request.setAttribute("map", map);
 		request.setAttribute("student", student);

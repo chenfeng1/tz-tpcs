@@ -33,7 +33,7 @@ public class AreaController {
 		    List<Area> areas = areaDao.findByParentCode(code);
 		    List<Area> result = new ArrayList<>();
 		  	for (Area area : areas) {
-				result.add(new Area(area.getCode(), area.getName()));
+				result.add(new Area(area.getZipCode(), area.getDivisionCode(), area.getName()));
 			}
 		  	return result;
 	  }
