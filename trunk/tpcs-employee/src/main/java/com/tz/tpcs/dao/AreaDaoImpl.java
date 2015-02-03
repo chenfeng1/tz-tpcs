@@ -27,13 +27,13 @@ public class AreaDaoImpl implements AreaDaoCustom{
 
 	@Override
 	public List<Area> getAll(int level) {
-		return em.createQuery("from Area where level =:level order by code")
+		return em.createQuery("from Area where level =:level order by a_divisioncode")
 				.setParameter("level", level).getResultList();
 	}
 
 	@Override
 	public String getAreaId(String code) {
-		return (String) em.createQuery("select id from Area where code=:code")
+		return (String) em.createQuery("select id from Area where a_divisioncode=:code")
 				.setParameter("code", code).getSingleResult();
 	}
 
@@ -47,8 +47,8 @@ public class AreaDaoImpl implements AreaDaoCustom{
 	@Override
 	public String getName(String code) {
 		// TODO Auto-generated method stub
-		return (String) em.createQuery("select name from Area as a where a.code=:code " +
-				"order by code")
+		return (String) em.createQuery("select name from Area as a where a.a_divisioncode=:code " +
+				"order by a.a_divisioncode")
 				.setParameter("code", code)
 				.getSingleResult();
 	}

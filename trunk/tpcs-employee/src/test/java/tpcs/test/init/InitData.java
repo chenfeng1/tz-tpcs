@@ -215,18 +215,32 @@ public class InitData {
 		for (Area a : areas) {
 			Area area = new Area();
 			area.setName(a.getName());
-			area.setCode(a.getCode());
+			area.setZipCode(a.getZipCode());
+			area.setDivisionCode(a.getDivisionCode());
 			area.setLevel(1);
             System.out.println("即将保存11:"+area);
 			areaDao.save(area);
             for (Area c : a.getChildren()) {
 				Area area1 = new Area();
 				area1.setName(c.getName());
-				area1.setCode(c.getCode());
+				area1.setZipCode(c.getZipCode());
+				area1.setDivisionCode(c.getDivisionCode());
 				area1.setLevel(2);
 				area1.setParent(area);
                 System.out.println("即将保存22:"+area1);
 				areaDao.save(area1);
+				if(c.getChildren() != null){
+					for (Area l : c.getChildren()){
+						Area area2 = new Area();
+						area2.setName(l.getName());
+						area2.setZipCode(l.getZipCode());
+						area2.setDivisionCode(l.getDivisionCode());
+						area2.setLevel(3);
+						area2.setParent(area1);
+		                System.out.println("即将保存33:"+area2);
+						areaDao.save(area2);
+					}
+				}
 			}
 		}
     }

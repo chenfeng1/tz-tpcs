@@ -246,7 +246,7 @@ public class Student extends BaseEntity {
         this.phone = phone;
     }
 
-    @Column(name = "stu_bakPhone")
+    @Column(name = "stu_bak_phone")
     public String getBakPhone() {
         return bakPhone;
     }
@@ -255,7 +255,7 @@ public class Student extends BaseEntity {
         this.bakPhone = bakPhone;
     }
 
-    @Column(name = "stu_idCard")
+    @Column(name = "stu_id_card")
     public String getIdentityCard() {
         return identityCard;
     }

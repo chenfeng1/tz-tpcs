@@ -16,7 +16,8 @@ public class Area extends BaseEntity {
 	private static final long serialVersionUID = 3091806785347201985L;
 
 	private String name;// 区域名(a_name)
-	private String code;// 区域码(a_code)
+	private String zipCode;// 邮政编码(a_zipcode)
+	private String divisionCode;// 行政区划码(a_divisioncode)
 	private int level;// 区域等级(a_level)
 	private Area parent;
 	private List<Area> children;
@@ -30,9 +31,10 @@ public class Area extends BaseEntity {
 	/**
 	 * @author guan
 	 */
-	public Area(String code, String name) {
+	public Area(String zipCode, String divisionCode, String name) {
 		super();
-		this.code = code;
+		this.zipCode = zipCode;
+		this.divisionCode = divisionCode;
 		this.name = name;
 	}
 
@@ -45,15 +47,24 @@ public class Area extends BaseEntity {
 		this.name = name;
 	}
 
-	@Column(name = "a_code", unique = true, nullable = false)
-	public String getCode() {
-		return code;
+	@Column(name = "a_zipcode", nullable = false)
+	public String getZipCode() {
+		return zipCode;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
 	}
 
+	@Column(name = "a_divisioncode", unique = true, nullable = false)
+	public String getDivisionCode() {
+		return divisionCode;
+	}
+	
+	public void setDivisionCode(String divisionCode) {
+		this.divisionCode = divisionCode;
+	}
+	
 	@Column(name = "a_level")
 	public int getLevel() {
 		return level;
@@ -83,7 +94,7 @@ public class Area extends BaseEntity {
 
 	@Override
 	public String toString() {
-		return "Area [name=" + name + ", code=" + code + ", level=" + level
+		return "Area [name=" + name + ", zipCode=" + zipCode + ",divisionCode=" +divisionCode + ", level=" + level
 				+ "]";
 	}
 }

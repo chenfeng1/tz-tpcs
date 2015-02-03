@@ -6,7 +6,7 @@
 		作者  chenfeng
 -->
 <china>
-	<province name="北京市" zipCode="100000">
+	<province name="北京市" zipCode="100000" divisionCode="110100">
 		<city zipCode="100000" divisionCode="110101" name="东城区" />
 		<city zipCode="100000" divisionCode="110102" name="西城区" />
 		<city zipCode="100000" divisionCode="110103" name="崇文区" />
@@ -26,7 +26,7 @@
 		<city zipCode="101500" divisionCode="110228" name="密云县" />
 		<city zipCode="102100" divisionCode="110229" name="延庆县" />
 	</province>
-	<province name="天津市" zipCode="300000">
+	<province name="天津市" zipCode="300000" divisionCode="120100">
 		<city zipCode="300000" divisionCode="120101" name="和平区" />
 		<city zipCode="300000" divisionCode="120102" name="河东区" />
 		<city zipCode="300000" divisionCode="120103" name="河西区" />
@@ -719,7 +719,7 @@
 			<area zipCode="133600" divisionCode="222426" name="安图县" />
 		</city>
 	</province>
-	<province IzipCode="150000" divisionCode="230000" name="黑龙江省">
+	<province zipCode="150000" divisionCode="230000" name="黑龙江省">
 		<city zipCode="150000" divisionCode="230100" name="哈尔滨市">
 			<area zipCode="150000" divisionCode="230102" name="道里区" />
 			<area zipCode="150000" divisionCode="230103" name="南岗区" />
@@ -2001,7 +2001,7 @@
 			<area zipCode="445700" divisionCode="422827" name="来凤县" />
 			<area zipCode="445800" divisionCode="422828" name="鹤峰县" />
 		</city>
-		<city divisionCode="429000" name="省直辖行政单位">
+		<city zipCode="43300" divisionCode="429000" name="省直辖行政单位">
 			<area zipCode="433000" divisionCode="429004" name="仙桃市" />
 			<area zipCode="433100" divisionCode="429005" name="潜江市" />
 			<area zipCode="431700" divisionCode="429006" name="天门市" />
@@ -2300,10 +2300,10 @@
 			<area zipCode="513400" divisionCode="441882" name="连州市" />
 		</city>
 		<city zipCode="523000" divisionCode="441900" name="东莞市">
-			<area zipCode="523000" divisionCode="441900" name="东莞市" />
+			<area zipCode="523000" divisionCode="441901" name="东莞市" />
 		</city>
 		<city zipCode="528400" divisionCode="442000" name="中山市">
-			<area zipCode="528400" divisionCode="442000" name="中山市" />
+			<area zipCode="528400" divisionCode="442001" name="中山市" />
 		</city>
 		<city zipCode="521000" divisionCode="445100" name="潮州市">
 			<area zipCode="521000" divisionCode="445102" name="湘桥区" />
@@ -2472,9 +2472,9 @@
 			<area zipCode="570100" divisionCode="460108" name="美兰区" />
 		</city>
 		<city zipCode="572000" divisionCode="460200" name="三亚市">
-			<area zipCode="572000" divisionCode="460200" name="三亚市" />
+			<area zipCode="572000" divisionCode="460201" name="三亚市" />
 		</city>
-		<city divisionCode="469000" name="省直辖县级行政单位">
+		<city zipCode="572200" divisionCode="469000" name="省直辖县级行政单位">
 			<area zipCode="572200" divisionCode="469001" name="五指山市" />
 			<area zipCode="571400" divisionCode="469002" name="琼海市" />
 			<area zipCode="571700" divisionCode="469003" name="儋州市" />
@@ -3268,7 +3268,7 @@
 			<area zipCode="730100" divisionCode="620123" name="榆中县" />
 		</city>
 		<city zipCode="735100" divisionCode="620200" name="嘉峪关市">
-			<area zipCode="735100" divisionCode="620200" name="嘉峪关市" />
+			<area zipCode="735100" divisionCode="620201" name="嘉峪关市" />
 		</city>
 		<city zipCode="737100" divisionCode="620300" name="金昌市">
 			<area zipCode="737100" divisionCode="620302" name="金川区" />
@@ -3602,65 +3602,59 @@
 	</province>
 
 
-	<province zipCode="710000" divisionCode="710000" name="台湾省">
-		<city divisionCode="710000" name="台湾省">
-			<area zipCode="100" divisionCode="710001" name="台北市" />
-			<area zipCode="800" divisionCode="710002" name="高雄市" />
-			<area zipCode="200" divisionCode="710003" name="基隆市" />
-			<area zipCode="400" divisionCode="710004" name="台中市" />
-			<area zipCode="700" divisionCode="710005" name="台南市" />
-			<area zipCode="300" divisionCode="710006" name="新竹市" />
-			<area zipCode="600" divisionCode="710007" name="嘉义市" />
-			<area zipCode="200" divisionCode="710008" name="台北县" />
-			<area zipCode="200" divisionCode="710009" name="宜兰县" />
-			<area zipCode="300" divisionCode="710010" name="桃园县" />
-			<area zipCode="300" divisionCode="710011" name="新竹县" />
-			<area zipCode="300" divisionCode="710012" name="苗栗县" />
-			<area zipCode="400" divisionCode="710013" name="台中县" />
-			<area zipCode="500" divisionCode="710014" name="彰化县" />
-			<area zipCode="500" divisionCode="710015" name="南投县" />
-			<area zipCode="600" divisionCode="710016" name="云林县" />
-			<area zipCode="600" divisionCode="710017" name="嘉义县" />
-			<area zipCode="700" divisionCode="710018" name="台南县" />
-			<area zipCode="800" divisionCode="710019" name="高雄县" />
-			<area zipCode="900" divisionCode="710020" name="屏东县" />
-			<area zipCode="900" divisionCode="710021" name="台东县" />
-			<area zipCode="900" divisionCode="710022" name="花莲县" />
-			<area zipCode="800" divisionCode="710023" name="澎湖县" />
-		</city>
+	<province zipCode="100" divisionCode="710000" name="台湾省">
+			<city zipCode="100" divisionCode="710001" name="台北市" />
+			<city zipCode="800" divisionCode="710002" name="高雄市" />
+			<city zipCode="200" divisionCode="710003" name="基隆市" />
+			<city zipCode="400" divisionCode="710004" name="台中市" />
+			<city zipCode="700" divisionCode="710005" name="台南市" />
+			<city zipCode="300" divisionCode="710006" name="新竹市" />
+			<city zipCode="600" divisionCode="710007" name="嘉义市" />
+			<city zipCode="200" divisionCode="710008" name="台北县" />
+			<city zipCode="200" divisionCode="710009" name="宜兰县" />
+			<city zipCode="300" divisionCode="710010" name="桃园县" />
+			<city zipCode="300" divisionCode="710011" name="新竹县" />
+			<city zipCode="300" divisionCode="710012" name="苗栗县" />
+			<city zipCode="400" divisionCode="710013" name="台中县" />
+			<city zipCode="500" divisionCode="710014" name="彰化县" />
+			<city zipCode="500" divisionCode="710015" name="南投县" />
+			<city zipCode="600" divisionCode="710016" name="云林县" />
+			<city zipCode="600" divisionCode="710017" name="嘉义县" />
+			<city zipCode="700" divisionCode="710018" name="台南县" />
+			<city zipCode="800" divisionCode="710019" name="高雄县" />
+			<city zipCode="900" divisionCode="710020" name="屏东县" />
+			<city zipCode="900" divisionCode="710021" name="台东县" />
+			<city zipCode="900" divisionCode="710022" name="花莲县" />
+			<city zipCode="800" divisionCode="710023" name="澎湖县" />
 	</province>
 	<province zipCode="999077" divisionCode="810000" name="香港特别行政区">
-		<city zipCode="999077" divisionCode="810000" name="香港特别行政区">
-			<area zipCode="999077" divisionCode="810001" name="中西区" />
-			<area zipCode="999077" divisionCode="810002" name="湾仔区" />
-			<area zipCode="999077" divisionCode="810003" name="东区" />
-			<area zipCode="999077" divisionCode="810004" name="南区" />
-			<area zipCode="999077" divisionCode="810005" name="油尖旺区" />
-			<area zipCode="999077" divisionCode="810006" name="深水埗区" />
-			<area zipCode="999077" divisionCode="810007" name="九龙城区" />
-			<area zipCode="999077" divisionCode="810008" name="黄大仙区" />
-			<area zipCode="999077" divisionCode="810009" name="观塘区" />
-			<area zipCode="999077" divisionCode="810010" name="葵青区" />
-			<area zipCode="999077" divisionCode="810011" name="荃湾区" />
-			<area zipCode="999077" divisionCode="810012" name="屯门区" />
-			<area zipCode="999077" divisionCode="810013" name="元朗区" />
-			<area zipCode="999077" divisionCode="810014" name="北区" />
-			<area zipCode="999077" divisionCode="810015" name="大埔区" />
-			<area zipCode="999077" divisionCode="810016" name="沙田区" />
-			<area zipCode="999077" divisionCode="810017" name="西贡区" />
-			<area zipCode="999077" divisionCode="810018" name="离岛区" />
-		</city>
+			<city zipCode="999077" divisionCode="810001" name="中西区" />
+			<city zipCode="999077" divisionCode="810002" name="湾仔区" />
+			<city zipCode="999077" divisionCode="810003" name="东区" />
+			<city zipCode="999077" divisionCode="810004" name="南区" />
+			<city zipCode="999077" divisionCode="810005" name="油尖旺区" />
+			<city zipCode="999077" divisionCode="810006" name="深水埗区" />
+			<city zipCode="999077" divisionCode="810007" name="九龙城区" />
+			<city zipCode="999077" divisionCode="810008" name="黄大仙区" />
+			<city zipCode="999077" divisionCode="810009" name="观塘区" />
+			<city zipCode="999077" divisionCode="810010" name="葵青区" />
+			<city zipCode="999077" divisionCode="810011" name="荃湾区" />
+			<city zipCode="999077" divisionCode="810012" name="屯门区" />
+			<city zipCode="999077" divisionCode="810013" name="元朗区" />
+			<city zipCode="999077" divisionCode="810014" name="北区" />
+			<city zipCode="999077" divisionCode="810015" name="大埔区" />
+			<city zipCode="999077" divisionCode="810016" name="沙田区" />
+			<city zipCode="999077" divisionCode="810017" name="西贡区" />
+			<city zipCode="999077" divisionCode="810018" name="离岛区" />
 	</province>
 	<province zipCode="999078" divisionCode="820000" name="澳门特别行政区">
-		<city zipCode="999078" divisionCode="820000" name="澳门特别行政区">
-			<area zipCode="999078" divisionCode="820001" name="花地玛堂区" />
-			<area zipCode="999078" divisionCode="820002" name="圣安多尼堂区" />
-			<area zipCode="999078" divisionCode="820003" name="望德堂区" />
-			<area zipCode="999078" divisionCode="820004" name="风顺堂区" />
-			<area zipCode="999078" divisionCode="820005" name="大堂区" />
-			<area zipCode="999078" divisionCode="820006" name="嘉模堂区" />
-			<area zipCode="999078" divisionCode="820007" name="圣方济各堂区" />
-			<area zipCode="999078" divisionCode="820008" name="路氹城" />
-		</city>
+			<city zipCode="999078" divisionCode="820001" name="花地玛堂区" />
+			<city zipCode="999078" divisionCode="820002" name="圣安多尼堂区" />
+			<city zipCode="999078" divisionCode="820003" name="望德堂区" />
+			<city zipCode="999078" divisionCode="820004" name="风顺堂区" />
+			<city zipCode="999078" divisionCode="820005" name="大堂区" />
+			<city zipCode="999078" divisionCode="820006" name="嘉模堂区" />
+			<city zipCode="999078" divisionCode="820007" name="圣方济各堂区" />
+			<city zipCode="999078" divisionCode="820008" name="路氹城" />
 	</province>
 </china>

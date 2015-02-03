@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <script>
 	function getProvince(obj){
-		var code=obj.value;
+		var divisionCode=obj.value;
 		//异步方式发送一个请求
     				$.ajax({
 						//请求类型
@@ -13,7 +13,7 @@
 						//数据格式
 						dataType:"json",
 						//提交的数据
-						data: {"code":code},
+						data: {"code":divisionCode},
 						//处理错误…
 						error: function(){		
 							alert("处理失败");
@@ -25,7 +25,7 @@
 							var p = null;
 							$("#city").empty();
 							$.each(areas,function(){
-								p+="<option value='"+this.code+"'>"+this.name+"</option>";
+								p+="<option value='"+this.divisionCode+"'>"+this.name+"</option>";
 							});
 							$("#city").append(p);
 						}
