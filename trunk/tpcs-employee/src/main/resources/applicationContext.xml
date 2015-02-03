@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 导入 java 配置 -->
+    <bean class="com.tz.tpcs.DaoConfig"/>
+    <!-- 导入 xml 配置 -->
+    <import resource="classpath:spring/service-config.xml"/>
+    <import resource="classpath:spring/security-config.xml"/>
+
+</beans>

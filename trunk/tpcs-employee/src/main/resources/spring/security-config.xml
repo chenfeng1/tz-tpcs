@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:security="http://www.springframework.org/schema/security"
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context.xsd
+                        http://www.springframework.org/schema/security
+                        http://www.springframework.org/schema/security/spring-security.xsd">
+    <!--支持注解-->
+    <context:annotation-config/>
+    <!--匿名可以访问-->
+    <security:http pattern="/initLogin" security="none"/>
+    <security:http pattern="/login.jsp" security="none"/>
+    <security:http pattern="/css-prj" security="none"/>
+    <security:http pattern="/js" security="none"/>
+    <security:http pattern="/font/**" security="none"/>
+    <security:http pattern="/icon" security="none"/>
+    <security:http pattern="/images" security="none"/>
+    <security:http pattern="/html" security="none"/>
+    <!--需要授权访问-->
+    <security:http auto-config="true" use-expressions="true">
+        <security:form-login
+                login-page="/login.jsp"
+                login-processing-url="/loginVerify"
+                username-parameter="j_username"
+                password-parameter="j_password"
+                authentication-success-handler-ref="customAuthenticationSuccessHandler"
+                authentication-failure-handler-ref="customAuthenticationFailureHandler"/>
+        <!--登录授权可访问-->
+        <security:intercept-url pattern="/" access="isAuthenticated()"/>
+        <!-- logout 跳转 url -->
+        <security:logout logout-url="/logout" logout-success-url="/login.jsp"/>
+        <!--URL授权-->
+        <security:custom-filter before="FILTER_SECURITY_INTERCEPTOR" ref="urlSecurityInterceptor"/>
+        <!--max-sessions:最大同时登录数 -->
+        <!--error-if-maximum-exceeded: true 新的登陆会失败,除非之前的登陆失效; false:新的登陆会踢掉之前的登陆-->
+        <!--expired-url: 失效后跳转的页面-->
+        <security:session-management
+                session-authentication-error-url="/html/sessionAuthenticationError.html"
+                invalid-session-url="/login.jsp">
+            <security:concurrency-control max-sessions="1"
+                                          error-if-maximum-exceeded="false"
+                                          expired-url="/login.jsp"/>
+        </security:session-management>
+        <!--访问受限跳转页面-->
+        <security:access-denied-handler error-page="/html/accessDeniedPage.jsp"/>
+    </security:http>
+
+    <bean id="userDetailsService" class="com.tz.tpcs.service.security.MyDetailsServiceImpl"/>
+    <!-- 用于根据 username 查询权限 -->
+    <security:authentication-manager alias="authenticationManager">
+        <!--自定义认证接口-->
+        <security:authentication-provider user-service-ref="userDetailsService">
+            <!-- TODO 定义密码加密算法 -->
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+    <!-- 自定义认证成功逻辑  -->
+    <bean id="customAuthenticationSuccessHandler"
+          class="com.tz.tpcs.service.security.CustomAuthenticationSuccessHandler">
+        <property name="defaultTargetUrl" value="/loginSuccess"/>
+        <property name="alwaysUseDefaultTargetUrl" value="true"/>
+    </bean>
+    <!-- 自定义认证成功逻辑 -->
+    <bean id="customAuthenticationFailureHandler"
+          class="com.tz.tpcs.service.security.CustomAuthenticationFailureHandler">
+        <!--错误提示页面-->
+        <property name="defaultFailureUrl" value="/login.jsp"/>
+        <!--最大密码输入错误次数, 否则账号锁定-->
+        <property name="maxLoginFailureCount" value="3"/>
+        <!--使用服务器转发到错误页面-->
+        <property name="useForward" value="true"/>
+    </bean>
+
+    <bean id="accessDecisionManager" class="com.tz.tpcs.service.security.CustomAccessDecisionManager"/>
+    <bean id="securityMetadataSource" class="com.tz.tpcs.service.security.CustomSecurityMetadataSource"/>
+    <!-- 自定义URL授权拦截器类 -->
+        <!-- 1.查询用户拥有的角色 -->
+    <bean id="urlSecurityInterceptor" class="com.tz.tpcs.service.security.CustomUrlSecurityInterceptor">
+        <property name="authenticationManager" ref="authenticationManager"/>
+        <!-- 2.维护URL与角色的映射关系-->
+        <property name="securityMetadataSource" ref="securityMetadataSource"/>
+        <!-- 3.判断用户是否拥有所请求URL的角色 -->
+        <property name="accessDecisionManager" ref="accessDecisionManager"/>
+    </bean>
+
+</beans>
