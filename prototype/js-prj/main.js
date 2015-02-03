@@ -34,3 +34,14 @@ function gotoUpdateProject(id){
     //转到更新项目案例页面
     window.location.href = "upd_project.html";
 }
+
+/******
+ * 添加员工时切换 “更多信息”
+ */
+function showMoreEmpInfo(){
+    $("#moreEmpInfo").slideToggle(500);
+}
+
+function showPasswordInput(){
+    $("#passwordInput").slideToggle(500);
+}
