@@ -1,7 +1,6 @@
 package tpcs.test.web.security;
 
 import com.tz.tpcs.entity.Employee;
-import com.tz.tpcs.service.EmployeeService;
 import com.tz.tpcs.util.IConstant;
 import org.junit.Assert;
 import org.junit.Before;
@@ -55,8 +54,6 @@ public class TestSpringSecurity {
     private WebApplicationContext wac;
     @Resource
     private AuthenticationManager authenticationManager;
-    @Resource
-    private EmployeeService employeeService;
 
     protected MockMvc mockMvc;
 

@@ -47,7 +47,7 @@ public class Area extends BaseEntity {
 		this.name = name;
 	}
 
-	@Column(name = "a_zipcode", nullable = false)
+	@Column(name = "a_zip_code", nullable = false)
 	public String getZipCode() {
 		return zipCode;
 	}
@@ -56,7 +56,7 @@ public class Area extends BaseEntity {
 		this.zipCode = zipCode;
 	}
 
-	@Column(name = "a_divisioncode", unique = true, nullable = false)
+	@Column(name = "a_division_code", unique = true, nullable = false)
 	public String getDivisionCode() {
 		return divisionCode;
 	}
