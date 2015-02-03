@@ -175,6 +175,13 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
+            <plugin>
+                <groupId>org.eluder.coveralls</groupId>
+                <artifactId>coveralls-maven-plugin</artifactId>
+                <configuration>
+                    <repoToken>${coveralls.repoToken}</repoToken>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
