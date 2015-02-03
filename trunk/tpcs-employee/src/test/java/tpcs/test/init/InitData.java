@@ -5,12 +5,14 @@ import com.tz.tpcs.dao.*;
 import com.tz.tpcs.entity.*;
 import com.tz.tpcs.entity.Resources.Type;
 import com.tz.tpcs.service.ResourcesService;
+import com.tz.tpcs.util.IConstant;
 import org.fluttercode.datafactory.impl.DataFactory;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import tpcs.test.xml.AreaDomParser;
@@ -29,6 +31,7 @@ import java.util.List;
 @TransactionConfiguration(defaultRollback = false)//自动回滚测试数据
 @Transactional
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@ActiveProfiles(IConstant.PROFILE_PRODUCTION)
 public class InitData {
 
 	@Resource

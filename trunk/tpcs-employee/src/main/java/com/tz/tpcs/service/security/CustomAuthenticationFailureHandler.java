@@ -2,6 +2,7 @@ package com.tz.tpcs.service.security;
 
 import com.tz.tpcs.entity.Employee;
 import com.tz.tpcs.service.EmployeeService;
+import org.apache.log4j.Logger;
 import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
@@ -25,6 +26,7 @@ import java.util.Locale;
  */
 public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
+    private static final Logger LOGGER = Logger.getLogger(CustomAuthenticationFailureHandler.class);
     public static final String SPRING_SECURITY_FORM_USERNAME_KEY = "j_username";
     public static final String USERNAME_ERR_MSG = "usernameErrMsg";
     public static final String PASSWORD_ERR_MSG = "passwordErrMsg";
@@ -66,6 +68,7 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
     public void onAuthenticationFailure(HttpServletRequest request,
                                         HttpServletResponse response,
                                         AuthenticationException exception) throws IOException, ServletException {
+        LOGGER.debug("onAuthenticationFailure(), message:"+exception.getMessage());
         String username = obtainUsername(request);
         Employee employee = employeeService.findByPhoneNumberEmail(username);
         //默认密码输出错误次数

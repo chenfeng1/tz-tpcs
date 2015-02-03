@@ -7,8 +7,10 @@ import com.tz.tpcs.entity.Employee;
 import com.tz.tpcs.entity.Resources;
 import com.tz.tpcs.entity.Role;
 import com.tz.tpcs.service.ResourcesService;
+import com.tz.tpcs.util.IConstant;
 import com.tz.tpcs.util.ResourcesUtil;
 import org.apache.log4j.Logger;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -23,6 +25,7 @@ import java.util.*;
  */
 @Service
 @Transactional
+@Profile(IConstant.PROFILE_PRODUCTION)
 public class ResourcesServiceImpl implements ResourcesService {
 
     private static final Logger LOGGER = Logger.getLogger(ResourcesServiceImpl.class);

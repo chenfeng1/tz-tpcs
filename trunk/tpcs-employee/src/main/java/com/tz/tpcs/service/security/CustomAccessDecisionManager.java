@@ -49,10 +49,10 @@ public class CustomAccessDecisionManager implements AccessDecisionManager {
             Employee employee = (Employee) obj;
             String realname = employee.getRealname();
             String requestResource = ((FilterInvocation) filter).getRequestUrl();
-            LOGGER.warn(realname + "没有权限访问资源: " + requestResource);
+            LOGGER.debug(realname + "没有权限访问资源: " + requestResource);
             throw new AccessDeniedException("没有权限访问!");
         }else{
-            LOGGER.warn("没有权限访问资源");
+            LOGGER.debug("没有权限访问资源");
             throw new AccessDeniedException("没有权限访问!");
         }
     }

@@ -9,7 +9,7 @@ public interface IConstant {
     String LOGIN_USER_RES = "loginUserResources";
     String PATH = "path";
 
-    String PROFILE_TEST = "test";
+    String PROFILE_MOCK = "mock";
     String PROFILE_PRODUCTION = "production";
 
 }

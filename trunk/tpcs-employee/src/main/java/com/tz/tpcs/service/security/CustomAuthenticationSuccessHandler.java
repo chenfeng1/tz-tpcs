@@ -3,8 +3,10 @@ package com.tz.tpcs.service.security;
 import com.tz.tpcs.dao.EmployeeDao;
 import com.tz.tpcs.entity.Employee;
 import com.tz.tpcs.entity.Resources;
+import com.tz.tpcs.service.EmployeeService;
 import com.tz.tpcs.service.ResourcesService;
 import com.tz.tpcs.util.IConstant;
+import org.apache.log4j.Logger;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
@@ -27,9 +29,10 @@ import java.util.Set;
  */
 public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
-    @SuppressWarnings("SpringJavaAutowiringInspection")
+    private static final Logger LOGGER = Logger.getLogger(CustomAuthenticationSuccessHandler.class);
+
     @Resource
-    private EmployeeDao employeeDao;
+    private EmployeeService employeeService;
     @Resource
     private ResourcesService resourcesService;
 
@@ -38,13 +41,14 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
+        LOGGER.debug("onAuthenticationSuccess()...");
         //登录成功：更新登录IP和日期, 并重置登录失败次数
         String loginIp = ((WebAuthenticationDetails) authentication.getDetails()).getRemoteAddress();
         Employee emp = (Employee) authentication.getPrincipal();
         emp.setLoginIp(loginIp);
         emp.setLoginDate(new Date());
         emp.setLoginFailureCount(0);
-        employeeDao.save(emp);
+        employeeService.update(emp);
         //在session中存入登录员工的实例
         HttpSession session = request.getSession();
         session.setAttribute(IConstant.LOGIN_USER, emp);
