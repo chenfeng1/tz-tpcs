@@ -236,7 +236,6 @@ public class InitData {
 						area2.setDivisionCode(l.getDivisionCode());
 						area2.setLevel(3);
 						area2.setParent(area1);
-		                System.out.println("即将保存33:"+area2);
 						areaDao.save(area2);
 					}
 				}

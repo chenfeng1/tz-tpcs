@@ -5,9 +5,14 @@ import com.tz.tpcs.entity.ProjectCase;
 import com.tz.tpcs.service.ProjectCaseService;
 import com.tz.tpcs.web.form.Pager;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.persistence.criteria.*;
 import javax.transaction.Transactional;
 
 /**
@@ -26,12 +31,32 @@ public class ProjectCaseServiceImpl implements ProjectCaseService {
     private ProjectCaseDao projectCaseDao;
 
     @Override
-    public Pager<ProjectCase> findByPager(String name, String code, Pager<ProjectCase> pager) {
+    public Pager<ProjectCase> findByPager(final String name, final String code, Pager<ProjectCase> pager) {
         if(pager == null){
             pager = new Pager<>();
         }
         pager.setPageSize(PAGE_SIZE);
-        return projectCaseDao.findByPager(name, code, pager);
+
+        Page<ProjectCase> page = projectCaseDao.findAll(new Specification<ProjectCase>() {
+            @Override
+            public Predicate toPredicate(Root<ProjectCase> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                Path<String> namePath = root.get("name");
+                Path<String> codePath = root.get("code");
+                Predicate p = cb.conjunction();
+                if(StringUtils.isNotBlank(name)){
+                    p = cb.and(p, cb.like(cb.lower(namePath), "%" + name.toLowerCase() + "%"));
+                }
+                if(StringUtils.isNotBlank(code)){
+                    p = cb.and(p, cb.like(cb.lower(codePath), "%" + code.toLowerCase() + "%"));
+                }
+                return p;
+            }
+        }, new PageRequest(pager.getPageNumber()-1, pager.getPageSize(), new Sort(Sort.Direction.DESC, "modifyDate")));
+
+        pager.setList(page.getContent());
+        Long lTotal = page.getTotalElements();
+        pager.setTotalCount(lTotal.intValue());
+        return pager;
     }
 
     @Override

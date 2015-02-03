@@ -1,6 +1,7 @@
 package com.tz.tpcs.dao;
 
 import com.tz.tpcs.entity.ProjectCase;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -9,7 +10,7 @@ import org.springframework.data.repository.CrudRepository;
  * @version 1.0
  * @since 2015/1/27 15:19
  */
-public interface ProjectCaseDao extends CrudRepository<ProjectCase, String>, ProjectCaseDaoCustom {
+public interface ProjectCaseDao extends CrudRepository<ProjectCase, String>, JpaSpecificationExecutor<ProjectCase> {
 
     /**
      * 根据name精确查询

@@ -12,9 +12,7 @@ import java.io.*;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-import java.util.Properties;
 
-import static java.text.MessageFormat.format;
 import static org.junit.Assert.assertEquals;
 
 public abstract class BaseCheckTestSupport {
@@ -42,7 +40,6 @@ public abstract class BaseCheckTestSupport {
 
     protected final ByteArrayOutputStream BAOS = new ByteArrayOutputStream();
     protected final PrintStream stream = new PrintStream(BAOS);
-    protected final Properties props = new Properties();
 
     public static DefaultConfiguration createCheckConfig(Class<?> clazz) {
         final DefaultConfiguration checkConfig =
@@ -78,22 +75,15 @@ public abstract class BaseCheckTestSupport {
 
     protected static String getPath(String filename)
             throws IOException {
-        return new File("checkstyle-ext/src/test/java/com/tz/check/" + filename).getCanonicalPath();
-    }
-
-    protected static String getSrcPath(String filename) throws IOException {
-
-        return new File("src/test/java/com/puppycrawl/tools/checkstyle/" + filename).getCanonicalPath();
+//        String path = new File("checkstyle-ext/src/test/java/com/tz/check/" + filename).getCanonicalPath();
+        String path = new File("src/test/java/com/tz/check/" + filename).getCanonicalPath();
+        System.out.println("path:"+path);
+        return path;
     }
 
     protected void verify(Configuration aConfig, String fileName, String[] expected)
             throws Exception {
         verify(createChecker(aConfig), fileName, fileName, expected);
-    }
-
-    protected void verify(Checker c, String fileName, String[] expected)
-            throws Exception {
-        verify(c, fileName, fileName, expected);
     }
 
     protected void verify(Checker c,
@@ -133,20 +123,4 @@ public abstract class BaseCheckTestSupport {
         c.destroy();
     }
 
-    /**
-     * Gets the check message 'as is' from appropriate 'messages.properties'
-     * file.
-     *
-     * @param messageKey the key of message in 'messages.properties' file.
-     * @param arguments  the arguments of message in 'messages.properties' file.
-     */
-    public String getCheckMessage(String messageKey, Object... arguments) {
-        Properties pr = new Properties();
-        try {
-            pr.load(getClass().getResourceAsStream("messages.properties"));
-        } catch (IOException e) {
-            return null;
-        }
-        return format(pr.getProperty(messageKey), arguments);
-    }
 }

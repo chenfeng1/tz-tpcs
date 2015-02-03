@@ -183,6 +183,11 @@
                 <artifactId>checkstyle</artifactId>
                 <version>6.2</version>
             </dependency>
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>1.4.185</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -201,13 +206,17 @@
                             <goals>
                                 <goal>checkstyle</goal>
                             </goals>
-                            <configuration>
+                            <!--<configuration>
+                                <includeTestSourceDirectory>false</includeTestSourceDirectory>
                                 <failsOnError>true</failsOnError>
-                            </configuration>
+                            </configuration>-->
                         </execution>
                     </executions>
                     <configuration>
-                        <!--<configLocation>/config/genericCheckStyle.xml</configLocation>-->
+                        <includeTestSourceDirectory>false</includeTestSourceDirectory>
+                        <failsOnError>true</failsOnError>
+                        <headerLocation>/config/LICENSE.txt</headerLocation>
+                        <configLocation>/config/genericCheckStyle.xml</configLocation>
                         <configLocation>/config/customCheckStyle.xml</configLocation>
                     </configuration>
                     <dependencies>
@@ -385,6 +394,19 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.eluder.coveralls</groupId>
+                <artifactId>coveralls-maven-plugin</artifactId>
+                <configuration>
+                    <repoToken>${coveralls.repoToken}</repoToken>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
     </build>
 
 </project>
