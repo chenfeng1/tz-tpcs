@@ -19,5 +19,5 @@ before_script:
 
 script:
   - mvn cobertura:cobertura coveralls:report
-  - mvn tomcat7:run
-
+  - cd tpcs-employee
+  - mvn verify -DskipTests=true

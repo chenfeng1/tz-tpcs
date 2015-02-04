@@ -87,4 +87,10 @@
         <property name="accessDecisionManager" ref="accessDecisionManager"/>
     </bean>
 
+    <!--国际化支持部分-->
+    <bean id="localeResolver"
+          class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+        <property name="defaultLocale" value="zh" />
+    </bean>
+
 </beans>

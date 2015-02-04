@@ -12,11 +12,6 @@
     <!--需要扫描的包-->
     <context:component-scan base-package="com.tz.tpcs.web"/>
 
-    <!--国际化支持部分-->
-    <bean id="localeResolver"
-          class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
-        <property name="defaultLocale" value="zh" />
-    </bean>
     <!-- 定义国际化资源文件 basename -->
     <bean id="messageSource"
           class="org.springframework.context.support.ReloadableResourceBundleMessageSource">

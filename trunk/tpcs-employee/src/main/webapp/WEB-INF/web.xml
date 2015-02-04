@@ -6,6 +6,11 @@
 
 	<description>学习过程管理系统</description>
 
+	<context-param>
+		<param-name>spring.profiles.default</param-name>
+		<param-value>production</param-value>
+	</context-param>
+
 	<!--spring配置文件路径-->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
