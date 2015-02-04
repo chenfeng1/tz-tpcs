@@ -18,5 +18,5 @@ before_script:
   - mysql -e 'create database tpcs;'
 
 script:
-  - mvn cobertura:cobertura coveralls:report
+  - mvn test
 
