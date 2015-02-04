@@ -211,18 +211,14 @@
                             <goals>
                                 <goal>checkstyle</goal>
                             </goals>
-                            <!--<configuration>
-                                <includeTestSourceDirectory>false</includeTestSourceDirectory>
-                                <failsOnError>true</failsOnError>
-                            </configuration>-->
                         </execution>
                     </executions>
                     <configuration>
                         <includeTestSourceDirectory>false</includeTestSourceDirectory>
                         <failsOnError>true</failsOnError>
-                        <headerLocation>/config/LICENSE.txt</headerLocation>
-                        <configLocation>/config/genericCheckStyle.xml</configLocation>
-                        <configLocation>/config/customCheckStyle.xml</configLocation>
+                        <headerLocation>config/LICENSE.txt</headerLocation>
+                        <configLocation>config/genericCheckStyle.xml</configLocation>
+                        <configLocation>config/customCheckStyle.xml</configLocation>
                     </configuration>
                     <dependencies>
                         <dependency>
