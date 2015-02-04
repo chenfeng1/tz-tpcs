@@ -1,3 +1,17 @@
 language: java
+
 jdk:
   - oraclejdk7
+
+services: mysql
+
+install:
+  - cd trunk
+  - mvn install -DskipTests=true
+
+before_script:
+  - mysql -e 'create database tpcs;'
+
+script:
+  - mvn cobertura:cobertura coveralls:report
+

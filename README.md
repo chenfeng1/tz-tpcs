@@ -1,5 +1,6 @@
 # tz-tpcs
 [![Coverage Status](https://coveralls.io/repos/usedtolove/tz-tpcs/badge.svg)](https://coveralls.io/r/usedtolove/tz-tpcs)
+[![Build Status](https://travis-ci.org/usedtolove/tz-tpcs.svg?branch=master)](https://travis-ci.org/usedtolove/tz-tpcs)
 ### tz trainning procedure control system
 ### 培训过程管理系统
 

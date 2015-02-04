@@ -7,7 +7,7 @@
     <artifactId>tpcs-root</artifactId>
 	<name>Training Process Control System</name>
 	<description>培训过程管控系统 root pom</description>
-	<version>0.2-SNAPSHOT</version>
+    <version>0.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
     <properties>
@@ -187,6 +187,11 @@
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
                 <version>1.4.185</version>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>5.1.34</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
