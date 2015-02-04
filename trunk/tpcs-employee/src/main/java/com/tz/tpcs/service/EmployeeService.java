@@ -1,6 +1,7 @@
 package com.tz.tpcs.service;
 
 import com.tz.tpcs.entity.Employee;
+import com.tz.tpcs.web.form.Pager;
 
 /**
  * Employee Service 接口类
@@ -20,4 +21,14 @@ public interface EmployeeService {
      * @return 如果存在，返回员工实例；如果不存在，返回null
      */
     Employee findByPhoneNumberEmail(String str);
+
+    /**
+     * 分页+查询
+     * @param DepartmentId  部门ID
+     * @param EmployeeName 员工姓名
+     * @param pager 分页类
+     * @return 分页类
+     */
+    Pager<Employee> findByPager(String DepartmentId, String EmployeeName, Pager<Employee> pager);
+
 }

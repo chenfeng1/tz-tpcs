@@ -60,13 +60,15 @@
         <url>https://github.com/usedtolove/tz-tpcs/issues</url>
     </issueManagement>
 
+    <!--continue integratation-->
     <ciManagement>
-        <!--todo-->
+        <system>travis-ci</system>
+        <url>https://travis-ci.org/usedtolove/tz-tpcs/builds</url>
     </ciManagement>
 
+    <!--source control management-->
     <scm>
-        <!--todo-->
-        <!--http://blog.sonatype.com/2009/09/maven-tips-and-tricks-using-github/#.VMTHdoe3aD8-->
+        <url>scm:git:https://github.com/usedtolove/tz-tpcs.git</url>
     </scm>
 
     <repositories>
@@ -400,9 +402,6 @@
             <plugin>
                 <groupId>org.eluder.coveralls</groupId>
                 <artifactId>coveralls-maven-plugin</artifactId>
-                <configuration>
-                    <repoToken>${coveralls.repoToken}</repoToken>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>

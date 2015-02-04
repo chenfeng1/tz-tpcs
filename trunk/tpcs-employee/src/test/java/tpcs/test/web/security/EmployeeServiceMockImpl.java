@@ -4,6 +4,7 @@ import com.tz.tpcs.entity.Employee;
 import com.tz.tpcs.entity.Role;
 import com.tz.tpcs.service.EmployeeService;
 import com.tz.tpcs.util.IConstant;
+import com.tz.tpcs.web.form.Pager;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -42,5 +43,10 @@ public class EmployeeServiceMockImpl implements EmployeeService {
             return employee;
         }else
             return null;
+    }
+
+    @Override
+    public Pager<Employee> findByPager(String DepartmentId, String EmployeeName, Pager<Employee> pager) {
+        return null;
     }
 }

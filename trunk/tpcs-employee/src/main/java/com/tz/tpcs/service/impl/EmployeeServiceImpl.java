@@ -4,6 +4,7 @@ import com.tz.tpcs.dao.EmployeeDao;
 import com.tz.tpcs.entity.Employee;
 import com.tz.tpcs.service.EmployeeService;
 import com.tz.tpcs.util.IConstant;
+import com.tz.tpcs.web.form.Pager;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -43,5 +44,10 @@ public class EmployeeServiceImpl implements EmployeeService {
                 return emp != null? emp:null;
             }
         }
+    }
+
+    @Override
+    public Pager<Employee> findByPager(String DepartmentId, String EmployeeName, Pager<Employee> pager) {
+        return null;
     }
 }

@@ -6,12 +6,12 @@ jdk:
 services: mysql
 
 install:
-  - cd docs
-  - cd jars
+  - cd docs/jars
   - mvn install:install-file -DgroupId=ojdbc -DartifactId=ojdbc -Dpackaging=jar -Dversion=6 -Dfile=ojdbc-6.jar -DgeneratePom=true
-  - cd ..
-  - cd ..
-  - cd trunk
+  - cd ../../
+  - cd trunk/tpcs-employee/src/main/resources
+  - mv travis-ci.properties application.properties
+  - cd ../../../../
   - mvn install -DskipTests=true
 
 before_script:
@@ -19,4 +19,5 @@ before_script:
 
 script:
   - mvn cobertura:cobertura coveralls:report
+  - mvn tomcat7:run
 
