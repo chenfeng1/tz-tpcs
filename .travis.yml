@@ -9,8 +9,8 @@ install:
   - cd docs
   - cd jars
   - mvn install:install-file -DgroupId=ojdbc -DartifactId=ojdbc -Dpackaging=jar -Dversion=6 -Dfile=ojdbc-6.jar -DgeneratePom=true
-  - cd..
-  - cd..
+  - cd ..
+  - cd ..
   - cd trunk
   - mvn install -DskipTests=true
 
