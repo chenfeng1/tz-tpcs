@@ -203,7 +203,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>2.13</version>
+                    <version>2.12</version>
                     <executions>
                         <execution>
                             <id>checkStyle</id>
@@ -216,9 +216,10 @@
                     <configuration>
                         <includeTestSourceDirectory>false</includeTestSourceDirectory>
                         <failsOnError>true</failsOnError>
-                        <headerLocation>config/LICENSE.txt</headerLocation>
-                        <configLocation>config/genericCheckStyle.xml</configLocation>
-                        <configLocation>config/customCheckStyle.xml</configLocation>
+                        <consoleOutput>true</consoleOutput>
+                        <headerLocation>${project.parent.basedir}${file.separator}config${file.separator}LICENSE.txt</headerLocation>
+                        <configLocation>${project.parent.basedir}${file.separator}config${file.separator}genericCheckStyle.xml</configLocation>
+                        <configLocation>${project.parent.basedir}${file.separator}config${file.separator}customCheckStyle.xml</configLocation>
                     </configuration>
                     <dependencies>
                         <dependency>
@@ -376,7 +377,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>2.7</version>
+                    <version>2.6</version>
                     <executions>
                         <execution>
                             <id>default-compile</id>
