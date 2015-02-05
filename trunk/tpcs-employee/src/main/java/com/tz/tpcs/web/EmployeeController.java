@@ -1,8 +1,6 @@
 package com.tz.tpcs.web;
 
-import com.tz.tpcs.entity.Employee;
 import com.tz.tpcs.service.EmployeeService;
-import com.tz.tpcs.web.form.Pager;
 import org.apache.log4j.Logger;
 import org.dozer.Mapper;
 import org.springframework.context.MessageSource;

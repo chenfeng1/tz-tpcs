@@ -47,7 +47,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Pager<Employee> findByPager(String DepartmentId, String EmployeeName, Pager<Employee> pager) {
+    public Pager<Employee> findByPager(String departmentId, String employeeName, Pager<Employee> pager) {
         return null;
     }
 }

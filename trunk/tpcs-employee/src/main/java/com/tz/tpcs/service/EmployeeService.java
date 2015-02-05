@@ -24,11 +24,11 @@ public interface EmployeeService {
 
     /**
      * 分页+查询
-     * @param DepartmentId  部门ID
-     * @param EmployeeName 员工姓名
+     * @param departmentId  部门ID
+     * @param employeeName 员工姓名
      * @param pager 分页类
      * @return 分页类
      */
-    Pager<Employee> findByPager(String DepartmentId, String EmployeeName, Pager<Employee> pager);
+    Pager<Employee> findByPager(String departmentId, String employeeName, Pager<Employee> pager);
 
 }

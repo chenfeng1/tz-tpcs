@@ -11,6 +11,11 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface ClazzDao extends CrudRepository<Clazz,String>, ClazzDaoCustom, JpaSpecificationExecutor<Clazz> {
 
+    /**
+     * 根据name查询
+     * @param name name
+     * @return Clazz
+     */
     Clazz findByName(String name);
 
 }

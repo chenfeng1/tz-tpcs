@@ -9,5 +9,5 @@ import org.springframework.data.repository.CrudRepository;
  * @version 1.0
  * @since 2015/2/4 18:04
  */
-public interface DepartmentDao extends CrudRepository<Department, String>{
+public interface DepartmentDao extends CrudRepository<Department, String> {
 }

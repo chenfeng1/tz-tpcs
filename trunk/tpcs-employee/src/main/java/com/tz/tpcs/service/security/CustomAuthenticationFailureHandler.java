@@ -116,7 +116,8 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
         } else if(exception instanceof AuthenticationServiceException) {
             addErrorMessage(request, USERNAME_ERR_MSG, messageSource.getMessage("login.by.form", null, locale));
         } else{
-            addErrorMessage(request, USERNAME_ERR_MSG, exception.getMessage() + " " + messageSource.getMessage("please.contact.administrator", null, locale));
+            addErrorMessage(request, USERNAME_ERR_MSG,
+                    exception.getMessage() + " " + messageSource.getMessage("please.contact.administrator", null, locale));
         }
         super.onAuthenticationFailure(request, response, exception);
     }

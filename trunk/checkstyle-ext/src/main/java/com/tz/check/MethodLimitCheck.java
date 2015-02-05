@@ -7,6 +7,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
  * 方法数限制 Check 类 (HelloWorld)
+ *
  * @author Hu Jing Ling
  * @version 1.0
  * @since 2015/1/29 17:05
@@ -36,8 +37,7 @@ public class MethodLimitCheck extends Check {
     }
 
     //setMax
-    public void setMax(int limit)
-    {
+    public void setMax(int limit) {
         max = limit;
     }
 }

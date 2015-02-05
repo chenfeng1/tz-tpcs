@@ -113,7 +113,12 @@
         <module name="UpperEll"/>
         <!-- 不能出现大块空白区域 -->
         <module name="GenericWhitespace"/>
+
+
+        <!--自定义检查规则部分-->
+        <module name="com.tz.check.EntityColumnCheck"/>
     </module>
+
 
     <module name="SuppressWarningsFilter"/>
     <module name="UniqueProperties"/>

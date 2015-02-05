@@ -72,6 +72,10 @@ public class Resources extends BaseEntity {
         this.icon = icon;
     }
 
+    /**
+     * 一对多关联
+     * 一个资源有多个下属子资源
+     */
     @OneToMany(mappedBy = "parent")
     @OrderBy(value="seq ASC") //通过自关联查到的 children 按照 seq 自动升序排序
     public Set<Resources> getChildren() {
