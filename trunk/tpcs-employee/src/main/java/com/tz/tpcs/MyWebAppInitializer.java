@@ -1,9 +1,12 @@
 package com.tz.tpcs;
 
+import com.tz.tpcs.config.WebMvcConfig;
 import org.apache.log4j.Logger;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.context.support.XmlWebApplicationContext;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
 
 import javax.servlet.ServletContext;
@@ -20,16 +23,30 @@ public class MyWebAppInitializer implements WebApplicationInitializer {
     private static final Logger LOGGER = Logger.getLogger(MyWebAppInitializer.class);
 
     @Override
-    public void onStartup(ServletContext servletContext) throws ServletException {
+    public void onStartup(ServletContext container) throws ServletException {
         LOGGER.debug("onStartup() run...");
+        // Create the 'root' Spring application context
+//        AnnotationConfigWebApplicationContext rootContext =
+//                new AnnotationConfigWebApplicationContext();
+//        rootContext.register(AppConfig.class);
         XmlWebApplicationContext rootContext = new XmlWebApplicationContext();
-//        rootContext.setConfigLocations(new String[]{"classpath:applicationContext.xml"});
-        rootContext.setConfigLocation("com.tz.tpcs.config");
-        servletContext.addListener(new ContextLoaderListener(rootContext));
+        rootContext.setConfigLocation("classpath:applicationContext.xml");
 
+        // Manage the lifecycle of the root application context
+        container.addListener(new ContextLoaderListener(rootContext));
+
+        // Create the dispatcher servlet's Spring application context
+        AnnotationConfigWebApplicationContext dispatcherContext =
+                new AnnotationConfigWebApplicationContext();
+        dispatcherContext.register(WebMvcConfig.class);
+
+        //spring security Filter
+        container.addFilter("springSecurityFilterChain", new DelegatingFilterProxy("springSecurityFilterChain"))
+                .addMappingForUrlPatterns(null, false, "/*");
+
+        // Register and map the dispatcher servlet
         ServletRegistration.Dynamic dispatcher =
-                servletContext.addServlet("dispatcher", new DispatcherServlet(rootContext));
-//        dispatcher.setInitParameter("contextConfigLocation", "classpath:dispatcher-mvc.xml");
+                container.addServlet("dispatcher", new DispatcherServlet(dispatcherContext));
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("/");
     }

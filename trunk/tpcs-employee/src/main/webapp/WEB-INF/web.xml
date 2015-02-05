@@ -15,10 +15,11 @@
 	<listener>
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
 	</listener>
-	<!--prevent a user from logging in multiple times-->
-	<listener>
-		<listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
-	</listener>
+
+	<error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/jsp/error404.jsp</location>
+	</error-page>
 
 	<!-- for compatibility with Servlet 3.0 and Tomcat 7.0 -->
 	<welcome-file-list>

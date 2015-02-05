@@ -6,6 +6,7 @@ import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
+import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -24,6 +25,13 @@ public class CustomSecurityMetadataSource implements FilterInvocationSecurityMet
     private ResourcesService resourcesService;
 
     private static Map<String, Collection<ConfigAttribute>> resourceMap = null;
+
+    /**
+     * empty constructor
+     */
+    public CustomSecurityMetadataSource() {
+        LOGGER.debug("CustomSecurityMetadataSource empty constructor...");
+    }
 
     @Override
     public Collection<ConfigAttribute> getAllConfigAttributes() {
@@ -61,9 +69,12 @@ public class CustomSecurityMetadataSource implements FilterInvocationSecurityMet
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
         String requestUrl = ((FilterInvocation) object).getRequestUrl();
         LOGGER.debug("requestUrl is " + requestUrl);
-        if (resourceMap == null) {
-            loadResourceDefine();
-        }
+        Assert.notNull(resourceMap);
+        /*Collection<ConfigAttribute> requiredRoles = resourceMap.get(requestUrl);
+        if(requiredRoles == null){
+            //如果为空，则表示用户访问的是系统未提供的URL路径，即不存在的资源。
+            throw new ResourceNotFoundException();
+        }*/
         return resourceMap.get(requestUrl);
     }
 }
