@@ -27,7 +27,7 @@ public class MyDetailsServiceImpl implements UserDetailsService {
 
     /** 空参构造 */
     public MyDetailsServiceImpl() {
-        LOGGER.trace("MyDetailsServiceImpl empty constructor");
+        LOGGER.debug("SpringSecurity MyDetailsServiceImpl empty constructor");
     }
 
     /**

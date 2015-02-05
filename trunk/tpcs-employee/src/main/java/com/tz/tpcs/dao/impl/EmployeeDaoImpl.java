@@ -2,6 +2,7 @@ package com.tz.tpcs.dao.impl;
 
 import com.tz.tpcs.dao.EmployeeDaoCustom;
 import com.tz.tpcs.entity.Employee;
+import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,15 +14,24 @@ import java.util.List;
  */
 public class EmployeeDaoImpl implements EmployeeDaoCustom {
 
+    private static final Logger LOGGER = Logger.getLogger(EmployeeDaoImpl.class);
+
     @PersistenceContext
     private EntityManager em;
     public void setEm(EntityManager em) {
         this.em = em;
     }
 
+    /**
+     * empty constructor
+     */
+    public EmployeeDaoImpl() {
+        LOGGER.debug("EmployeeDaoImpl empty constructor...");
+    }
+
     @Override
     public Employee findSingleByProp(String prop, Object value) {
-        String ql = "select e from Employee as e where e."+prop+" = :value";
+        String ql = "select e from Employee as e left join fetch e.roles where e."+prop+" = :value";
         Query query = em.createQuery(ql);
         query.setParameter("value", value);
         @SuppressWarnings("unchecked")

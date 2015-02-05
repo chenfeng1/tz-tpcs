@@ -5,6 +5,7 @@ import com.tz.tpcs.entity.Employee;
 import com.tz.tpcs.service.EmployeeService;
 import com.tz.tpcs.util.IConstant;
 import com.tz.tpcs.web.form.Pager;
+import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +20,17 @@ import javax.transaction.Transactional;
 @Profile(IConstant.PROFILE_PRODUCTION)
 public class EmployeeServiceImpl implements EmployeeService {
 
+    private static final Logger LOGGER = Logger.getLogger(EmployeeServiceImpl.class);
+
     @Resource
     private EmployeeDao employeeDao;
+
+    /**
+     * empty constructor
+     */
+    public EmployeeServiceImpl() {
+        LOGGER.debug("EmployeeServiceImpl empty constructor...");
+    }
 
     @Override
     public void update(Employee employee) {
