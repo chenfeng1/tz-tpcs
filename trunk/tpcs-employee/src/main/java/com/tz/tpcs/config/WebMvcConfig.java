@@ -15,4 +15,5 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 @ImportResource("classpath:dispatcher-mvc.xml")
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
+
 }

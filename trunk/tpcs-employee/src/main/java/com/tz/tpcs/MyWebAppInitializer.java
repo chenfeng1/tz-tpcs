@@ -26,9 +26,6 @@ public class MyWebAppInitializer implements WebApplicationInitializer {
     public void onStartup(ServletContext container) throws ServletException {
         LOGGER.debug("onStartup() run...");
         // Create the 'root' Spring application context
-//        AnnotationConfigWebApplicationContext rootContext =
-//                new AnnotationConfigWebApplicationContext();
-//        rootContext.register(AppConfig.class);
         XmlWebApplicationContext rootContext = new XmlWebApplicationContext();
         rootContext.setConfigLocation("classpath:applicationContext.xml");
 
