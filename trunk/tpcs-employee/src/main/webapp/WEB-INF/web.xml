@@ -16,10 +16,10 @@
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
 	</listener>
 
-	<error-page>
+	<!--<error-page>
 		<error-code>404</error-code>
 		<location>/WEB-INF/jsp/error404.jsp</location>
-	</error-page>
+	</error-page>-->
 
 	<!-- for compatibility with Servlet 3.0 and Tomcat 7.0 -->
 	<welcome-file-list>

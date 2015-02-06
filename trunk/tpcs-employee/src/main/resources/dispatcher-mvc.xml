@@ -12,10 +12,9 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!-- 导入 xml 配置 -->
-    <!--<import resource="classpath:spring/web-config.xml"/>-->
+    <import resource="classpath:spring/web-config.xml"/>
 
     <mvc:default-servlet-handler/>
-    <!--<mvc:annotation-driven/>-->
 
     <!--tiles3布局支持部分-->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"/>

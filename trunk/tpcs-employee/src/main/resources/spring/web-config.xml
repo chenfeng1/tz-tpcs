@@ -12,10 +12,9 @@
 
     <!--支持注解-->
     <context:annotation-config/>
+
     <!--需要扫描的包-->
     <context:component-scan base-package="com.tz.tpcs.web"/>
-
-    <mvc:annotation-driven/>
 
     <!-- 定义国际化资源文件 basename -->
     <bean id="messageSource"
