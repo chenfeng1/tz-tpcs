@@ -5,33 +5,30 @@
 <script src="${path}/jstree/jstree.min.js"></script>
 <link href="${path}/jstree/themes/default/style.min.css" rel="stylesheet">
 <script type="text/javascript">
-
-    var treeData;
-
     $(function () {
-        //初始化部门树
-        $.getJSON("${path}/departments/list",function(result){
-            //console.log(result);
-            result[0].state.selected = true; //默认选中根节点
-            treeData = {'core': {'data': result}};
-            $("#myTree").jstree(treeData);
-            //添加点击事件监听
-            $("#myTree").on("select_node.jstree", function (e, data) {
-                alert("你选择了：" + data.instance.get_selected(true)[0].text);
-            });
-        });
 
-        $("#deleteDept").click(function(){
-            if(confirm('确定删除选中的部门吗?')){
-                var id = $("#myTree").jstree("get_selected");
-                if(id){
-                    $.post("demo_ajax_gethint.asp",{suggest:txt},function(result){
-                        $("span").html(result);
-                    });
-                }else{
-                    alert("请先选中部门!");
-                }
+        var treeData = {
+            'core': {
+                'data': [
+                    {
+                        "id": 1, "text": "天智教育", "state": {"opened": true}, "children": [
+                        {"id": 11, "text": "教学部"},
+                        {"id": 12, "text": "市场招生部"},
+                        {"id": 13, "text": "渠道招生部"},
+                        {"id": 14, "text": "人力资源部"},
+                        {"id": 15, "text": "财务部"},
+                        {"id": 16, "text": "就业部"},
+                        {"id": 17, "text": "总经办"}]
+                    }
+                ]
             }
+        }
+
+        //初始化第一颗树
+        $("#myTree").jstree(treeData);
+        //添加事件
+        $("#myTree").on("changed.jstree", function (e, data) {
+            alert("你选择了：" + data.instance.get_selected(true)[0].text);
         });
 
     });
@@ -137,7 +134,7 @@
                 <div class="col-md-4" style="font-size: small">
                     <a href="#" data-toggle="modal" data-target="#updDeptModel">修改部门名</a>&nbsp;|&nbsp;
                     <a href="#" data-toggle="modal" data-target="#addDeptModel">添加子部门</a>&nbsp;|&nbsp;
-                    <a id="deleteDept" href="javaScript:void (0)">删除</a>
+                    <a href="javaScript:confirm('确定删除吗')">删除</a>
                 </div>
             </div>
             <div class="row" style="margin-top: 5px;margin-bottom: 10px;">

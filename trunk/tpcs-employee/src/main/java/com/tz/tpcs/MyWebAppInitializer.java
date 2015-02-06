@@ -32,7 +32,8 @@ public class MyWebAppInitializer implements WebApplicationInitializer {
 
         // Create the dispatcher servlet's Spring application context
         XmlWebApplicationContext dispatcherContext = new XmlWebApplicationContext();
-        dispatcherContext.setConfigLocation("classpath:dispatcher-mvc.xml");
+//        dispatcherContext.setConfigLocation("classpath:dispatcher-mvc.xml");
+        dispatcherContext.setConfigLocation("classpath:spring/web-config.xml");
 
         //spring security Filter
         container.addFilter("springSecurityFilterChain", new DelegatingFilterProxy("springSecurityFilterChain"))
@@ -42,6 +43,7 @@ public class MyWebAppInitializer implements WebApplicationInitializer {
         ServletRegistration.Dynamic dispatcher =
                 container.addServlet("dispatcher", new DispatcherServlet(dispatcherContext));
         dispatcher.setLoadOnStartup(1);
+        dispatcher.setInitParameter("contextConfigLocation", "classpath:dispatcher-mvc.xml");
         dispatcher.addMapping("/");
     }
 

@@ -11,7 +11,7 @@
     <title>ERROR - 404</title>
 </head>
 <body>
-  <h1>ERROR - 404</h1>
+  <h1>自定义404错误页面 (TODO)</h1>
   <hr/>
   <p>你访问的资源未找到!</p>
 </body>

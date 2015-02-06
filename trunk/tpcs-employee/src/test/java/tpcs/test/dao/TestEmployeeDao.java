@@ -1,7 +1,10 @@
 package tpcs.test.dao;
 
+import com.tz.tpcs.dao.DepartmentDao;
 import com.tz.tpcs.dao.EmployeeDao;
+import com.tz.tpcs.entity.Department;
 import com.tz.tpcs.entity.Employee;
+import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -16,6 +19,8 @@ public class TestEmployeeDao extends AbstractDaoTxTest {
 
     @Resource
     private EmployeeDao employeeDao;
+    @Resource
+    private DepartmentDao departmentDao;
 
     @Test
     public void test01Save(){
@@ -50,4 +55,28 @@ public class TestEmployeeDao extends AbstractDaoTxTest {
         Employee emp = employeeDao.findSingleByProp(prop, value);
         System.out.println(emp);
     }
+
+    @Test
+    public void test05GetCountByDeptId(){
+        Department department = new Department("testDepartment11", null, 0, 1);
+        departmentDao.save(department);
+        Department department2 = new Department("testDepartment22", null, 0, 2);
+        departmentDao.save(department2);
+
+        for (int i = 0; i < 5; i++) {
+            Employee emp1 = new Employee();
+            emp1.setNumber("test05GetCountByDeptIdUser"+i);
+            emp1.setEmail("test05GetCountByDeptIdUser"+i+"@website.com");
+            emp1.setMobilePhone("1581234567"+i);
+            emp1.setPassword("123");
+            emp1.setDepartment(department);
+            employeeDao.save(emp1);
+        }
+
+        int count = employeeDao.getCountByDeptId(department.getId());
+        Assert.assertEquals(5, count);
+        int count2 = employeeDao.getCountByDeptId(department2.getId());
+        Assert.assertEquals(0, count2);
+    }
+
 }

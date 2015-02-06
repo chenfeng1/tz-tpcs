@@ -42,6 +42,8 @@ public class Employee extends BaseEntity implements UserDetails {
     private String loginIp; // 最后登录IP
     private Set<GrantedAuthority> authorities; // 角色信息
 
+    private Department department; //部门
+
     /** 空参构造 */
     public Employee() {
     }
@@ -251,6 +253,16 @@ public class Employee extends BaseEntity implements UserDetails {
 
     public void setLoginIp(String loginIp) {
         this.loginIp = loginIp;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "dept_id")
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     @Override

@@ -34,6 +34,8 @@ import java.util.List;
 @ActiveProfiles(IConstant.PROFILE_PRODUCTION)
 public class InitData {
 
+    private DataFactory dataFactory = new DataFactory();
+
 	@Resource
 	private ProjectCaseDao projectCaseDao;
 	@Resource
@@ -46,10 +48,11 @@ public class InitData {
     private RoleDao roleDao;
     @Resource
     private EmployeeDao employeeDao;
-    private DataFactory dataFactory = new DataFactory();
+    @Resource
+    private DepartmentDao departmentDao;
 
     @Test
-    public void test01SaveResources(){
+    public void init01SaveResources(){
         List<Resources> list = new ArrayList<>();
         Resources r1 = new Resources("班级", "menu_clazz",Type.FOLDER, "", null, null,1,true);
         Resources r11 = new Resources("班级列表", "menu_clazz_list",Type.URL, "/clazz/list", r1, null,11,true);
@@ -106,7 +109,7 @@ public class InitData {
     }
 
     @Test
-    public void test02SaveRoles(){
+    public void init02SaveRoles(){
         Role role1 = new Role("管理员", "admin", "系统所有模块权限", true, 1);
         Role role2 = new Role("班主任", "classTeacher", "班级、学员等模块", true, 2);
         Role role3 = new Role("讲师", "lecturer", "班级、学员、知识库、项目案例等模块", true, 3);
@@ -125,7 +128,7 @@ public class InitData {
     }
 
     @Test
-    public void test03SaveEmployees(){
+    public void init03SaveEmployees(){
         Employee emp1 = new Employee();
         emp1.setNumber("EMP_001");
         emp1.setEmail("EMP_001@sz-tz.com");
@@ -194,7 +197,7 @@ public class InitData {
     }
 
     @Test
-    public void test04ProjectCase(){
+    public void init04ProjectCase(){
         for (int i = 1; i <= 10; i++) {
             ProjectCase projectCase = new ProjectCase();
             projectCase.setName("testProject"+i);
@@ -210,7 +213,7 @@ public class InitData {
     }
     
     @Test
-    public void test05Area(){
+    public void init05Area(){
     	AreaDomParser ad = new AreaDomParser();
 		List<Area> areas = ad.getAreaFromXML("xml/area.xml");
 		for (Area a : areas) {
@@ -241,5 +244,21 @@ public class InitData {
 				}
 			}
 		}
+    }
+
+    @Test
+    public void init06Department(){
+        List<Department> list = new ArrayList<>();
+        Department dept1 = new Department("天智教育", null, 0, 1);
+        list.add(dept1);
+        list.add(new Department("教学部", dept1, 1, 1));
+        list.add(new Department("市场招生部", dept1, 1, 2));
+        list.add(new Department("渠道招生部", dept1, 1, 3));
+        list.add(new Department("人力资源部", dept1, 1, 4));
+        list.add(new Department("财务部", dept1, 1, 5));
+        list.add(new Department("就业部", dept1, 1, 6));
+        list.add(new Department("总经办", dept1, 1, 7));
+
+        departmentDao.save(list);
     }
 }

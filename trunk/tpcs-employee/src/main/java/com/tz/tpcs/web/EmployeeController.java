@@ -36,7 +36,7 @@ public class EmployeeController {
     public ModelAndView list(ModelMap modelMap){
         //Pager<Employee> pager = employeeService.findByPager(null, null, null);
         //modelMap.addAttribute("pager", pager);
-        return new ModelAndView("employees.list", modelMap);
+        return new ModelAndView("employee.list", modelMap);
     }
 
 }

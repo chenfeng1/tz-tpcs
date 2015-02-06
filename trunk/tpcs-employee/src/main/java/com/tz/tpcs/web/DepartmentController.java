@@ -1,13 +1,19 @@
 package com.tz.tpcs.web;
 
-import com.tz.tpcs.dao.DepartmentDao;
-import org.springframework.ui.ModelMap;
+import com.tz.tpcs.entity.Department;
+import com.tz.tpcs.service.DepartmentService;
+import com.tz.tpcs.web.form.AjaxResult;
+import com.tz.tpcs.web.json.DepartmentJson;
+import org.apache.log4j.Logger;
+import org.dozer.Mapper;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 部门 控制器
@@ -19,17 +25,42 @@ import javax.annotation.Resource;
 @RequestMapping("/departments")
 public class DepartmentController {
 
+    private static final Logger LOGGER = Logger.getLogger(DepartmentController.class);
+
     @Resource
-    private DepartmentDao departmentDao;
+    private DepartmentService departmentService;
+    @Resource
+    private Mapper mapper;
 
     /**
      * 列表
-     * @return ModelAndView
+     * @return List<Department>
      */
-    @RequestMapping(value = "/list", method= RequestMethod.GET)
-    public ModelAndView list(ModelMap modelMap){
-        departmentDao.findAll();
-        return new ModelAndView("department.list", modelMap);
+    @RequestMapping(value = "/list", method= RequestMethod.GET, produces = IMediaType.APPLICATION_JSON_UTF8)
+    public List<DepartmentJson> list(){
+        LOGGER.debug("list() run...");
+        List<Department> srcList = departmentService.getDeptTree();
+        List<DepartmentJson> trgList = new ArrayList<>();
+        for(Department dept : srcList){
+            trgList.add(mapper.map(dept, DepartmentJson.class));
+        }
+//        trgList.get(0).getState().put("selected", true);
+        return trgList;
+    }
+
+    /**
+     * 列表
+     * @return List<Department>
+     */
+    @RequestMapping(value = "/delete", method= RequestMethod.POST, produces = IMediaType.APPLICATION_JSON_UTF8)
+    public AjaxResult delete(@RequestParam String id){
+        LOGGER.debug("delete() run, id:"+id);
+        String result = departmentService.checkAndDelete(id);
+        if("SUCCESS".equals(result)){
+            return new AjaxResult(true, null);
+        }else{
+            return new AjaxResult(false, result);
+        }
     }
 
 }

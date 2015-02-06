@@ -1,5 +1,7 @@
 package com.tz.tpcs.entity;
 
+import org.dozer.Mapping;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -15,18 +17,38 @@ public class Department extends BaseEntity{
 	
 	private static final long serialVersionUID = 4735907212206380861L;
 	
-	private String deptName;//部门名称
-	private Department parent;//父部门
-	private Set<Department> children;//子部门
-	private String remark;//备注信息
+	private String name; //部门名称
+	private Department parent; //父部门
+	private Set<Department> children; //子部门
+	private String remark; //备注信息
+	private int level; //层级
+	private int seq; //排序
 
-	@Column(name="d_name")
-	public String getDeptName() {
-		return deptName;
+	/**
+	 * 空参构造
+	 */
+	public Department() {
 	}
 
-	public void setDeptName(String deptName) {
-		this.deptName = deptName;
+	/**
+	 * 有参构造
+	 * @param parent 上级部门
+	 */
+	public Department(String name, Department parent, int level, int seq) {
+		this.name = name;
+		this.parent = parent;
+		this.level = level;
+		this.seq = seq;
+	}
+
+	@Mapping("text") //映射到Dozer
+	@Column(name="d_name", nullable = false, unique = true)
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@ManyToOne
@@ -39,7 +61,8 @@ public class Department extends BaseEntity{
 		this.parent = parent;
 	}
 
-	@OneToMany(mappedBy="parent",cascade={CascadeType.ALL})
+	@OneToMany(mappedBy="parent")
+	@OrderBy("seq")
 	public Set<Department> getChildren() {
 		return children;
 	}
@@ -57,13 +80,32 @@ public class Department extends BaseEntity{
 		this.remark = remark;
 	}
 
+	@Column(name="d_level")
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	@Column(name="d_seq")
+	public int getSeq() {
+		return seq;
+	}
+
+	public void setSeq(int seq) {
+		this.seq = seq;
+	}
+
 	@Override
 	public String toString() {
 		return "Department{" +
-				"deptName='" + deptName + '\'' +
+				"name='" + name + '\'' +
 				", parent=" + parent +
-				", children=" + children +
 				", remark='" + remark + '\'' +
+				", level=" + level +
+				", seq=" + seq +
 				'}';
 	}
 }

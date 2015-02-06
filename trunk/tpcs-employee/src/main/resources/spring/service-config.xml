@@ -12,4 +12,13 @@
     <!--需要扫描的包-->
     <context:component-scan base-package="com.tz.tpcs.service"/>
 
+    <!--用于Bean之间的属性拷贝-->
+    <bean id="mapper" class="org.dozer.DozerBeanMapper">
+        <property name="mappingFiles">
+            <list>
+                <value>dozerBeanMapping.xml</value>
+            </list>
+        </property>
+    </bean>
+
 </beans>

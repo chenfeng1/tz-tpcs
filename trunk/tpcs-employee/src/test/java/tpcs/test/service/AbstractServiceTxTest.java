@@ -14,7 +14,8 @@ import javax.transaction.Transactional;
  * Created by hu jing ling on 2015/1/21.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = DaoConfig.class, locations = "classpath:spring/service-config.xml")
+@SpringApplicationConfiguration(classes = DaoConfig.class,
+        locations = {"classpath:spring/service-config.xml"})
 @Transactional
 @TransactionConfiguration(defaultRollback = true)//是否回滚测试数据
 public abstract class AbstractServiceTxTest {
