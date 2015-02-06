@@ -41,6 +41,7 @@
         <security:intercept-url pattern="/images" access="isAnonymous()"/>
         <security:intercept-url pattern="/html" access="isAnonymous()"/>-->
         <!--登录授权可访问-->
+        <security:intercept-url pattern="/loginSuccess" access="isAuthenticated()"/>
         <security:intercept-url pattern="/" access="isAuthenticated()"/>
         <!-- logout 跳转 url -->
         <security:logout logout-url="/logout" logout-success-url="/login.jsp"/>

@@ -70,11 +70,12 @@ public class CustomSecurityMetadataSource implements FilterInvocationSecurityMet
         String requestUrl = ((FilterInvocation) object).getRequestUrl();
         LOGGER.debug("requestUrl is " + requestUrl);
         Assert.notNull(resourceMap);
-        /*Collection<ConfigAttribute> requiredRoles = resourceMap.get(requestUrl);
-        if(requiredRoles == null){
+        Collection<ConfigAttribute> requiredRoles = resourceMap.get(requestUrl);
+        /*if(requiredRoles == null){
             //如果为空，则表示用户访问的是系统未提供的URL路径，即不存在的资源。
             throw new ResourceNotFoundException();
+            //由于判断条件不充分，此处被注释。
         }*/
-        return resourceMap.get(requestUrl);
+        return requiredRoles;
     }
 }
