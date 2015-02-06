@@ -23,4 +23,11 @@ public interface DepartmentDao extends CrudRepository<Department, String> {
     @Query("select d from Department as d where d.level =:level")
     List<Department> findByLevel(@Param("level") int level);
 
+    /**
+     * 根据 name 查询
+     * @param name 部门名
+     * @return
+     */
+    Department findByName(String name);
+
 }

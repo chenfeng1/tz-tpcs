@@ -25,8 +25,12 @@
             if(confirm('确定删除选中的部门吗?')){
                 var id = $("#myTree").jstree("get_selected");
                 if(id){
-                    $.post("demo_ajax_gethint.asp",{suggest:txt},function(result){
-                        $("span").html(result);
+                    $.ajax({
+                        url: '${path}/departments/'+id,
+                        type: 'DELETE',
+                        success: function(result) {
+                            console.log(result);
+                        }
                     });
                 }else{
                     alert("请先选中部门!");

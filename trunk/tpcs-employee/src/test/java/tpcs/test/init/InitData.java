@@ -128,75 +128,6 @@ public class InitData {
     }
 
     @Test
-    public void init03SaveEmployees(){
-        Employee emp1 = new Employee();
-        emp1.setNumber("EMP_001");
-        emp1.setEmail("EMP_001@sz-tz.com");
-        emp1.setMobilePhone("13811111111");
-        emp1.setPassword("123");
-        emp1.setRealname("测试管理员");
-        emp1.setEnabled(true);
-        emp1.setJob("测试管理员");
-        emp1.setAccountNonExpired(true);
-        emp1.setAccountNonLocked(true);
-        emp1.setCredentialsNonExpired(true);
-
-        Role role1 = roleDao.findByCode("admin");
-        emp1.addRole(role1);
-        employeeDao.save(emp1);
-
-
-        Employee emp2 = new Employee();
-        emp2.setNumber("EMP_002");
-        emp2.setEmail("EMP_002@sz-tz.com");
-        emp2.setMobilePhone("13822222222");
-        emp2.setPassword("456");
-        emp2.setRealname("测试班主任");
-        emp2.setEnabled(true);
-        emp2.setJob("测试班主任");
-        emp2.setAccountNonExpired(true);
-        emp2.setAccountNonLocked(true);
-        emp2.setCredentialsNonExpired(true);
-
-        Role role2 = roleDao.findByCode("classTeacher");
-        emp2.addRole(role2);
-        employeeDao.save(emp2);
-
-
-        Employee emp3 = new Employee();
-        emp3.setNumber("EMP_003");
-        emp3.setEmail("EMP_003@sz-tz.com");
-        emp3.setMobilePhone("13833333333");
-        emp3.setPassword("789");
-        emp3.setRealname("测试讲师");
-        emp3.setEnabled(true);
-        emp3.setJob("测试讲师");
-        emp3.setAccountNonExpired(true);
-        emp3.setAccountNonLocked(true);
-        emp3.setCredentialsNonExpired(true);
-
-        Role role3 = roleDao.findByCode("lecturer");
-        emp3.addRole(role3);
-        employeeDao.save(emp3);
-
-        Employee emp4 = new Employee();
-        emp4.setNumber("EMP_004");
-        emp4.setEmail("");
-        emp4.setPassword("456789");
-        emp4.setRealname("测试讲师兼职班主任");
-        emp4.setEnabled(true);
-        emp4.setJob("测试讲师兼职班主任");
-        emp4.setAccountNonExpired(true);
-        emp4.setAccountNonLocked(true);
-        emp4.setCredentialsNonExpired(true);
-
-//        emp4.addRole(role1);
-        emp4.addRole(role2);
-        emp4.addRole(role3);
-        employeeDao.save(emp4);
-    }
-
-    @Test
     public void init04ProjectCase(){
         for (int i = 1; i <= 10; i++) {
             ProjectCase projectCase = new ProjectCase();
@@ -260,5 +191,79 @@ public class InitData {
         list.add(new Department("总经办", dept1, 1, 7));
 
         departmentDao.save(list);
+    }
+
+    @Test
+    public void init07SaveEmployees(){
+        Employee emp1 = new Employee();
+        emp1.setNumber("EMP_001");
+        emp1.setEmail("EMP_001@sz-tz.com");
+        emp1.setMobilePhone("13811111111");
+        emp1.setPassword("123");
+        emp1.setRealname("测试管理员");
+        emp1.setEnabled(true);
+        emp1.setJob("测试管理员");
+        emp1.setAccountNonExpired(true);
+        emp1.setAccountNonLocked(true);
+        emp1.setCredentialsNonExpired(true);
+
+        Role role1 = roleDao.findByCode("admin");
+        emp1.addRole(role1);
+        Department dept1 = departmentDao.findByName("天智教育");
+        emp1.setDepartment(dept1);
+        employeeDao.save(emp1);
+
+        Employee emp2 = new Employee();
+        emp2.setNumber("EMP_002");
+        emp2.setEmail("EMP_002@sz-tz.com");
+        emp2.setMobilePhone("13822222222");
+        emp2.setPassword("456");
+        emp2.setRealname("测试班主任");
+        emp2.setEnabled(true);
+        emp2.setJob("测试班主任");
+        emp2.setAccountNonExpired(true);
+        emp2.setAccountNonLocked(true);
+        emp2.setCredentialsNonExpired(true);
+
+        Role role2 = roleDao.findByCode("classTeacher");
+        emp2.addRole(role2);
+        Department dept2 = departmentDao.findByName("教学部");
+        emp2.setDepartment(dept2);
+        employeeDao.save(emp2);
+
+
+        Employee emp3 = new Employee();
+        emp3.setNumber("EMP_003");
+        emp3.setEmail("EMP_003@sz-tz.com");
+        emp3.setMobilePhone("13833333333");
+        emp3.setPassword("789");
+        emp3.setRealname("测试讲师");
+        emp3.setEnabled(true);
+        emp3.setJob("测试讲师");
+        emp3.setAccountNonExpired(true);
+        emp3.setAccountNonLocked(true);
+        emp3.setCredentialsNonExpired(true);
+
+        Role role3 = roleDao.findByCode("lecturer");
+        emp3.addRole(role3);
+        emp3.setDepartment(dept2);
+        employeeDao.save(emp3);
+
+        Employee emp4 = new Employee();
+        emp4.setNumber("EMP_004");
+        emp4.setEmail("");
+        emp4.setPassword("456789");
+        emp4.setRealname("测试讲师兼职班主任");
+        emp4.setEnabled(true);
+        emp4.setJob("测试讲师兼职班主任");
+        emp4.setAccountNonExpired(true);
+        emp4.setAccountNonLocked(true);
+        emp4.setCredentialsNonExpired(true);
+
+//        emp4.addRole(role1);
+        emp4.addRole(role2);
+        emp4.addRole(role3);
+        emp4.setDepartment(dept2);
+        employeeDao.save(emp4);
     }
 }

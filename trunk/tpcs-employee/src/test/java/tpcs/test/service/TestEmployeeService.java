@@ -2,15 +2,14 @@ package tpcs.test.service;
 
 import com.tz.tpcs.dao.EmployeeDao;
 import com.tz.tpcs.entity.Employee;
-import com.tz.tpcs.service.EmployeeService;
 import com.tz.tpcs.service.impl.EmployeeServiceImpl;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
-import org.mockito.*;
-
-import javax.annotation.Resource;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import static org.mockito.Mockito.when;
 

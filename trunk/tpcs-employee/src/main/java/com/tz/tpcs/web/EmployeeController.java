@@ -1,6 +1,8 @@
 package com.tz.tpcs.web;
 
+import com.tz.tpcs.entity.Employee;
 import com.tz.tpcs.service.EmployeeService;
+import com.tz.tpcs.web.form.Pager;
 import org.apache.log4j.Logger;
 import org.dozer.Mapper;
 import org.springframework.context.MessageSource;
@@ -34,8 +36,8 @@ public class EmployeeController {
      */
     @RequestMapping(value = "/list", method= RequestMethod.GET)
     public ModelAndView list(ModelMap modelMap){
-        //Pager<Employee> pager = employeeService.findByPager(null, null, null);
-        //modelMap.addAttribute("pager", pager);
+        Pager<Employee> pager = employeeService.findByPager(null, null, null);
+        modelMap.addAttribute("pager", pager);
         return new ModelAndView("employee.list", modelMap);
     }
 

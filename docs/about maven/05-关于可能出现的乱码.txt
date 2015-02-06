@@ -1,5 +1,5 @@
-05-关于可能出现的乱码
+05-关于可能出现的乱码 和 内存不足
 
 配置环境变量
 名:MAVEN_OPTS
-值:-Dfile.encoding="UTF-8"
+值:-Xmx512m -XX:MaxPermSize=256m -Dfile.encoding="UTF-8"

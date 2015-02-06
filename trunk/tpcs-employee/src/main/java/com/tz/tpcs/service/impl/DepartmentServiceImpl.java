@@ -61,8 +61,6 @@ public class DepartmentServiceImpl implements DepartmentService {
             for(Department subDept : children){
                 recursiveInitChildren(subDept);
             }
-        }else{
-            dept.setChildren(null);
         }
     }
 }

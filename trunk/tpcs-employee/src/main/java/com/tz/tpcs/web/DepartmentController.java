@@ -6,10 +6,7 @@ import com.tz.tpcs.web.form.AjaxResult;
 import com.tz.tpcs.web.json.DepartmentJson;
 import org.apache.log4j.Logger;
 import org.dozer.Mapper;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -52,8 +49,8 @@ public class DepartmentController {
      * 列表
      * @return List<Department>
      */
-    @RequestMapping(value = "/delete", method= RequestMethod.POST, produces = IMediaType.APPLICATION_JSON_UTF8)
-    public AjaxResult delete(@RequestParam String id){
+    @RequestMapping(value = "/{id}", method= RequestMethod.DELETE, produces = IMediaType.APPLICATION_JSON_UTF8)
+    public AjaxResult delete(@PathVariable String id){
         LOGGER.debug("delete() run, id:"+id);
         String result = departmentService.checkAndDelete(id);
         if("SUCCESS".equals(result)){

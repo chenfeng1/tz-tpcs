@@ -1,6 +1,7 @@
 package com.tz.tpcs.dao;
 
 import com.tz.tpcs.entity.Employee;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -8,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 /**
  * EmployeeDao 接口类
  */
-public interface EmployeeDao extends CrudRepository<Employee, String>, EmployeeDaoCustom {
+public interface EmployeeDao extends CrudRepository<Employee, String>, EmployeeDaoCustom, JpaSpecificationExecutor<Employee> {
 
     /**
      * 根据部门ID查询员工数

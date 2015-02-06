@@ -32,4 +32,10 @@ public class TestDepartmentDao extends AbstractDaoTxTest {
         System.out.println(departmentList);
     }
 
+    @Test
+    public void test03FindByName(){
+        Department department = departmentDao.findByName("教学部");
+        System.out.println(department);
+    }
+
 }
