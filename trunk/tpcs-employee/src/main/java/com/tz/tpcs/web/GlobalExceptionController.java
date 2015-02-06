@@ -35,4 +35,14 @@ public class GlobalExceptionController {
         return "forward:/WEB-INF/jsp/error.jsp";
     }
 
+    /**
+     * exceptionHandler
+     * @param e Exception
+     * @return String
+     */
+    @ExceptionHandler(value = Exception.class)
+    public String exceptionHandler(Exception e) {
+        return "Exception:"+e.getMessage();
+    }
+
 }

@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @version 1.0
  * @since 2015/2/5 21:05
  */
-@ResponseStatus(value= HttpStatus.NOT_FOUND, reason="No such Order")  // 404
+@ResponseStatus(value= HttpStatus.NOT_FOUND, reason="No such Resource")  // 404
 public class ResourceNotFoundException extends RuntimeException {
 }

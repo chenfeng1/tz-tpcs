@@ -1,10 +1,8 @@
 package com.tz.tpcs;
 
-import com.tz.tpcs.config.WebMvcConfig;
 import org.apache.log4j.Logger;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
@@ -33,9 +31,8 @@ public class MyWebAppInitializer implements WebApplicationInitializer {
         container.addListener(new ContextLoaderListener(rootContext));
 
         // Create the dispatcher servlet's Spring application context
-        AnnotationConfigWebApplicationContext dispatcherContext =
-                new AnnotationConfigWebApplicationContext();
-        dispatcherContext.register(WebMvcConfig.class);
+        XmlWebApplicationContext dispatcherContext = new XmlWebApplicationContext();
+        dispatcherContext.setConfigLocation("classpath:dispatcher-mvc.xml");
 
         //spring security Filter
         container.addFilter("springSecurityFilterChain", new DelegatingFilterProxy("springSecurityFilterChain"))
