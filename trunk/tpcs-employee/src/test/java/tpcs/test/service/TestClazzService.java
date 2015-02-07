@@ -1,20 +1,17 @@
 package tpcs.test.service;
 
-import java.util.Date;
-
-import javax.annotation.Resource;
-
-
+import com.tz.tpcs.dao.ClazzDao;
+import com.tz.tpcs.entity.Clazz;
+import com.tz.tpcs.service.ClazzService;
+import com.tz.tpcs.web.form.Pager;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import com.tz.tpcs.dao.ClazzDao;
-import com.tz.tpcs.entity.Clazz;
-import com.tz.tpcs.service.ClazzService;
-import com.tz.tpcs.web.form.Pager;
+import javax.annotation.Resource;
+import java.util.Date;
 
 /**
  * clazzService 测试类
@@ -61,10 +58,10 @@ public class TestClazzService extends AbstractServiceTxTest {
 	
 	@Test
 	public void test04deleteById(){
-		clazzService.save(clazz);
-		clazzService.deleteById(clazzService.findByName("jsd").getId());
-		Clazz clazz = clazzService.findByName("jsd");
-		Assert.assertEquals("zp", clazz.getAdvisor());
+		clazzDao.save(clazz);
+		clazzService.deleteById(clazz.getId());
+		Clazz clazz = clazzDao.findByName("jsd");
+		Assert.assertNull(clazz);
 	}
 	
 	@Test

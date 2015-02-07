@@ -147,19 +147,6 @@ public class TestStudentDao extends AbstractDaoTxTest {
     }
 
     /**
-     * 测试多条件查询
-     */
-    @Test
-    @Ignore
-    public void test03Paging() {
-//        Paging paging = studentDao.getStudentByCondition(null, null, null, null, null, null);
-//        List<Student> students = paging.getStudents();
-//        for (Student student : students) {
-//            System.out.println(student);
-//        }
-    }
-
-    /**
      * 测试根据ID来查找Student
      */
     @Test
