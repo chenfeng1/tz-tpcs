@@ -1,25 +1,36 @@
 package com.tz.tpcs.web;
-import com.tz.tpcs.dao.ClazzDao;
-import com.tz.tpcs.entity.Clazz;
-import com.tz.tpcs.entity.Clazz.ClazzStatus;
-import com.tz.tpcs.service.ClazzService;
-import com.tz.tpcs.web.form.Paging;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.regex.Pattern;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
+import org.apache.commons.lang3.StringUtils;
+import org.dozer.Mapper;
+import org.springframework.context.MessageSource;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
+import com.tz.tpcs.entity.Clazz;
+import com.tz.tpcs.service.ClazzService;
+import com.tz.tpcs.util.ResolveDate;
+import com.tz.tpcs.web.form.ClazzForm;
+import com.tz.tpcs.web.form.Pager;
 
 /**
  * Clazz 控制器类
+ * 
  * @author 管成功
  * @since 2015-01-22
  */
@@ -27,184 +38,253 @@ import java.util.List;
 @RequestMapping("/clazz")
 public class ClazzController {
 
-	private static final int DURATION = 4; //毕业时间---正式开班之后大约四个月
-
-	@SuppressWarnings("SpringJavaAutowiringInspection")
-	@Resource
-	private ClazzDao clazzDao;
+	private static final int DURATION = 4; // 毕业时间---正式开班之后大约四个月
 
 	@Resource
 	private ClazzService classService;
 
-	 /**
-     * 调到新增班级的页面
-     * @return ModelAndView
-     */
-    @RequestMapping(value = "/initAdd", method= RequestMethod.GET)
-    public ModelAndView initAdd(){
-        return new ModelAndView("clazz.add");
-    }
+	@Resource
+	private MessageSource messageSource;
+	
+	@Resource
+    private Mapper mapper;
 
 	/**
-	 * 展示所有班级信息(分页多条件查询)
-	 * @param request HttpServletRequest
+	 * 调到新增班级的页面
+	 * 
 	 * @return ModelAndView
 	 */
+	@RequestMapping(value = "/initAdd", method = RequestMethod.GET)
+	public ModelAndView initAdd() {
+		return new ModelAndView("clazz.add");
+	}
+
+	/**
+	 * 列表
+	 * @param modelMap
+	 * @return
+	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list2(HttpServletRequest request) {
-		String pageSize = request.getParameter("pageSize");
-		pageSize = null == pageSize ? "2" : pageSize;
-		String pageNow = request.getParameter("pageNow");
-		pageNow = null == pageNow ? "1" : pageNow;
-
-		String name2 = request.getParameter("name");
-		String name = null==name2?"":name2;
-		
-		String min = request.getParameter("min");
-		String max = request.getParameter("max");
-		List<Clazz> list = null;
-		Paging paging = null;
-		if (null == min && null == max) {
-			paging = clazzDao.getAll(name, null, null,
-					Integer.valueOf(pageSize), Integer.valueOf(pageNow));
-
-		} else if (("").equals(min) && ("").equals(max)) {
-			paging = clazzDao.getAll(name, null, null,
-					Integer.valueOf(pageSize), Integer.valueOf(pageNow));
-		} else {
-			paging = clazzDao.getAll(name, Integer.valueOf(min),
-					Integer.valueOf(max), Integer.valueOf(pageSize),
-					Integer.valueOf(pageNow));
+	public ModelAndView list(ModelMap modelMap) {
+		Pager<Clazz> pager = classService.findByPager(null, null, null, null);
+		modelMap.addAttribute("pager", pager);
+		return new ModelAndView("clazz.list",modelMap);
+	}
+	/**
+	 * 分页+查询
+	 * @param name
+	 * @param min
+	 * @param max
+	 * @param pager
+	 * @param modelMap
+	 * @return
+	 */
+	@RequestMapping(value = "/list", method = RequestMethod.POST)
+	public ModelAndView listByPager(String name,
+									  String min,
+									  String max,
+									  Pager<Clazz> pager,
+									  ModelMap modelMap) {
+		Integer minCount =null;
+		if(StringUtils.isNotBlank(min)&&StringUtils.isNumeric(min)){
+			minCount = Integer.parseInt(min);
 		}
-		list = paging.getClazzs();
-		request.setAttribute("paging", paging);
-
-		request.setAttribute("clazzList", list);
-		if (null == min && null == max) {
-			request.setAttribute("min", "");
-			request.setAttribute("max", "");
-		} else {
-			request.setAttribute("min", min);
-			request.setAttribute("max", max);
+		Integer maxCount =null;
+		if(StringUtils.isNotBlank(max)&&StringUtils.isNumeric(max)){
+			maxCount = Integer.parseInt(max);
 		}
-		if (null == name || name.trim().length() < 0) {
-			request.setAttribute("name", "");
-		} else {
-			request.setAttribute("name", name);
-		}
-		return new ModelAndView("clazz.list");
+		Pager<Clazz> result = classService.findByPager(name, minCount, maxCount, pager);
+		modelMap.addAttribute("name", name);
+		modelMap.addAttribute("min", min);
+		modelMap.addAttribute("max", max);
+		modelMap.addAttribute("pager", result);
+		return new ModelAndView("clazz.list",modelMap);
 	}
 
 	/**
 	 * 保存一个班级信息
-	 * @param request HttpServletRequest
-	 * @return ModelAndView
+	 * @param model
+	 * @param form
+	 * @param bindingResult
+	 * @param locale
+	 * @return
 	 */
-	@RequestMapping(value = "/save", method = RequestMethod.GET)
-	public ModelAndView save(HttpServletRequest request) {
-
-		Clazz c = new Clazz();
-		c.setName(request.getParameter("name"));// 设置班级名称
-		c.setRoom(request.getParameter("room"));// 设置所在教室
-		String openDate = request.getParameter("open");
-		Date open = null;
-		try {
-			open = new SimpleDateFormat("yyyy-MM-dd").parse(openDate);// 设置开班日期
-			c.setOpen(open);
-		} catch (ParseException e) {
-			e.printStackTrace();
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public ModelAndView save(ModelMap model, @Valid @ModelAttribute("clazzForm") ClazzForm form,
+			BindingResult bindingResult, Locale locale) {
+		/**
+		 * 班级名称的唯一性判断
+		 */
+		if (!bindingResult.hasFieldErrors("name")) {
+			if (classService.findByName(form.getName()) != null) {
+				String msg = messageSource.getMessage("clazz.name.used", null,
+						locale);
+				bindingResult.addError(new FieldError("clazzForm", "name", msg));
+			}
 		}
-
-		c.setCount(Integer.valueOf(request.getParameter("count")));// 设置开班人数
-		c.setAdvisor(request.getParameter("advisor"));// 设置班主任
-		String training = request.getParameter("trainingDate");
-		Date trainingDate = null;
-		try {
-			trainingDate = new SimpleDateFormat("yyyy-MM-dd").parse(training);
-			c.setTrainingDate(trainingDate);// 设置训练营开始日期
-		} catch (ParseException e) {
-			e.printStackTrace();
+		/**
+		 * 班级人数正整数判断
+		 */
+		if (!bindingResult.hasFieldErrors("count")) {
+			if (!Pattern.matches("^[0-9]*[1-9][0-9]*$", form.getCount())) {
+				String msg = messageSource.getMessage("clazz.count.reg", null,
+						locale);
+				bindingResult.addError(new FieldError("clazzForm", "count", msg));
+			}
 		}
-		c.setLecturer(request.getParameter("lecturer"));
-		Calendar cal = Calendar.getInstance();
-		cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + DURATION,
-				cal.get(Calendar.DATE));
-		c.setClose(cal.getTime());// 毕业时间---正式开班之后大约四个月
-		c.setStatus(ClazzStatus.PHASE1);// 默认为第一阶段
-		classService.save(c);
-		return new ModelAndView("/clazz/list");
+		/**
+		 * 开班日期的格式判断
+		 */
+		if (!bindingResult.hasFieldErrors("open")) {
+			Date open=ResolveDate.formatDate(form.getOpen());
+			if(open==null){
+				String msg = messageSource.getMessage("clazz.open.format", null,
+						locale);
+				bindingResult.addError(new FieldError("clazzForm", "open", msg));
+			}
+		}
+		/**
+		 * 训练营日期的格式判断
+		 */
+		if (!bindingResult.hasFieldErrors("trainingDate")) {
+			Date trainingDate =ResolveDate.formatDate(form.getTrainingDate());
+			if(trainingDate==null){
+				String msg = messageSource.getMessage("clazz.trainingDate.format", null,
+						locale);
+				bindingResult.addError(new FieldError("clazzForm", "trainingDate", msg));
+			}
+		}
+		/**
+		 * 如果有错误信息，返回add页面并且显示错误信息
+		 */
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("clazz", form);
+			model.addAttribute("errors", bindingResult.getAllErrors());
+			return new ModelAndView("clazz.add",model);
+		}
+		Clazz clazz = mapper.map(form, Clazz.class);
+		classService.save(clazz);
+		return new ModelAndView("redirect:/clazz/list");
 	}
 
 	/**
 	 * 根据页面传过来的id值进行删除
-	 * @param request HttpServletRequest
+	 * 
+	 * @param request
+	 *            HttpServletRequest
 	 * @return ModelAndView
 	 */
 	@RequestMapping(value = "/del", method = RequestMethod.GET)
 	public ModelAndView del(HttpServletRequest request) {
 		String cid = request.getParameter("cid");
-		clazzDao.delete(cid);
+		classService.deleteById(cid);
 		return new ModelAndView("/clazz/list");
+	}
+	/**
+	 * 初始化跟新信息 AJAX实现
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/initUpdate", method = RequestMethod.POST)
+	public Clazz initUpdate(@RequestParam String id){
+		return classService.getById(id);
+	}
+	/**
+	 * 更新前验证 AJAX实现
+	 * @param form
+	 * @param bindingResult
+	 * @param usedname
+	 * @param locale
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/validUpdate", method = RequestMethod.POST)
+	public List<FieldError> validUpdate(@Valid ClazzForm form,
+			BindingResult bindingResult, 
+			@RequestParam String usedname,
+			Locale locale,
+			ModelMap model){
+		/**
+		 * 班级名称的唯一性判断
+		 */
+		if (!bindingResult.hasFieldErrors("name")) {
+			if(!usedname.equals(form.getName())){
+				if (classService.findByName(form.getName()) != null) {
+					String msg = messageSource.getMessage("clazz.name.used",
+							null, locale);
+					bindingResult.addError(new FieldError("clazzForm", "name",
+							msg));
+				}
+			}
+		}
+		/**
+		 * 班级人数正整数判断
+		 */
+		if (!bindingResult.hasFieldErrors("count")) {
+			if (!Pattern.matches("^[0-9]*[1-9][0-9]*$", form.getCount())) {
+				String msg = messageSource.getMessage("clazz.count.reg", null,
+						locale);
+				bindingResult.addError(new FieldError("clazzForm", "count", msg));
+			}
+		}
+		/**
+		 * 开班日期的格式判断
+		 */
+		if (!bindingResult.hasFieldErrors("open")) {
+			Date open=ResolveDate.formatDate(form.getOpen());
+			if(open==null){
+				String msg = messageSource.getMessage("clazz.open.format", null,
+						locale);
+				bindingResult.addError(new FieldError("clazzForm", "open", msg));
+			}
+		}
+		/**
+		 * 训练营日期的格式判断
+		 */
+		if (!bindingResult.hasFieldErrors("trainingDate")) {
+			Date trainingDate =ResolveDate.formatDate(form.getTrainingDate());
+			if(trainingDate==null){
+				String msg = messageSource.getMessage("clazz.trainingDate.format", null,
+						locale);
+				bindingResult.addError(new FieldError("clazzForm", "trainingDate", msg));
+			}
+		}
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("errors", bindingResult.getAllErrors());
+			return bindingResult.getFieldErrors();
+		}
+		
+		return null;
+	}
+	/**
+	 * 更新
+	 * @param form
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public ModelAndView update(@Valid ClazzForm form
+			) {
+		Clazz clazz=mapper.map(form, Clazz.class);
+		classService.update(clazz);
+		return new ModelAndView("redirect:/clazz/list");
 	}
 
 	/**
-	 * 更新
-	 * @param hid class id
-	 * @param adviser adviser
-	 * @param classname classname
-	 * @param count count
-	 * @param classroom classroom
-	 * @param teachername teachername
-	 * @param request HttpServletRequest
-	 * @return ModelAndView
+	 * 查看班级是否存在
+	 * 
+	 * @param request
+	 * @return 0代表班级不存在 1 代表存在的班级
 	 */
-	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public ModelAndView update(@RequestParam String hid,
-			@RequestParam String adviser, @RequestParam String classname,
-			@RequestParam String count, @RequestParam String classroom,
-			@RequestParam String teachername,
-			HttpServletRequest request) {
-		Clazz clazz = clazzDao.findOne(hid);
-		clazz.setName(classname);
-		clazz.setRoom(classroom);
-		String open = request.getParameter("open_date");
-		Date openDate;
-		try {
-			openDate = new SimpleDateFormat("yyyy-MM-dd").parse(open);
-			String s = new SimpleDateFormat("yyyy-MM-dd").format(openDate);
-			Date op = new SimpleDateFormat("yyyy-MM-dd").parse(s);
-			clazz.setOpen(op);
-		} catch (ParseException e) {
-			e.printStackTrace();
+	@RequestMapping(value = "/checkClazz", method = RequestMethod.POST)
+	public String initAdd(HttpServletRequest request) {
+		Clazz c=classService.findByName(request.getParameter("clazz_name"));
+		String result = "";
+		if (null == c) {
+			result = "0";
+		} else {
+			result = "1";
 		}
-		clazz.setCount(Integer.valueOf(count));
-		clazz.setAdvisor(adviser);
-		String tdate = request.getParameter("tdate");
-		Date ttDate;
-		try {
-			ttDate = new SimpleDateFormat("yyyy-MM-dd").parse(tdate);
-			clazz.setTrainingDate(ttDate);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		clazz.setLecturer(teachername);
-		clazzDao.save(clazz);
-		return new ModelAndView("/clazz/list");
+		return result;
 	}
-	  /**
-	   * 查看班级是否存在
-	   * @param request
-	   * @return 0代表班级不存在   1 代表存在的班级
-	   */
-	  @RequestMapping(value = "/checkClazz", method= RequestMethod.POST)
-	  public String initAdd(HttpServletRequest request){
-		  	Clazz clazz = clazzDao.findByName(request.getParameter("clazz_name"));
-		  	String result="";
-		  	if(null != clazz){
-		  		result="0";
-		  	}else{
-		  		result="1";
-		  	}
-		  	return result;
-	  }
 }

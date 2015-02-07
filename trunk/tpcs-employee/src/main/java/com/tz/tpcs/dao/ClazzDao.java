@@ -9,13 +9,12 @@ import org.springframework.data.repository.CrudRepository;
  * @amender 胡荆陵
  */
 
-public interface ClazzDao extends CrudRepository<Clazz,String>, ClazzDaoCustom, JpaSpecificationExecutor<Clazz> {
-
-    /**
-     * 根据name查询
-     * @param name name
-     * @return Clazz
-     */
+public interface ClazzDao extends CrudRepository<Clazz,String>, JpaSpecificationExecutor<Clazz> {
+	/**
+	 * 根据名字查询唯一clazz
+	 * @param name
+	 * @return
+	 */
     Clazz findByName(String name);
 
 }

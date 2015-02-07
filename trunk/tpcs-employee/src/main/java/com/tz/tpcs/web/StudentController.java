@@ -11,8 +11,11 @@ import com.tz.tpcs.entity.Student.Level;
 import com.tz.tpcs.entity.Student.LoanStatus;
 import com.tz.tpcs.entity.Student.Source;
 import com.tz.tpcs.entity.Student.Status;
+import com.tz.tpcs.service.StudentService;
 import com.tz.tpcs.util.ResolveDate;
-import com.tz.tpcs.web.form.Paging;
+import com.tz.tpcs.web.form.Pager;
+
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,6 +48,9 @@ public class StudentController {
 	@Resource
 	private StudentDao studentDao;
 	
+	@Resource
+	private StudentService studentService;
+	
 	/**
 	 * 
 	 * @param clazzname2
@@ -57,27 +63,10 @@ public class StudentController {
 	 * @return
 	 */
 	@RequestMapping(value = "/initList", method = RequestMethod.GET)
-	public ModelAndView initList(String clazzname2,String realname2,String degree2,String loanStatus2,Integer pageSize,Integer pageNow,
-								HttpServletRequest request) {
-	
-		Degree[] degree = Degree.values();
-		
-		Paging paging = studentDao.getStudentByCondition(clazzname2, realname2, degree2, loanStatus2, pageNow, pageSize);
-		request.setAttribute("paging", paging);
-		if(null!=clazzname2){
-			request.setAttribute("clazz_name2", clazzname2);
-		}
-		if(null!=realname2){
-			request.setAttribute("realname2", realname2);
-		}
-		if(null!=degree2 && !("-1").equals(degree2)){
-			request.setAttribute("degree2", degree2);
-		}
-		if(null!=loanStatus2){
-			request.setAttribute("loanStatus2", loanStatus2);
-		}
-		request.setAttribute("degree", degree);
-		return new ModelAndView("student.list");
+	public ModelAndView initList(ModelMap modelmap) {
+		Pager<Student> pager = studentService.findByPager(null, null, null, null, null);
+		modelmap.addAttribute("pager", pager);
+		return new ModelAndView("student.list",modelmap);
 	}
 
 	/**
@@ -204,7 +193,7 @@ public class StudentController {
 		student.setBirthDate(ResolveDate.stringToDate(request, "birthDate3"));
 		student.setDesignDate(ResolveDate.stringToDate(request, "designDate3"));
 		student.setCurrentScore(s.getCurrentScore());
-		studentDao.update(student);
+		studentService.update(student);
 		request.setAttribute("student", student);
 		return new ModelAndView("/students/initList");
 	}

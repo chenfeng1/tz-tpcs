@@ -29,25 +29,22 @@ public class TestEmployeeDao extends AbstractDaoTxTest {
 
     @Test
     public void test02GetByNumber(){
-        String prop = "number";
         String value = "EMP_001";
-        Employee emp = employeeDao.findSingleByProp(prop, value);
+        Employee emp = employeeDao.findByNumber(value);
         System.out.println(emp);
     }
 
     @Test
     public void test03GetByEmail(){
-        String prop = "email";
         String value = "user@website.com";
-        Employee emp = employeeDao.findSingleByProp(prop, value);
+        Employee emp = employeeDao.findByEmail(value);
         System.out.println(emp);
     }
 
     @Test
     public void test04GetByMobilePhone(){
-        String prop = "mobilePhone";
         String value = "13812345678";
-        Employee emp = employeeDao.findSingleByProp(prop, value);
+        Employee emp = employeeDao.findByMobilePhone(value);
         System.out.println(emp);
     }
 }

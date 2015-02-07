@@ -49,4 +49,10 @@ public class EmployeeServiceMockImpl implements EmployeeService {
     public Pager<Employee> findByPager(String DepartmentId, String EmployeeName, Pager<Employee> pager) {
         return null;
     }
+
+	@Override
+	public void save(Employee employee) {
+		// TODO Auto-generated method stub
+		
+	}
 }

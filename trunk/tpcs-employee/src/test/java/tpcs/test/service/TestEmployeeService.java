@@ -39,11 +39,11 @@ public class TestEmployeeService {
         Employee emp3 = new Employee();
         emp3.setEmail("123@asd.com");
 
-        when(employeeDao.findSingleByProp("number", "EMP_001"))
+        when(employeeDao.findByNumber("EMP_001"))
                 .thenReturn(emp1);
-        when(employeeDao.findSingleByProp("mobilePhone", "13812341234"))
+        when(employeeDao.findByMobilePhone("13812341234"))
                 .thenReturn(emp2);
-        when(employeeDao.findSingleByProp("email", "123@asd.com"))
+        when(employeeDao.findByEmail("123@asd.com"))
                 .thenReturn(emp3);
 
         assert emp1 == employeeService.findByPhoneNumberEmail("EMP_001");
