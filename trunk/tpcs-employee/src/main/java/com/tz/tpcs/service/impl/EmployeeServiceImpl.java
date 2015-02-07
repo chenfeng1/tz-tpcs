@@ -7,7 +7,6 @@ import com.tz.tpcs.service.EmployeeService;
 import com.tz.tpcs.util.IConstant;
 import com.tz.tpcs.web.form.Pager;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
