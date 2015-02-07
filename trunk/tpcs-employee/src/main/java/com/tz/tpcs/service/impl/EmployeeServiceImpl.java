@@ -27,17 +27,8 @@ import javax.transaction.Transactional;
 @Profile(IConstant.PROFILE_PRODUCTION)
 public class EmployeeServiceImpl implements EmployeeService {
 
-    private static final Logger LOGGER = Logger.getLogger(EmployeeServiceImpl.class);
-
     @Resource
     private EmployeeDao employeeDao;
-
-    /**
-     * empty constructor
-     */
-    public EmployeeServiceImpl() {
-        LOGGER.debug("EmployeeServiceImpl empty constructor...");
-    }
 
     @Override
     public void update(Employee employee) {
@@ -47,17 +38,17 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee findByPhoneNumberEmail(String str) {
         //先根据手机号查询
-        Employee emp = employeeDao.findSingleByProp("mobilePhone", str);
+        Employee emp = employeeDao.findByMobilePhone(str);
         if(emp != null){
             return emp;
         }else{
             //再根据员工号查询
-            emp = employeeDao.findSingleByProp("number", str);
+            emp = employeeDao.findByNumber(str);
             if(emp != null){
                 return emp;
             }else {
                 //最后根据邮箱查询
-                emp = employeeDao.findSingleByProp("email", str);
+                emp = employeeDao.findByEmail(str);
                 return emp != null? emp:null;
             }
         }
@@ -94,4 +85,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         pager.setTotalCount(lTotal.intValue());
         return pager;
     }
+
+	@Override
+	public void save(Employee employee) {
+		employeeDao.save(employee);
+	}
+
 }

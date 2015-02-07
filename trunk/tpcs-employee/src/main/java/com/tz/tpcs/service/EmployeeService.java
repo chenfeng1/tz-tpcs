@@ -30,5 +30,11 @@ public interface EmployeeService {
      * @return 分页类
      */
     Pager<Employee> findByPager(String departmentId, String realname, Pager<Employee> pager);
+    
+    /**
+     * 保存 
+     * @param employee
+     */
+    void save(Employee employee);
 
 }

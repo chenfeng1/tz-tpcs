@@ -57,6 +57,7 @@ public class TestProjectCaseService extends AbstractServiceTxTest {
         String code = "unittest";
         Pager<ProjectCase> pager = new Pager<>();
         pager.setPageNumber(1);
+        pager.setPageSize(5);
         //2.
         pager = projectCaseService.findByPager(name, code, pager);
         //3.

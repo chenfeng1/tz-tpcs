@@ -2,76 +2,109 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <script type="text/javascript">
-	function transfer(cid,name,room,open,count,advider,trainner_date,lecturer){
-		$("#hid").val(cid);
-		$("#classname").val(name);
-		$("#classroom").val(room);
-		$("#open_date").val(open);
-		$("#class_students").val(count);
-		$("#class_adviser").val(advider);
-		$("#trainer_date").val(trainner_date);
-		$("#teachername").val(lecturer);
+	//提交前讲pageNumber置为1
+	function buttonSubmit(){
+		$("#formPageNumber").val(1);
+		$("#clazzFormId").submit();
 	}
-	function update(){
-		document.getElementById("myClassForm").action = "${path}/clazz/update";
-		document.getElementById("myClassForm").submit();
-	}
-	function go(){
-		var name = $("#cname").val();
-		var min = $("#min_nums").val();
-		var max = $("#max_nums").val();
-		var v = $("#pageSize").val();
-		window.location="${path}/clazz/list?pageSize="+v+"&name="+name+"&min="+min+"&max="+max;
-	}
-	function next(){
-		var name = $("#cname").val();
-		var min = $("#min_nums").val();
-		var max = $("#max_nums").val();
-		var size = $("#pageSize").val();
-		$("#next").attr("href","${path }/clazz/list?pageNow=${paging.pageNow+1}&name="+name+"&min="+min+"&max="+max+"&pageSize="+size);
-	}
-	function next2(){
-		var name = $("#cname").val();
-		var min = $("#min_nums").val();
-		var max = $("#max_nums").val();
-		var size = $("#pageSize").val();
-		$("#next2").attr("href","${path }/clazz/list?pageNow=${paging.pageCount}&name="+name+"&min="+min+"&max="+max+"&pageSize="+size);
-	}
-	function back(){
-		var name = $("#cname").val();
-		var min = $("#min_nums").val();
-		var max = $("#max_nums").val();
-		var size = $("#pageSize").val();
-		$("#up").attr("href","${path }/clazz/list?pageNow=${paging.pageNow-1}&name="+name+"&min="+min+"&max="+max+"&pageSize="+size);
-	}
-	function back2(){
-		var name = $("#cname").val();
-		var min = $("#min_nums").val();
-		var max = $("#max_nums").val();
-		var size = $("#pageSize").val();
-		$("#up2").attr("href","${path }/clazz/list?pageNow=1&name="+name+"&min="+min+"&max="+max+"&pageSize="+size);
-	}
-	function goNext(obj){
-		var name = $("#cname").val();
-		var min = $("#min_nums").val();
-		var max = $("#max_nums").val();
-		var size = $("#pageSize").val();
-		var pageNow = obj.id;
-		
-		window.location="${path }/clazz/list?pageNow="+pageNow+"&name="+name+"&min="+min+"&max="+max+"&pageSize="+size;
+	//提交表单查询
+	function submitForm(num){
+		var pageSize=$("#pageSize").val();
+		$("#formPageSize").val(pageSize);
+		$("#formPageNumber").val(num);
+		$("#clazzFormId").submit();
 	}
 	
-	function goNext2(obj){
-		var name = $("#cname").val();
-		var min = $("#min_nums").val();
-		var max = $("#max_nums").val();
-		var size = $("#pageSize").val();
-		var pageNow = obj.id;
-		window.location="${path }/clazz/list?pageNow="+pageNow+"&name="+name+"&min="+min+"&max="+max+"&pageSize="+size;
+	function transfer(cid){
+		$("#labelName").text("");
+		$("#labelRoom").text("");
+		$("#labelOpen").text("");
+		$("#labelCount").text("");
+		$("#labelAdvisor").text("");
+		$("#labelTraining").text("");
+		$("#labelLecturer").text("");
+		$.ajax({
+			//请求类型
+			type: "POST",
+			//请求路径
+			url: "${path}/clazz/initUpdate",
+			//数据格式
+			dataType:"json",
+			//提交的数据
+			data: {"id":cid},
+			//处理错误…
+			error: function(){		
+				alert("处理失败");
+			},
+			//处理成功…	
+			//已经自动转为json对象
+			success: function(clazz){	
+			$("#hid").val(clazz.id);
+			$("#classname").val(clazz.name);
+			$("#usedname").val(clazz.name);
+			$("#classroom").val(clazz.room);
+			$("#open_date").val(clazz.open);
+			$("#class_students").val(clazz.count);
+			$("#class_adviser").val(clazz.advisor);
+			$("#trainer_date").val(clazz.trainingDate);
+			$("#teachername").val(clazz.lecturer);
+			}
+		});
+	}
+	function update(obj){
+		$.ajax({
+			//请求类型
+			type: "POST",
+			//请求路径
+			url: "${path}/clazz/validUpdate",
+			//数据格式
+			dataType:"json",
+			//提交的数据
+			data: {"id":obj.id.value,"usedname":obj.usedname.value,"name":obj.name.value,"room":obj.room.value,"open":obj.open.value,"count":obj.count.value,"advisor":obj.advisor.value,"trainingDate":obj.trainingDate.value,"lecturer":obj.lecturer.value},
+			//处理错误…
+			error: function(){		
+				document.getElementById("myClassForm").action = "${path}/clazz/update";
+				document.getElementById("myClassForm").submit(); 
+			},
+			//处理成功…	
+			//已经自动转为json对象
+			success: function(errors){	
+				$("#labelName").text("");
+				$("#labelRoom").text("");
+				$("#labelOpen").text("");
+				$("#labelCount").text("");
+				$("#labelAdvisor").text("");
+				$("#labelTraining").text("");
+				$("#labelLecturer").text("");
+				$.each(errors,function(){
+					if(this.field == "name"){
+						$("#labelName").text(this.defaultMessage);
+					}
+					if(this.field == "room"){
+						$("#labelRoom").text(this.defaultMessage);
+					}
+					if(this.field == "open"){
+						$("#labelOpen").text(this.defaultMessage);
+					}
+					if(this.field == "count"){
+						$("#labelCount").text(this.defaultMessage);
+					}
+					if(this.field == "advisor"){
+						$("#labelAdvisor").text(this.defaultMessage);
+					}
+					if(this.field == "trainingDate"){
+						$("#labelTraining").text(this.defaultMessage);
+					}
+					if(this.field == "lecturer"){
+						$("#labelLecturer").text(this.defaultMessage);
+					}
+				});
+			}
+		});
+		
 	}
 	
 	function del(obj){
-	//	alert(obj.id);
 		if(confirm("是否确定删除?")){
 			var v = obj.id;
 			$("#"+v).remove();
@@ -85,7 +118,7 @@
 
 <div class="container">
 	<%--查询区--%>
-    <form class="form-horizontal" role="form" action="${path }/clazz/list" method="get">
+    <form id="clazzFormId" class="form-horizontal" role="form" action="${path }/clazz/list" method="post" >
         <div class="form-group">
             <label for="cname" class="col-md-1 control-label">班级名：</label>
 
@@ -103,11 +136,13 @@
                 <input type="text" id="max_nums" class="form-control" placeholder="最多人数" name="max" value="${max }"/>
             </div>
             <div class="col-md-2">
-                <button type="submit" class="btn btn-primary">
+                <button type="button" class="btn btn-primary" onclick="buttonSubmit()">
                     <span class="glyphicon glyphicon-search"></span>
                 </button>
             </div>
         </div>
+        <input id="formPageNumber" type="hidden" name="pageNumber" value="${pager.pageNumber}">
+        <input id="formPageSize" type="hidden" name="pageSize" value="${pager.pageSize}">
     </form>
     <hr/>
 <%--模态框 中的内容--%>
@@ -122,63 +157,85 @@
             <div class="modal-body">
                 <form class="form-horizontal" role="form" action="" id="myClassForm">
                     <div class="form-group">
-                    	<input type="hidden" name="hid" id="hid" />
+                    	<input type="hidden" name="id" id="hid" />
+                    	<input type="hidden" name="usedname" id="usedname" />
                         <label for="classname" class="col-md-2 control-label">班级名</label>
                         <div class="col-md-5">
-                            <input type="text" name="classname" id="classname" class="form-control" placeholder="班级的名称"/>
+                            <input type="text" name="name" id="classname" class="form-control" placeholder="班级的名称"/>
                         </div>
-                        <div class="col-md-5" id="classname_id">提示信息</div>
-                    </div>
+                        <div class="col-md-5" id="classname_id">
+			            <label class="control-label alert-danger" id="labelName">
+			            </label>
+			            </div>
+			             </div>
                     <div class="form-group">
                         <label for="classroom" class="col-md-2 control-label">所在教室</label>
                         <div class="col-md-5">
-                            <input type="text" id="classroom" name="classroom" class="form-control" placeholder="教室的名称"/>
+                            <input type="text" id="classroom" name="room" class="form-control" placeholder="教室的名称"/>
                         </div>
-                        <div class="col-md-5" id="classroom_id"></div>
+                        <div class="col-md-5" id="classroom_id">
+			            <label class="control-label alert-danger" id="labelRoom">
+			            </label>
+			            </div>
                     </div>
                     <div class="form-group">
                         <label for="classname" class="col-md-2 control-label">开班日期</label>
                         <div class="col-md-5">
-                            <input type="date" id="open_date" name="open_date" class="form-control" value=""/>
+                            <input type="date" id="open_date" name="open" class="form-control" value=""/>
                         </div>
-                        <div class="col-md-5" id="open_date_id"></div>
+                        <div class="col-md-5" id="classopen_id">
+			            <label class="control-label alert-danger" id="labelOpen">
+			            </label>
+			            </div>
                     </div>
                     <div class="form-group">
                         <label for="classname" class="col-md-2 control-label">开班人数</label>
                         <div class="col-md-5">
                             <input type="number" id="class_students" name="count" class="form-control" placeholder="30"/>
                         </div>
-                        <div class="col-md-5" id="class_students_id"></div>
+                        <div class="col-md-5" id="classcount_id">
+			            <label class="control-label alert-danger" id="labelCount">
+			            </label>
+			            </div>
                     </div>
                     <div class="form-group">
                         <label for="class_adviser" class="col-md-2 control-label">班主任</label>
                         <div class="col-md-5">
-                            <input type="text" id="class_adviser" name="adviser" class="form-control" placeholder="班主任名"/>
+                            <input type="text" id="class_adviser" name="advisor" class="form-control" placeholder="班主任名"/>
                         </div>
-                        <div class="col-md-5" id="class_adviser_id"></div>
+                        <div class="col-md-5" id="classadviser_id">
+			            <label class="control-label alert-danger" id="labelAdvisor">
+			            </label>
+			            </div>
                     </div>
 
                     <div class="form-group">
                         <label for="trainer_date" class="col-md-2 control-label">训练营日</label>
                         <div class="col-md-5">
-                            <input type="date" id="trainer_date" name="tdate" class="form-control" value=""/>
+                            <input type="date" id="trainer_date" name="trainingDate" class="form-control" value=""/>
                         </div>
-                        <div class="col-md-5" id="trainer_date_id"></div>
+                        <div class="col-md-5" id="classtrainning_id">
+			            <label class="control-label alert-danger" id="labelTraining">
+			            </label>
+			            </div>
                     </div>
 
                     <div class="form-group">
                         <label for="teachername" class="col-md-2 control-label">讲师名</label>
                         <div class="col-md-5">
-                            <input type="text" id="teachername" name="teachername" class="form-control" placeholder="讲师名"/>
+                            <input type="text" id="teachername" name="lecturer" class="form-control" placeholder="讲师名"/>
                         </div>
-                        <div class="col-md-5" id="teachername_id"></div>
+                        <div class="col-md-5" id="classlecturer_id">
+			            <label class="control-label alert-danger" id="labelLecturer">
+			            </label>
+			            </div>
                     </div>
 
-                </form>
-            </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="update()">更新</button>
+                <button type="button" class="btn btn-primary" onclick="update(this.form)">更新</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+                </form>
             </div>
         </div>
     </div>
@@ -209,19 +266,19 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="list" items="${clazzList }" varStatus="v">
+                <c:forEach var="list" items="${pager.list }" varStatus="v">
                 	<tr id="${list.id }">
                 		<td>${v.count }</td>
                         <td>${list.name }</td>
                 		<td>${list.room }</td>
-                		<td><fmt:formatDate value="${list.open }" type="date"></fmt:formatDate></td>
-                		<td>${list.count }</td>
+                		<td><fmt:formatDate value="${list.open }" type="date" pattern="yyyy-MM-dd"></fmt:formatDate></td>
+                		<td>${list.count}</td>
                 		<td>${list.advisor}</td>
-                		<td><fmt:formatDate value="${list.trainingDate }" type="date"></fmt:formatDate></td>
-                		<td>${list.lecturer }</td>
+                		<td><fmt:formatDate value="${list.trainingDate }" type="date" pattern="yyyy-MM-dd"></fmt:formatDate></td>
+                		<td>${list.lecturer}</td>
                 		<td>
-                        	<a href="" class="label label-default" data-toggle="modal" data-target="#myClassModal" onclick="transfer('${list.id }','${list.name}','${list.room }','${list.open }','${list.count }','${list.advisor}','${list.trainingDate }','${list.lecturer }')"><span class="glyphicon glyphicon-refresh"></span></a>&nbsp;
-                       	 	<a id=${list.id } onclick="del(this)" class="label label-danger"><span class="glyphicon glyphicon-trash"></span></a>&nbsp;
+                        	<a href="" class="label label-default" data-toggle="modal" data-target="#myClassModal" onclick="transfer('${list.id }')"><span class="glyphicon glyphicon-refresh"></span></a>&nbsp;
+                       	 	<a id=${list.id} onclick="del(this)" class="label label-danger"><span class="glyphicon glyphicon-trash"></span></a>&nbsp;
                     	</td>
                 	</tr>
                 </c:forEach>
@@ -232,54 +289,47 @@
 
 	<%--分页模块--%>
     <div class="pull-right">
-    	<span style="color: red">当前页</span>${paging.pageNow }/${paging.pageCount}<span style="color: red">总页</span>
+    	<span style="color: red">当前页</span>${pager.pageNumber }/${pager.pageCount}<span style="color: red">总页</span>
         <ul class="pagination">
         	<li></li>
-        	<c:if test="${paging.pageNow!=1 }">
-        		  <li><a href="" id="up" onclick="back()">&laquo;</a></li>
+        	<c:if test="${pager.pageNumber!=1 }">
+        		  <li><a href="#" id="up" onclick="submitForm(${pager.pageNumber-1})">&laquo;</a></li>
         	</c:if>
-          <c:if test="${paging.pageNow==1 }">
-        		  <li><a href="${path }/clazz/list?pageNow=1" id="up2" onclick="back2()">&laquo;</a></li>
+          <c:if test="${pager.pageNumber==1 }">
+        		  <li><a href="#" id="up2" onclick="submitForm(1)">&laquo;</a></li>
         	</c:if>
-            <c:if test="${paging.pageNow+3>paging.pageCount }">
-            	<c:forEach var="i" begin="${paging.pageNow }" end="${paging.pageCount }" step="1" >
-            		<%-- <li><a href="${path }/clazz/list?pageNow=${i}" id="a_"+${i } onclick="goNext(this)">${i}</a></li> --%>
-            		<li><a id="${i }" onclick="goNext(this)">${i}</a></li>
+            <c:if test="${pager.pageNumber+3>pager.pageCount }">
+            	<c:forEach var="i" begin="${pager.pageNumber }" end="${pager.pageCount }" step="1" >
+            		<li><a id="${i }" onclick="submitForm(${i })">${i}</a></li>
             	</c:forEach>
             </c:if>
-            <c:if test="${paging.pageNow+3<=paging.pageCount }">
-           	 	<c:forEach var="i" begin="${paging.pageNow }" end="${paging.pageNow+3 }" step="1" >
-            		<%-- <li><a href="${path }/clazz/list?pageNow=${i}">${i}</a></li> --%>
-            		 <li><a onclick="goNext2(this)" id="${i }">${i}</a></li>
+            <c:if test="${pager.pageNumber+3<=pager.pageCount }">
+           	 	<c:forEach var="i" begin="${pager.pageNumber }" end="${pager.pageNumber+3 }" step="1" >
+            		 <li><a onclick="submitForm(${i })" id="${i }">${i}</a></li>
             	</c:forEach>
             </c:if>
-            <c:if test="${paging.pageNow==paging.pageCount }">
-            	<li><a href="" onclick="next2()" id="next2()">&raquo;</a></li>
+            <c:if test="${pager.pageNumber==pager.pageCount }">
+            	<li><a href="#" onclick="submitForm(${pager.pageCount})">&raquo;</a></li>
         	</c:if>
-        	<c:if test="${paging.pageNow!=paging.pageCount }">
-            	<li><a href="" id="next" onclick="next()">&raquo;</a></li>
+        	<c:if test="${pager.pageNumber!=pager.pageCount }">
+            	<li><a href="#" onclick="submitForm(${pager.pageNumber+1})">&raquo;</a></li>
         	</c:if>
         	<li>每页显示
-        		<select style="height: 34px;width: 36px" id="pageSize" onchange="go()">
-        			<option value="2" 
-        				<c:if test="${paging.pageSize == 2 }">
+        		<select style="height: 34px;width: 36px" id="pageSize" onchange="submitForm(1)">
+        			<option value="5" 
+        				<c:if test="${pager.pageSize == 5 }">
         					selected
-        				</c:if>>2</option>
-        			<option value="4" 
-        				<c:if test="${paging.pageSize == 4 }">
-        					selected
-        				</c:if>
-        			>4</option>
-        			<option value="8" 
-        				<c:if test="${paging.pageSize == 8 }">
+        				</c:if>>5</option>
+        			<option value="10" 
+        				<c:if test="${pager.pageSize == 10 }">
         					selected
         				</c:if>
-        			>8</option>
-        			<option value="16" 
-        				<c:if test="${paging.pageSize == 16 }">
+        			>10</option>
+        			<option value="15" 
+        				<c:if test="${pager.pageSize == 15 }">
         					selected
         				</c:if>
-        			>16</option>
+        			>15</option>
         		</select>
         		条
         	</li>

@@ -28,7 +28,7 @@ public final class ResolveDate {
 	 */
 	public static Date stringToDate(HttpServletRequest request, String date) {
 		Date d = null;
-		if (null != date || !("").equals(date)) {
+		if (null != date && !("").equals(date)) {
 			String ds = request.getParameter(date);
 			if (null != ds && ds.trim().length() > 0) {
 				try {
@@ -40,5 +40,24 @@ public final class ResolveDate {
 			}
 		}
 		return d;
+	}
+	/**
+	 * 转化为日期格式
+	 * @param pattern 日期字符串
+	 * @return
+	 */
+	public static Date formatDate(String pattern){
+		Date d = null;
+		if(pattern != null && pattern.trim().length()>0){
+			try {
+				d = new SimpleDateFormat("yyyy-MM-dd").parse(pattern);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
+		return d;
+		
 	}
 }

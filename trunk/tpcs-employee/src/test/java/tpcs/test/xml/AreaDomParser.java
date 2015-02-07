@@ -39,7 +39,6 @@ public class AreaDomParser {
 				//3.1获取XML的文档输入流
 				InputStream in = Thread.currentThread().getContextClassLoader()
 						.getResourceAsStream(xmlpath);
-//				InputStream in = new FileInputStream(xmlpath);
 				Document doc = builder.parse(in);
 				//处理文档树
 				processDoc(doc);

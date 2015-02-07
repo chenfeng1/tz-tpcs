@@ -152,11 +152,11 @@ public class TestStudentDao extends AbstractDaoTxTest {
     @Test
     @Ignore
     public void test03Paging() {
-        Paging paging = studentDao.getStudentByCondition(null, null, null, null, null, null);
-        List<Student> students = paging.getStudents();
-        for (Student student : students) {
-            System.out.println(student);
-        }
+//        Paging paging = studentDao.getStudentByCondition(null, null, null, null, null, null);
+//        List<Student> students = paging.getStudents();
+//        for (Student student : students) {
+//            System.out.println(student);
+//        }
     }
 
     /**
