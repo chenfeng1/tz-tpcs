@@ -12,6 +12,7 @@ import org.junit.runners.MethodSorters;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Hu Jing Ling
@@ -57,10 +58,10 @@ public class TestDepartmentService extends AbstractServiceTxTest {
         Assert.assertEquals("该部门下面有员工，删除失败!" , result1);
     }
 
-//    @Test
-//    public void test02GetDeptTreeJson(){
-//        String str = departmentService.getDeptTreeJson();
-//        System.out.println(str);
-//    }
+    @Test
+    public void test03GetSubDepartmentIds(){
+        Set<String> ids = departmentService.getSubDepartmentIds("691b45e9-0435-4df2-8eeb-2790b8c3260b");
+        System.out.println(ids);
+    }
 
 }

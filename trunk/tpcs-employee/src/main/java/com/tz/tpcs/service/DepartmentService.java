@@ -3,6 +3,7 @@ package com.tz.tpcs.service;
 import com.tz.tpcs.entity.Department;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * 部门 Service 接口类
@@ -17,6 +18,13 @@ public interface DepartmentService {
      * @return List<Department>
      */
     List<Department> getDeptTree();
+
+    /**
+     * 根据父部门ID，查询所有子部门id集合
+     * @param id 父部门ID
+     * @return 所有子部门id集合
+     */
+    Set<String> getSubDepartmentIds(String id);
 
     /**
      * 根据部门ID检查和删除

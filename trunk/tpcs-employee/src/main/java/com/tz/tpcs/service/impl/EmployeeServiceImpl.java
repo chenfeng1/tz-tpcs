@@ -3,6 +3,7 @@ package com.tz.tpcs.service.impl;
 import com.tz.tpcs.dao.EmployeeDao;
 import com.tz.tpcs.entity.Department;
 import com.tz.tpcs.entity.Employee;
+import com.tz.tpcs.service.DepartmentService;
 import com.tz.tpcs.service.EmployeeService;
 import com.tz.tpcs.util.IConstant;
 import com.tz.tpcs.web.form.Pager;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.persistence.criteria.*;
 import javax.transaction.Transactional;
+import java.util.Set;
 
 /**
  * Created by Administrator on 2015/1/16.
@@ -26,8 +28,22 @@ import javax.transaction.Transactional;
 @Profile(IConstant.PROFILE_PRODUCTION)
 public class EmployeeServiceImpl implements EmployeeService {
 
+    /**
+     * 分页+查询, 每页显示记录条数
+     */
+    private static final int PAGE_SIZE = 2;
+
+    /**
+     * 查询时包含下属子部门
+     */
+    private static final boolean INCLUDE_SUB_DEPARTMENT = true;
+
     @Resource
     private EmployeeDao employeeDao;
+//    @Resource
+//    private DepartmentDao departmentDao;
+    @Resource
+    private DepartmentService departmentService;
 
     @Override
     public void update(Employee employee) {
@@ -58,6 +74,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if(pager == null){
             pager = new Pager<>();
         }
+        pager.setPageSize(PAGE_SIZE);
 
         Page<Employee> page = employeeDao.findAll(new Specification<Employee>() {
             @Override
@@ -68,7 +85,14 @@ public class EmployeeServiceImpl implements EmployeeService {
                     Join<Employee, Department> empJoinDept =
                             root.join(root.getModel()
                                     .getSingularAttribute("department", Department.class), JoinType.LEFT);
-                    p = cb.and(p, cb.equal(empJoinDept.get("id").as(String.class), departmentId));
+                    if(INCLUDE_SUB_DEPARTMENT){
+                        //查询子部门ID集合
+                        Set<String> idSet = departmentService.getSubDepartmentIds(departmentId);
+                        p = cb.and(p, empJoinDept.get("id").as(String.class).in(idSet));
+                    }else{
+                        //仅匹配当前这个部门的ID
+                        p = cb.and(p, cb.equal(empJoinDept.get("id").as(String.class), departmentId));
+                    }
                 }
                 if(StringUtils.isNotBlank(realname)){
                     // 条件2：根据部门ID查询

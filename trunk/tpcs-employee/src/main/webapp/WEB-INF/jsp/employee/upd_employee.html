@@ -1,0 +1,66 @@
+
+<div class="container">
+    <!-- 由于导航用了navbar-fixed-top,所以，先与上面定义一个间隔  -->
+    <div class="gap"></div>
+
+    <!-- 菜单提示栏 -->
+    <div class="panel panel-default">
+        <!-- 里面的值需要通过JS来操作，它的值是根据当前的菜单来定的 -->
+        <div class="panel-heading">
+            首页&nbsp;
+            <span class="glyphicon glyphicon-arrow-right"></span>&nbsp;
+            <span id="module">员工</span>&nbsp;
+            <span class="glyphicon glyphicon-arrow-right"></span>&nbsp;
+            <span id="function">更新员工</span>&nbsp;
+        </div>
+    </div>
+
+</div>
+
+<!-- 其它内容 -->
+<div class="container">
+    <div class="row" style="padding-left: 50px;">
+        <div class="col-md-3" style="background-color: #f4f7fa;max-width: 220px;min-height: 950px">
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6">
+                    <h5>
+                        <span class="glyphicon glyphicon-home"></span>
+                        <strong>组织架构</strong>
+                    </h5>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 5px;border-top: 2px solid #cccccc;padding-top: 5px;">
+                <div class="col-md-1">
+                    <!-- 通过AJAX动态加载出来 -->
+                    <div id="myTree"></div>
+                </div>
+            </div>
+        </div> <!-- end of 左边列 -->
+
+        <!-- end of 右边列 -->
+    </div><!-- end row -->
+</div><!-- end container -->
+
+<!-- 页脚区 -->
+<div class="footer">
+    <div class="container">
+        <p>
+            <a href="#">公司主页</a>&nbsp;&nbsp;
+            <a href="#">联系我们</a>&nbsp;&nbsp;
+            <a href="#">友情链接</a>
+        </p>
+
+        <p class="text-muted">
+            <span>技术支持：TPCS技术团队&nbsp;&nbsp;</span>
+            <span><a href="mailto:yejf@sz-tz.org">联系人：yejf@sz-tz.org</a>&nbsp;&nbsp;</span>
+            <span>联系电话：0512-68289707&nbsp;&nbsp;</span>
+        </p>
+
+        <p class="text-muted">
+            &copy;&nbsp;2012-2015 实训综合管理平台 All Rights Reserved 版权所有 苏ICP备xxxxx号
+        </p>
+    </div>
+</div>
+
+</body>
+</html>

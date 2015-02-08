@@ -10,7 +10,7 @@ install:
   - mvn install:install-file -DgroupId=ojdbc -DartifactId=ojdbc -Dpackaging=jar -Dversion=6 -Dfile=ojdbc-6.jar -DgeneratePom=true
   - cd ../../
   - cd trunk/tpcs-employee/src/main/resources
-  - mv travis-ci.properties application.properties
+  - mv ci/travis-ci.properties application.properties
   - cd ../../../../
   - mvn install -DskipTests=true
 

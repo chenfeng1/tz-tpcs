@@ -41,7 +41,6 @@ public class DepartmentController {
         for(Department dept : srcList){
             trgList.add(mapper.map(dept, DepartmentJson.class));
         }
-//        trgList.get(0).getState().put("selected", true);
         return trgList;
     }
 
@@ -54,7 +53,12 @@ public class DepartmentController {
         LOGGER.debug("delete() run, id:"+id);
         String result = departmentService.checkAndDelete(id);
         if("SUCCESS".equals(result)){
-            return new AjaxResult(true, null);
+            List<Department> srcList = departmentService.getDeptTree();
+            List<DepartmentJson> trgList = new ArrayList<>();
+            for(Department dept : srcList){
+                trgList.add(mapper.map(dept, DepartmentJson.class));
+            }
+            return new AjaxResult(true, trgList);
         }else{
             return new AjaxResult(false, result);
         }

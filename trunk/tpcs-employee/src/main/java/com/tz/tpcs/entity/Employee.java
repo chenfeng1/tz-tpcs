@@ -24,7 +24,7 @@ public class Employee extends BaseEntity implements UserDetails {
     private String password; //密码
     private String image; //头像
     private String job; //岗位
-    private String gender; //性别
+    private Gender gender; //性别
     private Date birthDate; //生日
     private String email; //邮箱地址
     private String mobilePhone; //移动电话
@@ -93,12 +93,13 @@ public class Employee extends BaseEntity implements UserDetails {
         this.job = job;
     }
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "emp_gender")
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 

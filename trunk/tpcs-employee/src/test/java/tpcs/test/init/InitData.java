@@ -203,6 +203,7 @@ public class InitData {
         emp1.setRealname("测试管理员");
         emp1.setEnabled(true);
         emp1.setJob("测试管理员");
+        emp1.setGender(Gender.MALE);
         emp1.setAccountNonExpired(true);
         emp1.setAccountNonLocked(true);
         emp1.setCredentialsNonExpired(true);
@@ -221,6 +222,7 @@ public class InitData {
         emp2.setRealname("测试班主任");
         emp2.setEnabled(true);
         emp2.setJob("测试班主任");
+        emp2.setGender(Gender.FEMALE);
         emp2.setAccountNonExpired(true);
         emp2.setAccountNonLocked(true);
         emp2.setCredentialsNonExpired(true);
@@ -240,6 +242,7 @@ public class InitData {
         emp3.setRealname("测试讲师");
         emp3.setEnabled(true);
         emp3.setJob("测试讲师");
+        emp3.setGender(Gender.MALE);
         emp3.setAccountNonExpired(true);
         emp3.setAccountNonLocked(true);
         emp3.setCredentialsNonExpired(true);
@@ -256,6 +259,7 @@ public class InitData {
         emp4.setRealname("测试讲师兼职班主任");
         emp4.setEnabled(true);
         emp4.setJob("测试讲师兼职班主任");
+        emp4.setGender(Gender.FEMALE);
         emp4.setAccountNonExpired(true);
         emp4.setAccountNonLocked(true);
         emp4.setCredentialsNonExpired(true);

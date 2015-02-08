@@ -23,8 +23,8 @@ public class TestEmployeeService2 extends AbstractServiceTest{
 
     @Test
     public void test01FindByPager() {
-        String departmentId = "2";
-        String employeeName = "a";
+        String departmentId = "691b45e9-0435-4df2-8eeb-2790b8c3260b";
+        String employeeName = "测试";
         Pager<Employee> pager = employeeService.findByPager(departmentId, employeeName, null);
         System.out.println(pager);
     }

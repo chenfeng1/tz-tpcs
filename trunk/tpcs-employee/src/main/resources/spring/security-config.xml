@@ -13,14 +13,14 @@
     <context:annotation-config/>
 
     <!--匿名可以访问-->
-    <security:http pattern="/initLogin" security="none"/>
+    <!--<security:http pattern="/initLogin" security="none"/>
     <security:http pattern="/login.jsp" security="none"/>
     <security:http pattern="/css-prj" security="none"/>
     <security:http pattern="/js" security="none"/>
     <security:http pattern="/font/**" security="none"/>
     <security:http pattern="/icon" security="none"/>
     <security:http pattern="/images" security="none"/>
-    <security:http pattern="/html" security="none"/>
+    <security:http pattern="/html" security="none"/>-->
 
     <!--需要授权访问-->
     <security:http auto-config="true" use-expressions="true">
@@ -32,17 +32,21 @@
                 authentication-success-handler-ref="customAuthenticationSuccessHandler"
                 authentication-failure-handler-ref="customAuthenticationFailureHandler"/>
         <!--匿名可以访问-->
-        <!--<security:intercept-url pattern="/initLogin" access="isAnonymous()"/>
-        <security:intercept-url pattern="/login.jsp" access="isAnonymous()"/>
-        <security:intercept-url pattern="/css-prj" access="isAnonymous()"/>
-        <security:intercept-url pattern="/js" access="isAnonymous()"/>
-        <security:intercept-url pattern="/font/**" access="isAnonymous()"/>
-        <security:intercept-url pattern="/icon" access="isAnonymous()"/>
-        <security:intercept-url pattern="/images" access="isAnonymous()"/>
-        <security:intercept-url pattern="/html" access="isAnonymous()"/>-->
+        <security:intercept-url pattern="/initLogin" access="permitAll"/>
+        <security:intercept-url pattern="/login.jsp" access="permitAll"/>
+        <security:intercept-url pattern="/css/**" access="permitAll"/>
+        <security:intercept-url pattern="/css-prj/**" access="permitAll"/>
+        <security:intercept-url pattern="/fonts/**" access="permitAll"/>
+        <security:intercept-url pattern="/html/**" access="permitAll"/>
+        <security:intercept-url pattern="/icon/**" access="permitAll"/>
+        <security:intercept-url pattern="/images/**" access="permitAll"/>
+        <security:intercept-url pattern="/js/**" access="permitAll"/>
+        <security:intercept-url pattern="/js-prj/**" access="permitAll"/>
+        <!--<security:intercept-url pattern="/jstree/**" access="permitAll"/>-->
+        <!--<security:intercept-url pattern="/upload/**" access="permitAll"/>-->
         <!--登录授权可访问-->
         <security:intercept-url pattern="/loginSuccess" access="isAuthenticated()"/>
-        <security:intercept-url pattern="/" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/**" access="isAuthenticated()"/>
         <!-- logout 跳转 url -->
         <security:logout logout-url="/logout" logout-success-url="/login.jsp"/>
         <!--URL授权-->
@@ -52,7 +56,7 @@
         <!--expired-url: 失效后跳转的页面-->
         <security:session-management
                 session-authentication-error-url="/html/sessionAuthenticationError.html"
-                invalid-session-url="/login.jsp">
+                invalid-session-url="/html/redirectLogin.jsp">
             <security:concurrency-control max-sessions="1"
                                           error-if-maximum-exceeded="false"
                                           expired-url="/login.jsp"/>
@@ -97,6 +101,7 @@
         <property name="securityMetadataSource" ref="securityMetadataSource"/>
         <!-- 3.判断用户是否拥有所请求URL的角色 -->
         <property name="accessDecisionManager" ref="accessDecisionManager"/>
+        <!--<property name="rejectPublicInvocations" value="true"/>-->
     </bean>
 
     <!--国际化支持部分-->

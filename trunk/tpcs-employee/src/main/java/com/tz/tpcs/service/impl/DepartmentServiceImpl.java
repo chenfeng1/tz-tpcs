@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -35,16 +36,40 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public String checkAndDelete(String id) {
-        //1.检查是否有下属员工
-        int count = employeeDao.getCountByDeptId(id);
-        if(count > 0){
-            return "该部门下面有员工，删除失败!";
+    public Set<String> getSubDepartmentIds(String id) {
+        Department department = departmentDao.findOne(id);
+        Set<String> idSet = new HashSet<>();
+        idSet.add(department.getId());
+        recursiveAddChildrenId(department, idSet);
+        return idSet;
+    }
+
+    /**
+     * 递归添加子部门ID到集合中
+     * @param department
+     * @param idSet
+     */
+    private void recursiveAddChildrenId(Department department, Set<String> idSet) {
+        Set<Department> children = department.getChildren();
+        if(children != null && children.size() > 0){
+            for(Department subDept : children){
+                idSet.add(subDept.getId());
+                recursiveAddChildrenId(subDept, idSet);
+            }
         }
-        //2.检查是否有下属部门
+    }
+
+    @Override
+    public String checkAndDelete(String id) {
+        //1.检查是否有下属部门
         Department department = departmentDao.findOne(id);
         if(department.getChildren().size() > 0){
             return "该部门下面有子部门，删除失败!";
+        }
+        //2.检查是否有下属员工
+        int count = employeeDao.getCountByDeptId(id);
+        if(count > 0){
+            return "该部门下面有员工，删除失败!";
         }
         //3.删除部门
         departmentDao.delete(id);
