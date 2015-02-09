@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 指定页面显示的图标 -->
+    <link rel="icon" href="icon/tpcs.ico">
+    <title>首页面</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- BootStrap Theme css -->
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+    <!-- 此案例的自定义样式 -->
+    <link href="css-prj/main.css" rel="stylesheet">
+
+    <style type="text/css">
+        .testCss{
+            background-color: #ffff00;
+            text-align: center;
+            height: 300px;
+            vertical-align: middle;
+            padding: 50px;
+        }
+    </style>
+
+    <!-- 导入外部的js文件 -->
+
+</head>
+<body>
+<!-- 导航栏区 -->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- 导航栏的头部,并且可以适合其它尺码的设备 -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mynav">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="javascript:void(0);" style="padding-top: 0;">
+                <img src="images/LOGO-b.png"/>
+            </a>
+        </div>
+
+        <div class="navbar-collapse collapse" id="mynav">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">主页</a></li>
+                <!-- 下接菜单: 班级 -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">班级<strong class="caret"></strong></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">班级列表</a></li>
+                        <li><a href="#">导入班级</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">班级活动</a></li>
+                    </ul>
+                </li>
+                <!-- 下接菜单: 学员 -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">学员<strong class="caret"></strong></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">学员列表</a></li>
+                        <li><a href="#">导入学员</a></li>
+                    </ul>
+                </li>
+                <!-- 下接菜单: 知识库 -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">知识库<strong class="caret"></strong></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">课程列表</a></li>
+                        <li><a href="#">查看课程</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">知识中心</a></li>
+                    </ul>
+                </li>
+                <!-- 下接菜单: 项目案例 -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">项目案例<strong class="caret"></strong></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">项目列表</a></li>
+                        <li><a href="#">分配项目</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">进行中的项目</a></li>
+                        <li><a href="#">项目追踪</a></li>
+                    </ul>
+                </li>
+                <!-- 下接菜单: 实训过程 -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">实训过程<strong class="caret"></strong></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">学员请假</a></li>
+                        <li><a href="#">学员违纪</a></li>
+                        <li><a href="#">学员转班</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">学员访谈</a></li>
+                        <li><a href="#">学员评价</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">模拟面试</a></li>
+                    </ul>
+                </li>
+                <!-- 下接菜单: 考试 -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">考试<strong class="caret"></strong></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">考试安排</a></li>
+                        <li><a href="#">考试记录</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">试卷列表</a></li>
+                        <li><a href="#">导入题库</a></li>
+                    </ul>
+                </li>
+                <!-- 下接菜单: 就业 -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">就业<strong class="caret"></strong></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">合作企业</a></li>
+                        <li><a href="#">订单培训</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">就业数据</a></li>
+                    </ul>
+                </li>
+                <!-- 下接菜单: 员工 -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">员工<strong class="caret"></strong></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">员工列表</a></li>
+                        <li><a href="#">新增员工</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">通信录</a></li>
+                    </ul>
+                </li>
+                <!-- 下接菜单: 报表 -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">报表<strong class="caret"></strong></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">学员统计</a></li>
+                        <li><a href="#">实训过程分析</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">实训报告</a></li>
+                        <li><a href="#">数据分析</a></li>
+                        <li class="divider"></li>
+                        <li><a class="#">学员渠道分析</a></li>
+                        <li><a class="#">学历分析</a></li>
+                        <li><a class="#">就业分析</a></li>
+                    </ul>
+                </li>
+                <!-- 下接菜单: 系统 -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">系统<strong class="caret"></strong></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">
+                            <span class="glyphicon glyphicon-cog"></span>
+                            &nbsp;全局设置
+                        </a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">角色维护</a></li>
+                        <li><a href="#">角色权限设置</a></li>
+                    </ul>
+                </li>
+                <!-- 下接菜单: 日志 -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">日志<strong class="caret"></strong></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">
+                            <span class="glyphicon glyphicon-search"></span>
+                            &nbsp;日志中心
+                        </a></li>
+                    </ul>
+                </li>
+                <!-- 下接菜单: 我的 -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">我的<strong class="caret"></strong></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">
+                            <span class="glyphicon glyphicon-envelope"> </span>
+                            &nbsp;提醒消息&nbsp;
+                            <span id="unread_msg" class="badge" style="background-color: darkorange">10</span>
+                        </a></li>
+                        <li><a href="#">
+                            <span class="glyphicon glyphicon-transfer"> </span>
+                            &nbsp;站内私信
+                        </a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">
+                            <span class="glyphicon glyphicon-user"> </span>
+                            &nbsp;个人资料
+                        </a></li>
+                        <li><a href="#">
+                            <span class="glyphicon glyphicon-picture"> </span>
+                            &nbsp;修改头像
+                        </a></li>
+                        <li><a href="#">
+                            <span class="glyphicon glyphicon-edit"> </span>
+                            &nbsp;修改密码
+                        </a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">
+                            <span class="glyphicon glyphicon-off"> </span>
+                            &nbsp;安全退出
+                        </a></li>
+
+                    </ul>
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+</nav>
+<!-- end of nav -->
+
+<div class="container">
+    <!-- 由于导航用了navbar-fixed-top,所以，先与上面定义一个间隔  -->
+    <div class="gap"></div>
+
+    <!-- 菜单提示栏 -->
+    <ol class="breadcrumb">
+        <li>首页</li>
+    </ol>
+</div>
+
+<!-- 首次登录要提示用户去修改默认的密码，采用强出框来完成 -->
+<div class="modal fade" id="modifySelfPwdModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #0a6aa1">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h5 class="modal-title" id="myModalLabel">改掉默认密码</h5>
+            </div>
+            <div class="modal-body">
+                <p class="text-muted text-info">由于你的帐号是预创建的，为安全起见建议你把默认密码改掉</p>
+                <form class="form-horizontal" role="form" action="#" id="myForm">
+                    <div class="form-group">
+                        <label for="newPWD" class="col-md-3 control-label">输入新密码</label>
+                        <div class="col-md-5">
+                            <input type="password" id="newPWD" class="form-control"/>
+                        </div>
+                        <div class="col-md-4" id="newPWD_id">&nbsp;</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="newPWD2" class="col-md-3 control-label">再次输入新密码</label>
+                        <div class="col-md-5">
+                            <input type="password" id="newPWD2" class="form-control"/>
+                        </div>
+                        <div class="col-md-4" id="newPWD2_id">&nbsp;</div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="通过JS来提交表单">修改</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end of modal -->
+
+<!-- 其它的内容  -->
+<!--内容区-->
+<div class="container testCss">
+    <!--欢迎页面-->
+    <div>
+        <h1>欢迎页面内容</h1>
+    </div>
+</div>
+
+<!-- 导入相关的js -->
+<script src="js/jquery-1.11.2.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+   $(function(){
+       //判断，如果这个用户是第一次登录进来，弹出提示框让他修改默认密码
+       if(true){
+           $("#modifySelfPwdModal").modal('show');
+       }
+   });
+</script>
+
+</body>
+</html>
