@@ -6,22 +6,31 @@
 <script src="${path}/jstree/jstree.min.js"></script>
 <link href="${path}/jstree/themes/default/style.min.css" rel="stylesheet">
 <script type="text/javascript">
-
-    function initDeptTree(){
+    $(function () {
+        //初始化部门树
         $.getJSON("${path}/departments/list",function(result){
             //console.log(result);
             result[0].state.selected = true; //默认选中根节点
             $("#myTree").jstree({'core': {'multiple':false, 'data': result}});
-            //监听部门树点击事件
+            //事件监听
             treeSelectedListener();
         });
+    });
+
+    //ajax查询+显示员工信息
+    function searchEmp(jsonData){
+        if(jsonData){
+            $.post("${path}/employees/search", jsonData, function(result){
+                $("#empListDiv").html(result);
+            });
+        }else{
+            $.post("${path}/employees/search", $('#searchForm').serialize(), function(result){
+                $("#empListDiv").html(result);
+            });
+        }
     }
 
-    $(function () {
-        //初始化部门树
-        initDeptTree();
-    });
-    //部门树点击
+    //监听左侧部门树的点击事件
     function treeSelectedListener(){
         $("#myTree").on("select_node.jstree", function (e, data) {
             var id = $("#myTree").jstree("get_selected");

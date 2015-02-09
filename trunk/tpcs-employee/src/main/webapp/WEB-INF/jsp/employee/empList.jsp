@@ -31,31 +31,21 @@
         });
         //查询按钮点击
         $("#searchBtn").click(function () {
-            doSubmit();
+            searchEmp();
             return false;
         });
         //查询表单提交
         $("#searchForm").submit(function(){
-            doSubmit();
+            searchEmp();
             return false;
         });
-        //处理提交
-        function doSubmit() {
-//            console.log("submit searchForm")
-            var deptId = $("#myTree").jstree("get_selected");
-            var realname = $("#realname").val();
-            //发送请求，刷新下属员工
-            $.post("${path}/employees/search",{"deptId":deptId[0], "realname":realname},function(result){
-                $("#empListDiv").html(result);
-            });
-        }
         //empTr双击事件
         $(".empTr").dblclick(function(e){
 //            alert(this.id);
             var empId = this.id;
             var deptId = $("#myTree").jstree("get_selected");
             var realname = $("#realname").val();
-            console.log("empId:"+empId+", deptId:"+deptId[0]+", realname:"+realname);
+//            console.log("empId:"+empId+", deptId:"+deptId[0]+", realname:"+realname);
             var page = ${pager.pageNumber};
             var stateObj = {"deptId":deptId[0], "realname":realname, "pageNumber":page};
             history.pushState(stateObj, "state_emp_list_left", "list");
@@ -65,9 +55,27 @@
         });
 
         $(".previousPage").click(function(){
-
+            //修改页码
+            var pageNumber = parseInt($("#pageNumber").val());
+            $("#pageNumber").val(pageNumber-1);
+            //发送请求
+            searchEmp();
         });
-
+        $(".nextPage").click(function(){
+            //修改页码
+            var pageNumber = parseInt($("#pageNumber").val());
+            $("#pageNumber").val(pageNumber+1);
+            //发送请求
+            searchEmp();
+        });
+        $("#initAddBtn").click(function(){
+            var nodeSelected = $("#myTree").jstree("get_selected");
+            var deptId = nodeSelected[0];
+            $.get("${path}/employees/initAdd?deptId="+deptId, function(result){
+                //console.log(result);
+                $("#empListDiv").html(result);
+            });
+        });
     });
 </script>
 
@@ -81,15 +89,15 @@
         <form id="searchForm" class="form-inline" role="form">
             <div class="form-group">
                 <div class="input-group">
-                    <input id="realname" type="text" name="realname" value="${realname}" placeholder="员工名" class="form-control">
+                    <input id="realname" type="text" name="realname" value="${form.realname}" placeholder="员工名" class="form-control">
                     <input type="submit" style="display: none;">
                     <div id="searchBtn" class="input-group-addon" style="cursor: pointer">
                         <span class="glyphicon glyphicon-search"></span>
                     </div>
                 </div>
             </div>
-            <input type="text" name="pageNumber" value="${pager.pageNumber}"/>
-
+            <input id="pageNumber" type="text" name="pageNumber" value="${form.pageNumber}"/>
+            <input id="deptId" type="text" name="deptId" value="${form.deptId}"/>
         </form>
     </div>
 </div>
@@ -111,7 +119,7 @@
                         <small>上一页</small>
                     </a>
                 </c:if>
-                <small>${pager.pageNumber} / ${pager.pageCount}</small>
+                <small>${pager.pageNumber} / ${pager.pageCount} 页</small>
                 <c:if test="${pager.pageNumber <  pager.pageCount}">
                     <a class="nextPage" href="javascript:void(0)">
                         <small>下一页</small>
@@ -142,7 +150,7 @@
                 </button>
                 <ul class="dropdown-menu" role="menu">
                     <li>
-                        <a href="add_employee.html">新建成员</a>
+                        <a id="initAddBtn" href="javascript:void(0)">新建成员</a>
                     </li>
                     <li>
                         <a href="#">批量导入成员</a>
@@ -222,9 +230,6 @@
                             <c:if test="${!isEnabled}">
                                 <span class="label label-danger">禁用</span>
                             </c:if>
-                            <%--<c:if test="${emp.birthDate != null}">
-                                <fmt:formatDate value="${emp.mobilePhone}" pattern="yyyy-MM-dd"></fmt:formatDate>
-                            </c:if>--%>
                         </td>
                         <td>${emp.job}</td>
                     </tr>
@@ -245,7 +250,7 @@
                 <a href="#">
                     <small>上一页</small>
                 </a>
-                <small>${pager.pageNumber} / ${pager.pageCount}</small>
+                <small>${pager.pageNumber} / ${pager.pageCount} 页</small>
                 <a href="#">
                     <small>下一页</small>
                 </a>

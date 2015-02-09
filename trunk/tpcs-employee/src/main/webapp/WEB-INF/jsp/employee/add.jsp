@@ -53,7 +53,7 @@
       <div class="form-group">
         <label for="realname" class="col-md-2 control-label"><span class="text-muted" style="font-weight: normal">姓名</span><span style="color: red">*</span></label>
         <div class="col-md-4">
-          <form:input class="form-control" path="realname"/>
+          <form:input cssClass="form-control" path="realname"/>
         </div>
       </div>
       <%--性别--%>
@@ -78,14 +78,14 @@
       <div class="form-group">
         <label for="job" class="col-md-2 control-label"><span class="text-muted" style="font-weight: normal">岗位</span><span style="color: red">*</span></label>
         <div class="col-md-4">
-          <form:input class="form-control" path="job"/>
+          <form:input cssClass="form-control" path="job"/>
         </div>
       </div>
       <%--移动电话--%>
       <div class="form-group">
         <label for="mobilePhone" class="col-md-2 control-label"><span class="text-muted" style="font-weight: normal">移动电话</span><span style="color: red">*</span></label>
         <div class="col-md-4">
-          <form:input class="form-control" path="mobilePhone"/>
+          <form:input cssClass="form-control" path="mobilePhone"/>
         </div>
       </div>
       <%--更多信息--%>
@@ -110,14 +110,14 @@
         <div class="form-group">
           <label for="email" class="col-md-2 control-label"><span class="text-muted" style="font-weight: normal">邮箱地址</span></label>
           <div class="col-md-4">
-              <form:input path="email" class="form-control"/>
+              <form:input path="email" cssClass="form-control"/>
           </div>
         </div>
         <%--备注--%>
         <div class="form-group">
           <label for="remark" class="col-md-2 control-label"><span class="text-muted" style="font-weight: normal">备注</span></label>
           <div class="col-md-10">
-              <form:input path="remark" class="form-control"/>
+              <form:input path="remark" cssClass="form-control"/>
           </div>
         </div>
       </div>
@@ -125,53 +125,42 @@
       <%--帐号信息--%>
       <strong>帐号信息</strong>
       <hr style="margin-top: 2px;background-color:#269abc;height: 3px;"/>
-      <%--员工号--%>
-      <div class="form-group">
-        <label class="col-md-2 control-label"><span class="text-muted" style="font-weight: normal">员工号</span><span style="color: red">*</span></label>
-        <div class="col-md-1 control-label">
-          <label class="label label-default">${form.number}</label>
-        </div>
-      </div>
-
-
-    <%--修改密码--%>
-    <div class="form-group">
-        <label class="col-md-2 control-label"><span class="text-muted" style="font-weight: normal">修改密码</span></label>
-        <div class="col-md-1 control-label">
-            <a href="javascript:void(0);" onclick="showPasswordInput();"><label class="label label-danger" style="cursor: pointer">修改</label> </a>
-        </div>
-    </div>
-    <div id="passwordInput" style="display: none;">
-                <div class="form-group">
-                    <label for="password" class="col-md-2 control-label"><span class="text-muted" style="font-weight: normal">密码</span><span style="color: red">*</span></label>
-                    <div class="col-md-4">
-                        <form:password path="password" class="form-control"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="passwordConfirm" class="col-md-2 control-label"><span class="text-muted" style="font-weight: normal">确认密码</span><span style="color: red">*</span></label>
-                    <div class="col-md-4">
-                        <form:password path="passwordConfirm" class="form-control"/>
-                    </div>
-                </div>
-                <div class="col-md-offset-2">
-                    <div class="checkbox-inline">
-                        <label class="text-muted">
-                            <form:checkbox path="changePassword"/>用户重新登录时修改密码
-                        </label>
-                    </div>
-                </div>
+        <%--员工号--%>
+        <div class="form-group">
+            <label for="number" class="col-md-2 control-label"><span class="text-muted" style="font-weight: normal">员工号</span><span style="color: red">*</span></label>
+            <div class="col-md-4">
+                <form:input path="number" placeholder="员工号" cssClass="form-control"/>
             </div>
-
-
-      <%--所属部门--%>
-      <div class="form-group" style="margin-top: 15px;">
-        <label for="deptName" class="col-md-2 control-label"><span class="text-muted" style="font-weight: normal">所属部门</span><span style="color: red">*</span></label>
-        <div class="col-md-4">
-          <%--迭代部门下拉菜单--%>
-          <form:select id="deptName" itemLabel="name" itemValue="id" class="form-control" path="departmentId" items="${deptList}"/>
         </div>
-      </div>
+        <%--密码--%>
+        <div class="form-group">
+            <label for="password" class="col-md-2 control-label"><span class="text-muted" style="font-weight: normal">密码</span><span style="color: red">*</span></label>
+            <div class="col-md-4">
+                <form:password path="password" cssClass="form-control"/>
+            </div>
+        </div>
+        <%--确认密码--%>
+        <div class="form-group">
+            <label for="passwordConfirm" class="col-md-2 control-label"><span class="text-muted" style="font-weight: normal">确认密码</span><span style="color: red">*</span></label>
+            <div class="col-md-4">
+                <form:password path="passwordConfirm" cssClass="form-control"/>
+            </div>
+        </div>
+        <div class="col-md-offset-2">
+            <div class="checkbox-inline">
+                <label class="text-muted">
+                    <form:checkbox path="changePassword"/>用户重新登录时修改密码
+                </label>
+            </div>
+        </div>
+        <%--所属部门--%>
+        <div class="form-group" style="margin-top: 15px;">
+            <label for="deptName" class="col-md-2 control-label"><span class="text-muted" style="font-weight: normal">所属部门</span><span style="color: red">*</span></label>
+            <div class="col-md-4">
+                <%--迭代部门下拉菜单--%>
+                <form:select id="deptName" itemLabel="name" itemValue="id" class="form-control" path="departmentId" items="${deptList}"/>
+            </div>
+        </div>
 
       <hr/>
 

@@ -204,6 +204,8 @@ public class InitData {
         emp1.setEnabled(true);
         emp1.setJob("测试管理员");
         emp1.setGender(Gender.MALE);
+        emp1.setBirthDate(dataFactory.getBirthDate());
+        emp1.setRemark(dataFactory.getRandomText(10,50));
         emp1.setAccountNonExpired(true);
         emp1.setAccountNonLocked(true);
         emp1.setCredentialsNonExpired(true);
@@ -223,6 +225,8 @@ public class InitData {
         emp2.setEnabled(true);
         emp2.setJob("测试班主任");
         emp2.setGender(Gender.FEMALE);
+        emp2.setBirthDate(dataFactory.getBirthDate());
+        emp2.setRemark(dataFactory.getRandomText(10,50));
         emp2.setAccountNonExpired(true);
         emp2.setAccountNonLocked(true);
         emp2.setCredentialsNonExpired(true);
@@ -243,6 +247,8 @@ public class InitData {
         emp3.setEnabled(true);
         emp3.setJob("测试讲师");
         emp3.setGender(Gender.MALE);
+        emp3.setBirthDate(dataFactory.getBirthDate());
+        emp3.setRemark(dataFactory.getRandomText(10,50));
         emp3.setAccountNonExpired(true);
         emp3.setAccountNonLocked(true);
         emp3.setCredentialsNonExpired(true);
@@ -255,11 +261,14 @@ public class InitData {
         Employee emp4 = new Employee();
         emp4.setNumber("EMP_004");
         emp4.setEmail("");
+        emp4.setMobilePhone("13844444444");
         emp4.setPassword("456789");
         emp4.setRealname("测试讲师兼职班主任");
         emp4.setEnabled(true);
         emp4.setJob("测试讲师兼职班主任");
         emp4.setGender(Gender.FEMALE);
+        emp4.setBirthDate(dataFactory.getBirthDate());
+        emp4.setRemark(dataFactory.getRandomText(10,50));
         emp4.setAccountNonExpired(true);
         emp4.setAccountNonLocked(true);
         emp4.setCredentialsNonExpired(true);

@@ -30,4 +30,12 @@ public interface DepartmentDao extends CrudRepository<Department, String> {
      */
     Department findByName(String name);
 
+    /**
+     * 根据 id 查询 name
+     * @param id 部门ID
+     * @return 部门name
+     */
+    @Query("select d.name from Department as d where d.id =:id")
+    String findNameById(@Param("id") String id);
+
 }

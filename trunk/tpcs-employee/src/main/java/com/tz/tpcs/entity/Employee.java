@@ -1,5 +1,6 @@
 package com.tz.tpcs.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -43,6 +44,8 @@ public class Employee extends BaseEntity implements UserDetails {
     private Set<GrantedAuthority> authorities; // 角色信息
 
     private Department department; //部门
+
+    private boolean changePassword; //登录成功后，需要修改密码
 
     /** 空参构造 */
     public Employee() {
@@ -103,6 +106,7 @@ public class Employee extends BaseEntity implements UserDetails {
         this.gender = gender;
     }
 
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     @Column(name = "emp_birth_date")
     public Date getBirthDate() {
         return birthDate;
@@ -256,6 +260,15 @@ public class Employee extends BaseEntity implements UserDetails {
         this.loginIp = loginIp;
     }
 
+    @Column(name="change_password")
+    public boolean isChangePassword() {
+        return changePassword;
+    }
+
+    public void setChangePassword(boolean changePassword) {
+        this.changePassword = changePassword;
+    }
+
     @ManyToOne
     @JoinColumn(name = "dept_id")
     public Department getDepartment() {
@@ -287,7 +300,7 @@ public class Employee extends BaseEntity implements UserDetails {
                 ", lockedDate=" + lockedDate +
                 ", loginDate=" + loginDate +
                 ", loginIp='" + loginIp + '\'' +
-                ", authorities=" + authorities +
+                ", changePassword=" + changePassword +
                 '}';
     }
 

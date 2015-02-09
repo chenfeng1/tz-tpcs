@@ -19,8 +19,8 @@
 	<logger name="org.springframework" level="error" />
 	<logger name="org.springframework.boot.autoconfigure.security" level="info" />-->
 
-	<logger name="com.tz.tpcs" level="debug" />
-	<logger name="org.springframework" level="info" />
+	<logger name="com.tz.tpcs" level="info" />
+	<logger name="org.springframework" level="warn" />
 	<!--<logger name="com.tz.tpcs.service.security" level="warn" />-->
 
 </configuration>
