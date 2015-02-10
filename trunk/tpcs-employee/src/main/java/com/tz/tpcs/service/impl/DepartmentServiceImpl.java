@@ -4,9 +4,12 @@ import com.tz.tpcs.dao.DepartmentDao;
 import com.tz.tpcs.dao.EmployeeDao;
 import com.tz.tpcs.entity.Department;
 import com.tz.tpcs.service.DepartmentService;
+import org.apache.log4j.Logger;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.persistence.criteria.*;
 import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
@@ -20,6 +23,8 @@ import java.util.Set;
 @Service
 @Transactional
 public class DepartmentServiceImpl implements DepartmentService {
+
+    private static final Logger LOGGER = Logger.getLogger(EmployeeServiceImpl.class);
 
     @Resource
     private DepartmentDao departmentDao;
@@ -71,7 +76,12 @@ public class DepartmentServiceImpl implements DepartmentService {
         if(count > 0){
             return "该部门下面有员工，删除失败!";
         }
-        //3.删除部门
+        //3.检查是否是根目录
+        Department parent = department.getParent();
+        if(parent == null){
+            return "该部门是根目录，无法删除!";
+        }
+        //4.删除部门
         departmentDao.delete(id);
         return "SUCCESS";
     }
@@ -87,5 +97,18 @@ public class DepartmentServiceImpl implements DepartmentService {
                 recursiveInitChildren(subDept);
             }
         }
+    }
+
+    @Override
+    public boolean validateField(final String fieldName, final String fieldValue) {
+        LOGGER.debug("validateField() run...");
+        Department department = departmentDao.findOne(new Specification<Department>() {
+            @Override
+            public Predicate toPredicate(Root<Department> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                Path<String> fieldPath = root.get(fieldName);
+                return cb.equal(cb.lower(fieldPath), fieldValue.toLowerCase());
+            }
+        });
+        return department == null;
     }
 }

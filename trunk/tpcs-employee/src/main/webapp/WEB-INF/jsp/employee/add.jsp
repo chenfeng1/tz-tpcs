@@ -14,6 +14,17 @@
         $("#empListDiv").html(result);
       });
     });
+
+    //监听添加员工按钮点击事件
+    $("#addEmployeeBtn").click(function(){
+        var jsonData = $("#addEmployeeForm").serialize();
+        var url = "${path}/employees/add";
+        $.post(url, jsonData, function(result){
+          //$("#empListDiv").html(result);
+//          console.log(result);
+          $("#empListDiv").html(result);
+        });
+    });
   });
 
   /**
@@ -39,16 +50,26 @@
 <!-- 提示栏  -->
 <div class="row" style="background-color: #efefef;border-top: 1px solid #cccccc;border-bottom: 1px solid #cccccc;margin: 0 2px;">
   <div class="col-md-11">
-    <label style="font-size: large;">${label}</label>
+    <label style="font-size: large;">添加成员</label>
   </div>
 </div>
+
+<%--错误信息部分--%>
+<c:if test="${errors != null}">
+  <div role="alert" class="alert alert-danger">
+    <c:forEach items="${errors}" var="error">
+      <strong>${error.defaultMessage}</strong>
+      <br/>
+    </c:forEach>
+  </div>
+</c:if>
 
 <!-- 员工 表单区 -->
 <div class="row" style="margin: 10px -7px;">
   <div class="col-md-12" style="margin-top: 10px;">
     <strong>员工基本信息</strong>
     <hr style="margin-top: 2px;background-color:#269abc;height: 3px;"/>
-    <form:form class="form-horizontal" role="form" action="${path}${actionUrl}" modelAttribute="form">
+    <form:form id="addEmployeeForm" class="form-horizontal" role="form" action="blank" modelAttribute="form">
       <%--真实姓名--%>
       <div class="form-group">
         <label for="realname" class="col-md-2 control-label"><span class="text-muted" style="font-weight: normal">姓名</span><span style="color: red">*</span></label>
@@ -136,14 +157,14 @@
         <div class="form-group">
             <label for="password" class="col-md-2 control-label"><span class="text-muted" style="font-weight: normal">密码</span><span style="color: red">*</span></label>
             <div class="col-md-4">
-                <form:password path="password" cssClass="form-control"/>
+                <form:password path="password" cssClass="form-control" showPassword="true"/>
             </div>
         </div>
         <%--确认密码--%>
         <div class="form-group">
             <label for="passwordConfirm" class="col-md-2 control-label"><span class="text-muted" style="font-weight: normal">确认密码</span><span style="color: red">*</span></label>
             <div class="col-md-4">
-                <form:password path="passwordConfirm" cssClass="form-control"/>
+                <form:password path="passwordConfirm" cssClass="form-control" showPassword="true"/>
             </div>
         </div>
         <div class="col-md-offset-2">
@@ -165,7 +186,7 @@
       <hr/>
 
       <div class="col-md-offset-2">
-        <button type="submit" class="btn btn-info">确定</button>&nbsp;
+        <button id="addEmployeeBtn" type="button" class="btn btn-info">确定</button>&nbsp;
         <button type="reset" class="btn btn-default">取消</button>
       </div>
 

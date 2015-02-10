@@ -11,7 +11,7 @@ import java.util.Set;
  * @version 1.0
  * @since 2015/2/6 11:28
  */
-public interface DepartmentService {
+public interface DepartmentService extends FieldUniqueValidatorService {
 
     /**
      * 获得部门树

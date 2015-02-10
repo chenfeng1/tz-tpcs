@@ -8,6 +8,7 @@ import com.tz.tpcs.service.EmployeeService;
 import com.tz.tpcs.util.IConstant;
 import com.tz.tpcs.web.form.Pager;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,12 +22,15 @@ import javax.transaction.Transactional;
 import java.util.Set;
 
 /**
+ * EmployeeService 实现类
  * Created by Administrator on 2015/1/16.
  */
 @Service
 @Transactional
 @Profile(IConstant.PROFILE_PRODUCTION)
 public class EmployeeServiceImpl implements EmployeeService {
+
+    private static final Logger LOGGER = Logger.getLogger(EmployeeServiceImpl.class);
 
     /**
      * 分页+查询, 每页显示记录条数
@@ -95,7 +99,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                     }
                 }
                 if(StringUtils.isNotBlank(realname)){
-                    // 条件2：根据部门ID查询
+                    // 条件2：根据姓名查询
                     Path<String> realnamePath = root.get("realname");
                     p = cb.and(p, cb.like(cb.lower(realnamePath), "%" + realname.toLowerCase() + "%"));
                 }
@@ -111,7 +115,41 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public void save(Employee employee) {
+        //业务逻辑部分
+        employee.setEnabled(true);
+        employee.setAccountNonExpired(true);
+        employee.setAccountNonLocked(true);
+        employee.setCredentialsNonExpired(true);
 		employeeDao.save(employee);
 	}
 
+    @Override
+    public void delete(String[] ids) {
+        //后期需要加入业务逻辑，比如：查询和员工相关的数据，是否有外键引用。。。
+        for(String id : ids){
+            employeeDao.delete(id);
+        }
+    }
+
+    @Override
+    public void updateEnableStatus(String[] ids, boolean enableStatus) {
+        for(String id:ids){
+            Employee emp = employeeDao.findOne(id);
+            emp.setEnabled(enableStatus);
+            employeeDao.save(emp);
+        }
+    }
+
+    @Override
+    public boolean validateField(final String fieldName, final String fieldValue){
+        LOGGER.debug("validateField() run...");
+        Employee employee = employeeDao.findOne(new Specification<Employee>() {
+            @Override
+            public Predicate toPredicate(Root<Employee> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                Path<String> fieldPath = root.get(fieldName);
+                return cb.equal(cb.lower(fieldPath), fieldValue.toLowerCase());
+            }
+        });
+        return employee == null;
+    }
 }

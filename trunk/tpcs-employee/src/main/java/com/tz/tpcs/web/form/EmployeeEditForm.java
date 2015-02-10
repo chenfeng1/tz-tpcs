@@ -1,11 +1,15 @@
 package com.tz.tpcs.web.form;
 
 import com.tz.tpcs.entity.Gender;
-import com.tz.tpcs.web.validator.NotExist;
+import com.tz.tpcs.service.EmployeeService;
+import com.tz.tpcs.web.validator.FieldUnique;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.ScriptAssert;
 
+import javax.validation.GroupSequence;
+import javax.validation.constraints.NotNull;
+import javax.validation.groups.Default;
 import java.util.Date;
 
 /**
@@ -17,9 +21,6 @@ import java.util.Date;
 @ScriptAssert(lang = "javascript",
             script = "_this.password.equals(_this.passwordConfirm)",
             message = "{password.not.match}")
-//@SpELAssert(value = "password.equals(passwordConfirm)",
-//            applyIf = "password || passwordConfirm",
-//            message = "{password.not.match}")
 public class EmployeeEditForm {
 
     private String id; //ID
@@ -27,20 +28,24 @@ public class EmployeeEditForm {
 
     @NotBlank(message = "{employee.realname.blank}")
     private String realname; //姓名
-//    @NotBlank(message = "{employee.gender.blank}")
+    @NotNull(message = "{employee.gender.blank}")
     private Gender gender; //性别
     @NotBlank(message = "{employee.job.blank}")
     private String job; //岗位
     @NotBlank(message = "{employee.mobilePhone.blank}")
+    @FieldUnique(field = "mobilePhone", service= EmployeeService.class,
+                groups = Extends.class, message = "{employee.mobilePhone.already.exist}")
     private String mobilePhone; //移动电话
 
     private Date birthDate; //生日
+
     @Email(message = "email.invalid")
     private String email; //邮箱地址
     private String remark; //备注
 
     @NotBlank(message = "{employee.number.blank}")
-    @NotExist(message = "{employee.number.exist}")
+    @FieldUnique(field = "number", service= EmployeeService.class,
+                groups = Extends.class, message = "{employee.number.already.exist}")
     private String number; //员工号(登录号)
     @NotBlank(message = "{employee.password.blank}")
     private String password; //密码
@@ -167,4 +172,16 @@ public class EmployeeEditForm {
     public void setDepartmentId(String departmentId) {
         this.departmentId = departmentId;
     }
+
+    /**
+     * 扩展校验 标记接口
+     */
+    public interface Extends {}
+
+    /**
+     * 校验排序 标记接口
+     */
+    @GroupSequence({Default.class, Extends.class})
+    public interface All {}
 }
+

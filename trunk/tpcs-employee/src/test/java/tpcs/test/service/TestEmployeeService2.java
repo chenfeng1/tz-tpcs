@@ -29,4 +29,16 @@ public class TestEmployeeService2 extends AbstractServiceTest{
         System.out.println(pager);
     }
 
+    @Test
+    public void test02ValidateField(){
+//        String fieldName = "number";
+//        String fieldValue = "EMP_001";
+//        String fieldName = "mobilePhone";
+//        String fieldValue = "13811111112";
+        String fieldName = "email";
+        String fieldValue = "EMP_001@sz-tz.com";
+        boolean b = employeeService.validateField(fieldName, fieldValue);
+        System.out.println(b);
+    }
+
 }

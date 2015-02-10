@@ -55,4 +55,19 @@ public class EmployeeServiceMockImpl implements EmployeeService {
 		// TODO Auto-generated method stub
 		
 	}
+
+    @Override
+    public void delete(String[] ids) {
+
+    }
+
+    @Override
+    public void updateEnableStatus(String[] ids, boolean enableStatus) {
+
+    }
+
+    @Override
+    public boolean validateField(String fieldName, String fieldValue) {
+        return false;
+    }
 }

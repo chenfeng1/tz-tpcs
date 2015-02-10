@@ -6,6 +6,7 @@ import com.tz.tpcs.entity.Department;
 import com.tz.tpcs.entity.Employee;
 import com.tz.tpcs.entity.Gender;
 import com.tz.tpcs.service.EmployeeService;
+import com.tz.tpcs.web.form.AjaxResult;
 import com.tz.tpcs.web.form.EmployeeEditForm;
 import com.tz.tpcs.web.form.EmployeeSearchForm;
 import com.tz.tpcs.web.form.Pager;
@@ -15,14 +16,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -42,15 +40,8 @@ public class EmployeeController {
     private EmployeeService employeeService;
     @Resource
     private Mapper mapper;
-
-//    /**
-//     * initBinder
-//     * @param binder
-//     */
-//    @InitBinder
-//     protected void initBinder(WebDataBinder binder) {
-//        binder.setValidator(new NotExistValidator());
-//    }
+    /*@Resource
+    private SmartValidator validator;*/
 
     /**
      * 列表
@@ -105,8 +96,6 @@ public class EmployeeController {
     public String initAdd(@RequestParam String deptId,
                           Model model){
         LOGGER.debug("initAdd() run...");
-        model.addAttribute("label", "添加成员");
-        model.addAttribute("actionUrl", "/employees/add");
         EmployeeEditForm form = new EmployeeEditForm();
         form.setGender(Gender.MALE);
         form.setDepartmentId(deptId);
@@ -121,21 +110,30 @@ public class EmployeeController {
      * @return String
      */
     @RequestMapping(value = "/add", method= RequestMethod.POST)
-    public String add(@Valid EmployeeEditForm form,
+    public String add(@Validated(EmployeeEditForm.All.class) EmployeeEditForm form,
                       BindingResult bindingResult,
                       Model model){
         LOGGER.debug("add() run...");
+        /*//此方法调用暂由 Validated 注解替代
+        if(!bindingResult.hasErrors()){
+            validator.validate(form, bindingResult, EmployeeEditForm.Extends.class);
+        }*/
         if(bindingResult.hasErrors()){
-            model.addAttribute("label", "添加成员");
-            model.addAttribute("actionUrl", "/employees/add");
+            model.addAttribute("errors", bindingResult.getAllErrors());
             model.addAttribute("form", form);
             model.addAttribute("genderArray", Gender.values());
             model.addAttribute("deptList", departmentDao.findAll());
             return "/WEB-INF/jsp/employee/add.jsp";
         }else {
             Employee employee = mapper.map(form, Employee.class);
+            String deptId = form.getDepartmentId();
+            employee.setDepartment(departmentDao.findOne(deptId));
             employeeService.save(employee);
-            return "redirect:/employees/list";
+            Pager<Employee> pager = new Pager<>();
+            pager = employeeService.findByPager(null, null, pager);
+            model.addAttribute("pager", pager);
+            model.addAttribute("form", new EmployeeSearchForm());
+            return "/WEB-INF/jsp/employee/empList.jsp";
         }
     }
 
@@ -152,6 +150,33 @@ public class EmployeeController {
 //        List<Department> deptList = (List<Department>) departmentDao.findAll();
 //        model.addAttribute("deptList", deptList);
         return "redirect:/employees/list";
+    }
+
+    /**
+     * 根据id数组批量删除
+     * @param ids id数组
+     * @return AjaxResult
+     */
+    @RequestMapping(value = "/deleteByArray", method= RequestMethod.POST, produces = IMediaType.APPLICATION_JSON_UTF8)
+    @ResponseBody
+    public AjaxResult deleteByArray(@RequestParam String[] ids){
+        LOGGER.debug("deleteByArray() run...");
+        employeeService.delete(ids);
+        return new AjaxResult(true, null);
+    }
+
+    /**
+     * 批量修改员工 Enable 状态
+     * @param ids id数组
+     * @param enableStatus Enable 状态
+     * @return
+     */
+    @RequestMapping(value = "/changeEnableStatus", method= RequestMethod.POST, produces = IMediaType.APPLICATION_JSON_UTF8)
+    @ResponseBody
+    public AjaxResult changeEnableStatus(@RequestParam String[] ids, boolean enableStatus){
+        LOGGER.debug("changeEnableStatus() run...");
+        employeeService.updateEnableStatus(ids, enableStatus);
+        return new AjaxResult(true, ids);
     }
 
 }
