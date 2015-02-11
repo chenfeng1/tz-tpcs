@@ -4,16 +4,26 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
+<script type="text/javascript" src="${path}/js/jquery.form.js"></script>
+
 <script type="text/javascript">
-    $(function(){
-        $("#backBtn").click(function(){
-//      alert("return");
-            var currentState = history.state;
-            //console.log(currentState);
-            $.post("${path}/employees/search",currentState,function(result){
-                $("#empListDiv").html(result);
-            });
+    //点击返回 或 取消按钮
+    //点击返回 或 取消按钮
+    $("#backBtn,#updateEmployeeCancelBtn").click(function(){
+        var currentState = history.state;
+        //console.log(currentState);
+        $.post("${path}/employees/search",currentState,function(result){
+            $("#empListDiv").html(result);
         });
+    });
+
+    //监听添加员工按钮点击事件
+    $("#updateEmployeeBtn").click(function(){
+        $("#updateEmployeeForm").ajaxForm({
+            success: function(result) {
+                $("#empListDiv").html(result);
+            }
+        }).submit();
     });
 
     /**
@@ -48,7 +58,7 @@
     <div class="col-md-12" style="margin-top: 10px;">
         <strong>员工基本信息</strong>
         <hr style="margin-top: 2px;background-color:#269abc;height: 3px;"/>
-        <form:form class="form-horizontal" role="form" action="${path}/employees/update" modelAttribute="form">
+        <form:form id="updateEmployeeForm" class="form-horizontal" role="form" action="${path}/employees/update" modelAttribute="form">
             <%--真实姓名--%>
             <div class="form-group">
                 <label for="realname" class="col-md-2 control-label"><span class="text-muted" style="font-weight: normal">姓名</span><span style="color: red">*</span></label>
@@ -132,8 +142,6 @@
                     <label class="label label-default">${form.number}</label>
                 </div>
             </div>
-
-
             <%--修改密码--%>
             <div class="form-group">
                 <label class="col-md-2 control-label"><span class="text-muted" style="font-weight: normal">修改密码</span></label>
@@ -176,10 +184,13 @@
             <hr/>
 
             <div class="col-md-offset-2">
-                <button type="submit" class="btn btn-info">确定</button>&nbsp;
-                <button type="reset" class="btn btn-default">取消</button>
+                <button id="updateEmployeeBtn" type="button" class="btn btn-info">确定</button>&nbsp;
+                <button id="updateEmployeeCancelBtn" type="reset" class="btn btn-default">取消</button>
             </div>
-
+            <%--不能修改，隐藏域部分--%>
+            <form:input path="id"/>
+            <form:input path="version"/>
+            <form:input path="number"/>
         </form:form>
     </div>
 </div>

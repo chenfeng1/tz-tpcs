@@ -1,7 +1,7 @@
 package com.tz.tpcs.web.validator;
 
 import com.tz.tpcs.service.FieldUniqueValidatorService;
-import com.tz.tpcs.web.form.EmployeeEditForm;
+import com.tz.tpcs.web.form.FieldUniqueFormSupport;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
@@ -18,7 +18,7 @@ import java.lang.reflect.InvocationTargetException;
  * @version 1.0
  * @since 2015/2/9 17:26
  */
-public class FieldUniqueValidator implements ConstraintValidator<FieldUnique, EmployeeEditForm> {
+public class FieldUniqueValidator implements ConstraintValidator<FieldUnique, FieldUniqueFormSupport> {
 
     private static final Logger LOGGER = Logger.getLogger(FieldUniqueValidator.class);
 
@@ -31,9 +31,9 @@ public class FieldUniqueValidator implements ConstraintValidator<FieldUnique, Em
     private FieldUniqueValidatorService service;
 
     /**
-     * 需要校验的属性名数组
+     * 需要校验的属性名
      */
-    private String[] fields;
+    private String field;
 
     /**
      * i18n key 前缀
@@ -50,15 +50,32 @@ public class FieldUniqueValidator implements ConstraintValidator<FieldUnique, Em
     @Override
     public void initialize(FieldUnique constraintAnnotation) {
         LOGGER.debug("initialize() run...");
-        fields = constraintAnnotation.fields();
+        field = constraintAnnotation.field();
         service = serviceCenter.getService(constraintAnnotation.service());
-        messagePrefix = constraintAnnotation.messagePrefix();
     }
 
     @Override
-    public boolean isValid(EmployeeEditForm form, ConstraintValidatorContext context) {
+    public boolean isValid(FieldUniqueFormSupport form, ConstraintValidatorContext context) {
         LOGGER.debug("is validating...");
-        Assert.assertNotNull(fields.length>0);
+        Assert.assertNotNull(field);
+        Assert.assertNotNull(service);
+        boolean isValid = false;
+        try {
+            String value = BeanUtils.getSimpleProperty(form, field);
+            String id = BeanUtils.getSimpleProperty(form, "id");
+            //通过查询数据库进行校验
+            isValid = service.validateField(field, value, id);
+            LOGGER.trace("isValid:"+isValid);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return isValid;
+
+        /*Assert.assertNotNull(fields.length>0);
         Assert.assertNotNull(service);
         boolean isValid = true;
         for(String field : fields){
@@ -85,7 +102,7 @@ public class FieldUniqueValidator implements ConstraintValidator<FieldUnique, Em
                 e.printStackTrace();
             }
         }
-        return isValid;
+        return isValid;*/
     }
 
 }

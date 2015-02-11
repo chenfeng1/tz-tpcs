@@ -4,6 +4,7 @@ import com.tz.tpcs.service.DepartmentService;
 import com.tz.tpcs.web.validator.FieldUnique;
 import com.tz.tpcs.web.validator.StepA;
 import com.tz.tpcs.web.validator.StepB;
+import com.tz.tpcs.web.validator.StepD;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.GroupSequence;
@@ -15,13 +16,13 @@ import javax.validation.groups.Default;
  * @version 1.0
  * @since 2015/2/9 10:08
  */
-@FieldUnique(fields = "name",
+@FieldUnique(field = "name",
             service= DepartmentService.class,
             groups = StepB.class,
-            messagePrefix = "department")
+            message = "{department.name.already.exist}")
 public class DepartmentEditForm implements FieldUniqueFormSupport{
 
-    @NotBlank(message = "{department.id.blank}", groups = StepB.class)
+    @NotBlank(message = "{department.id.blank}", groups = StepD.class)
     private String id; //ID
     @NotBlank(message = "{department.name.blank}")
     private String name; //部门名称

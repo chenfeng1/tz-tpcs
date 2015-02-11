@@ -1,5 +1,6 @@
 package com.tz.tpcs.service.security;
 
+import com.tz.tpcs.dao.EmployeeDao;
 import com.tz.tpcs.entity.Employee;
 import com.tz.tpcs.service.EmployeeService;
 import org.apache.log4j.Logger;
@@ -32,6 +33,8 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
     public static final String PASSWORD_ERR_MSG = "passwordErrMsg";
     public static final int DEFAULT_MAX_RETRY = 3;
 
+    @Resource
+    private EmployeeDao employeeDao;
     @Resource
     private EmployeeService employeeService;
     @Resource
@@ -91,7 +94,7 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
                     employee.setAccountNonLocked(false);
                 }
                 employee.setLoginFailureCount(failureCount);
-                employeeService.update(employee);
+                employeeDao.save(employee);
                 if(failureCount < maxLoginFailureCount){
                     message = messageSource.getMessage("continue.failed.will.lock.account", new Object[]{maxLoginFailureCount}, locale);
                 }else {

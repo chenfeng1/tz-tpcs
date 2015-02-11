@@ -10,12 +10,6 @@ import com.tz.tpcs.web.form.Pager;
 public interface EmployeeService extends FieldUniqueValidatorService {
 
     /**
-     * 更新功能
-     * @param employee
-     */
-    void update(Employee employee);
-
-    /**
      * 根据 number、email、mobilePhone 查询员工
      * @param str 可能是 手机号、员工号、邮箱
      * @return 如果存在，返回员工实例；如果不存在，返回null
@@ -49,4 +43,11 @@ public interface EmployeeService extends FieldUniqueValidatorService {
      * @param enableStatus
      */
     void updateEnableStatus(String[] ids, boolean enableStatus);
+
+    /**
+     * 更新功能
+     * 检查密码是否需要修改
+     * @param employee
+     */
+    void checkPasswordAndUpdate(Employee employee);
 }

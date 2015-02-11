@@ -44,15 +44,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Resource
     private EmployeeDao employeeDao;
-//    @Resource
-//    private DepartmentDao departmentDao;
     @Resource
     private DepartmentService departmentService;
-
-    @Override
-    public void update(Employee employee) {
-        employeeDao.save(employee);
-    }
 
     @Override
     public Employee findByPhoneNumberEmail(String str) {
@@ -138,6 +131,19 @@ public class EmployeeServiceImpl implements EmployeeService {
             emp.setEnabled(enableStatus);
             employeeDao.save(emp);
         }
+    }
+
+    @Override
+    public void checkPasswordAndUpdate(Employee employee) {
+        //业务逻辑部分, todo...后期要完善
+        Employee temp = employeeDao.findOne(employee.getId());
+        //如果密码为空,说明无需更新,则仍然使用旧密码
+        if(employee.getPassword() != null){
+          employee.setPassword(temp.getPassword());
+        }
+        //目前系统还无法给员工分配角色，所以角色信息仍然保留
+        employee.setRoles(temp.getRoles());
+        employeeDao.save(employee);
     }
 
     @Override

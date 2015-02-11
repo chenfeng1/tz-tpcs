@@ -56,20 +56,6 @@ public class EmployeeController {
     }
 
     /**
-     * 根据ID查询
-     * @return ModelAndView
-     */
-    @RequestMapping(value = "/{id}", method= RequestMethod.GET)
-    public String id(@PathVariable String id, Model model){
-        LOGGER.debug("id() run, id:" + id);
-        model.addAttribute("genderArray", Gender.values());
-        model.addAttribute("form", employeeDao.findOne(id));
-        List<Department> deptList = (List<Department>) departmentDao.findAll();
-        model.addAttribute("deptList", deptList);
-        return "/WEB-INF/jsp/employee/edit.jsp";
-    }
-
-    /**
      * 列表
      * @return ModelAndView
      */
@@ -131,18 +117,50 @@ public class EmployeeController {
     }
 
     /**
+     * 根据ID查询，进入更新页面
+     * @return ModelAndView
+     */
+    @RequestMapping(value = "/{id}", method= RequestMethod.GET)
+    public String id(@PathVariable String id, Model model){
+        LOGGER.debug("id() run, id:" + id);
+        model.addAttribute("genderArray", Gender.values());
+        Employee employee = employeeDao.findOne(id);
+        EmployeeEditForm form = mapper.map(employee, EmployeeEditForm.class);
+        form.setPassword(null);
+        form.setPasswordConfirm(null);
+        form.setChangePassword(false);
+        model.addAttribute("form", form);
+        List<Department> deptList = (List<Department>) departmentDao.findAll();
+        model.addAttribute("deptList", deptList);
+        return "/WEB-INF/jsp/employee/edit.jsp";
+    }
+
+    /**
      * 根据ID查询
      * @return ModelAndView
      */
     @RequestMapping(value = "/update", method= RequestMethod.POST)
-    public String update(Employee employee, Model model){
+    public String update(@Validated(EmployeeEditForm.Update.class) EmployeeEditForm form,
+                         BindingResult bindingResult,
+                         Model model){
         LOGGER.debug("update() run...");
-
-//        model.addAttribute("emp", employeeDao.findOne(id));
-//        model.addAttribute("label", "编辑员工");
-//        List<Department> deptList = (List<Department>) departmentDao.findAll();
-//        model.addAttribute("deptList", deptList);
-        return "redirect:/employees/list";
+        if(bindingResult.hasErrors()){
+            model.addAttribute("errors", bindingResult.getAllErrors());
+            model.addAttribute("form", form);
+            model.addAttribute("genderArray", Gender.values());
+            model.addAttribute("deptList", departmentDao.findAll());
+            return "/WEB-INF/jsp/employee/edit.jsp";
+        }else {
+            Employee employee = mapper.map(form, Employee.class);
+            String deptId = form.getDepartmentId();
+            employee.setDepartment(departmentDao.findOne(deptId));
+            employeeService.checkPasswordAndUpdate(employee);
+            Pager<Employee> pager = new Pager<>();
+            pager = employeeService.findByPager(null, null, pager);
+            model.addAttribute("pager", pager);
+            model.addAttribute("form", new EmployeeSearchForm());
+            return "/WEB-INF/jsp/employee/empList.jsp";
+        }
     }
 
     /**

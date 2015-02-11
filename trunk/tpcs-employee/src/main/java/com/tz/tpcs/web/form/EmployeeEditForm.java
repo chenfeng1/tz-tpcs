@@ -5,12 +5,14 @@ import com.tz.tpcs.service.EmployeeService;
 import com.tz.tpcs.web.validator.FieldUnique;
 import com.tz.tpcs.web.validator.StepA;
 import com.tz.tpcs.web.validator.StepB;
+import com.tz.tpcs.web.validator.StepD;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.ScriptAssert;
 
 import javax.validation.GroupSequence;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.groups.Default;
 import java.util.Date;
 
@@ -23,18 +25,23 @@ import java.util.Date;
 @ScriptAssert(lang = "javascript",
             script = "_this.password.equals(_this.passwordConfirm)",
             message = "{password.not.match}", groups = StepA.class)
-@FieldUnique(fields = {"mobilePhone", "number"},
-            service= EmployeeService.class,
-            groups = StepB.class,
-            messagePrefix = "employee")
+@FieldUnique.List({
+    @FieldUnique(field = "mobilePhone",
+                service= EmployeeService.class,
+                groups = StepB.class,
+                message = "{employee.mobilePhone.already.exist}"),
+    @FieldUnique(field = "number",
+                service= EmployeeService.class,
+                groups = StepB.class,
+                message = "{employee.number.already.exist}")
+})
 public class EmployeeEditForm implements FieldUniqueFormSupport{
 
-    @NotBlank(message = "{id.not.blank}", groups = StepB.class)
+    @NotBlank(message = "{id.not.blank}", groups = StepD.class)
     private String id; //ID
-    @NotBlank(message = "{version.not.blank}", groups = StepB.class)
+    @NotNull(message = "{version.not.blank}", groups = StepD.class)
     private Integer version; //版本锁
 
-//    @NotBlank(message = "{employee.realname.blank}", groups = Default.class)
     @NotBlank(message = "{employee.realname.blank}")
     private String realname; //姓名
     @NotNull(message = "{employee.gender.blank}")
@@ -42,11 +49,13 @@ public class EmployeeEditForm implements FieldUniqueFormSupport{
     @NotBlank(message = "{employee.job.blank}")
     private String job; //岗位
     @NotBlank(message = "{employee.mobilePhone.blank}")
+    @Pattern(regexp = "^(1(([35][0-9])|(47)|[8][01236789]))\\d{8}$",
+            message = "{invalid.mobilePhone}", groups = StepB.class)
     private String mobilePhone; //移动电话
 
     private Date birthDate; //生日
 
-    @Email(message = "email.invalid")
+    @Email(message = "invalid.email")
     private String email; //邮箱地址
     private String remark; //备注
 
@@ -186,7 +195,7 @@ public class EmployeeEditForm implements FieldUniqueFormSupport{
     /**
      * 校验排序 标记接口 Update
      */
-    @GroupSequence({Default.class, StepB.class})
+    @GroupSequence({Default.class, StepB.class, StepD.class})
     public interface Update {}
 
 }

@@ -23,7 +23,7 @@ public interface EmployeeDao extends CrudRepository<Employee, String>, JpaSpecif
 	 * @param number
 	 * @return
 	 */
-	@Query("select emp from Employee as emp join fetch emp.roles where emp.number =:number")
+	@Query("select emp from Employee as emp left join fetch emp.roles where emp.number =:number")
 	Employee findByNumber(@Param("number") String number);
 	/**
 	 * 根据email查询

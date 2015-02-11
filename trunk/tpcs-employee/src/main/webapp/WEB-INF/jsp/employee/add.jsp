@@ -6,6 +6,7 @@
 
 <script type="text/javascript">
   $(function(){
+    //点击返回 或 取消按钮
     $("#backBtn,#addEmployeeCancelBtn").click(function(){
       var currentState = history.state;
       //console.log(currentState);

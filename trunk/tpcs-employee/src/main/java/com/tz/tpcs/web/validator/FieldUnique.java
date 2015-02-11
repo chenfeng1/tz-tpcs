@@ -4,10 +4,7 @@ import com.tz.tpcs.service.FieldUniqueValidatorService;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * 属性数据库唯一性校验规则,
@@ -20,26 +17,35 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = FieldUniqueValidator.class)
-//@Documented
+@Documented
 public @interface FieldUnique {
 
     /**
-     * i18n key prefix
-     * @return
+     * 可以同时使用多个注解
+     * {@linkplain com.tz.tpcs.web.validator.FieldUnique FieldUnique}
      */
-    String messagePrefix();
+    @Target(ElementType.TYPE)
+    @Retention(RetentionPolicy.RUNTIME)
+    @Documented
+    @interface List {
+        /**
+         * FieldUnique 数组
+         * @return
+         */
+        FieldUnique[] value();
+    }
 
     /**
      * message
      * @return
      */
-    String message() default "";
+    String message() default "{field.value.is.not.unique}";
 
     /**
-     * 需校验的属性名数组
+     * 需校验的属性名
      * @return
      */
-    String[] fields();
+    String field();
 
     /**
      * groups

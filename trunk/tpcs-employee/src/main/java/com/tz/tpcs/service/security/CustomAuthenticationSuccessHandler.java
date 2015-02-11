@@ -1,8 +1,8 @@
 package com.tz.tpcs.service.security;
 
+import com.tz.tpcs.dao.EmployeeDao;
 import com.tz.tpcs.entity.Employee;
 import com.tz.tpcs.entity.Resources;
-import com.tz.tpcs.service.EmployeeService;
 import com.tz.tpcs.service.ResourcesService;
 import com.tz.tpcs.util.IConstant;
 import org.apache.log4j.Logger;
@@ -31,7 +31,7 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     private static final Logger LOGGER = Logger.getLogger(CustomAuthenticationSuccessHandler.class);
 
     @Resource
-    private EmployeeService employeeService;
+    private EmployeeDao employeeDao;
     @Resource
     private ResourcesService resourcesService;
 
@@ -47,7 +47,7 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         emp.setLoginIp(loginIp);
         emp.setLoginDate(new Date());
         emp.setLoginFailureCount(0);
-        employeeService.update(emp);
+        employeeDao.save(emp);
         //在session中存入登录员工的实例
         HttpSession session = request.getSession();
         session.setAttribute(IConstant.LOGIN_USER, emp);

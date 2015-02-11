@@ -50,16 +50,10 @@ public class StudentController {
 	
 	@Resource
 	private StudentService studentService;
-	
+
 	/**
-	 * 
-	 * @param clazzname2
-	 * @param realname2
-	 * @param degree2
-	 * @param loanStatus2
-	 * @param pageSize
-	 * @param pageNow
-	 * @param request
+	 * initList
+	 * @param modelmap
 	 * @return
 	 */
 	@RequestMapping(value = "/initList", method = RequestMethod.GET)
