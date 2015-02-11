@@ -32,4 +32,12 @@ public interface DepartmentService extends FieldUniqueValidatorService {
      * @return 结果字符串
      */
     String checkAndDelete(String id);
+
+    /**
+     * 检查名称唯一性(根据id)
+     * @param id
+     * @param name
+     * @return 如果合法，返回true
+     */
+    boolean validateFieldWithId(String id, String name);
 }

@@ -86,6 +86,16 @@ public class DepartmentServiceImpl implements DepartmentService {
         return "SUCCESS";
     }
 
+    @Override
+    public boolean validateFieldWithId(String id, String name) {
+        Department department = departmentDao.findByName(name);
+        if(department == null){
+            return true;
+        }else{
+            return department.getId().equals(id);
+        }
+    }
+
     /**
      * 递归初始化下属部门信息
      * @param dept 父部门对象

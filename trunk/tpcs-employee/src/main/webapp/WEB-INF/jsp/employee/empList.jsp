@@ -2,6 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<script type="text/javascript" src="${path}/js/jquery-shake.js"></script>
+<script type="text/javascript" src="${path}/js/jquery.form.js"></script>
+
 <script type="text/javascript">
     $(function(){
         //删除部门按钮
@@ -14,11 +17,7 @@
                         type: 'DELETE',
                         success: function(result) {
                             if(result.success){
-                                $("#myTree").jstree("destroy")
-                                $("#myTree").jstree({'core': {'multiple':false, 'data': result.obj}});
-                                $('#myTree').jstree(true).refresh();
-                                //监听部门树点击事件
-                                treeSelectedListener();
+                                updateDeptTree(result.obj);
                             }else{
                                 alert(result.obj);
                             }
@@ -39,17 +38,17 @@
             searchEmp();
             return false;
         });
-        //empTr双击事件
+        //员工列表双击事件
         $(".empTr").dblclick(function(e){
-//            alert(this.id);
-            var empId = this.id;
+            var empId = $(this).attr("id");
             var deptId = $("#myTree").jstree("get_selected");
             var realname = $("#realname").val();
 //            console.log("empId:"+empId+", deptId:"+deptId[0]+", realname:"+realname);
             var page = ${pager.pageNumber};
             var stateObj = {"deptId":deptId[0], "realname":realname, "pageNumber":page};
-            history.pushState(stateObj, "state_emp_list_left", "list");
+            history.pushState(stateObj, "state_emp_list", "list");
             //发送请求
+            console.log(empId);
             var htmlObj=$.ajax({url:"${path}/employees/"+empId, async:false});
             $("#empListDiv").html(htmlObj.responseText);
         });
@@ -112,6 +111,11 @@
                 });
             });
         });
+        //显示新增部门对话框
+        $("#initAddDeptNameBtn").click(function(){
+            $("#dept_name").val("");
+            $("#addDeptModel").find(".alert-danger").remove();
+        });
         //新增部门按钮
         $("#deptAddBtn").click(function () {
             //alert("添加部门");
@@ -125,21 +129,67 @@
             $.post("${path}/departments/add", {"name":name, "parentId":id[0]}, function(result){
                 console.log(result);
                 if(result.success){
-                    //alert("success");
                     //关闭对话框
                     $("#deptAddCloseBtn").click();
                     //更新部门树
-                    $("#myTree").jstree("destroy")
-                    $("#myTree").jstree({'core': {'multiple':false, 'data': result.obj}});
-                    //监听部门树点击事件
-                    treeSelectedListener();
+                    updateDeptTree(result.obj);
                 }else{
-                    alert(result.obj);
+                    var errMsg = "";
+                    $(result.obj).each(function(){
+                        //console.log(this.defaultMessage);
+                        errMsg += this.defaultMessage + "\n";
+                    });
+                    $("#addDeptModel").find(".alert-danger").remove();
+                    $("#addDeptModel").find(".modal-body").prepend('<div role="alert" class="alert alert-danger">'+errMsg+'</div>');
+                    $(".modal-body").effect( "shake", {}, "fast" );
                 }
             });
         });
+        //显示修改部门名弹出框
+        $("#initUpdateDeptNameBtn").click(function (e, data) {
+            //获得当前选中节点id,text
+            if($('.jstree-clicked').size() != 1){
+                alert("请先选中一个需要操作的部门!");
+                return false;
+            }
+            var id = $("#myTree").jstree("get_selected")[0];
+            //console.log("id:"+id);
+            var text = $('.jstree-clicked').text();
+            //console.log("text:"+text);
+            $("#updDeptModel").find("input[name='id']").val(id);
+            $("#updDeptModel").find("input[name='name']").val(text);
+        });
+        //提交修改部门名
+        $("#updDeptModel #deptUpdBtn").click(function(){
+            //修改，提交请求
+            var jsonData = $("#updDeptModel form").serialize();
+            console.log(jsonData);
+            var form = $("#updDeptModel form");
+            console.log(form);
+            $("#myDeptUpdateForm").ajaxForm({
+                success: function(result) {
+                    if(result.success){
+                        //如果成功，将返回json树更新到页面
+                        //关闭对话框
+                        $("#deptUpdCloseBtn").click();
+                        //更新部门树
+                        updateDeptTree(result.obj);
+                    }else{
+                        //如果失败，显示错误信息
+                        var errMsg = "";
+                        $(result.obj).each(function(){
+                            errMsg += this.defaultMessage + "\n";
+                        });
+                        $("#updDeptModel").find(".alert-danger").remove();
+                        $("#updDeptModel").find(".modal-body").prepend('<div role="alert" class="alert alert-danger">'+errMsg+'</div>');
+                        $(".modal-body").effect( "shake", {}, "fast" );
+                    }
+                }
+            }).submit();
+        });
     });
 
+    //获得已勾选员工
     function getSelectedEmpIds(){
         var array = $("#empListTable :checked");
         if(array.size() == 0){
@@ -155,6 +205,13 @@
         }
     }
 
+    //更新部门树
+    function updateDeptTree(data){
+        $("#myTree").jstree("destroy")
+        $("#myTree").jstree({'core': {'multiple':false, 'data': data}});
+        //监听部门树点击事件
+        treeSelectedListener();
+    }
 
 </script>
 
@@ -201,8 +258,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button id="deptAddBtn" type="button" class="btn btn-primary" onclick="javascript:void(0)">新增</button>
-                <button id="deptAddCloseBtn" type="button" class="btn btn-default" data-dismiss="modal" onclick='$("#dept_name").val("")'>关闭</button>
+                <button id="deptAddBtn" type="button" class="btn btn-primary">新增</button>
+                <button id="deptAddCloseBtn" type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div>
     </div>
@@ -218,19 +275,20 @@
                 <h5 class="modal-title" id="myUpdModalLabel">更新部门</h5>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" role="form" action="#" id="updDeptForm">
+                <form id="myDeptUpdateForm" class="form-horizontal" role="form" action="${path}/departments/updateName" method="post">
                     <div class="form-group">
-                        <label for="name" class="col-md-2 control-label">部门名称</label>
+                        <label for="updDeptName" class="col-md-2 control-label">部门名称</label>
                         <div class="col-md-5">
-                            <input type="text" id="updDeptName" class="form-control" value="天智教育"/>
+                            <input type="text" id="updDeptName" name="name" class="form-control" value="天智教育"/>
                         </div>
                         <div class="col-md-5" id="updDeptName_id">&nbsp;</div>
                     </div>
+                    <input type="hidden" name="id" />
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="通过JS来提交表单">更新</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="deptUpdBtn" type="button" class="btn btn-primary">更新</button>
+                <button id="deptUpdCloseBtn" type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div>
     </div>
@@ -239,8 +297,8 @@
 
 <div class="row">
     <div class="col-md-4" style="font-size: small">
-        <a href="javaScript:void(0)" data-toggle="modal" data-target="#addDeptModel">添加子部门</a>&nbsp;|&nbsp;
-        <a href="javaScript:void(0)" data-toggle="modal" data-target="#updDeptModel">修改部门名</a>&nbsp;|&nbsp;
+        <a id="initAddDeptNameBtn" href="javaScript:void(0)" data-toggle="modal" data-target="#addDeptModel">添加子部门</a>&nbsp;|&nbsp;
+        <a id="initUpdateDeptNameBtn" href="javaScript:void(0)" data-toggle="modal" data-target="#updDeptModel">修改部门名</a>&nbsp;|&nbsp;
         <a id="deleteDept" href="javaScript:void(0)">删除</a>
     </div>
 </div>

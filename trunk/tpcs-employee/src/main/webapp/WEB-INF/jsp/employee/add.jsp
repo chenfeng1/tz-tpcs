@@ -6,8 +6,7 @@
 
 <script type="text/javascript">
   $(function(){
-    $("#backBtn").click(function(){
-//      alert("return");
+    $("#backBtn,#addEmployeeCancelBtn").click(function(){
       var currentState = history.state;
       //console.log(currentState);
       $.post("${path}/employees/search",currentState,function(result){
@@ -187,7 +186,7 @@
 
       <div class="col-md-offset-2">
         <button id="addEmployeeBtn" type="button" class="btn btn-info">确定</button>&nbsp;
-        <button type="reset" class="btn btn-default">取消</button>
+        <button id="addEmployeeCancelBtn" type="reset" class="btn btn-default">取消</button>
       </div>
 
     </form:form>

@@ -63,10 +63,8 @@ public class EmployeeController {
     @RequestMapping(value = "/{id}", method= RequestMethod.GET)
     public String id(@PathVariable String id, Model model){
         LOGGER.debug("id() run, id:"+id);
-        model.addAttribute("label", "编辑员工");
-        model.addAttribute("actionUrl", "/employees/update");
         model.addAttribute("genderArray", Gender.values());
-        model.addAttribute("employee", employeeDao.findOne(id));
+        model.addAttribute("form", employeeDao.findOne(id));
         List<Department> deptList = (List<Department>) departmentDao.findAll();
         model.addAttribute("deptList", deptList);
         return "/WEB-INF/jsp/employee/edit.jsp";

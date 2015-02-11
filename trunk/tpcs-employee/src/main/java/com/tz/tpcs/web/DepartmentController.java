@@ -5,12 +5,15 @@ import com.tz.tpcs.entity.Department;
 import com.tz.tpcs.service.DepartmentService;
 import com.tz.tpcs.web.form.AjaxResult;
 import com.tz.tpcs.web.form.DepartmentAddForm;
+import com.tz.tpcs.web.form.DepartmentUpdateForm;
 import com.tz.tpcs.web.json.DepartmentJson;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.dozer.Mapper;
+import org.springframework.context.MessageSource;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * 部门 控制器
@@ -39,6 +43,8 @@ public class DepartmentController {
     private DepartmentService departmentService;
     @Resource
     private Mapper mapper;
+    @Resource
+    private MessageSource messageSource;
 
     /**
      * 列表
@@ -102,6 +108,42 @@ public class DepartmentController {
                 trgList.add(mapper.map(dept, DepartmentJson.class));
             }
             return new AjaxResult(true, trgList);
+        }
+    }
+
+    /**
+     * 修改部门名称
+     * @param form 表单数据
+     * @param bindingResult 错误信息
+     * @param model 数据模型
+     * @return AjaxResult
+     */
+    @RequestMapping(value = "/updateName", method= RequestMethod.POST, produces = IMediaType.APPLICATION_JSON_UTF8)
+    public AjaxResult updateName(@Validated(DepartmentUpdateForm.All.class) DepartmentUpdateForm form,
+                          BindingResult bindingResult,
+                          Model model, Locale locale){
+        LOGGER.debug("updateName() run...");
+        if(bindingResult.hasErrors()){
+            return new AjaxResult(false, bindingResult.getAllErrors());
+        }else {
+            //检查部门名称唯一(根据id)
+            boolean b = departmentService.validateFieldWithId(form.getId(), form.getName());
+            if(!b){
+                String msg = messageSource.getMessage("department.name.already.exist", null, locale);
+                bindingResult.addError(new ObjectError("code", msg));
+                return new AjaxResult(false, bindingResult.getAllErrors());
+            }else{
+                Department department = departmentDao.findOne(form.getId());
+                department.setName(form.getName());
+                departmentDao.save(department);
+                //获得部门树
+                List<Department> srcList = departmentService.getDeptTree();
+                List<DepartmentJson> trgList = new ArrayList<>();
+                for(Department dept : srcList){
+                    trgList.add(mapper.map(dept, DepartmentJson.class));
+                }
+                return new AjaxResult(true, trgList);
+            }
         }
     }
 

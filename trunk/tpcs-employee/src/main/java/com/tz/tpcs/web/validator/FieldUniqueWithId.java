@@ -10,17 +10,17 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 属性数据库唯一性校验规则,
- * 加在表单封装类的属性名上方,
- * 适用于新增操作
+ * 属性数据库唯一性校验规则(指定id除外),
+ * 加在表单封装类的类名上方,
+ * 适用于更新操作
  * @author Hu Jing Ling
  * @version 1.0
- * @since 2015/2/9 17:24
+ * @since 2015/2/11 13:04
  */
-@Target({ElementType.FIELD})
+@Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = FieldUniqueValidator.class)
-public @interface FieldUnique {
+public @interface FieldUniqueWithId {
 
     /**
      * i18n key
@@ -29,7 +29,7 @@ public @interface FieldUnique {
     String message();
 
     /**
-     * 属性名
+     * 需要唯一性(根据id)校验的属性名
      * @return
      */
     String field();
