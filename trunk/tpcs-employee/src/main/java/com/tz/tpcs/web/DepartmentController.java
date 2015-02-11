@@ -4,8 +4,7 @@ import com.tz.tpcs.dao.DepartmentDao;
 import com.tz.tpcs.entity.Department;
 import com.tz.tpcs.service.DepartmentService;
 import com.tz.tpcs.web.form.AjaxResult;
-import com.tz.tpcs.web.form.DepartmentAddForm;
-import com.tz.tpcs.web.form.DepartmentUpdateForm;
+import com.tz.tpcs.web.form.DepartmentEditForm;
 import com.tz.tpcs.web.json.DepartmentJson;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -86,7 +85,7 @@ public class DepartmentController {
      * @return AjaxResult
      */
     @RequestMapping(value = "/add", method= RequestMethod.POST, produces = IMediaType.APPLICATION_JSON_UTF8)
-    public AjaxResult add(@Validated(DepartmentAddForm.All.class) DepartmentAddForm form,
+    public AjaxResult add(@Validated(DepartmentEditForm.Add.class) DepartmentEditForm form,
                           BindingResult bindingResult,
                           Model model){
         LOGGER.debug("add() run...");
@@ -119,7 +118,7 @@ public class DepartmentController {
      * @return AjaxResult
      */
     @RequestMapping(value = "/updateName", method= RequestMethod.POST, produces = IMediaType.APPLICATION_JSON_UTF8)
-    public AjaxResult updateName(@Validated(DepartmentUpdateForm.All.class) DepartmentUpdateForm form,
+    public AjaxResult updateName(@Validated(DepartmentEditForm.Update.class) DepartmentEditForm form,
                           BindingResult bindingResult,
                           Model model, Locale locale){
         LOGGER.debug("updateName() run...");

@@ -141,13 +141,20 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public boolean validateField(final String fieldName, final String fieldValue){
+    public boolean validateField(final String fieldName, final String fieldValue, final String id) {
         LOGGER.debug("validateField() run...");
         Employee employee = employeeDao.findOne(new Specification<Employee>() {
             @Override
             public Predicate toPredicate(Root<Employee> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                //添加指定的属性条件
                 Path<String> fieldPath = root.get(fieldName);
-                return cb.equal(cb.lower(fieldPath), fieldValue.toLowerCase());
+                Predicate p = cb.equal(cb.lower(fieldPath), fieldValue.toLowerCase());
+                if(StringUtils.isNotBlank(id)){
+                    //如果id不为空，则排除这个id
+                    Path<String> idPath = root.get("id");
+                    p = cb.and(p, cb.notEqual(idPath, id));
+                }
+                return p;
             }
         });
         return employee == null;

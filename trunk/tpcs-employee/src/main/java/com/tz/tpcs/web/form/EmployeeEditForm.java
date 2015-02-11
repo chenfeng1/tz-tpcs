@@ -3,6 +3,8 @@ package com.tz.tpcs.web.form;
 import com.tz.tpcs.entity.Gender;
 import com.tz.tpcs.service.EmployeeService;
 import com.tz.tpcs.web.validator.FieldUnique;
+import com.tz.tpcs.web.validator.StepA;
+import com.tz.tpcs.web.validator.StepB;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.ScriptAssert;
@@ -20,12 +22,19 @@ import java.util.Date;
  */
 @ScriptAssert(lang = "javascript",
             script = "_this.password.equals(_this.passwordConfirm)",
-            message = "{password.not.match}")
-public class EmployeeEditForm {
+            message = "{password.not.match}", groups = StepA.class)
+@FieldUnique(fields = {"mobilePhone", "number"},
+            service= EmployeeService.class,
+            groups = StepB.class,
+            messagePrefix = "employee")
+public class EmployeeEditForm implements FieldUniqueFormSupport{
 
+    @NotBlank(message = "{id.not.blank}", groups = StepB.class)
     private String id; //ID
+    @NotBlank(message = "{version.not.blank}", groups = StepB.class)
     private Integer version; //版本锁
 
+//    @NotBlank(message = "{employee.realname.blank}", groups = Default.class)
     @NotBlank(message = "{employee.realname.blank}")
     private String realname; //姓名
     @NotNull(message = "{employee.gender.blank}")
@@ -33,8 +42,6 @@ public class EmployeeEditForm {
     @NotBlank(message = "{employee.job.blank}")
     private String job; //岗位
     @NotBlank(message = "{employee.mobilePhone.blank}")
-    @FieldUnique(field = "mobilePhone", service= EmployeeService.class,
-                groups = Extends.class, message = "{employee.mobilePhone.already.exist}")
     private String mobilePhone; //移动电话
 
     private Date birthDate; //生日
@@ -44,12 +51,10 @@ public class EmployeeEditForm {
     private String remark; //备注
 
     @NotBlank(message = "{employee.number.blank}")
-    @FieldUnique(field = "number", service= EmployeeService.class,
-                groups = Extends.class, message = "{employee.number.already.exist}")
     private String number; //员工号(登录号)
-    @NotBlank(message = "{employee.password.blank}")
+    @NotBlank(message = "{employee.password.blank}", groups = StepA.class)
     private String password; //密码
-    @NotBlank(message = "{employee.passwordConfirm.blank}")
+    @NotBlank(message = "{employee.passwordConfirm.blank}", groups = StepA.class)
     private String passwordConfirm; //确认密码
 
     private boolean changePassword; //登录成功后，需要修改密码
@@ -174,14 +179,15 @@ public class EmployeeEditForm {
     }
 
     /**
-     * 扩展校验 标记接口
+     * 校验排序 标记接口 Add
      */
-    public interface Extends {}
-
+    @GroupSequence({Default.class, StepA.class, StepB.class})
+    public interface Add {}
     /**
-     * 校验排序 标记接口
+     * 校验排序 标记接口 Update
      */
-    @GroupSequence({Default.class, Extends.class})
-    public interface All {}
+    @GroupSequence({Default.class, StepB.class})
+    public interface Update {}
+
 }
 

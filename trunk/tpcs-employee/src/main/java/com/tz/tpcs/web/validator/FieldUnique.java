@@ -17,22 +17,29 @@ import java.lang.annotation.Target;
  * @version 1.0
  * @since 2015/2/9 17:24
  */
-@Target({ElementType.FIELD})
+@Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = FieldUniqueValidator.class)
+//@Documented
 public @interface FieldUnique {
 
     /**
-     * i18n key
+     * i18n key prefix
      * @return
      */
-    String message();
+    String messagePrefix();
 
     /**
-     * 属性名
+     * message
      * @return
      */
-    String field();
+    String message() default "";
+
+    /**
+     * 需校验的属性名数组
+     * @return
+     */
+    String[] fields();
 
     /**
      * groups

@@ -11,8 +11,9 @@ public interface FieldUniqueValidatorService {
      * 数据库 唯一性 校验方法
      * @param fieldName 属性名
      * @param fieldValue 属性值
-     * @return 如果不存在，返回true；如果存在，返回false
+     * @param id ID
+     * @return 如果校验通过返回true,反之返回false
      */
-    boolean validateField(String fieldName, String fieldValue);
+    boolean validateField(String fieldName, String fieldValue, String id);
 
 }

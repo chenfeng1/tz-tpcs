@@ -4,6 +4,7 @@ import com.tz.tpcs.dao.DepartmentDao;
 import com.tz.tpcs.dao.EmployeeDao;
 import com.tz.tpcs.entity.Department;
 import com.tz.tpcs.service.DepartmentService;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -110,13 +111,20 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public boolean validateField(final String fieldName, final String fieldValue) {
+    public boolean validateField(final String fieldName, final String fieldValue, final String id) {
         LOGGER.debug("validateField() run...");
         Department department = departmentDao.findOne(new Specification<Department>() {
             @Override
             public Predicate toPredicate(Root<Department> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                //添加指定的属性条件
                 Path<String> fieldPath = root.get(fieldName);
-                return cb.equal(cb.lower(fieldPath), fieldValue.toLowerCase());
+                Predicate p = cb.equal(cb.lower(fieldPath), fieldValue.toLowerCase());
+                if(StringUtils.isNotBlank(id)){
+                    //如果id不为空，则排除这个id
+                    Path<String> idPath = root.get("id");
+                    p = cb.and(p, cb.notEqual(idPath, id));
+                }
+                return p;
             }
         });
         return department == null;

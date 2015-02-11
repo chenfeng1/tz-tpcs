@@ -10,6 +10,7 @@ import com.tz.tpcs.web.form.AjaxResult;
 import com.tz.tpcs.web.form.EmployeeEditForm;
 import com.tz.tpcs.web.form.EmployeeSearchForm;
 import com.tz.tpcs.web.form.Pager;
+import com.tz.tpcs.web.validator.StepA;
 import org.apache.log4j.Logger;
 import org.dozer.Mapper;
 import org.springframework.stereotype.Controller;
@@ -40,8 +41,6 @@ public class EmployeeController {
     private EmployeeService employeeService;
     @Resource
     private Mapper mapper;
-    /*@Resource
-    private SmartValidator validator;*/
 
     /**
      * 列表
@@ -62,7 +61,7 @@ public class EmployeeController {
      */
     @RequestMapping(value = "/{id}", method= RequestMethod.GET)
     public String id(@PathVariable String id, Model model){
-        LOGGER.debug("id() run, id:"+id);
+        LOGGER.debug("id() run, id:" + id);
         model.addAttribute("genderArray", Gender.values());
         model.addAttribute("form", employeeDao.findOne(id));
         List<Department> deptList = (List<Department>) departmentDao.findAll();
@@ -108,14 +107,10 @@ public class EmployeeController {
      * @return String
      */
     @RequestMapping(value = "/add", method= RequestMethod.POST)
-    public String add(@Validated(EmployeeEditForm.All.class) EmployeeEditForm form,
+    public String add(@Validated({EmployeeEditForm.Add.class, StepA.class}) EmployeeEditForm form,
                       BindingResult bindingResult,
                       Model model){
         LOGGER.debug("add() run...");
-        /*//此方法调用暂由 Validated 注解替代
-        if(!bindingResult.hasErrors()){
-            validator.validate(form, bindingResult, EmployeeEditForm.Extends.class);
-        }*/
         if(bindingResult.hasErrors()){
             model.addAttribute("errors", bindingResult.getAllErrors());
             model.addAttribute("form", form);
