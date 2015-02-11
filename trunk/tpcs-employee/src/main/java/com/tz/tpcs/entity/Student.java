@@ -402,7 +402,8 @@ public class Student extends BaseEntity {
     public void setNeedDesign(boolean needDesign) {
         this.needDesign = needDesign;
     }
-
+    
+    @Temporal(TemporalType.DATE)
     @Column(name = "stu_design_date")
     public Date getDesignDate() {
         return designDate;

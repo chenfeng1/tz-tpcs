@@ -1,0 +1,97 @@
+[
+  {
+  	"name": "管理员",
+  	"code": "admin",
+  	"desc": "系统所有模块权限",
+  	"isSystem": true,
+  	"seq": 1,
+  	"resourcesArray":["menu_clazz","menu_student","menu_knowledge","menu_project","menu_employee"]
+  },
+  {
+  	"name": "总经办",
+  	"code": "general",
+  	"desc": "总经办权限",
+  	"isSystem": true,
+  	"seq": 2,
+  },
+  {
+  	"name": "班主任",
+  	"code": "classTeacher",
+  	"desc": "班级、学员等模块",
+  	"isSystem": true,
+  	"seq": 3,
+  	"resourcesArray":["menu_clazz","menu_student"]
+  },
+  {
+  	"name": "教学经理",
+  	"code": "lecturerManager",
+  	"desc": "班级、学员、知识库、项目案例等模块",
+  	"isSystem": true,
+  	"seq": 4,
+  	"resourcesArray":["menu_clazz","menu_student","menu_knowledge","menu_project"]
+  },
+  {
+  	"name": "讲师",
+  	"code": "lecturer",
+  	"desc": "班级、学员、知识库、项目案例等模块",
+  	"isSystem": true,
+  	"seq": 5,
+  	"resourcesArray":["menu_clazz","menu_student","menu_knowledge","menu_project"]
+  },
+  {
+  	"name": "财务",
+  	"code": "financial",
+  	"desc": "财务模块",
+  	"isSystem": true,
+  	"seq": 6
+  },
+  {
+  	"name": "就业",
+  	"code": "JiuYe",
+  	"desc": "就业模块",
+  	"isSystem": true,
+  	"seq": 7
+  },
+  {
+  	"name": "渠道经理",
+  	"code": "QuDaoManager",
+  	"desc": "渠道模块",
+  	"isSystem": true,
+  	"seq": 8
+  },
+  {
+  	"name": "渠道",
+  	"code": "QuDao",
+  	"desc": "渠道模块",
+  	"isSystem": true,
+  	"seq": 9
+  },
+  {
+  	"name": "市场经理",
+  	"code": "ShiChangManager",
+  	"desc": "市场模块",
+  	"isSystem": true,
+  	"seq": 10
+  },
+  {
+  	"name": "市场",
+  	"code": "ShiChang",
+  	"desc": "市场模块",
+  	"isSystem": true,
+  	"seq": 11
+  },
+  {
+  	"name": "人事经理",
+  	"code": "HRManager",
+  	"desc": "人事模块",
+  	"isSystem": true,
+  	"seq": 12
+  },
+  {
+  	"name": "人事",
+  	"code": "HR",
+  	"desc": "人事模块",
+  	"isSystem": true,
+  	"seq": 13
+  }
+]

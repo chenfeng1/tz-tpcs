@@ -22,7 +22,9 @@ public class Role extends BaseEntity{
     private int seq; //排序
 
     private Set<Resources> resources;//资源集合
-
+    
+    //add by chen feng 
+    private String[] resourcesArray;//资源集合的names 用于解析json 不持久化到数据库
     /** 空参构造 */
     public Role() {
     }
@@ -91,11 +93,11 @@ public class Role extends BaseEntity{
     }
 
     @Column(name = "role_is_system", nullable = false)
-    public Boolean getSystem() {
+    public Boolean isIsSystem() {
         return isSystem;
     }
 
-    public void setSystem(Boolean system) {
+    public void setIsSystem(Boolean system) {
         isSystem = system;
     }
 
@@ -109,4 +111,14 @@ public class Role extends BaseEntity{
                 ", seq=" + seq +
                 '}';
     }
+
+    @Transient
+	public String[] getResourcesArray() {
+		return resourcesArray;
+	}
+
+	public void setResourcesArray(String[] resourcesArray) {
+		this.resourcesArray = resourcesArray;
+	}
+	
 }

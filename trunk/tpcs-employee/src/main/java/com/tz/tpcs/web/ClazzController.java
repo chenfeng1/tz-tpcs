@@ -110,8 +110,10 @@ public class ClazzController {
 	 * @return
 	 */
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public ModelAndView save(ModelMap model, @Valid @ModelAttribute("clazzForm") ClazzForm form,
-			BindingResult bindingResult, Locale locale) {
+	public ModelAndView save(ModelMap model,
+							@Valid @ModelAttribute("clazzForm") ClazzForm form,
+							BindingResult bindingResult, 
+							Locale locale) {
 		/**
 		 * 班级名称的唯一性判断
 		 */
