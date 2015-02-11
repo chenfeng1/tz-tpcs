@@ -201,6 +201,17 @@
                 <version>7.0.55</version>
                 <version>${tomcat.version}</version>
             </dependency>-->
+            <!-- add by yejf: Apache POI -->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>3.11</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>3.11</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
