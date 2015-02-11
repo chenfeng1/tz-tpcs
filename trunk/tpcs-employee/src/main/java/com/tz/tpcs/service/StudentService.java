@@ -35,4 +35,10 @@ public interface StudentService {
 	 * @return
 	 */
 	Student getById(String id);
+	/**
+	 * 根据ID删除
+	 * @param id
+	 */
+	void deleteById(String id);
+	
 }

@@ -43,6 +43,10 @@ public class Employee extends BaseEntity implements UserDetails {
     private Set<GrantedAuthority> authorities; // 角色信息
 
     private Department department; //部门
+    
+    //add by chen feng
+    private String[] rolesArray;//角色集合的codes信息  用于解析json  不持久化到数据库中
+    private String deptName;//部门的name信息  用于解析json  不持久化到数据库中
 
     /** 空参构造 */
     public Employee() {
@@ -264,8 +268,26 @@ public class Employee extends BaseEntity implements UserDetails {
     public void setDepartment(Department department) {
         this.department = department;
     }
+    
+    @Transient
+    public String[] getRolesArray() {
+		return rolesArray;
+	}
 
-    @Override
+	public void setRolesArray(String[] rolesArray) {
+		this.rolesArray = rolesArray;
+	}
+
+	@Transient
+	public String getDeptName() {
+		return deptName;
+	}
+
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
+	}
+
+	@Override
     public String toString() {
         return "Employee{" +
                 "number='" + number + '\'' +
@@ -305,4 +327,5 @@ public class Employee extends BaseEntity implements UserDetails {
     public int hashCode() {
         return number.hashCode();
     }
+
 }

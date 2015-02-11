@@ -18,4 +18,20 @@ http://dozer.sourceforge.net/schema/beanmapping.xsd">
 			<b>trainingDate</b>
 		</field>
 	</mapping>
+	<mapping date-format="yyyy-MM-dd">
+		<class-a>com.tz.tpcs.web.form.StudentForm</class-a>
+		<class-b>com.tz.tpcs.entity.Student</class-b>
+		<field>
+			<a>birthDate</a>
+			<b>birthDate</b>
+		</field>
+		<field>
+			<a>graduationDate</a>
+			<b>graduationDate</b>
+		</field>
+		<field>
+			<a>designDate</a>
+			<b>designDate</b>
+		</field>
+	</mapping>
 </mappings>

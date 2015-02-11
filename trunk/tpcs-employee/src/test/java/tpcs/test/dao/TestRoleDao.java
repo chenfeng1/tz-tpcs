@@ -23,7 +23,7 @@ public class TestRoleDao extends AbstractDaoTxTest {
         Role role = new Role();
         role.setName("testRole");
         role.setCode("testCode");
-        role.setSystem(false);
+        role.setIsSystem(false);
         roleDao.save(role);
     }
 

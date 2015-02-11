@@ -28,7 +28,7 @@ public class AreaController {
 	   * @author 管成功
 	   * @amender 胡荆陵
 	   */
-	  @RequestMapping(value = "/getCity", method= RequestMethod.GET)
+	  @RequestMapping(value = "/getCity", method= RequestMethod.POST)
 	  public List<Area> initAdd(@RequestParam String code){
 		    List<Area> areas = areaDao.findByParentCode(code);
 		    List<Area> result = new ArrayList<>();
