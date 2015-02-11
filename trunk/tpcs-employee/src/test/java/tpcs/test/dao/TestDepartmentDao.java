@@ -38,4 +38,10 @@ public class TestDepartmentDao extends AbstractDaoTxTest {
         System.out.println(department);
     }
 
+    @Test
+    public void test04FindNameById(){
+        String name = departmentDao.findNameById("f135d708-12b3-44a2-b590-e955bcb41299");
+        System.out.println(name);
+    }
+
 }

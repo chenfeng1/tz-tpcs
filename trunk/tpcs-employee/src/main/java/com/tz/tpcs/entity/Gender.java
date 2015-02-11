@@ -7,5 +7,6 @@ package com.tz.tpcs.entity;
 public enum Gender {
 
     MALE, //男
-    FEMALE //女
+    FEMALE; //女
+
 }

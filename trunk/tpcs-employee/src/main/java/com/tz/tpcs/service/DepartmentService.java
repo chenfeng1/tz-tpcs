@@ -3,6 +3,7 @@ package com.tz.tpcs.service;
 import com.tz.tpcs.entity.Department;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * 部门 Service 接口类
@@ -10,7 +11,7 @@ import java.util.List;
  * @version 1.0
  * @since 2015/2/6 11:28
  */
-public interface DepartmentService {
+public interface DepartmentService extends FieldUniqueValidatorService {
 
     /**
      * 获得部门树
@@ -19,9 +20,24 @@ public interface DepartmentService {
     List<Department> getDeptTree();
 
     /**
+     * 根据父部门ID，查询所有子部门id集合
+     * @param id 父部门ID
+     * @return 所有子部门id集合
+     */
+    Set<String> getSubDepartmentIds(String id);
+
+    /**
      * 根据部门ID检查和删除
      * @param id 部门ID
      * @return 结果字符串
      */
     String checkAndDelete(String id);
+
+    /**
+     * 检查名称唯一性(根据id)
+     * @param id
+     * @param name
+     * @return 如果合法，返回true
+     */
+    boolean validateFieldWithId(String id, String name);
 }

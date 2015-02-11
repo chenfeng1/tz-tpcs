@@ -101,7 +101,7 @@
         <module name="MagicNumber"/>
         <module name="MissingSwitchDefault"/>
         <module name="SimplifyBooleanExpression"/>
-        <module name="SimplifyBooleanReturn"/>
+        <!--<module name="SimplifyBooleanReturn"/>-->
         <!-- Checks for class design -->
         <module name="FinalClass"/>
         <module name="HideUtilityClassConstructor"/>
@@ -114,9 +114,9 @@
         <!-- 不能出现大块空白区域 -->
         <module name="GenericWhitespace"/>
 
-
         <!--自定义检查规则部分-->
-        <module name="com.tz.check.EntityColumnCheck"/>
+        <!--todo 需要debug-->
+        <!--<module name="com.tz.check.EntityColumnCheck"/>-->
     </module>
 
 

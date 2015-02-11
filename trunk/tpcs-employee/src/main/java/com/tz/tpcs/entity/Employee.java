@@ -1,5 +1,6 @@
 package com.tz.tpcs.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -24,7 +25,7 @@ public class Employee extends BaseEntity implements UserDetails {
     private String password; //密码
     private String image; //头像
     private String job; //岗位
-    private String gender; //性别
+    private Gender gender; //性别
     private Date birthDate; //生日
     private String email; //邮箱地址
     private String mobilePhone; //移动电话
@@ -47,6 +48,8 @@ public class Employee extends BaseEntity implements UserDetails {
     //add by chen feng
     private String[] rolesArray;//角色集合的codes信息  用于解析json  不持久化到数据库中
     private String deptName;//部门的name信息  用于解析json  不持久化到数据库中
+
+    private boolean changePassword; //登录成功后，需要修改密码
 
     /** 空参构造 */
     public Employee() {
@@ -97,15 +100,17 @@ public class Employee extends BaseEntity implements UserDetails {
         this.job = job;
     }
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "emp_gender")
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     @Column(name = "emp_birth_date")
     public Date getBirthDate() {
         return birthDate;
@@ -259,6 +264,15 @@ public class Employee extends BaseEntity implements UserDetails {
         this.loginIp = loginIp;
     }
 
+    @Column(name="change_password")
+    public boolean isChangePassword() {
+        return changePassword;
+    }
+
+    public void setChangePassword(boolean changePassword) {
+        this.changePassword = changePassword;
+    }
+
     @ManyToOne
     @JoinColumn(name = "dept_id")
     public Department getDepartment() {
@@ -308,7 +322,7 @@ public class Employee extends BaseEntity implements UserDetails {
                 ", lockedDate=" + lockedDate +
                 ", loginDate=" + loginDate +
                 ", loginIp='" + loginIp + '\'' +
-                ", authorities=" + authorities +
+                ", changePassword=" + changePassword +
                 '}';
     }
 

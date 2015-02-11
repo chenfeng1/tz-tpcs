@@ -1,12 +1,12 @@
 package tpcs.test.init;
 
-import java.io.InputStream;
-import java.util.HashSet;
-import java.util.List;
-
-import javax.annotation.Resource;
-import javax.transaction.Transactional;
-
+import com.alibaba.fastjson.JSON;
+import com.tz.tpcs.DaoConfig;
+import com.tz.tpcs.dao.*;
+import com.tz.tpcs.entity.*;
+import com.tz.tpcs.service.ResourcesService;
+import com.tz.tpcs.service.RoleService;
+import com.tz.tpcs.util.IConstant;
 import org.fluttercode.datafactory.impl.DataFactory;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -16,27 +16,14 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
-
 import tpcs.test.json.JsonUtil;
 import tpcs.test.xml.AreaDomParser;
 
-import com.alibaba.fastjson.JSON;
-import com.tz.tpcs.DaoConfig;
-import com.tz.tpcs.dao.AreaDao;
-import com.tz.tpcs.dao.DepartmentDao;
-import com.tz.tpcs.dao.EmployeeDao;
-import com.tz.tpcs.dao.ProjectCaseDao;
-import com.tz.tpcs.dao.ResourcesDao;
-import com.tz.tpcs.dao.RoleDao;
-import com.tz.tpcs.entity.Area;
-import com.tz.tpcs.entity.Department;
-import com.tz.tpcs.entity.Employee;
-import com.tz.tpcs.entity.ProjectCase;
-import com.tz.tpcs.entity.Resources;
-import com.tz.tpcs.entity.Role;
-import com.tz.tpcs.service.ResourcesService;
-import com.tz.tpcs.service.RoleService;
-import com.tz.tpcs.util.IConstant;
+import javax.annotation.Resource;
+import javax.transaction.Transactional;
+import java.io.InputStream;
+import java.util.HashSet;
+import java.util.List;
 
 /**
  * 自动创建数据库 数据

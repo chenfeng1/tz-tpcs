@@ -20,7 +20,8 @@
 	<logger name="org.springframework.boot.autoconfigure.security" level="info" />-->
 
 	<logger name="com.tz.tpcs" level="debug" />
-	<logger name="org.springframework" level="info" />
+	<logger name="com.tz.tpcs.web.validator" level="trace" />
+	<logger name="org.springframework" level="warn" />
 	<!--<logger name="com.tz.tpcs.service.security" level="warn" />-->
 
 </configuration>

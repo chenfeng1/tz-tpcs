@@ -23,10 +23,22 @@ public class TestEmployeeService2 extends AbstractServiceTest{
 
     @Test
     public void test01FindByPager() {
-        String departmentId = "2";
-        String employeeName = "a";
+        String departmentId = "691b45e9-0435-4df2-8eeb-2790b8c3260b";
+        String employeeName = "测试";
         Pager<Employee> pager = employeeService.findByPager(departmentId, employeeName, null);
         System.out.println(pager);
+    }
+
+    @Test
+    public void test02ValidateField(){
+//        String fieldName = "number";
+//        String fieldValue = "EMP_001";
+//        String fieldName = "mobilePhone";
+//        String fieldValue = "13811111112";
+        String fieldName = "email";
+        String fieldValue = "EMP_001@sz-tz.com";
+        boolean b = employeeService.validateField(fieldName, fieldValue, null);
+        System.out.println(b);
     }
 
 }

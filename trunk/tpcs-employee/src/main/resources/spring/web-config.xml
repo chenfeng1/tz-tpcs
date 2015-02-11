@@ -16,6 +16,9 @@
     <!--需要扫描的包-->
     <context:component-scan base-package="com.tz.tpcs.web"/>
 
+    <bean id="validator"
+          class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+
     <!-- 定义国际化资源文件 basename -->
     <bean id="messageSource"
           class="org.springframework.context.support.ReloadableResourceBundleMessageSource">

@@ -17,11 +17,6 @@ import org.springframework.stereotype.Service;
 public class EmployeeServiceMockImpl implements EmployeeService {
 
     @Override
-    public void update(Employee employee) {
-        //empty implements
-    }
-
-    @Override
     public Employee findByPhoneNumberEmail(String str) {
         if(StringUtils.isNotBlank(str)
                 && str.equals("testUser")){
@@ -55,4 +50,24 @@ public class EmployeeServiceMockImpl implements EmployeeService {
 		// TODO Auto-generated method stub
 		
 	}
+
+    @Override
+    public void delete(String[] ids) {
+
+    }
+
+    @Override
+    public void updateEnableStatus(String[] ids, boolean enableStatus) {
+
+    }
+
+    @Override
+    public void checkPasswordAndUpdate(Employee employee) {
+
+    }
+
+    @Override
+    public boolean validateField(String fieldName, String fieldValue, String id) {
+        return false;
+    }
 }

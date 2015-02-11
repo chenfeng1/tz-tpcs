@@ -1,26 +1,5 @@
 package com.tz.tpcs.web;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-
-import org.apache.commons.lang3.StringUtils;
-import org.dozer.Mapper;
-import org.springframework.context.MessageSource;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.tz.tpcs.dao.AreaDao;
 import com.tz.tpcs.dao.StudentDao;
 import com.tz.tpcs.entity.Area;
@@ -36,6 +15,25 @@ import com.tz.tpcs.service.StudentService;
 import com.tz.tpcs.util.ResolveDate;
 import com.tz.tpcs.web.form.Pager;
 import com.tz.tpcs.web.form.StudentForm;
+import org.apache.commons.lang3.StringUtils;
+import org.dozer.Mapper;
+import org.springframework.context.MessageSource;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * Student 控制器类
@@ -51,20 +49,14 @@ public class StudentController {
 	
 	@Resource
 	private AreaDao areaDao;
-	
 	@Resource
 	private ClazzService clazzService;
-	
-	
 	@Resource
 	private StudentService studentService;
-	
 	@Resource
     private Mapper mapper;
-	
 	@Resource
 	private MessageSource messageSource;
-	
 	@Resource
 	private StudentDao studentDao;
 	
@@ -141,11 +133,12 @@ public class StudentController {
 
 	/**
 	 * 此处 日期类型不知为何无法自动封装到实体中？？
-	 * 
-	 * @param student
-	 * @param clazzname
-	 * @param email2
-	 * @param request
+	 * @param model
+	 * @param form
+	 * @param bindingResult
+	 * @param clazzName
+	 * @param employeeName
+	 * @param locale
 	 * @return
 	 */
 	@RequestMapping(value = "/save", method = RequestMethod.GET)
@@ -236,10 +229,11 @@ public class StudentController {
 		studentService.deleteById(sid);
 		return new ModelAndView("/students/initList");
 	}
+
 	/**
-	 * 
+	 * initUpdate
 	 * @param sid
-	 * @param request
+	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value = "/initUpdate", method = RequestMethod.GET)
