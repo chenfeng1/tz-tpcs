@@ -110,7 +110,11 @@ public class Employee extends BaseEntity implements UserDetails {
         this.gender = gender;
     }
 
+<<<<<<< HEAD
     @DateTimeFormat(pattern="yyyy-MM-dd")
+=======
+    @Temporal(TemporalType.DATE)
+>>>>>>> addTest
     @Column(name = "emp_birth_date")
     public Date getBirthDate() {
         return birthDate;
