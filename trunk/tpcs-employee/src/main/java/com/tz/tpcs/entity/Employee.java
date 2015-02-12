@@ -106,6 +106,7 @@ public class Employee extends BaseEntity implements UserDetails {
         this.gender = gender;
     }
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "emp_birth_date")
     public Date getBirthDate() {
         return birthDate;
