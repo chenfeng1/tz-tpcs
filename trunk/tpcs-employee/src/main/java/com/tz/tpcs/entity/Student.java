@@ -41,7 +41,10 @@ public class Student extends BaseEntity {
     private Date graduationDate; //毕业时间
     private int workingYears; //已有工作年限
     private double paid; //已交费用
-    private LoanStatus loanStatus; //贷款状态
+    private LoanStatus loanStatus; //贷款状态/还款状态
+    //add by yejf
+    private Date loanDate; // 贷款合同签约时期[*]
+
     private Source source; //渠道来源
     private String emergencyContact; //紧急联系人
     private String emergencyPhone; //紧急联系电话
@@ -63,7 +66,31 @@ public class Student extends BaseEntity {
     	LOAN,//已放款
     	UNLOAN,//未放款
     	CASH,//现金
-    	CREDIT//信用卡
+    	CREDIT;//信用卡
+
+        /*****
+         * 把中文字符串转换成枚举常量 [add by yejf, 2015/2/11]
+         * @param value
+         * @return 一个枚举常量
+         */
+        public static LoanStatus convert(String value){
+            LoanStatus instance = null;
+            switch (value){
+                case "已放款":
+                    instance = LOAN;
+                    break;
+                case "未放款":
+                    instance = UNLOAN;
+                    break;
+                case "现金":
+                    instance = CASH;
+                    break;
+                case "信用卡":
+                    instance = CREDIT;
+                    break;
+            }
+            return instance;
+        }
     }
     
     //2015-01-23 add by 胡荆陵 start
@@ -80,14 +107,42 @@ public class Student extends BaseEntity {
     }
 
     /**
-     * 来源
+     * 学员来源渠道
+     * 修订于 2015/2/11 16:10 [by yejf]
      */
     public enum Source {
-        VISIT, //上门拜访
-        WEB_SEARCH, //网络搜索
-        YELLOW_PAGE,  //企业黄页
-        INTRODUCE,  //转介绍
-        WALK_IN    //客户来访
+        MARKET,//人才市场
+        COLLEGE,//院校
+        FORWARD,//转介绍
+        NETWORK, //网络
+        OTHER; //其它
+
+        /*****
+         * 把中文字符串转换成枚举常量
+         * @param value
+         * @return 一个枚举常量
+         */
+        public static Source convert(String value){
+            Source instance = null;
+            switch (value){
+                case "人才市场":
+                    instance = MARKET;
+                    break;
+                case "院校":
+                    instance = COLLEGE;
+                    break;
+                case "转介绍":
+                    instance = FORWARD;
+                    break;
+                case "网络":
+                    instance = NETWORK;
+                    break;
+                case "其他":
+                    instance = OTHER;
+                    break;
+            }
+            return instance;
+        }
     }
 
     /**
@@ -366,6 +421,17 @@ public class Student extends BaseEntity {
         this.loanStatus = loanStatus;
     }
 
+    //add by yejf on 2015/02/11 15:04
+    @Column(name = "stu_load_date")
+    @Temporal(TemporalType.DATE)
+    public Date getLoanDate() {
+        return loanDate;
+    }
+
+    public void setLoanDate(Date loanDate) {
+        this.loanDate = loanDate;
+    }
+
     @Enumerated(EnumType.STRING)
     @Column(name = "stu_source")
     public Source getSource() {
@@ -452,10 +518,7 @@ public class Student extends BaseEntity {
     @Override
     public String toString() {
         return "Student{" +
-                "number='" + number + '\'' +
-                ", realname='" + realname + '\'' +
-                ", password='" + password + '\'' +
-                ", image='" + image + '\'' +
+                "realname='" + realname + '\'' +
                 ", gender=" + gender +
                 ", birthDate=" + birthDate +
                 ", email='" + email + '\'' +
@@ -468,11 +531,11 @@ public class Student extends BaseEntity {
                 ", workLoc='" + workLoc + '\'' +
                 ", school='" + school + '\'' +
                 ", major='" + major + '\'' +
-                ", degree='" + degree + '\'' +
+                ", degree=" + degree +
                 ", graduationDate=" + graduationDate +
                 ", workingYears=" + workingYears +
-                ", paid=" + paid +
-                ", loanStatus='" + loanStatus + '\'' +
+                ", loanStatus=" + loanStatus +
+                ", loanDate=" + loanDate +
                 ", source=" + source +
                 ", emergencyContact='" + emergencyContact + '\'' +
                 ", emergencyPhone='" + emergencyPhone + '\'' +
@@ -480,13 +543,8 @@ public class Student extends BaseEntity {
                 ", designDate=" + designDate +
                 ", initialScore=" + initialScore +
                 ", currentScore=" + currentScore +
-                ", clazz=" + clazz +
                 ", remark='" + remark + '\'' +
                 ", qq='" + qq + '\'' +
-                ", address='" + address + '\'' +
-                ", address2='" + address2 + '\'' +
-                ", level=" + level +
-                ", owner=" + owner +
                 ", status=" + status +
                 '}';
     }

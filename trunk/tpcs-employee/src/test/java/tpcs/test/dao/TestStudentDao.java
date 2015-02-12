@@ -72,7 +72,7 @@ public class TestStudentDao extends AbstractDaoTxTest {
         Clazz c = clazzDao.findByName("JSD1312");
         s1.setClazz(c);
         s1.setWorkingYears(1);
-        s1.setSource(Source.VISIT);
+        s1.setSource(Source.MARKET);
         s1.setStatus(Status.SIGNED);
         s1.setWorkLoc("上海");
         s1.setGraduationDate(new Date());
@@ -104,7 +104,7 @@ public class TestStudentDao extends AbstractDaoTxTest {
         Clazz c1 = clazzDao.findByName("JSD2323");
         s2.setClazz(c1);
         s2.setWorkingYears(1);
-        s2.setSource(Source.VISIT);
+        s2.setSource(Source.MARKET);
         s2.setStatus(Status.SIGNED);
         s2.setWorkLoc("上海");
         s2.setGraduationDate(new Date());
@@ -136,7 +136,7 @@ public class TestStudentDao extends AbstractDaoTxTest {
         Clazz c2 = clazzDao.findByName("JSD2323");
         s3.setClazz(c2);
         s3.setWorkingYears(1);
-        s3.setSource(Source.VISIT);
+        s3.setSource(Source.MARKET);
         s3.setStatus(Status.SIGNED);
         s3.setWorkLoc("上海");
         s3.setGraduationDate(new Date());
