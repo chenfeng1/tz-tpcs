@@ -20,7 +20,10 @@ import java.util.List;
 public final class ImportClazzPOI {
 
     /** log4j的日志器 */
-    private static Logger LOGGER = Logger.getLogger(ImportClazzPOI.class);
+    private static final Logger LOGGER = Logger.getLogger(ImportClazzPOI.class);
+
+    /*** 工具类应该私有化构造 */
+    private ImportClazzPOI(){}
 
     /*****
      * 根据给定的模板文件名来读取数据
@@ -36,7 +39,10 @@ public final class ImportClazzPOI {
         }
         //对象变量申明
         List<Clazz> clazzList = new ArrayList<>();
+        //用来保存工作表
         Workbook wb = null;
+        //用来保存当前列, 从第2列开始[第1列的下标是0]
+        int idx = 1;
         try{
             //2.根据文件流创建WorkBook
             wb = WorkbookFactory.create(in);
@@ -46,40 +52,46 @@ public final class ImportClazzPOI {
             int startRow = sheet.getFirstRowNum();
             int endRow = sheet.getLastRowNum();
             LOGGER.info("此sheet的起始行："+startRow+",最大行："+endRow);
+            int rowNum;
+            Clazz instance = null;
+            Cell cell = null;
             //4. 迭代这个 sheet中的所有行
             for(Row row : sheet){
                 //处理行
-                int rowNum = row.getRowNum();
+                rowNum = row.getRowNum();
                 //第0行跳过,因为它是表头，不是我们需要的数据
                 if(rowNum == 0){
                     continue;
                 }
                 LOGGER.debug(">>正在处理第"+rowNum+"行.");
                 //创建 Clazz实例， 每行一个实例
-                Clazz instance = new Clazz();
+                instance = new Clazz();
                 //处理我们需要的单元格
-                //班级名
-                Cell cell = row.getCell(1,Row.RETURN_BLANK_AS_NULL);
+                idx = 1; //每行开始，此变量都要重置为1
+                //班级名,1
+                cell = row.getCell(idx,Row.RETURN_BLANK_AS_NULL);
                 if(cell != null) {
                     if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
                         String cName = cell.getStringCellValue();
                         instance.setName(cName);
                     }
                 }else{
-                    LOGGER.warn("第["+rowNum+"]行1列 单元格的值为NULL");
+                    LOGGER.warn("第"+rowNum+"行"+idx+"列 单元格的值为NULL");
                 }
-                //教室名称
-                cell = row.getCell(2,Row.RETURN_BLANK_AS_NULL);
+                //教室名称,2
+                idx++;
+                cell = row.getCell(idx,Row.RETURN_BLANK_AS_NULL);
                 if(cell != null) {
                     if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
                         String room = cell.getStringCellValue();
                         instance.setRoom(room);
                     }
                 }else{
-                    LOGGER.warn("第["+rowNum+"]行2列 单元格的值为NULL");
+                    LOGGER.warn("第"+rowNum+"行"+idx+"列 单元格的值为NULL");
                 }
-                //开班日期
-                cell = row.getCell(3, Row.RETURN_BLANK_AS_NULL);
+                //开班日期,3
+                idx++;
+                cell = row.getCell(idx, Row.RETURN_BLANK_AS_NULL);
                 if(cell != null) {
                     if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
                         //进一步判断是否是日期
@@ -91,10 +103,11 @@ public final class ImportClazzPOI {
                         }
                     }
                 }else{
-                    LOGGER.warn("第["+rowNum+"]行3列 单元格的值为NULL");
+                    LOGGER.warn("第"+rowNum+"行"+idx+"列 单元格的值为NULL");
                 }
-                //开班人数
-                cell = row.getCell(4,Row.RETURN_BLANK_AS_NULL);
+                //开班人数,4
+                idx++;
+                cell = row.getCell(idx,Row.RETURN_BLANK_AS_NULL);
                 if(cell != null) {
                     if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
                         int count = (int) cell.getNumericCellValue();
@@ -103,20 +116,22 @@ public final class ImportClazzPOI {
                         LOGGER.error("第"+rowNum+"行4列 单元格内的数据不是合法的数字，此值被忽略.");
                     }
                 }else{
-                    LOGGER.warn("第["+rowNum+"]行4列 单元格的值为NULL");
+                    LOGGER.warn("第"+rowNum+"行"+idx+"列 单元格的值为NULL");
                 }
-                //获取班主任
-                cell = row.getCell(5,Row.RETURN_BLANK_AS_NULL);
+                //获取班主任,5
+                idx++;
+                cell = row.getCell(idx,Row.RETURN_BLANK_AS_NULL);
                 if(cell != null) {
                     if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
                         String advisor = cell.getStringCellValue();
                         instance.setAdvisor(advisor);
                     }
                 }else{
-                    LOGGER.warn("第["+rowNum+"]行5列 单元格的值为NULL");
+                    LOGGER.warn("第"+rowNum+"行"+idx+"列 单元格的值为NULL");
                 }
-                //训练营日期
-                cell = row.getCell(6, Row.RETURN_BLANK_AS_NULL);
+                //训练营日期,6
+                idx++;
+                cell = row.getCell(idx, Row.RETURN_BLANK_AS_NULL);
                 if(cell != null) {
                     if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
                         //进一步判断是否是合法日期
@@ -128,17 +143,18 @@ public final class ImportClazzPOI {
                         }
                     }
                 }else{
-                    LOGGER.warn("第["+rowNum+"]行6列 单元格的值为NULL");
+                    LOGGER.warn("第"+rowNum+"行"+idx+"列 单元格的值为NULL");
                 }
-                //训练营讲师
-                cell = row.getCell(7,Row.RETURN_BLANK_AS_NULL);
+                //训练营讲师,7
+                idx++;
+                cell = row.getCell(idx,Row.RETURN_BLANK_AS_NULL);
                 if(cell != null) {
                     if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
                         String lecturer = cell.getStringCellValue();
                         instance.setLecturer(lecturer);
                     }
                 }else{
-                    LOGGER.warn("第["+rowNum+"]行7列 单元格的值为NULL");
+                    LOGGER.warn("第"+rowNum+"行"+idx+"列 单元格的值为NULL");
                 }
                 LOGGER.debug("<<第"+rowNum+"行结束");
                 //把实例添加到集合中, 注：把没有填写班级的学员过滤掉

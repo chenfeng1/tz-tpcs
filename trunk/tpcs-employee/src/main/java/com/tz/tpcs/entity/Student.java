@@ -88,6 +88,10 @@ public class Student extends BaseEntity {
                 case "信用卡":
                     instance = CREDIT;
                     break;
+                //如果不匹配上面的值，则以 UNLOAN 为结果
+                default:
+                    instance = UNLOAN;
+                    break;
             }
             return instance;
         }
@@ -138,6 +142,10 @@ public class Student extends BaseEntity {
                     instance = NETWORK;
                     break;
                 case "其他":
+                    instance = OTHER;
+                    break;
+                //如果上面的不匹配，则以 OTHER为值
+                default:
                     instance = OTHER;
                     break;
             }

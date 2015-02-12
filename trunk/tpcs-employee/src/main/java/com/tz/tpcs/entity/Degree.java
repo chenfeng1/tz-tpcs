@@ -40,6 +40,10 @@ public enum Degree {
             case "其他":
                 instance = OTHER;
                 break;
+            //默认情况，以OTHER为值
+            default:
+                instance = OTHER;
+                break;
         }
         return instance;
     }

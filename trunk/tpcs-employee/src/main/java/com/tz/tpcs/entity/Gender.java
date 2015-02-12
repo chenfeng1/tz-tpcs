@@ -23,6 +23,10 @@ public enum Gender {
             case "女":
                 instance = FEMALE;
                 break;
+            //如果上面的值不匹配，则以 MALE为值
+            default:
+                instance = MALE;
+                break;
         }
         return instance;
     }

@@ -10,7 +10,6 @@ import org.apache.poi.ss.usermodel.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,7 +24,10 @@ import java.util.List;
 public final class ImportStudentPOI {
 
     /** log4j的日志器 */
-    private static Logger LOGGER = Logger.getLogger(ImportStudentPOI.class);
+    private static final Logger LOGGER = Logger.getLogger(ImportStudentPOI.class);
+
+    /*** 工具类应该私有化构造 */
+    private ImportStudentPOI() {}
 
     /*****
      * 根据给定的模板文件名来读取数据
@@ -44,6 +46,7 @@ public final class ImportStudentPOI {
         //用来格式化科学计数法的数字对象
         DecimalFormat df = new DecimalFormat("#");
         Workbook wb = null;
+        Cell cell = null;
         try{
             //2.根据文件流创建WorkBook
             wb = WorkbookFactory.create(in);
@@ -55,22 +58,24 @@ public final class ImportStudentPOI {
             LOGGER.info("此sheet的起始行："+startRow+",最大行："+endRow);
             //定义列下标索引变量
             int idx = 1; //第0列我们不考虑
+            int rowNum;
             int type; //用来保存当前单元格的类型
+            Student instance = null;
             //4. 迭代这个 sheet中的所有行
             for(Row row : sheet){
                 //处理行
-                int rowNum = row.getRowNum();
+                rowNum = row.getRowNum();
                 //第0行跳过,因为它是表头，不是我们需要的数据
                 if(rowNum == 0){
                     continue;
                 }
                 LOGGER.debug(">>正在处理第"+rowNum+"行.");
                 //创建 Clazz实例， 每行一个实例
-                Student instance = new Student();
+                instance = new Student();
                 //处理我们需要的单元格
                 idx = 1; //每行开始，此变量都要重置为1
                 //班级名,1
-                Cell cell = row.getCell(idx,Row.RETURN_BLANK_AS_NULL);
+                cell = row.getCell(idx,Row.RETURN_BLANK_AS_NULL);
                 if(cell != null) {
                     if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
                         String cName = cell.getStringCellValue();
