@@ -204,17 +204,12 @@
     <!-- 由于导航用了navbar-fixed-top,所以，先与上面定义一个间隔  -->
     <div class="gap"></div>
 
-    <!-- 菜单提示栏 -->
-    <div class="panel panel-default">
-        <!-- 里面的值需要通过JS来操作，它的值是根据当前的菜单来定的 -->
-        <div class="panel-heading">
-            首页&nbsp;
-            <span class="glyphicon glyphicon-arrow-right"></span>&nbsp;
-            <span id="module">学员</span>&nbsp;
-            <span class="glyphicon glyphicon-arrow-right"></span>&nbsp;
-            <span id="function">学员列表</span>&nbsp;
-        </div>
-    </div>
+    <!-- 操作提示栏：采用面包屑组件 -->
+    <ol class="breadcrumb">
+        <li>首页</li>
+        <li>学员</li>
+        <li>学员列表</li>
+    </ol>
 
 </div>
 
@@ -280,11 +275,11 @@
                     <th>班级名</th>
                     <th>学员名</th>
                     <th>电话</th>
-                    <th>备用电话</th>
                     <th>生日</th>
                     <th>邮箱</th>
                     <th>学历</th>
                     <th>专业</th>
+                    <th>签约日期</th>
                     <th>贷款状态</th>
                     <th>操作</th>
                 </tr>
@@ -295,11 +290,11 @@
                     <td>JSD1411</td>
                     <td>张三丰</td>
                     <td>18765490987</td>
-                    <td>0534-90987621</td>
                     <td>1988-12-23</td>
                     <td>zhangsf@163.com</td>
                     <td>本科</td>
                     <td>计算机及其应用</td>
+                    <td>2014-12-17</td>
                     <td>已放款</td>
                     <td>
                         <a class="label label-default" onclick="gotoUpdateStu()"><span class="glyphicon glyphicon-refresh"></span></a>&nbsp;
@@ -311,11 +306,11 @@
                     <td>JSD1412</td>
                     <td>张无记</td>
                     <td>1897645098</td>
-                    <td>0675-09876532</td>
                     <td>1990-12-21</td>
                     <td>jackz@qq.com</td>
                     <td>专科</td>
                     <td>化学</td>
+                    <td>2014-12-12</td>
                     <td>未放款</td>
                     <td>
                         <a href="#" class="label label-default" data-toggle="modal" data-target="#myClassModal"><span class="glyphicon glyphicon-refresh"></span></a>&nbsp;
@@ -328,11 +323,11 @@
                     <td>JSD1412</td>
                     <td>张无记</td>
                     <td>1897645098</td>
-                    <td>0675-09876532</td>
                     <td>1990-12-21</td>
                     <td>jackz@qq.com</td>
                     <td>专科</td>
                     <td>化学</td>
+                    <td>2014-11-23</td>
                     <td>信用卡</td>
                     <td>
                         <a href="#" class="label label-default" data-toggle="modal" data-target="#myClassModal"><span class="glyphicon glyphicon-refresh"></span></a>&nbsp;
