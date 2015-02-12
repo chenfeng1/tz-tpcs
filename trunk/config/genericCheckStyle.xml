@@ -117,10 +117,8 @@
         <module name="GenericWhitespace"/>
 
         <!--自定义检查规则部分-->
-        <!--todo 需要debug-->
-        <!--<module name="com.tz.check.EntityColumnCheck"/>-->
+        <module name="com.tz.check.EntityColumnCheck"/>
     </module>
-
 
     <module name="SuppressWarningsFilter"/>
     <module name="UniqueProperties"/>

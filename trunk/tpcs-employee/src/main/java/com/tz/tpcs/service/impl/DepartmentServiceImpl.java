@@ -69,7 +69,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     public String checkAndDelete(String id) {
         //1.检查是否有下属部门
         Department department = departmentDao.findOne(id);
-        if(department.getChildren().size() > 0){
+        if(department.getChildren() != null
+                &&department.getChildren().size() > 0){
             return "该部门下面有子部门，删除失败!";
         }
         //2.检查是否有下属员工

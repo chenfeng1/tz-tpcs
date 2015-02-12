@@ -133,9 +133,12 @@ public class EntityColumnCheck extends Check {
             DetailAST modifiersAST = classAST.findFirstToken(TokenTypes.MODIFIERS);
             for (DetailAST i = modifiersAST.getFirstChild(); i != null; i = i.getNextSibling()) {
                 if (i.getType() == TokenTypes.ANNOTATION) {
-                    String name = i.findFirstToken(TokenTypes.IDENT).getText();
-                    if ("Entity".equals(name)) {
-                        return true;
+                    //对于集合类型注解，加以非空判断
+                    if(i.findFirstToken(TokenTypes.IDENT) != null){
+                        String name = i.findFirstToken(TokenTypes.IDENT).getText();
+                        if ("Entity".equals(name)) {
+                            return true;
+                        }
                     }
                 }
             }
