@@ -2,6 +2,7 @@ package com.tz.tpcs.web;
 
 import com.tz.tpcs.service.ResourcesService;
 import org.apache.log4j.Logger;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,9 +35,11 @@ public class LoginController {
      * @return
      */
     @RequestMapping(value = "/loginSuccess", method = RequestMethod.GET)
-    public ModelAndView loginSuccess(){
+    public ModelAndView loginSuccess(HttpSession httpSession,
+                                     Model model){
         LOGGER.debug("loginSuccess() run...");
         //todo...初始化  登录成功后的欢迎页面 所需数据...
+        //判断是否需要强制修改密码
         return new ModelAndView("baseLayout");
     }
 

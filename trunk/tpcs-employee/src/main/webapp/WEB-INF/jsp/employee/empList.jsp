@@ -2,8 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<script type="text/javascript" src="${path}/js/jquery-shake.js"></script>
 <script type="text/javascript" src="${path}/js/jquery.form.js"></script>
+<script type="text/javascript" src="${path}/js/jquery-shake.js"></script>
 
 <script type="text/javascript">
     $(function(){

@@ -26,7 +26,7 @@
     <script src="${path}/js/bootstrap.min.js"></script>
     <!-- 导入外部自定义的js文件 -->
 	    <!-- 导入外部的js文件 -->
-    <script type="text/javascript" src="${path }/js-prj/main.js"></script>
+    <script type="text/javascript" src="${path}/js-prj/main.js"></script>
 </head>
 <body>
         <%--头部--%>

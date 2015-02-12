@@ -2,16 +2,14 @@ package com.tz.tpcs.web.form;
 
 import com.tz.tpcs.entity.Gender;
 import com.tz.tpcs.service.EmployeeService;
-import com.tz.tpcs.web.validator.FieldUnique;
-import com.tz.tpcs.web.validator.StepA;
-import com.tz.tpcs.web.validator.StepB;
-import com.tz.tpcs.web.validator.StepD;
+import com.tz.tpcs.web.validator.*;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.ScriptAssert;
 
 import javax.validation.GroupSequence;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.validation.groups.Default;
 import java.util.Date;
 
@@ -23,7 +21,7 @@ import java.util.Date;
  */
 @ScriptAssert(lang = "javascript",
             script = "_this.password.equals(_this.passwordConfirm)",
-            message = "{password.not.match}", groups = StepA.class)
+            message = "{password.not.match}", groups = {StepA.class, StepE.class})
 @FieldUnique.List({
     @FieldUnique(field = "mobilePhone",
                 service= EmployeeService.class,
@@ -35,6 +33,9 @@ import java.util.Date;
                 message = "{employee.number.already.exist}")
 })
 public class EmployeeEditForm implements FieldUniqueFormSupport{
+
+    private static final int PASSWORD_MIN_LEN = 6;
+    private static final int PASSWORD_MAX_LEN = 12;
 
     @NotBlank(message = "{id.not.blank}", groups = StepD.class)
     private String id; //ID
@@ -61,6 +62,7 @@ public class EmployeeEditForm implements FieldUniqueFormSupport{
     @NotBlank(message = "{employee.number.blank}")
     private String number; //员工号(登录号)
     @NotBlank(message = "{employee.password.blank}", groups = StepA.class)
+    @Size(min = PASSWORD_MIN_LEN, max = PASSWORD_MAX_LEN, message = "{invalid.password.length}", groups = StepC.class)
     private String password; //密码
     @NotBlank(message = "{employee.passwordConfirm.blank}", groups = StepA.class)
     private String passwordConfirm; //确认密码
@@ -196,6 +198,11 @@ public class EmployeeEditForm implements FieldUniqueFormSupport{
      */
     @GroupSequence({Default.class, StepB.class, StepD.class})
     public interface Update {}
+    /**
+     * 校验排序 标记接口 ChangePassword
+     */
+    @GroupSequence({StepA.class, StepC.class, StepE.class})
+    public interface ChangePassword {}
 
 }
 
