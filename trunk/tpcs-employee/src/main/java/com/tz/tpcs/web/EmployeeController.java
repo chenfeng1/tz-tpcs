@@ -6,6 +6,7 @@ import com.tz.tpcs.entity.Department;
 import com.tz.tpcs.entity.Employee;
 import com.tz.tpcs.entity.Gender;
 import com.tz.tpcs.service.EmployeeService;
+import com.tz.tpcs.util.IConstant;
 import com.tz.tpcs.web.form.AjaxResult;
 import com.tz.tpcs.web.form.EmployeeEditForm;
 import com.tz.tpcs.web.form.EmployeeSearchForm;
@@ -13,16 +14,20 @@ import com.tz.tpcs.web.form.Pager;
 import com.tz.tpcs.web.validator.StepA;
 import org.apache.log4j.Logger;
 import org.dozer.Mapper;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Employee Controller
@@ -41,6 +46,8 @@ public class EmployeeController {
     private EmployeeService employeeService;
     @Resource
     private Mapper mapper;
+    @Resource
+    private MessageSource messageSource;
 
     /**
      * 列表
@@ -189,6 +196,43 @@ public class EmployeeController {
         LOGGER.debug("changeEnableStatus() run...");
         employeeService.updateEnableStatus(ids, enableStatus);
         return new AjaxResult(true, ids);
+    }
+
+    /**
+     * 修改密码
+     * @param form EmployeeEditForm
+     * @param bindingResult BindingResult
+     * @param session HttpSession
+     * @return AjaxResult
+     */
+    @RequestMapping(value = "/changePassword", method= RequestMethod.POST, produces = IMediaType.APPLICATION_JSON_UTF8)
+    @ResponseBody
+    public AjaxResult changePassword(@Validated({EmployeeEditForm.ChangePassword.class})
+                                    EmployeeEditForm form, BindingResult bindingResult,
+                                    HttpSession session, Locale locale){
+        LOGGER.debug("changeEnableStatus() run...");
+        if(bindingResult.hasErrors()){
+            return new AjaxResult(false, bindingResult.getAllErrors());
+        }else {
+            //获取session员工
+            Employee sessionEmp = (Employee) session.getAttribute(IConstant.LOGIN_USER);
+            //获取数据库员工
+            Employee tempEmp = employeeDao.findOne(sessionEmp.getId());
+            //判断是否和原密码一致
+            if(tempEmp.getPassword().equals(form.getPassword())){
+                String msg = messageSource.getMessage("new.password.equals.old.password", null, locale);
+                bindingResult.addError(new ObjectError("password", msg));
+                return new AjaxResult(false, bindingResult.getAllErrors());
+            }else{
+                //更新密码
+                tempEmp.setPassword(form.getPassword());
+                tempEmp.setChangePassword(false);
+                employeeDao.save(tempEmp);
+                //修改session标记
+                sessionEmp.setChangePassword(false);
+                return new AjaxResult(true, null);
+            }
+        }
     }
 
 }
