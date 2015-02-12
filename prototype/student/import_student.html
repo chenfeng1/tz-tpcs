@@ -204,17 +204,12 @@
     <!-- 由于导航用了navbar-fixed-top,所以，先与上面定义一个间隔  -->
     <div class="gap"></div>
 
-    <!-- 菜单提示栏 -->
-    <div class="panel panel-default">
-        <!-- 里面的值需要通过JS来操作，它的值是根据当前的菜单来定的 -->
-        <div class="panel-heading">
-            首页&nbsp;
-            <span class="glyphicon glyphicon-arrow-right"></span>&nbsp;
-            <span id="module">学员</span>&nbsp;
-            <span class="glyphicon glyphicon-arrow-right"></span>&nbsp;
-            <span id="function">导入学员</span>&nbsp;
-        </div>
-    </div>
+    <!-- 操作提示栏：采用面包屑组件 -->
+    <ol class="breadcrumb">
+        <li>首页</li>
+        <li>学员</li>
+        <li>导入学员</li>
+    </ol>
 
 </div>
 

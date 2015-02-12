@@ -204,18 +204,12 @@
     <!-- 由于导航用了navbar-fixed-top,所以，先与上面定义一个间隔  -->
     <div class="gap"></div>
 
-    <!-- 菜单提示栏 -->
-    <div class="panel panel-default">
-        <!-- 里面的值需要通过JS来操作，它的值是根据当前的菜单来定的 -->
-        <div class="panel-heading">
-            首页&nbsp;
-            <span class="glyphicon glyphicon-arrow-right"></span>&nbsp;
-            <span id="module">学员</span>&nbsp;
-            <span class="glyphicon glyphicon-arrow-right"></span>&nbsp;
-            <span id="function">新增学员</span>&nbsp;
-        </div>
-    </div>
-
+    <!-- 操作提示栏：采用面包屑组件 -->
+    <ol class="breadcrumb">
+        <li>首页</li>
+        <li>学员</li>
+        <li>添加学员</li>
+    </ol>
 </div>
 
 <!-- 内容区 -->
@@ -245,13 +239,20 @@
             <div class="col-md-2">
                 <input type="text" id="phone" class="form-control" placeholder="手机号"/>
             </div>
-            <label for="bakPhone" class="col-md-1 control-label">备用号<span style="color: red">*</span></label>
-            <div class="col-md-2">
-                <input type="text" id="bakPhone" class="form-control" placeholder="备用号码"/>
-            </div>
+
             <label for="email" class="col-md-1 control-label">邮箱</label>
             <div class="col-md-2">
                 <input type="email" id="email" class="form-control" placeholder="xxx@xxx.xx"/>
+            </div>
+
+            <label class="col-md-1 control-label">性别</label>
+            <div class="col-md-2">
+                <label class="radio-inline">
+                    <input type="radio" name="gender" value="MALE" checked/>男
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="gender" value="FEMALE"/>女
+                </label>
             </div>
         </div>
         <div class="form-group">
@@ -265,12 +266,20 @@
             </div>
             <label for="degree" class="col-md-1 control-label">学历<span style="color: red">*</span></label>
             <div class="col-md-2">
-                <input type="text" id="degree" class="form-control" placeholder="学历"/>
+                <select class="form-control" id="degree">
+                    <option value="-1">-请选择-</option>
+                    <option value="UNDERGRADUATE">本科</option>
+                    <option value="MASTER">硕士</option>
+                    <option value="JUNIOR">专科</option>
+                    <option value="DOCTOR">博士</option>
+                    <option value="HIGH">高中</option>
+                    <option value="OTHER">其它</option>
+                </select>
             </div>
         </div>
 
         <div class="form-group">
-            <label for="loadStatus" class="col-md-offset-1 col-md-1 control-label">贷款状态</label>
+            <label for="loadStatus" class="col-md-offset-1 col-md-1 control-label">贷款状态<span style="color: red">*</span></label>
             <div class="col-md-2">
                 <select class="form-control" id="loadStatus">
                     <option value="-1">-请选择-</option>
@@ -280,19 +289,21 @@
                     <option value="现金">现金</option>
                 </select>
             </div>
-            <label for="source" class="col-md-1 control-label">渠道来源</label>
+            <label for="loanDate" class="col-md-1 control-label">签约日期<span style="color: red">*</span></label>
+            <div class="col-md-2">
+                <input type="date" id="loanDate" class="form-control" placeholder="2014-11-18"/>
+            </div>
+
+            <label for="source" class="col-md-1 control-label">渠道来源<span style="color: red">*</span></label>
             <div class="col-md-2">
                 <select class="form-control" id="source">
                     <option value="-1">-请选择-</option>
-                    <option value="院校">院校</option>
-                    <option value="市场">市场</option>
-                    <option value="转介绍">转介绍</option>
-                    <option value="其它">其它</option>
+                    <option value="COLLEGE">院校</option>
+                    <option value="MARKET">市场</option>
+                    <option value="FORWARD">转介绍</option>
+                    <option value="NETWORK">网络</option>
+                    <option value="OTHER">其它</option>
                 </select>
-            </div>
-            <label for="qq" class="col-md-1 control-label">QQ号</label>
-            <div class="col-md-2">
-                <input type="text" id="qq" class="form-control" placeholder="qq号码"/>
             </div>
         </div>
 
@@ -326,13 +337,13 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="currentLoc" class="col-md-offset-1 col-md-1 control-label">所在地</label>
+                <label for="workLoc" class="col-md-offset-1 col-md-1 control-label">工作地</label>
+                <div class="col-md-3">
+                    <input type="text" id="workLoc" class="form-control" placeholder="期望工作地"/>
+                </div>
+                <label for="currentLoc" class="col-md-1 control-label">所在地</label>
                 <div class="col-md-2">
                     <input type="text" id="currentLoc" class="form-control" placeholder="当前所在地"/>
-                </div>
-                <label for="workLoc" class="col-md-1 control-label">工作地</label>
-                <div class="col-md-2">
-                    <input type="text" id="workLoc" class="form-control" placeholder="期望工作地"/>
                 </div>
                 <label for="workingYears" class="col-md-1 control-label">工作年限</label>
                 <div class="col-md-2">
@@ -341,7 +352,7 @@
             </div>
             <div class="form-group">
                 <label for="graduationDate" class="col-md-offset-1 col-md-1 control-label">毕业时间</label>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <input type="date" id="graduationDate" class="form-control"/>
                 </div>
 
@@ -362,27 +373,27 @@
             </div>
             <div class="form-group">
                 <label for="emergencyContact" class="col-md-2 control-label">紧急联系人</label>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <input type="text" id="emergencyContact" class="form-control" placeholder="紧急联系人"/>
                 </div>
-                <label for="emergencyPhone" class="col-md-2 control-label">紧急联系电话</label>
-                <div class="col-md-4">
+                <label for="emergencyPhone" class="col-md-1 control-label">紧急联系电话</label>
+                <div class="col-md-2">
                     <input type="text" id="emergencyPhone" class="form-control" placeholder="紧急联系电话"/>
+                </div>
+                <label for="bakPhone" class="col-md-1 control-label">备用号</label>
+                <div class="col-md-2">
+                    <input type="text" id="bakPhone" class="form-control" placeholder="备用号码"/>
                 </div>
             </div>
             <div class="form-group">
                 <label for="remark" class="col-md-offset-1 col-md-1 control-label">备注</label>
-                <div class="col-md-5">
+                <div class="col-md-6">
                     <input type="text" id="remark" class="form-control" placeholder="学员的备注信息"/>
                 </div>
-                <label class="col-md-1 control-label">性别</label>
+
+                <label for="qq" class="col-md-1 control-label">QQ号</label>
                 <div class="col-md-2">
-                    <label class="radio-inline">
-                        <input type="radio" name="gender" value="MALE" checked/>男
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="gender" value="FEMALE"/>女
-                    </label>
+                    <input type="text" id="qq" class="form-control" placeholder="qq号码"/>
                 </div>
             </div>
         </div>
@@ -394,9 +405,9 @@
         <div id="crmInfo" style="display: none;">
             <hr style="margin-top: 2px;background-color: orangered;height: 3px;"/>
             <div class="form-group">
-                <label for="paid" class="col-md-offset-1 col-md-1 control-label">已交费用</label>
+                <label for="address" class="col-md-2 control-label">联系地址1</label>
                 <div class="col-md-3">
-                    <input type="number" id="paid" class="form-control" placeholder="1500"/>
+                    <input type="text" id="address" class="form-control" placeholder="客户的联系地址1"/>
                 </div>
                 <label for="owner" class="col-md-1 control-label">服务专员</label>
                 <div class="col-md-2">
@@ -410,20 +421,21 @@
                         <option value="公海">公海</option>
                         <option value="已初试">已初试</option>
                         <option value="已复试">已复试</option>
-                        <option value="服务中签约" selected>服务中签约</option>
+                        <option value="服务中签约">服务中签约</option>
                         <option value="服务中离开">服务中离开</option>
                     </select>
                 </div>
             </div>
             <div class="form-group">
-                <label for="address" class="col-md-offset-1 col-md-1 control-label">联系地址1</label>
-                <div class="col-md-2">
-                    <input type="text" id="address" class="form-control" placeholder="客户的联系地址1"/>
-                </div>
-                <label for="address2" class="col-md-1 control-label">联系地址2</label>
-                <div class="col-md-2">
+                <label for="address2" class="col-md-2 control-label">联系地址2</label>
+                <div class="col-md-3">
                     <input type="text" id="address2" class="form-control" placeholder="客户的联系地址2"/>
                 </div>
+                <label for="paid" class="col-md-1 control-label">已交费用</label>
+                <div class="col-md-2">
+                    <input type="number" id="paid" class="form-control" placeholder="1500"/>
+                </div>
+
                 <label for="level" class="col-md-1 control-label">成熟度</label>
                 <div class="col-md-2">
                     <select id="level" class="form-control">
@@ -432,7 +444,7 @@
                         <option value="TWO">★★</option>
                         <option value="THREE">★★★</option>
                         <option value="FOUR">★★★★</option>
-                        <option value="FIVE" selected>★★★★★</option>
+                        <option value="FIVE">★★★★★</option>
                     </select>
                 </div>
             </div>
